@@ -4,4 +4,13 @@ version = "0.0.1"
 description = "A Python library encapsulating the logic of the IMF's LIC DSF (Low-Income Country Debt Sustainability Framework) template"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "numpy>=2.4.1",
+    "openpyxl>=3.1.5",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.13",
+    "ty>=0.0.12",
+]
