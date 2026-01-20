@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .inputs import DEFAULT_INPUTS
-from .internals import EvalContext, xl_range, _FORMULAS
+from .internals import EvalContext, xl_range, _resolve_formula
 import warnings
 
 
@@ -10,7 +10,7 @@ def make_context(inputs=None):
     merged = dict(DEFAULT_INPUTS)
     if inputs is not None:
         merged.update(inputs)
-    return EvalContext(inputs=merged, formulas=_FORMULAS)
+    return EvalContext(inputs=merged, resolver=_resolve_formula)
 
 
 TARGETS_B1_PV_OF_PPG_EXTERNAL_DEBT_TO_GDP_RATIO = {
