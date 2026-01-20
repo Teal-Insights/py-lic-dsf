@@ -21,7 +21,7 @@ from lic_dsf.entrypoint import (
 )
 ```
 
-Each function takes either inputs or context. To change inputs, import the `DEFAULT_INPUTS` and assign new values to cells by Excel cell address. (In a future version of the library, we will provide more ergonomic helpers for manipulating inputs.)
+Each function takes an inputs argument. To change inputs, import the `DEFAULT_INPUTS` and assign new values to cells by Excel cell address. (In a future version of the library, we will provide more ergonomic helpers for manipulating inputs.)
 
 ```python
 from lic_dsf.inputs import DEFAULT_INPUTS
