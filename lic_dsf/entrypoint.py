@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 from .inputs import DEFAULT_INPUTS
-from .internals import EvalContext, xl_range, _resolve_formula
+from .internals import xl_range, _resolve_formula, CONSTANTS
+from .setters import LicDsfContext
 import warnings
 
 
 def make_context(inputs=None):
     """Create an EvalContext with merged inputs."""
     merged = dict(DEFAULT_INPUTS)
+    merged.update(CONSTANTS)
     if inputs is not None:
         merged.update(inputs)
-    return EvalContext(inputs=merged, resolver=_resolve_formula)
+    return LicDsfContext(inputs=merged, resolver=_resolve_formula)
 
 
 TARGETS_B1_PV_OF_PPG_EXTERNAL_DEBT_TO_GDP_RATIO = {
