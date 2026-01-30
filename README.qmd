@@ -1,0 +1,104 @@
+---
+title: "LIC DSF Python package"
+format: gfm
+---
+
+## Usage
+
+### Setting inputs
+
+When computing target outputs, you will pass a `LicDsfContext` object that contains your input data for the computation. This object is created by calling the `make_context()` factory function, and it will be pre-populated with the default inputs from [the IMF's master LIC DSF Excel workbook template](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm).
+
+#### Loading inputs from a filled-out LIC DSF template
+
+The easiest way to set inputs is to load them from a real LIC DSF template that's already filled out. In this example, we load an example LIC DSF country workbook and then read its inputs into our context:
+
+``` {python}
+#| output: false
+from pathlib import Path
+from urllib.request import urlretrieve
+
+from lic_dsf.entrypoint import make_context, compute_b1_pv_of_ppg_external_debt_to_gdp_ratio
+
+workbook_path = "example.xlsm"
+
+ctx = make_context()
+ctx.load_inputs_from_workbook(workbook_path)
+```
+
+Note that the workbook must use the *latest* (August 2025) version of the IMF's master LIC DSF Excel workbook template.
+
+#### Setting inputs manually
+
+You can also set inputs using the generated `set_*` methods on `LicDsfContext`. These setters update the context in-place and return an “assignment” object that describes what was applied.
+
+The export includes multiple setter shapes:
+
+- **Year-series setters (wide year rows)**: accept either a mapping of `year -> value` or a contiguous sequence plus `start_year`, and return a `YearSeriesAssignment`.
+- **Range setters (non-year scalar / 1D / 2D ranges)**: accept a scalar, a 1D sequence, or a 2D sequence (depending on the target shape), and return a `RangeAssignment`.
+- **Year-row setters (tall sparse tables)**: time-series-like API where a year may map to multiple cells; accepts a mapping or sequence plus `start_year`, and returns a `YearRowAssignment`.
+
+```{python}
+#| output: false
+# Year-series: set specific years, or provide a contiguous series starting at start_year.
+ctx.set_ext_debt_data_interest({2024: 0.05})
+ctx.set_ext_debt_data_interest([0.05], start_year=2024)
+
+# Range: set a non-year scalar/range input (shape depends on the underlying target).
+ctx.set_input_1_basics_discount_rate(0.05)
+
+# Year-row: set a value for a year that fans out to multiple cells in a sparse table.
+ctx.set_input_5_local_debt_financing_g00190_by_year({2024: 123.0})
+```
+
+For the full list of setters, run:
+
+```{python}
+from lic_dsf.setters import LicDsfContext
+
+setters = sorted(
+    name
+    for name in dir(LicDsfContext)
+    if name.startswith("set_") and callable(getattr(LicDsfContext, name, None))
+)
+
+print("\n".join(setters))
+```
+
+### Computing target outputs
+
+We currently export four public functions for each of three stress test tabs: B1_GDP_ext, B3_Exports_ext, and B4_other flows_ext. Each function takes a `ctx` argument and returns a dictionary of output ranges and their computed values.
+
+``` {python}
+from lic_dsf.entrypoint import (
+    compute_b1_pv_of_ppg_external_debt_to_gdp_ratio,
+    compute_b1_pv_of_ppg_external_debt_to_exports_ratio,
+    compute_b1_ppg_debt_service_to_exports_ratio,
+    compute_b1_ppg_debt_service_to_revenue_ratio,
+    compute_b3_pv_of_ppg_external_debt_to_gdp_ratio,
+    compute_b3_pv_of_ppg_external_debt_to_exports_ratio,
+    compute_b3_ppg_debt_service_to_exports_ratio,
+    compute_b3_ppg_debt_service_to_revenue_ratio,
+    compute_b4_pv_of_ppg_external_debt_to_gdp_ratio,
+    compute_b4_pv_of_ppg_external_debt_to_exports_ratio,
+    compute_b4_ppg_debt_service_to_exports_ratio,
+    compute_b4_ppg_debt_service_to_revenue_ratio
+)
+```
+
+For example, to run the B1_GDP_ext stress test, you can call:
+
+```{python}
+result = compute_b1_pv_of_ppg_external_debt_to_gdp_ratio(ctx=ctx)
+print(result)
+```
+
+If we adjust inputs to re-run the scenario with different assumptions, only the parts of the computation that depend on the changed inputs will be re-run, which makes the computation faster and more efficient.
+
+For example, if we adjust the interest rate on external debt for 2024 to 0.06, we can re-run the computation like this:
+
+```{python}
+ctx.set_ext_debt_data_interest({2024: 0.06})
+result = compute_b1_pv_of_ppg_external_debt_to_gdp_ratio(ctx=ctx)
+print(result)
+```
