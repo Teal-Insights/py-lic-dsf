@@ -1,22 +1,29 @@
 # LIC DSF Python package
 
 
+## Overview
+
+`lic-dsf` is a Python package for running selected outputs from the IMF/World Bank LIC DSF (Low-Income Country Debt Sustainability Framework) Excel template without needing to drive Excel itself. The goal is to make the model easier to integrate into programmatic workflows (batch scenario runs, reproducible pipelines, automated reporting) while staying faithful to the workbook’s calculations.
+
+Our approach is “target-driven” rather than “export-the-whole-spreadsheet”. We started from the specific indicators we want to compute (currently just the outputs of the B1, B3, and B4 stress tests), traced the workbook cells those indicators depend on, and translated that minimal slice of formulas and constants into equivalent Python. This keeps execution focused on the parts of the model that matter for a given scenario, and makes it possible to re-run after input changes without recomputing unrelated logic.
+
+The user-facing modules are `entrypoint.py` and `setters.py`. Entrypoint functions take a context object and return structured outputs. Inputs can be set on the context object either from a filled-out LIC DSF workbook or via typed `set_*` methods (including year-series setters for common time-series inputs).
+
+The lic-dsf package is being developed by Teal Insights for Nature Finance, but is published under an open-source license.
+
+![Nature Finance logo](README_files/nature-finance.svg) ![Teal Insights logo](README_files/teal-insights.svg)
+
+**Disclaimer:** This is very much an alpha version. The API is subject to change. Please report any issues you encounter; we are eager to receive your feedback.
+
 ## Usage
 
 ### Setting inputs
 
-When computing target outputs, you will pass a `LicDsfContext` object
-that contains your input data for the computation. This object is
-created by calling the `make_context()` factory function, and it will be
-pre-populated with the default inputs from [the IMF’s master LIC DSF
-Excel workbook
-template](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm).
+When computing target outputs, you will pass a `LicDsfContext` object that contains your input data for the computation. This object is created by calling the `make_context()` factory function, and it will be pre-populated with the default inputs from [the IMF’s master LIC DSF Excel workbook template](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm).
 
 #### Loading inputs from a filled-out LIC DSF template
 
-The easiest way to set inputs is to load them from a real LIC DSF
-template that’s already filled out. In this example, we load an example
-LIC DSF country workbook and then read its inputs into our context:
+The easiest way to set inputs is to load them from a real LIC DSF template that’s already filled out. In this example, we load an example LIC DSF country workbook and then read its inputs into our context:
 
 ``` python
 from pathlib import Path
@@ -30,26 +37,17 @@ ctx = make_context()
 ctx.load_inputs_from_workbook(workbook_path)
 ```
 
-Note that the workbook must use the *latest* (August 2025) version of
-the IMF’s master LIC DSF Excel workbook template.
+Note that the workbook must use the *latest* (August 2025) version of the IMF’s master LIC DSF Excel workbook template.
 
 #### Setting inputs manually
 
-You can also set inputs using the generated `set_*` methods on
-`LicDsfContext`. These setters update the context in-place and return an
-“assignment” object that describes what was applied.
+You can also set inputs using the generated `set_*` methods on `LicDsfContext`. These setters update the context in-place and return an “assignment” object that describes what was applied.
 
 The export includes multiple setter shapes:
 
-- **Year-series setters (wide year rows)**: accept either a mapping of
-  `year -> value` or a contiguous sequence plus `start_year`, and return
-  a `YearSeriesAssignment`.
-- **Range setters (non-year scalar / 1D / 2D ranges)**: accept a scalar,
-  a 1D sequence, or a 2D sequence (depending on the target shape), and
-  return a `RangeAssignment`.
-- **Year-row setters (tall sparse tables)**: time-series-like API where
-  a year may map to multiple cells; accepts a mapping or sequence plus
-  `start_year`, and returns a `YearRowAssignment`.
+- **Year-series setters (wide year rows)**: accept either a mapping of `year -> value` or a contiguous sequence plus `start_year`, and return a `YearSeriesAssignment`.
+- **Range setters (non-year scalar / 1D / 2D ranges)**: accept a scalar, a 1D sequence, or a 2D sequence (depending on the target shape), and return a `RangeAssignment`.
+- **Year-row setters (tall sparse tables)**: time-series-like API where a year may map to multiple cells; accepts a mapping or sequence plus `start_year`, and returns a `YearRowAssignment`.
 
 ``` python
 # Year-series: set specific years, or provide a contiguous series starting at start_year.
@@ -266,10 +264,7 @@ print("\n".join(setters))
 
 ### Computing target outputs
 
-We currently export four public functions for each of three stress test
-tabs: B1_GDP_ext, B3_Exports_ext, and B4_other flows_ext. Each function
-takes a `ctx` argument and returns a dictionary of output ranges and
-their computed values.
+We currently export four public functions for each of three stress test tabs: B1_GDP_ext, B3_Exports_ext, and B4_other flows_ext. Each function takes a `ctx` argument and returns a dictionary of output ranges and their computed values.
 
 ``` python
 from lic_dsf.entrypoint import (
@@ -304,20 +299,18 @@ print(result)
             33.23412133147747, 32.426152108430394, 31.851681785766832,
             31.20177834629951]], dtype=object)}
 
-If we adjust inputs to re-run the scenario with different assumptions,
-only the parts of the computation that depend on the changed inputs will
-be re-run, which makes the computation faster and more efficient.
+If we adjust inputs to re-run the scenario with different assumptions, only the parts of the computation that depend on the changed inputs will be re-run, which makes the computation faster and more efficient.
 
-For example, if we adjust the interest rate on external debt for 2024 to
-0.06, we can re-run the computation like this:
+For example, if we add 100 million USD of short-term locally issued debt for 2023 and adjust the interest rate on this debt for 2024 to 0.07, we can re-run the computation like this:
 
 ``` python
-ctx.set_ext_debt_data_interest({2024: 0.06})
+ctx.set_ext_debt_data_nominal_value_pv_of_st_debt_locally_issued_debt({2023: 100})
+ctx.set_ext_debt_data_interest({2024: 0.07})
 result = compute_b1_pv_of_ppg_external_debt_to_gdp_ratio(ctx=ctx)
 print(result)
 ```
 
-    {'B1_GDP_ext!C35:B1_GDP_ext!X35': array([[42.92396948601662, 44.88462374681342, 47.288958254302656,
+    {'B1_GDP_ext!C35:B1_GDP_ext!X35': array([[43.15773520571983, 44.88462374681342, 47.288958254302656,
             46.96482551036836, 45.77330421009148, 43.95325728266726,
             42.903598974163096, 40.31390358529325, 37.543348741187636,
             36.35839667684007, 35.73258755700471, 35.48513143901,
@@ -325,3 +318,15 @@ print(result)
             34.535851320397484, 34.378982576924976, 33.75408803253864,
             33.23412133147747, 32.426152108430394, 31.851681785766832,
             31.20177834629951]], dtype=object)}
+
+We can visualize the results by plotting the computed values for each year:
+
+``` python
+import matplotlib.pyplot as plt
+
+plt.plot(result['B1_GDP_ext!C35:B1_GDP_ext!X35'].flatten())
+plt.title('B1_GDP_ext: PV of PPG external debt to GDP ratio')
+plt.show()
+```
+
+![](README_files/figure-commonmark/cell-8-output-1.png)
