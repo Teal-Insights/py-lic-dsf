@@ -11,7 +11,7 @@ The user-facing modules are `entrypoint.py` and `setters.py`. Entrypoint functio
 
 The lic-dsf package is being developed by Teal Insights for Nature Finance, but is published under an open-source license.
 
-![Nature Finance logo](README_files/nature-finance.svg) ![Teal Insights logo](README_files/teal-insights.svg)
+![Nature Finance logo](README_files/nature-finance.svg) ![Teal Insights logo](README_files/logo-teal-insights.png)
 
 **Disclaimer:** This is very much an alpha version. The API is subject to change. Please report any issues you encounter; we are eager to receive your feedback.
 
