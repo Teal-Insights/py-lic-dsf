@@ -3,9 +3,11 @@
 
 ## Overview
 
-`lic-dsf` is a Python package for running selected outputs from the IMF/World Bank LIC DSF (Low-Income Country Debt Sustainability Framework) Excel template without needing to drive Excel itself. The goal is to make the model easier to integrate into programmatic workflows (batch scenario runs, reproducible pipelines, automated reporting) while staying faithful to the workbook’s calculations.
+`lic-dsf` is a Python package for running shock scenarios from the IMF/World Bank LIC DSF (Low-Income Country Debt Sustainability Framework) Excel template without needing to drive Excel itself. Currently it computes only the outputs of the B1, B3, and B4 stress tests. We are in the process of extending it to all outputs required for the external debt risk rating.
 
-Our approach is “target-driven” rather than “export-the-whole-spreadsheet”. We started from the specific indicators we want to compute (currently just the outputs of the B1, B3, and B4 stress tests), traced the workbook cells those indicators depend on, and translated that minimal slice of formulas and constants into equivalent Python. This keeps execution focused on the parts of the model that matter for a given scenario, and makes it possible to re-run after input changes without recomputing unrelated logic.
+The goal is to make the model easier to integrate into programmatic workflows (batch scenario runs, reproducible pipelines, automated reporting) while staying faithful to the workbook’s calculations.
+
+ur approach is “target-driven” rather than “translate-the-whole-workbook”. We started from the specific indicators we want to compute, traced the workbook cells those indicators depend on, and translated that minimal slice of formulas and constants into equivalent Python. This keeps execution focused on the parts of the model that matter for a given scenario, and makes it possible to re-run after input changes without recomputing unrelated logic.
 
 The user-facing modules are `entrypoint.py` and `setters.py`. Entrypoint functions take a context object and return structured outputs. Inputs can be set on the context object either from a filled-out LIC DSF workbook or via typed `set_*` methods (including year-series setters for common time-series inputs).
 
