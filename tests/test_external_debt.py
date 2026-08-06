@@ -183,6 +183,9 @@ def test_external_debt_book_summary_rows() -> None:
         "Locally-issued MLT stock",
         "Locally-issued principal",
         "Locally-issued interest",
+        "External debt outstanding",
+        "Exchange rate (eop)",
+        "Exchange rate (pa)",
     ):
         assert label in summary.index
 

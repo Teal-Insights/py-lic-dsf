@@ -322,11 +322,13 @@ class PresentValueInstrument:
 
 
 from lic_dsf.pv.external_debt import (
+    CREDITOR_GROUPS,
     ExternalDebtBook,
     ExternalDebtInputs,
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
+    creditor_group_for_name,
     grant_element_new_disbursements,
     grant_element_value,
     load_external_debt_inputs,
@@ -342,6 +344,7 @@ from lic_dsf.pv.workbook import (
 )
 
 __all__ = [
+    "CREDITOR_GROUPS",
     "ExternalDebtBook",
     "ExternalDebtInputs",
     "LocalCurrencyNonResidentInstrument",
@@ -350,6 +353,7 @@ __all__ = [
     "ResidualFinancingOverrides",
     "ResidualFinancingParams",
     "calculate_residual_defaults",
+    "creditor_group_for_name",
     "excel_npv",
     "grant_element_new_disbursements",
     "grant_element_value",

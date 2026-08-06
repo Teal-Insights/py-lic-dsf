@@ -7,6 +7,21 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
+from lic_dsf.pv.external_debt.creditor_groups import (
+    new_amortization_by_creditor as _new_amortization_by_creditor,
+)
+from lic_dsf.pv.external_debt.creditor_groups import (
+    new_disbursements_by_creditor as _new_disbursements_by_creditor,
+)
+from lic_dsf.pv.external_debt.creditor_groups import (
+    new_interest_by_creditor as _new_interest_by_creditor,
+)
+from lic_dsf.pv.external_debt.creditor_groups import (
+    new_pv_by_creditor as _new_pv_by_creditor,
+)
+from lic_dsf.pv.external_debt.creditor_groups import (
+    new_stock_by_creditor as _new_stock_by_creditor,
+)
 from lic_dsf.pv.external_debt.existing_debt import (
     existing_mlt_nominal,
     existing_mlt_pv,
@@ -19,6 +34,18 @@ from lic_dsf.pv.external_debt.grant_element import (
 )
 from lic_dsf.pv.external_debt.grant_element import (
     new_disbursements_net_of_ge as _new_disbursements_net_of_ge,
+)
+from lic_dsf.pv.external_debt.panels import (
+    debt_evolution as _debt_evolution,
+)
+from lic_dsf.pv.external_debt.panels import (
+    existing_debt_service as _existing_debt_service,
+)
+from lic_dsf.pv.external_debt.panels import (
+    existing_service_totals as _existing_service_totals,
+)
+from lic_dsf.pv.external_debt.panels import (
+    memorandum as _memorandum,
 )
 from lic_dsf.pv.external_debt.residual import (
     ResidualFinancingOverrides,
@@ -55,6 +82,26 @@ class ExternalDebtBook:
         """Nominal stock of new MLT debt (Ext R329)."""
         return self._align(self.portfolio.stock().sum(axis=0))
 
+    def new_disbursements_by_creditor(self) -> pd.DataFrame:
+        """New borrowing by Ext creditor group (R71–R122)."""
+        return _new_disbursements_by_creditor(self)
+
+    def new_interest_by_creditor(self) -> pd.DataFrame:
+        """New MLT interest by Ext creditor group (R142–R187)."""
+        return _new_interest_by_creditor(self)
+
+    def new_amortization_by_creditor(self) -> pd.DataFrame:
+        """New MLT amortization by Ext creditor group (R192–R237)."""
+        return _new_amortization_by_creditor(self)
+
+    def new_pv_by_creditor(self) -> pd.DataFrame:
+        """New MLT PV by Ext creditor group (R279–R324)."""
+        return _new_pv_by_creditor(self)
+
+    def new_stock_by_creditor(self) -> pd.DataFrame:
+        """New MLT stock by Ext creditor group (R329–R374)."""
+        return _new_stock_by_creditor(self)
+
     def existing_mlt_pv(self) -> pd.DataFrame:
         """PV of existing MLT debt by creditor + Total (Ext R242)."""
         return existing_mlt_pv(self.inputs)
@@ -62,6 +109,22 @@ class ExternalDebtBook:
     def existing_mlt_nominal(self) -> pd.Series:
         """Nominal existing MLT stock excluding arrears (Ext R67)."""
         return existing_mlt_nominal(self.inputs)
+
+    def existing_debt_service(self) -> pd.DataFrame:
+        """Per-creditor existing MLT debt service + Total (Ext R12–R42)."""
+        return _existing_debt_service(self)
+
+    def existing_service_totals(self) -> pd.DataFrame:
+        """Existing + local service headlines (Ext R42–R44 / R55–R57 / R61–R63)."""
+        return _existing_service_totals(self)
+
+    def debt_evolution(self) -> pd.DataFrame:
+        """Nominal stock evolution (Ext R45 / R58 / R67)."""
+        return _debt_evolution(self)
+
+    def memorandum(self) -> pd.DataFrame:
+        """Memorandum items (Ext R398 outstanding + FX eop/pa)."""
+        return _memorandum(self)
 
     def total_st_external(self) -> pd.Series:
         """Total ST external debt including locally-issued ST (Ext R386)."""
@@ -215,6 +278,11 @@ class ExternalDebtBook:
             "Locally-issued MLT stock": self.inputs.locally_issued_debt_stock,
             "Locally-issued principal": self.inputs.locally_issued_principal,
             "Locally-issued interest": self.inputs.locally_issued_interest,
+            "External debt outstanding": self.memorandum().loc[
+                "External debt outstanding"
+            ],
+            "Exchange rate (eop)": self.inputs.fx_eop,
+            "Exchange rate (pa)": self.inputs.fx_pa,
         }
         frame = pd.DataFrame(rows).T
         return frame.reindex(columns=years).fillna(0.0)
