@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lic-dsf"
+version = "0.1.0"
+description = "Python implementation of the IMF/World Bank LIC-DSF Excel template"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [{ name = "Teal Insights" }]
+dependencies = [
+    "fastpyxl>=1.0.9",
+    "pandas>=2.2",
+]
+
+[project.urls]
+Repository = "https://github.com/Teal-Insights/lic-dsf"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "ruff>=0.15.12",
+    "ty>=0.0.34",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.29.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "-v"
+testpaths = ["tests"]
+
+[tool.ruff.format]
+line-ending = "lf"

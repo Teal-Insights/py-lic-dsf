@@ -1,0 +1,12 @@
+*.egg-info/
+*.pyc
+__pycache__/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+dist/
+build/
+*.xlsx#~*
+~$*
