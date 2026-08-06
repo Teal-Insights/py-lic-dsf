@@ -321,19 +321,35 @@ class PresentValueInstrument:
         )
 
 
+from lic_dsf.pv.external_debt import (
+    ExternalDebtBook,
+    ExternalDebtInputs,
+    ResidualFinancingOverrides,
+    ResidualFinancingParams,
+    calculate_residual_defaults,
+    load_external_debt_inputs,
+    resolve_residual_params,
+)
+from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
+from lic_dsf.pv.mathutil import excel_npv
+from lic_dsf.pv.portfolio import PVPortfolio
 from lic_dsf.pv.workbook import (
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
 )
-from lic_dsf.pv.portfolio import PVPortfolio
-from lic_dsf.pv.mathutil import excel_npv
-from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 
 __all__ = [
+    "ExternalDebtBook",
+    "ExternalDebtInputs",
     "LocalCurrencyNonResidentInstrument",
-    "PresentValueInstrument",
     "PVPortfolio",
+    "PresentValueInstrument",
+    "ResidualFinancingOverrides",
+    "ResidualFinancingParams",
+    "calculate_residual_defaults",
     "excel_npv",
+    "load_external_debt_inputs",
     "load_instruments_from_workbook",
     "load_lc_nr_instruments_from_workbook",
+    "resolve_residual_params",
 ]
