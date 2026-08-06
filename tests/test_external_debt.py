@@ -79,6 +79,7 @@ def _synthetic_inputs() -> ExternalDebtInputs:
         domestic_st_disbursements_usd=zero.copy(),
         short_term_interest_rate=0.10,
         residual_interest_rates={},
+        grant_element_weight_names=frozenset(),
     )
 
 

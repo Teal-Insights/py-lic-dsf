@@ -11,6 +11,15 @@ from lic_dsf.pv.external_debt.existing_debt import (
     existing_mlt_nominal,
     existing_mlt_pv,
 )
+from lic_dsf.pv.external_debt.grant_element import (
+    grant_element_new_disbursements as _grant_element_new_disbursements,
+)
+from lic_dsf.pv.external_debt.grant_element import (
+    grant_element_value as _grant_element_value,
+)
+from lic_dsf.pv.external_debt.grant_element import (
+    new_disbursements_net_of_ge as _new_disbursements_net_of_ge,
+)
 from lic_dsf.pv.external_debt.residual import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
@@ -153,6 +162,18 @@ class ExternalDebtBook:
             - self.inputs.arrears.reindex(years).fillna(0.0)
         )
 
+    def grant_element_percent(self) -> pd.Series:
+        """Weighted avg grant element % of new MLT disbursements (Ext R408)."""
+        return _grant_element_new_disbursements(self)
+
+    def new_disbursements_net_of_ge(self) -> pd.Series:
+        """New external MLT disbursements net of GE (Ext R407)."""
+        return _new_disbursements_net_of_ge(self)
+
+    def grant_element_value(self) -> pd.Series:
+        """Grant-element dollar amount of new disbursements (Ext R409)."""
+        return _grant_element_value(self)
+
     def residual_defaults(
         self, *, average_years: int = 11
     ) -> ResidualFinancingParams:
@@ -185,6 +206,9 @@ class ExternalDebtBook:
             "Total PV of debt": self.total_pv_of_debt(),
             "Nominal value of new MLT": self.new_mlt_nominal(),
             "Nominal PPG debt check": self.nominal_ppg_check(),
+            "Grant element of new disbursements (%)": self.grant_element_percent(),
+            "New disbursements net of GE": self.new_disbursements_net_of_ge(),
+            "Grant element value": self.grant_element_value(),
             "Total public debt service": ds.loc["Total public debt service"],
             "    of which: principal": ds.loc["    of which: principal"],
             "    of which: interest": ds.loc["    of which: interest"],

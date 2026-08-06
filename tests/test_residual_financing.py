@@ -75,6 +75,7 @@ def _synthetic_book() -> ExternalDebtBook:
         ),
         short_term_interest_rate=0.0,
         residual_interest_rates={},
+        grant_element_weight_names=frozenset(),
     )
     return ExternalDebtBook(portfolio=portfolio, inputs=inputs)
 

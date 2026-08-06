@@ -75,6 +75,36 @@ _I5_DOM_MLT_DISB = 123
 _I5_DOM_ST_DISB = 122
 # Input 4 F/G/H terms Ext uses for LC-NR residual SUMPRODUCT (R131–R133).
 _INPUT4_LC_NR_RESIDUAL_TERM_ROWS: tuple[int, ...] = (49, 50, 51)
+# Input 4 rows in Ext R408 GE numerator (always). Skips IDA NEW 14–17.
+_INPUT4_GE_CORE_ROWS: tuple[int, ...] = (
+    10,
+    11,
+    12,
+    13,
+    18,
+    19,
+    21,
+    22,
+    23,
+    26,
+    27,
+    28,
+    29,
+    30,
+    32,
+    33,
+    34,
+    35,
+    36,
+    38,
+    39,
+    40,
+    41,
+    42,
+)
+_INPUT4_GE_LC_NR_ROWS: tuple[int, ...] = (49, 50, 51)
+_INPUT4_GE_FX_NR_ROWS: tuple[int, ...] = (54, 55, 56)
+_INPUT4_GE_FX_RES_ROWS: tuple[int, ...] = (59, 60, 61)
 _MACRO_PPG_ROW = 8
 _MACRO_MLT_ROW = 9
 _MACRO_FX_EOP_ROW = 59
@@ -297,6 +327,25 @@ def load_external_debt_inputs(
             if isinstance(raw_name, str) and raw_name.strip() and rate is not None:
                 residual_interest_rates[raw_name.strip()] = rate
 
+        # Match Ext R408 residency branch for which local/FX bands enter GE.
+        ge_rows = list(_INPUT4_GE_CORE_ROWS) + list(_INPUT4_GE_FX_NR_ROWS)
+        if residency_based:
+            ge_rows.extend(_INPUT4_GE_LC_NR_ROWS)
+        else:
+            ge_rows.extend(_INPUT4_GE_FX_RES_ROWS)
+        grant_element_weight_names: set[str] = set()
+        for row in ge_rows:
+            raw_name = input4.cell(row, _INPUT4_NAME_COL).value
+            if not isinstance(raw_name, str) or not raw_name.strip():
+                continue
+            base = raw_name.strip()
+            if row in _INPUT4_GE_FX_NR_ROWS:
+                grant_element_weight_names.add(f"{base} (non-residents)")
+            elif row in _INPUT4_GE_FX_RES_ROWS:
+                grant_element_weight_names.add(f"{base} (residents)")
+            else:
+                grant_element_weight_names.add(base)
+
         return ExternalDebtInputs(
             years=years,
             existing_debt_service=existing_debt_service.fillna(0.0),
@@ -320,6 +369,7 @@ def load_external_debt_inputs(
             domestic_st_disbursements_usd=dom_st,
             short_term_interest_rate=float(st_rate),
             residual_interest_rates=residual_interest_rates,
+            grant_element_weight_names=frozenset(grant_element_weight_names),
         )
     finally:
         workbook.close()

@@ -17,6 +17,11 @@ class ExternalDebtInputs:
     ``residual_interest_rates`` maps instrument name → Input 4 interest
     (decimal) for Ext residual SUMPRODUCT bands (LC-NR rows 49–51), where Ext
     weights those rates rather than the year-varying Input 5 coupon path.
+
+    ``grant_element_weight_names`` lists instruments Ext includes in the R408
+    GE numerator. Empty means weight every portfolio instrument's unit-loan GE
+    (synthetic books). The workbook loader matches Ext's Input 4 row bands
+    (notably excluding IDA NEW rows 14–17).
     """
 
     years: tuple[int, ...]
@@ -41,3 +46,4 @@ class ExternalDebtInputs:
     domestic_st_disbursements_usd: pd.Series
     short_term_interest_rate: float
     residual_interest_rates: dict[str, float]
+    grant_element_weight_names: frozenset[str]

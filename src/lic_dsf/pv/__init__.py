@@ -327,7 +327,10 @@ from lic_dsf.pv.external_debt import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
+    grant_element_new_disbursements,
+    grant_element_value,
     load_external_debt_inputs,
+    new_disbursements_net_of_ge,
     resolve_residual_params,
 )
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
@@ -348,8 +351,11 @@ __all__ = [
     "ResidualFinancingParams",
     "calculate_residual_defaults",
     "excel_npv",
+    "grant_element_new_disbursements",
+    "grant_element_value",
     "load_external_debt_inputs",
     "load_instruments_from_workbook",
     "load_lc_nr_instruments_from_workbook",
+    "new_disbursements_net_of_ge",
     "resolve_residual_params",
 ]
