@@ -17,6 +17,7 @@ from lic_dsf.pv import (
     ResidualFinancingParams,
     calculate_residual_defaults,
     load_external_debt_inputs,
+    load_input7_residual_params,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     resolve_residual_params,
@@ -46,9 +47,7 @@ def _synthetic_book() -> ExternalDebtBook:
     zero = _zero(years)
     inputs = ExternalDebtInputs(
         years=years,
-        existing_debt_service=pd.DataFrame(
-            {y: [0.0] for y in years}, index=["IMF"]
-        ),
+        existing_debt_service=pd.DataFrame({y: [0.0] for y in years}, index=["IMF"]),
         existing_principal=zero.copy(),
         existing_discount_rates={"IMF": 0.05},
         arrears=zero.copy(),
@@ -187,3 +186,45 @@ def test_workbook_parity_residual_defaults_vs_ext_c_cells() -> None:
         assert params.avg_maturity_rounded == int(ext.cell(133, 3).value)
     finally:
         wb.close()
+
+
+@pytest.mark.skipif(not WORKBOOK.is_file(), reason="template workbook missing")
+def test_load_input7_residual_params_workbook() -> None:
+    params = load_input7_residual_params(WORKBOOK)
+    assert params.external_mlt_share == pytest.approx(0.4343925896763784)
+    assert params.domestic_mlt_share == pytest.approx(0.2275655436226405)
+    assert params.domestic_st_share == pytest.approx(0.33804186670098113, rel=1e-6)
+    assert params.avg_interest_rate == pytest.approx(7.982399291786421)
+    assert params.discount_rate == pytest.approx(0.05)
+    assert params.avg_maturity_rounded == 9
+    assert params.avg_grace_rounded == 4
+    assert params.domestic_mlt_real_rate == pytest.approx(0.029220917972601)
+    assert params.domestic_mlt_maturity == 3
+    assert params.domestic_mlt_grace == 2
+    assert params.domestic_st_real_rate == pytest.approx(0.03472169156537851)
+
+
+def test_resolve_overrides_domestic_fields() -> None:
+    defaults = ResidualFinancingParams(
+        external_mlt_share=0.4,
+        domestic_mlt_share=0.3,
+        domestic_st_share=0.3,
+        avg_interest_rate=8.0,
+        avg_grace=4.0,
+        avg_maturity=9.0,
+        avg_grace_rounded=4,
+        avg_maturity_rounded=9,
+        domestic_mlt_real_rate=0.02,
+        domestic_st_real_rate=0.03,
+        discount_rate=0.05,
+    )
+    resolved = resolve_residual_params(
+        defaults,
+        ResidualFinancingOverrides(
+            domestic_mlt_real_rate=0.05,
+            discount_rate=0.04,
+        ),
+    )
+    assert resolved.domestic_mlt_real_rate == pytest.approx(0.05)
+    assert resolved.discount_rate == pytest.approx(0.04)
+    assert resolved.domestic_st_real_rate == pytest.approx(0.03)

@@ -121,9 +121,7 @@ class PresentValueInstrument:
         list[float],
         list[float],
     ]:
-        amortization = [
-            self._unit_amortization(t) for t in range(solve_horizon)
-        ]
+        amortization = [self._unit_amortization(t) for t in range(solve_horizon)]
 
         debt_stock: list[float] = []
         for t in range(solve_horizon):
@@ -254,9 +252,7 @@ class PresentValueInstrument:
         for t in year_index:
             tg = max(t - self.grace, 0)
             tm = max(t - self.maturity, 0)
-            amortization.append(
-                (choose_cumulative(tg) - choose_cumulative(tm)) / span
-            )
+            amortization.append((choose_cumulative(tg) - choose_cumulative(tm)) / span)
 
         stock: list[float] = []
         for t in year_index:
@@ -272,9 +268,7 @@ class PresentValueInstrument:
             else:
                 interest.append(self.interest_rate * stock[t - 1])
 
-        total_debt_service = [
-            interest[t] + amortization[t] for t in year_index
-        ]
+        total_debt_service = [interest[t] + amortization[t] for t in year_index]
 
         year0 = self._year_columns()[0]
         unit_pv0 = float(self.internal().loc["PV of debt", year0])
@@ -321,6 +315,13 @@ class PresentValueInstrument:
         )
 
 
+from lic_dsf.pv.domestic_debt import (
+    DEFAULT_PEER_MEDIAN_DEBT_TO_GDP,
+    DEFAULT_PEER_MEDIAN_DS_TO_REVENUES,
+    DomesticDebtBook,
+    DomesticDebtInputs,
+    load_domestic_debt_inputs,
+)
 from lic_dsf.pv.external_debt import (
     CREDITOR_GROUPS,
     ExternalDebtBook,
@@ -332,10 +333,17 @@ from lic_dsf.pv.external_debt import (
     grant_element_new_disbursements,
     grant_element_value,
     load_external_debt_inputs,
+    load_input7_residual_params,
     new_disbursements_net_of_ge,
+    public_dsa_residual_params,
     resolve_residual_params,
 )
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
+from lic_dsf.pv.macro_debt import (
+    MacroDebtBook,
+    MacroDebtInputs,
+    load_macro_debt_inputs,
+)
 from lic_dsf.pv.mathutil import excel_npv
 from lic_dsf.pv.portfolio import PVPortfolio
 from lic_dsf.pv.workbook import (
@@ -345,9 +353,15 @@ from lic_dsf.pv.workbook import (
 
 __all__ = [
     "CREDITOR_GROUPS",
+    "DEFAULT_PEER_MEDIAN_DEBT_TO_GDP",
+    "DEFAULT_PEER_MEDIAN_DS_TO_REVENUES",
+    "DomesticDebtBook",
+    "DomesticDebtInputs",
     "ExternalDebtBook",
     "ExternalDebtInputs",
     "LocalCurrencyNonResidentInstrument",
+    "MacroDebtBook",
+    "MacroDebtInputs",
     "PVPortfolio",
     "PresentValueInstrument",
     "ResidualFinancingOverrides",
@@ -357,9 +371,13 @@ __all__ = [
     "excel_npv",
     "grant_element_new_disbursements",
     "grant_element_value",
+    "load_domestic_debt_inputs",
     "load_external_debt_inputs",
+    "load_input7_residual_params",
     "load_instruments_from_workbook",
     "load_lc_nr_instruments_from_workbook",
+    "load_macro_debt_inputs",
     "new_disbursements_net_of_ge",
+    "public_dsa_residual_params",
     "resolve_residual_params",
 ]

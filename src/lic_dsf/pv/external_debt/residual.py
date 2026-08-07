@@ -1,26 +1,33 @@
-"""Input 7-style residual financing defaults and overrides."""
+"""Input 7-style residual financing defaults, overrides, and workbook loader."""
 
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
+
+from fastpyxl import load_workbook
 
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 
 if TYPE_CHECKING:
     from lic_dsf.pv.external_debt.book import ExternalDebtBook
 
+_INPUT7 = "Input 7 - Residual Financing"
+
 
 @dataclass(slots=True)
 class ResidualFinancingParams:
     """Resolved residual / marginal financing assumptions (Input 7).
 
-    Shares mirror Ext ``C126–C128`` (decade averages of yearly shares).
-    ``avg_interest_rate`` is in **percent** (Ext ``C131`` ≈ 8 means 8%),
-    matching the Ext_Debt display; Input 7 divides by 100 when consuming it.
-    Grace / maturity averages are unrounded; ``*_rounded`` match Ext
-    ``ROUNDDOWN`` values that Input 7 reads via ``C132`` / ``C133``.
+    Shares mirror Ext ``C126–C128`` (decade averages) or Input 7 public
+    value-used ``J9–J11``. ``avg_interest_rate`` is in **percent** (Ext
+    ``C131`` ≈ 8 means 8%); Input 7 ``E14`` stores a decimal and is converted
+    on load. Grace / maturity averages are unrounded; ``*_rounded`` match Ext
+    ``ROUNDDOWN`` / Input 7 ``E16`` / ``E17``.
+
+    Domestic public-DSA fields use Input 7 decimals / integers (``J19–J23``).
     """
 
     external_mlt_share: float
@@ -31,6 +38,11 @@ class ResidualFinancingParams:
     avg_maturity: float
     avg_grace_rounded: int
     avg_maturity_rounded: int
+    domestic_mlt_real_rate: float = 0.0
+    domestic_mlt_maturity: int = 1
+    domestic_mlt_grace: int = 0
+    domestic_st_real_rate: float = 0.0
+    discount_rate: float = 0.05
 
 
 @dataclass(slots=True)
@@ -45,6 +57,11 @@ class ResidualFinancingOverrides:
     avg_maturity: float | None = None
     avg_grace_rounded: int | None = None
     avg_maturity_rounded: int | None = None
+    domestic_mlt_real_rate: float | None = None
+    domestic_mlt_maturity: int | None = None
+    domestic_mlt_grace: int | None = None
+    domestic_st_real_rate: float | None = None
+    discount_rate: float | None = None
 
 
 def _projection_years(book: ExternalDebtBook, average_years: int) -> list[int]:
@@ -87,7 +104,8 @@ def calculate_residual_defaults(
             ``AVERAGE(F126:P126)`` spans **11** years (F–P); default matches that.
 
     Returns:
-        Decade-average shares and disbursement-weighted terms.
+        Decade-average shares and disbursement-weighted terms. Domestic
+        public-DSA rates default to 0 (load from Input 7 for stress fills).
     """
     if average_years < 1:
         raise ValueError(f"average_years must be >= 1, got {average_years}")
@@ -159,6 +177,12 @@ def calculate_residual_defaults(
     n = float(len(years))
     avg_grace = sum(yearly_grace) / n
     avg_maturity = sum(yearly_maturity) / n
+    discount = 0.05
+    for instrument in book.portfolio.instruments:
+        rate = getattr(instrument, "discount_rate", None)
+        if rate is not None:
+            discount = float(rate)
+            break
     return ResidualFinancingParams(
         external_mlt_share=sum(share_ext) / n,
         domestic_mlt_share=sum(share_dom_mlt) / n,
@@ -168,6 +192,7 @@ def calculate_residual_defaults(
         avg_maturity=avg_maturity,
         avg_grace_rounded=math.floor(avg_grace),
         avg_maturity_rounded=math.floor(avg_maturity),
+        discount_rate=discount,
     )
 
 
@@ -211,9 +236,7 @@ def resolve_residual_params(
         else defaults.avg_interest_rate
     )
     avg_grace = (
-        overrides.avg_grace
-        if overrides.avg_grace is not None
-        else defaults.avg_grace
+        overrides.avg_grace if overrides.avg_grace is not None else defaults.avg_grace
     )
     avg_maturity = (
         overrides.avg_maturity
@@ -244,4 +267,111 @@ def resolve_residual_params(
         avg_maturity=avg_maturity,
         avg_grace_rounded=grace_rounded,
         avg_maturity_rounded=maturity_rounded,
+        domestic_mlt_real_rate=(
+            overrides.domestic_mlt_real_rate
+            if overrides.domestic_mlt_real_rate is not None
+            else defaults.domestic_mlt_real_rate
+        ),
+        domestic_mlt_maturity=(
+            overrides.domestic_mlt_maturity
+            if overrides.domestic_mlt_maturity is not None
+            else defaults.domestic_mlt_maturity
+        ),
+        domestic_mlt_grace=(
+            overrides.domestic_mlt_grace
+            if overrides.domestic_mlt_grace is not None
+            else defaults.domestic_mlt_grace
+        ),
+        domestic_st_real_rate=(
+            overrides.domestic_st_real_rate
+            if overrides.domestic_st_real_rate is not None
+            else defaults.domestic_st_real_rate
+        ),
+        discount_rate=(
+            overrides.discount_rate
+            if overrides.discount_rate is not None
+            else defaults.discount_rate
+        ),
     )
+
+
+def _as_float(value: Any) -> float | None:
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    return None
+
+
+def _require_float(value: Any, cell: str) -> float:
+    number = _as_float(value)
+    if number is None:
+        raise ValueError(f"Input 7 {cell} must be numeric, got {value!r}")
+    return number
+
+
+def load_input7_residual_params(path: str | Path) -> ResidualFinancingParams:
+    """Load Input 7 **value-used** residual financing terms.
+
+    Reads public shares ``J9–J11``, external terms ``E14–E17`` (interest stored
+    as decimal → converted to percent), and domestic public terms ``J19–J23``.
+
+    Args:
+        path: Path to a LIC-DSF workbook.
+
+    Returns:
+        Params ready for public / external stress residual fills.
+    """
+    workbook = load_workbook(path, data_only=True, read_only=True)
+    try:
+        if _INPUT7 not in workbook.sheetnames:
+            raise ValueError(f"workbook missing sheet {_INPUT7!r}")
+        ws = workbook[_INPUT7]
+
+        # Public shares (J = col 10). Fall back to Ext decade defaults in H if
+        # J is blank.
+        ext_share = _require_float(ws.cell(9, 10).value or ws.cell(9, 8).value, "J9")
+        dom_mlt_share = _require_float(
+            ws.cell(10, 10).value or ws.cell(10, 8).value, "J10"
+        )
+        dom_st_share = _require_float(
+            ws.cell(11, 10).value or ws.cell(11, 8).value, "J11"
+        )
+
+        # External terms: E14 decimal → percent; E15 discount; E16/E17 ints.
+        interest_decimal = _require_float(ws.cell(14, 5).value, "E14")
+        discount = _require_float(ws.cell(15, 5).value, "E15")
+        maturity = int(_require_float(ws.cell(16, 5).value, "E16"))
+        grace = int(_require_float(ws.cell(17, 5).value, "E17"))
+
+        dom_mlt_rate = _require_float(ws.cell(19, 10).value, "J19")
+        dom_mlt_mat = int(_require_float(ws.cell(20, 10).value, "J20"))
+        dom_mlt_grace = int(_require_float(ws.cell(21, 10).value, "J21"))
+        dom_st_rate = _require_float(ws.cell(23, 10).value, "J23")
+
+        return ResidualFinancingParams(
+            external_mlt_share=ext_share,
+            domestic_mlt_share=dom_mlt_share,
+            domestic_st_share=dom_st_share,
+            avg_interest_rate=interest_decimal * 100.0,
+            avg_grace=float(grace),
+            avg_maturity=float(maturity),
+            avg_grace_rounded=grace,
+            avg_maturity_rounded=maturity,
+            domestic_mlt_real_rate=dom_mlt_rate,
+            domestic_mlt_maturity=dom_mlt_mat,
+            domestic_mlt_grace=dom_mlt_grace,
+            domestic_st_real_rate=dom_st_rate,
+            discount_rate=discount,
+        )
+    finally:
+        workbook.close()
+
+
+def public_dsa_residual_params(
+    params: ResidualFinancingParams,
+) -> ResidualFinancingParams:
+    """Return params for public DSA residual fill (keep J-column shares)."""
+    return replace(params)

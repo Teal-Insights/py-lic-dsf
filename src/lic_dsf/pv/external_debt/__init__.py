@@ -32,6 +32,8 @@ from lic_dsf.pv.external_debt.residual import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
+    load_input7_residual_params,
+    public_dsa_residual_params,
     resolve_residual_params,
 )
 from lic_dsf.pv.external_debt.types import ExternalDebtInputs
@@ -46,6 +48,8 @@ __all__ = [
     "ResidualFinancingParams",
     "calculate_residual_defaults",
     "creditor_group_for_name",
+    "load_input7_residual_params",
+    "public_dsa_residual_params",
     "debt_evolution",
     "existing_debt_service",
     "existing_mlt_nominal",
