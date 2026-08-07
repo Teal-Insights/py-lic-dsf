@@ -1,0 +1,82 @@
+# Realism (Realism 1–4 / Output 4)
+
+Excel analogues: **Realism** tools and **Output 4-1 / 4-2** — forecast-error
+checks, fiscal-adjustment placement, investment–growth, and fiscal-multiplier
+views. Uses Baseline public / Macro series and Imported-data vintages.
+
+Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings.
+
+## What you get
+
+| Piece | Role |
+|-------|------|
+| `load_imported_data` | `Imported data` vintage catalog |
+| `load_capital_assumptions` / `load_multiplier_grid` | Realism assumption blocks |
+| `forecast_error_panel` | Forecast error / debt-creating flows |
+| `fiscal_adjustment_panel` / `place_in_lic_histogram` | 3-year adjustment vs LIC programs |
+| `invest_growth_panel` | Capital stock / growth contribution |
+| `fiscal_multiplier_panel` | Multiplier / underlying growth |
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.dsa import BaselinePublicBook
+from lic_dsf.pv import (
+    ExternalDebtBook,
+    MacroDebtBook,
+    PVPortfolio,
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
+from lic_dsf.realism import (
+    fiscal_adjustment_panel,
+    fiscal_multiplier_panel,
+    place_in_lic_histogram,
+    placement_summary,
+    projected_three_year_adjustment,
+)
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+ext = ExternalDebtBook(
+    portfolio=PVPortfolio(
+        instruments=tuple(load_instruments_from_workbook(
+            workbook, include_zero_disbursement=True
+        ))
+        + tuple(load_lc_nr_instruments_from_workbook(
+            workbook, include_zero_disbursement=True
+        ))
+    ),
+    inputs=load_external_debt_inputs(workbook),
+)
+macro = MacroDebtBook(inputs=load_macro_debt_inputs(workbook), external=ext)
+pub = BaselinePublicBook(macro=macro, external=ext)
+
+first = macro.inputs.first_projection_year
+pd_pct = pub.primary_deficit_to_gdp()
+projected = projected_three_year_adjustment(pd_pct, first)
+placement_summary(place_in_lic_histogram(projected))
+fiscal_adjustment_panel(pd_pct, first)
+
+pb_pct = 100.0 * macro.primary_balance() / macro.gdp_lcu()
+fiscal_multiplier_panel(pb_pct, macro.real_gdp_growth(), first)
+```
+
+Forecast-error / invest-growth / imported vintages are wired in
+[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb).
+
+## Excel cues
+
+| Tool | Output |
+|------|--------|
+| Forecast errors / debt-creating flows | Output 4-1 area |
+| Fiscal adjustment vs LIC distribution | Realism / Output 4 |
+| Investment–growth | Realism capital block |
+| Fiscal multiplier | Realism multiplier grid |
+
+## Demo
+
+[`demo/realism.ipynb`](../demo/realism.ipynb)

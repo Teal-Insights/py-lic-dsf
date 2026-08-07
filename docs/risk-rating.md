@@ -1,0 +1,126 @@
+# Risk rating (CI / Chart Data / Output 5 & 7)
+
+Excel analogues: **Classification / CI Summary** thresholds, **Chart Data**
+breach logic, mechanical **risk of debt distress**, market-financing and
+moderate-space modules, and **Output 5 / 7** summary panels.
+
+Package: `lic_dsf.rating`. Consumes baseline and stress **ratio paths**; does
+not recompute DSA numerators.
+
+## What you get
+
+| Piece | Role |
+|-------|------|
+| `load_ci_summary` | Country, CI score, DCC, applicable thresholds |
+| `DebtCarryingCapacity` / `classify_ci` / `thresholds_from_ci` | Weak / Medium / Strong |
+| `ChartDataRegistry` / `RatioPath` | Register baseline + stress paths |
+| `compute_mechanical_ratings` | Breach → mechanical rating |
+| `risk_summary_panel` / `RiskRatingSummary` | Output 7-style summary |
+| `assess_market_financing` / `market_panel` | Market-access / GFN checks |
+| `moderate_panel` | Moderate “space” / headroom |
+| `load_trigger_flags` | Template trigger flags |
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.dsa import BaselineExternalBook, BaselinePublicBook
+from lic_dsf.pv import (
+    ExternalDebtBook,
+    MacroDebtBook,
+    PVPortfolio,
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
+from lic_dsf.rating import (
+    ChartDataRegistry,
+    RiskRatingSummary,
+    compute_mechanical_ratings,
+    load_ci_summary,
+    risk_summary_panel,
+)
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+snap = load_ci_summary(workbook)
+# snap.country, snap.dcc, snap.ci_score, snap.thresholds
+
+ext = ExternalDebtBook(
+    portfolio=PVPortfolio(
+        instruments=tuple(load_instruments_from_workbook(
+            workbook, include_zero_disbursement=True
+        ))
+        + tuple(load_lc_nr_instruments_from_workbook(
+            workbook, include_zero_disbursement=True
+        ))
+    ),
+    inputs=load_external_debt_inputs(workbook),
+)
+macro = MacroDebtBook(inputs=load_macro_debt_inputs(workbook), external=ext)
+ext_b = BaselineExternalBook(macro=macro, external=ext)
+pub_b = BaselinePublicBook(macro=macro, external=ext)
+
+years = [y for y in ext_b.years if y >= macro.inputs.first_projection_year][:11]
+registry = ChartDataRegistry()
+registry.register_series(
+    "pv_debt_to_gdp",
+    "baseline",
+    ext_b.pv_ppg_external_to_gdp().reindex(years),
+    is_baseline=True,
+)
+registry.register_series(
+    "pv_debt_to_exports",
+    "baseline",
+    ext_b.pv_ppg_external_to_exports().reindex(years),
+    is_baseline=True,
+)
+registry.register_series(
+    "debt_service_to_exports",
+    "baseline",
+    ext_b.ppg_debt_service_to_exports().reindex(years),
+    is_baseline=True,
+)
+registry.register_series(
+    "debt_service_to_revenue",
+    "baseline",
+    ext_b.ppg_debt_service_to_revenue().reindex(years),
+    is_baseline=True,
+)
+registry.register_series(
+    "public_pv_debt_to_gdp",
+    "baseline",
+    pub_b.pv_public_debt_to_gdp().reindex(years),
+    is_baseline=True,
+)
+
+mech = compute_mechanical_ratings(registry, snap.thresholds, years=years)
+summary = RiskRatingSummary(
+    mechanical=mech,
+    thresholds=snap.thresholds,
+    dcc=snap.dcc,
+    ci_score=snap.ci_score,
+)
+risk_summary_panel(summary)
+```
+
+Add stress scenario series the same way (`is_baseline=False`) before calling
+`compute_mechanical_ratings`. See also Output 5/7 sections in
+[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb).
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| CI cutoffs → DCC | CI Summary (Weak &lt; 2.69; Strong &gt; 3.05) |
+| External / public thresholds | CI Summary reference table by DCC |
+| Breaches / mechanical rating | Chart Data → Output 5 |
+| Summary judgment panel | Output 7 |
+
+## Demo
+
+[`demo/risk_rating.ipynb`](../demo/risk_rating.ipynb)
+
+Related: [scenario.md](scenario.md) for Output 6 customized / probability paths
+registered into Chart Data.
