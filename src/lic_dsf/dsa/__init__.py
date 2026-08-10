@@ -10,10 +10,12 @@ from lic_dsf.dsa.baseline import (
     external_dsa_panel,
     public_dsa_panel,
 )
+from lic_dsf.dsa.workbook import load_core
 
 __all__ = [
     "BaselineExternalBook",
     "BaselinePublicBook",
     "external_dsa_panel",
+    "load_core",
     "public_dsa_panel",
 ]

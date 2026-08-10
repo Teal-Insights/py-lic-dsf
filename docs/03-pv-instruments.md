@@ -14,7 +14,7 @@ Excel analogues: hidden **`PV_Base`** tables (Input 4, USD) and **`PV_LC_NR1/2/3
 | `load_lc_nr_instruments_from_workbook` | Input 5 → list of LC-NR instruments |
 
 `PVPortfolio` owns **new MLT only**. Existing debt, ST, SDR, and Ext headlines
-live on [`ExternalDebtBook`](ext-debt-module-design.md).
+live on [`ExternalDebtBook`](04-ext-debt-module-design.md).
 
 ## Load and inspect
 
@@ -62,4 +62,6 @@ interest, and amortization (see `PVPortfolio.aggregate_external()`).
 - [`demo/lc_nr.ipynb`](../demo/lc_nr.ipynb) — LC-NR
 - [`demo/portfolio.ipynb`](../demo/portfolio.ipynb) — combined portfolio
 
-Next: [Ext_Debt_Data](ext-debt-module-design.md).
+---
+
+**Next:** [4. Ext debt](04-ext-debt-module-design.md)

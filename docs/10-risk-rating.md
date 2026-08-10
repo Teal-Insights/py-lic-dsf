@@ -122,5 +122,6 @@ Add stress scenario series the same way (`is_baseline=False`) before calling
 
 [`demo/risk_rating.ipynb`](../demo/risk_rating.ipynb)
 
-Related: [scenario.md](scenario.md) for Output 6 customized / probability paths
-registered into Chart Data.
+---
+
+**Next:** [11. Scenario](11-scenario.md)

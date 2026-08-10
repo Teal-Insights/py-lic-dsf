@@ -89,4 +89,6 @@ Book methods expose the same series individually (e.g.
 
 [`demo/baseline_dsa.ipynb`](../demo/baseline_dsa.ipynb)
 
-Next: [Stress DSA](stress-dsa.md) → [Risk rating](risk-rating.md).
+---
+
+**Next:** [8. Stress DSA](08-stress-dsa.md)

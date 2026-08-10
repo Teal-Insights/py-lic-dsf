@@ -10,7 +10,7 @@ PPG PV headlines (e.g. Ext R391).
 |-------|------|
 | `ExternalDebtBook` | Sheet engine: `portfolio` + `ExternalDebtInputs` |
 | `load_external_debt_inputs` | Existing debt / Ext input blocks from the workbook |
-| `PVPortfolio` | New MLT schedules ([pv-instruments.md](pv-instruments.md)) |
+| `PVPortfolio` | New MLT schedules ([03-pv-instruments.md](03-pv-instruments.md)) |
 | `load_input7_residual_params` | Input 7 residual-financing terms (used heavily in stress) |
 
 Creditor grouping, grant element, debt evolution, and memorandum panels are
@@ -75,4 +75,6 @@ ExternalDebtBook  →  MacroDebtBook / Baseline DSA
 
 [`demo/ext_debt.ipynb`](../demo/ext_debt.ipynb)
 
-Next: [Macro-Debt_Data](macro-debt-bridge.md) or [Baseline DSA](baseline-dsa.md).
+---
+
+**Next:** [5. Dom debt](05-dom-debt-indicators.md)

@@ -11,6 +11,7 @@ from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
     external_dsa_panel,
+    load_core,
     public_dsa_panel,
 )
 from lic_dsf.pv import (
@@ -21,10 +22,6 @@ from lic_dsf.pv import (
     PresentValueInstrument,
     PVPortfolio,
     load_domestic_debt_inputs,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -128,21 +125,21 @@ def _synthetic_macro_ext() -> tuple[MacroDebtBook, ExternalDebtBook]:
 def _workbook_books() -> tuple[MacroDebtBook, ExternalDebtBook]:
     global _CACHE
     if _CACHE is None:
-        instruments = load_instruments_from_workbook(
-            WORKBOOK, include_zero_disbursement=True
-        )
-        lc_nr = load_lc_nr_instruments_from_workbook(
-            WORKBOOK, include_zero_disbursement=True
-        )
-        portfolio = PVPortfolio(instruments=tuple(instruments) + tuple(lc_nr))
-        external = ExternalDebtBook(
-            portfolio=portfolio, inputs=load_external_debt_inputs(WORKBOOK)
-        )
-        macro = MacroDebtBook(
-            inputs=load_macro_debt_inputs(WORKBOOK), external=external
-        )
+        macro, external, _, _ = load_core(WORKBOOK)
         _CACHE = (macro, external)
     return _CACHE
+
+
+def test_load_core_wires_ext_macro_and_baseline_books() -> None:
+    macro, external, ext_base, pub_base = load_core(WORKBOOK)
+    assert macro.external is external
+    assert ext_base.macro is macro
+    assert ext_base.external is external
+    assert pub_base.macro is macro
+    assert pub_base.external is external
+    assert 2024 in ext_base.years
+    assert float(ext_base.pv_ppg_external_to_gdp().loc[2024]) > 0.0
+    assert float(pub_base.pv_public_debt_to_gdp().loc[2024]) > 0.0
 
 
 def test_synthetic_pv_to_gdp_and_public_debt_to_gdp() -> None:

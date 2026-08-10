@@ -71,4 +71,6 @@ flowchart LR
 | `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings, Output 5/7 | DSA ratio numerators |
 | `lic_dsf.scenario` | Customized paths, probability / Output 6 | Input 8 SDR (lives in Ext via `pv`) |
 
-See also: [getting-started.md](getting-started.md), [docs hub](README.md).
+---
+
+**Next:** [2. Getting started](02-getting-started.md)

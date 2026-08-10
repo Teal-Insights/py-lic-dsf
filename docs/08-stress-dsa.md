@@ -92,4 +92,6 @@ documented in code; treat Excel as reference when comparing.
 
 [`demo/stress_dsa.ipynb`](../demo/stress_dsa.ipynb)
 
-Next: [Risk rating](risk-rating.md).
+---
+
+**Next:** [9. Realism](09-realism.md)

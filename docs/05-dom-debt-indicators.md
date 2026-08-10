@@ -47,4 +47,6 @@ Dom indicator rows (e.g. debt/GDP, DS/revenues).
 
 [`demo/dom_debt.ipynb`](../demo/dom_debt.ipynb)
 
-Related: [macro-debt-bridge.md](macro-debt-bridge.md), [baseline-dsa.md](baseline-dsa.md).
+---
+
+**Next:** [6. Macro debt](06-macro-debt-bridge.md)

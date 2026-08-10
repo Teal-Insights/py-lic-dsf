@@ -6,8 +6,8 @@ Sustainability Framework) Excel template.
 Aimed at economists who already know the workbook: load a country file, compute
 the same Ext/Macro/Baseline/stress/rating panels as DataFrames.
 
-**Start here:** [`docs/README.md`](docs/README.md) · [`docs/excel-map.md`](docs/excel-map.md) ·
-[`docs/getting-started.md`](docs/getting-started.md)
+**Start here:** [`docs/README.md`](docs/README.md) · [`docs/01-excel-map.md`](docs/01-excel-map.md) ·
+[`docs/02-getting-started.md`](docs/02-getting-started.md)
 
 ## Install
 
@@ -65,7 +65,7 @@ public_dsa_panel(pub_base)    # Output 1-2
 ```
 
 For Ext-only exploration, see the older portfolio recipe in
-[`docs/pv-instruments.md`](docs/pv-instruments.md) and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
+[`docs/03-pv-instruments.md`](docs/03-pv-instruments.md) and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
 
 ## Layout
 

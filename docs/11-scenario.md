@@ -50,4 +50,6 @@ Full wiring with baseline/stress books is in
 
 Primary: [`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb)
 
-Related: [risk-rating.md](risk-rating.md), [stress-dsa.md](stress-dsa.md).
+---
+
+**Next:** [Docs hub](README.md) — end of the reading path.

@@ -82,10 +82,10 @@ grouping matches Excel row structure.
 
 | Goal | Doc | Demo |
 |------|-----|------|
-| Inspect Ext headlines / PV | [ext-debt-module-design.md](ext-debt-module-design.md) | `demo/ext_debt.ipynb` |
-| Stress paths (Input 6) | [stress-dsa.md](stress-dsa.md) | `demo/stress_dsa.ipynb` |
-| Mechanical risk rating | [risk-rating.md](risk-rating.md) | `demo/risk_rating.ipynb` |
-| All Outputs in one place | [excel-map.md](excel-map.md) | `demo/all_outputs.ipynb` |
+| Inspect Ext headlines / PV | [04-ext-debt-module-design.md](04-ext-debt-module-design.md) | `demo/ext_debt.ipynb` |
+| Stress paths (Input 6) | [08-stress-dsa.md](08-stress-dsa.md) | `demo/stress_dsa.ipynb` |
+| Mechanical risk rating | [10-risk-rating.md](10-risk-rating.md) | `demo/risk_rating.ipynb` |
+| All Outputs in one place | [01-excel-map.md](01-excel-map.md) | `demo/all_outputs.ipynb` |
 
 Quick stress sketch after the books above:
 
@@ -122,3 +122,7 @@ uv run jupyter notebook demo/all_outputs.ipynb
 ```
 
 Each demo resolves `REPO_ROOT` whether you start from the repo root or `demo/`.
+
+---
+
+**Next:** [3. PV instruments](03-pv-instruments.md)

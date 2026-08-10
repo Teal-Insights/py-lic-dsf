@@ -7,9 +7,9 @@ Outputs), these pages map sheets to packages and point at runnable demos.
 ## 10-minute path
 
 1. Install (from a checkout): `uv sync --all-groups`
-2. Open [`getting-started.md`](getting-started.md) or run
+2. Open [`02-getting-started.md`](02-getting-started.md) or run
    [`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb)
-3. Bookmark [`excel-map.md`](excel-map.md) for sheet → code lookup
+3. Bookmark [`01-excel-map.md`](01-excel-map.md) for sheet → code lookup
 
 Bundled template: [`data/lic-dsf-template-2025-08-12.xlsx`](../data/lic-dsf-template-2025-08-12.xlsx)
 (see [`NOTICE.md`](../NOTICE.md) for IMF/World Bank provenance).
@@ -28,21 +28,27 @@ rating.
 
 ## Reading order
 
-| Start here | Excel analogue | Demo |
-|------------|----------------|------|
-| [excel-map.md](excel-map.md) | Full sheet map | — |
-| [getting-started.md](getting-started.md) | End-to-end recipe | `all_outputs` |
-| [pv-instruments.md](pv-instruments.md) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
-| [ext-debt-module-design.md](ext-debt-module-design.md) | Ext_Debt_Data | `ext_debt` |
-| [dom-debt-indicators.md](dom-debt-indicators.md) | Dom_Debt_* | `dom_debt` |
-| [macro-debt-bridge.md](macro-debt-bridge.md) | Macro-Debt_Data | `macro_debt` |
-| [baseline-dsa.md](baseline-dsa.md) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
-| [stress-dsa.md](stress-dsa.md) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
-| [realism.md](realism.md) | Realism / Output 4 | `realism` |
-| [risk-rating.md](risk-rating.md) | CI / Chart Data / Output 5, 7 | `risk_rating` |
-| [scenario.md](scenario.md) | Customized / Probability / Output 6 | `all_outputs` |
+Each page links to the next at the bottom.
+
+| # | Doc | Excel analogue | Demo |
+|---|-----|----------------|------|
+| 1 | [01-excel-map.md](01-excel-map.md) | Full sheet map | — |
+| 2 | [02-getting-started.md](02-getting-started.md) | End-to-end recipe | `all_outputs` |
+| 3 | [03-pv-instruments.md](03-pv-instruments.md) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
+| 4 | [04-ext-debt-module-design.md](04-ext-debt-module-design.md) | Ext_Debt_Data | `ext_debt` |
+| 5 | [05-dom-debt-indicators.md](05-dom-debt-indicators.md) | Dom_Debt_* | `dom_debt` |
+| 6 | [06-macro-debt-bridge.md](06-macro-debt-bridge.md) | Macro-Debt_Data | `macro_debt` |
+| 7 | [07-baseline-dsa.md](07-baseline-dsa.md) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
+| 8 | [08-stress-dsa.md](08-stress-dsa.md) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
+| 9 | [09-realism.md](09-realism.md) | Realism / Output 4 | `realism` |
+| 10 | [10-risk-rating.md](10-risk-rating.md) | CI / Chart Data / Output 5, 7 | `risk_rating` |
+| 11 | [11-scenario.md](11-scenario.md) | Customized / Probability / Output 6 | `all_outputs` |
 
 ## License note
 
 MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World
 Bank work — see [`NOTICE.md`](../NOTICE.md) and [`data/PROVENANCE.md`](../data/PROVENANCE.md).
+
+---
+
+**Next:** [1. Excel map](01-excel-map.md)

@@ -80,3 +80,7 @@ Forecast-error / invest-growth / imported vintages are wired in
 ## Demo
 
 [`demo/realism.ipynb`](../demo/realism.ipynb)
+
+---
+
+**Next:** [10. Risk rating](10-risk-rating.md)

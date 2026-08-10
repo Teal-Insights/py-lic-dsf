@@ -73,4 +73,6 @@ Macro still loads macro inputs but Ext-dependent series are incomplete.
 
 [`demo/macro_debt.ipynb`](../demo/macro_debt.ipynb)
 
-Next: [Baseline DSA](baseline-dsa.md).
+---
+
+**Next:** [7. Baseline DSA](07-baseline-dsa.md)
