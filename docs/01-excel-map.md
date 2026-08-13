@@ -4,40 +4,53 @@ One-page lookup from familiar LIC-DSF sheets to `lic_dsf` types and demos.
 
 ## Pipeline
 
+One **output** travels through every package: workbook inputs become debt and
+macro series, then sustainability **ratio paths**, then stressed paths, realism
+checks, Chart Data / ratings, and finally Output-shaped **DataFrames**. Solid
+arrows are the main path; dashed arrows are parallel branches (Dom indicators,
+realism from baseline).
+
 ```mermaid
 flowchart LR
-  xlsx[Workbook_xlsx]
+  xlsx["Workbook .xlsx"]
   loaders[Loaders]
-  portfolio[PVPortfolio]
-  ext[ExternalDebtBook]
-  macro[MacroDebtBook]
-  dsa[Baseline_dsa]
-  stress[stress]
-  realism[realism]
-  rating[rating]
-  scenario[scenario]
-  panels[Output_panels]
+  pv["lic_dsf.pv<br/>PVPortfolio · ExternalDebtBook<br/>MacroDebtBook · DomesticDebtBook"]
+  dsa["lic_dsf.dsa<br/>BaselineExternalBook<br/>BaselinePublicBook"]
+  stress["lic_dsf.stress<br/>StressExternalBook<br/>StressPublicBook"]
+  realism["lic_dsf.realism<br/>ImportedDataCatalog<br/>FiscalAdjustmentPlacement"]
+  rating["lic_dsf.rating<br/>ChartDataRegistry<br/>MechanicalRatingResult · RiskRatingSummary"]
+  scenario["lic_dsf.scenario<br/>CustomizedScenarioSpec<br/>ProbabilityAssumptions"]
+  panels["Output panels<br/>DataFrame panels"]
 
   xlsx --> loaders
-  loaders --> portfolio
-  loaders --> ext
-  portfolio --> ext
-  loaders --> macro
-  ext --> macro
-  macro --> dsa
-  ext --> dsa
-  dsa --> stress
-  macro --> stress
-  dsa --> realism
-  dsa --> rating
-  stress --> rating
-  rating --> scenario
+  loaders -->|"inputs and instruments"| pv
+  pv -->|"debt and macro series"| dsa
+  dsa -->|"baseline ratio paths"| stress
+  dsa -->|"baseline ratio paths"| realism
+  stress -->|"stressed ratio paths"| rating
+  dsa -->|"baseline ratio paths"| rating
+  rating -->|"Chart Data and ratings"| scenario
+  scenario -->|"custom and probability paths"| panels
   dsa --> panels
   stress --> panels
   realism --> panels
   rating --> panels
-  scenario --> panels
+  pv -.->|"Dom indicators"| panels
 ```
+
+| Stage | Package / class | Output artifact | Excel analogue |
+|-------|-----------------|-----------------|----------------|
+| Load | loaders | Inputs & instruments | Input 1–8, PV tables |
+| Books | `pv` — `ExternalDebtBook`, `MacroDebtBook`, … | Debt & macro series | Ext / Macro / Dom sheets |
+| Baseline | `dsa` — `BaselineExternalBook`, `BaselinePublicBook` | Baseline ratio paths | Output 1-1 / 1-2 |
+| Stress | `stress` — `StressExternalBook`, `StressPublicBook` | Stressed ratio paths | Output 2 / 3 (B / B1) |
+| Realism | `realism` — `ImportedDataCatalog`, … | Realism panels | Output 4 |
+| Rating | `rating` — `ChartDataRegistry`, `RiskRatingSummary` | Chart Data & ratings | Chart Data, Output 5 / 7 |
+| Scenario | `scenario` — `CustomizedScenarioSpec`, … | Custom / probability paths | Output 6 |
+| Collect | panels | Output DataFrames | All Output sheets |
+
+Use **`load_core`** for the pv → dsa leg (Ext, Macro, baseline books). Load Dom,
+CI Summary, Input 6, and Input 7 separately when you need those branches.
 
 ## Sheet map
 
