@@ -225,6 +225,29 @@ def test_run_b1_gdp_public_with_excel_gap() -> None:
     assert book.macro.gdp_usd().loc[2025] < macro.gdp_usd().loc[2025]
 
 
+def test_b1_public_pv_to_revenue_uses_baseline_rev_to_gdp() -> None:
+    """B1 holds rev/GDP; PV/rev must not use unshocked LCU revenue / shocked GDP."""
+    macro, external = _workbook_books()
+    input6 = load_input6_standard(WORKBOOK)
+    params = load_input7_residual_params(WORKBOOK)
+    book = run_b1_gdp_public(macro, external, input6, params, iterations=4)
+
+    base_rev_to_gdp = 100.0 * macro.revenues_incl_grants() / macro.gdp_lcu()
+    expected = book.pv_public_debt_to_gdp() / base_rev_to_gdp * 100.0
+    got = book.pv_public_debt_to_revenue_grants()
+    assert float(got.loc[2025]) == pytest.approx(float(expected.loc[2025]), rel=1e-9)
+
+    naive = (
+        book.pv_public_debt_to_gdp()
+        / (100.0 * book.macro.revenues_incl_grants() / book.gdp_lcu())
+        * 100.0
+    )
+    assert float(got.loc[2025]) > float(naive.loc[2025]) + 1.0
+    assert float(got.loc[2024]) == pytest.approx(float(naive.loc[2024]), rel=1e-9)
+    panel = stress_public_panel(book)
+    assert "PV of public debt / revenue+grants" in panel.index
+
+
 def test_run_b1_gdp_public_iterative_produces_positive_fill() -> None:
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
