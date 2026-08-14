@@ -417,22 +417,60 @@ def apply_fx_depreciation_shock(
     )
 
 
+def apply_primary_balance_shock(
+    inputs: MacroDebtInputs,
+    params: Input6StandardParams,
+    *,
+    shock_sd: float | None = None,
+) -> MacroDebtInputs:
+    """Shock primary balance / GDP in projection years 2–3 (B2 / combo PB).
+
+    Lowers the primary-balance-to-GDP ratio with the Input 6 threshold rule,
+    then raises ``primary_expenditure`` so revenues minus spending hit the
+    shocked balance.
+    """
+    years = inputs.years
+    first = inputs.first_projection_year
+    sd = params.primary_balance_shock_sd if shock_sd is None else shock_sd
+    gdp = _align(inputs.gdp_usd, years)
+    revenue = _align(inputs.revenues_incl_grants, years)
+    expenditure = _align(inputs.primary_expenditure, years)
+    pb_pct = 100.0 * (revenue - expenditure) / gdp.replace(0.0, pd.NA)
+    hist_avg, hist_sd = _hist_mean_sd(pb_pct, years, first)
+    shocked_pct = pb_pct.copy()
+    window = _projection_shock_years(years, first)
+    if window is not None:
+        for year in window:
+            base = float(pb_pct.loc[year]) if pd.notna(pb_pct.loc[year]) else 0.0
+            shocked_pct.loc[year] = _shocked_growth(
+                base, hist_avg, hist_sd, sd, params.threshold_rule
+            )
+    new_pb = gdp * shocked_pct / 100.0
+    new_expenditure = (revenue - new_pb).astype(float)
+    return replace(inputs, primary_expenditure=new_expenditure)
+
+
 def apply_combo_shock(
     inputs: MacroDebtInputs, params: Input6StandardParams
 ) -> MacroDebtInputs:
-    """Apply B6 half-size combination of GDP, exports, other flows, and FX rates.
+    """Apply B6 half-size combination of GDP, PB, exports, other flows, and FX.
 
-    GDP / exports / transfers / FDI use half-size Input 6 magnitudes. FX levels
-    are scaled from the second projection year by the half-size depreciation,
-    and the GDP deflator picks up ``passthrough × (baseline NC depreciation −
-    shock size)`` in that year (B6 ``E51`` FX term) without the full B5
-    ``(1 − passthrough) × dep`` rewrite.
+    GDP / primary balance / exports / transfers / FDI use half-size Input 6
+    magnitudes. FX levels are scaled from the second projection year by the
+    half-size depreciation, and the GDP deflator picks up
+    ``passthrough × (baseline NC depreciation − shock size)`` in that year
+    (B6 ``E51`` FX term) without the full B5 ``(1 − passthrough) × dep`` rewrite.
     """
     out = apply_real_gdp_shock(
         inputs,
         params,
         shock_sd=params.combo_gdp_shock_sd,
         inflation_elasticity=params.inflation_elasticity,
+    )
+    out = apply_primary_balance_shock(
+        out,
+        params,
+        shock_sd=params.combo_primary_balance_shock_sd,
     )
     out = apply_exports_shock(
         out,
@@ -505,3 +543,29 @@ def depreciation_of_nc_pct(inputs: MacroDebtInputs) -> pd.Series:
     dollar_per_nc = (1.0 / fx.replace(0.0, pd.NA)).astype(float)
     prior = dollar_per_nc.shift(1)
     return (-100.0 * (dollar_per_nc / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
+
+
+def real_depreciation_pct(
+    *,
+    nominal_dep: float,
+    foreign_deflator_growth: float,
+    lcu_deflator_growth: float,
+    passthrough: float,
+    real_growth_gap: float = 0.0,
+    inflation_elasticity: float = 0.0,
+) -> float:
+    """B5/B6 E43 real depreciation implied by a nominal FX shock.
+
+    Excel: `(100+dep)*(100+Macro R112) / (100+Macro R109 + passthrough*dep
+    - (g_baseline - g_shock)*inflation elasticity) - 100`. Combo subtracts
+    the real-growth gap term; B5 has `g_baseline = g_shock` so it is zero.
+    """
+    denom = (
+        100.0
+        + lcu_deflator_growth
+        + passthrough * nominal_dep
+        - real_growth_gap * inflation_elasticity
+    )
+    if denom == 0.0:
+        return 0.0
+    return (100.0 + nominal_dep) * (100.0 + foreign_deflator_growth) / denom - 100.0

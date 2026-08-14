@@ -26,6 +26,7 @@ _INPUT5_FIRST_YEAR_COL = 8  # H → first year (2023 in template)
 # Input 3 rows mirrored by Macro pass-through / hist formulas.
 _I3_GDP_USD = 12
 _I3_GDP_CONSTANT = 13
+_I3_FOREIGN_DEFLATOR = 18
 _I3_FX_EOP = 19
 _I3_FX_PA = 20
 _I3_CA = 34
@@ -184,6 +185,7 @@ def load_macro_debt_inputs(workbook_path: str | Path) -> MacroDebtInputs:
             gdp_constant=i3(_I3_GDP_CONSTANT),
             fx_eop=i3(_I3_FX_EOP),
             fx_pa=i3(_I3_FX_PA),
+            foreign_gdp_deflator=i3(_I3_FOREIGN_DEFLATOR),
             current_account=i3(_I3_CA),
             exports=i3(_I3_EXPORTS),
             imports=i3(_I3_IMPORTS),

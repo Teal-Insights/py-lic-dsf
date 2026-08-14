@@ -69,3 +69,5 @@ class MacroDebtInputs:
     domestic_interest_lcu_input5: pd.Series
     domestic_principal_lcu_input5: pd.Series
     public_gfn_input5: pd.Series
+    # Macro R58 (Input 3 row 18); optional so synthetic fixtures stay compact.
+    foreign_gdp_deflator: pd.Series | None = None

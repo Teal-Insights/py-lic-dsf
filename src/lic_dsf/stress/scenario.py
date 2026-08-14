@@ -2,20 +2,20 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import pandas as pd
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
+from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.pv.portfolio import PVPortfolio
+from lic_dsf.stress.bound import external_residual_borrowing
 from lic_dsf.stress.residual_pv import (
     external_dsa_residual_params,
-    external_residual_gap,
-    flow_shortfall_gap,
     resfin_instrument,
     resfin_overlay_series,
-    stressed_external_stock_from_shortfall,
 )
 from lic_dsf.stress.shocks import (
     apply_combo_shock,
@@ -63,6 +63,7 @@ class StressExternalBook:
     resfin_pv: pd.Series
     resfin_interest: pd.Series
     resfin_amortization: pd.Series
+    residual_borrowing: pd.Series
     scenario_id: StressScenarioId
 
     @property
@@ -143,6 +144,33 @@ def _zero_overlay(years: tuple[int, ...]) -> tuple[pd.Series, pd.Series, pd.Seri
     return z.copy(), z.copy(), z.copy()
 
 
+def rebuild_external_with_fx(
+    external: ExternalDebtBook,
+    fx_pa: pd.Series,
+    fx_eop: pd.Series,
+) -> ExternalDebtBook:
+    """Rebuild Ext with shocked FX so LC-NR USD PV/stock revalue (B5/B6)."""
+    instruments = []
+    for inst in external.portfolio.instruments:
+        if isinstance(inst, LocalCurrencyNonResidentInstrument) and inst.years:
+            years = list(inst.years)
+            pa = fx_pa.reindex(years).ffill().bfill()
+            eop = fx_eop.reindex(years).ffill().bfill()
+            instruments.append(
+                replace(
+                    inst,
+                    fx_pa=[float(pa.loc[y]) for y in years],
+                    fx_eop=[float(eop.loc[y]) for y in years],
+                )
+            )
+        else:
+            instruments.append(inst)
+    return ExternalDebtBook(
+        portfolio=PVPortfolio(instruments=tuple(instruments)),
+        inputs=replace(external.inputs, fx_pa=fx_pa, fx_eop=fx_eop),
+    )
+
+
 def _build_book(
     *,
     baseline_macro: MacroDebtBook,
@@ -154,7 +182,7 @@ def _build_book(
 ) -> StressExternalBook:
     years = shocked_macro.inputs.years
     params = external_dsa_residual_params(residual_params)
-    if float(gap.fillna(0.0).clip(lower=0.0).sum()) == 0.0:
+    if float(gap.fillna(0.0).abs().sum()) == 0.0:
         pv, interest, amort = _zero_overlay(years)
     else:
         instrument = resfin_instrument(
@@ -171,6 +199,7 @@ def _build_book(
         resfin_pv=pv,
         resfin_interest=interest,
         resfin_amortization=amort,
+        residual_borrowing=_align(gap, years).fillna(0.0).astype(float),
         scenario_id=scenario_id,
     )
 
@@ -201,19 +230,6 @@ def run_b1_gdp_external(
     )
 
 
-def _external_gap_from_shortfall(
-    macro: MacroDebtBook,
-    shortfall: pd.Series,
-) -> pd.Series:
-    """Debt-identity residual from baseline PPG stock + cumulative shortfall."""
-    years = macro.inputs.years
-    baseline_stock = _align(macro.ppg_external(), years).fillna(0.0)
-    stressed_stock = stressed_external_stock_from_shortfall(
-        baseline_stock, shortfall, years
-    )
-    return external_residual_gap(baseline_stock, stressed_stock, years)
-
-
 def run_b3_exports_external(
     macro: MacroDebtBook,
     external: ExternalDebtBook,
@@ -223,9 +239,8 @@ def run_b3_exports_external(
     """Run the B3 exports external stress test."""
     shocked_inputs = apply_exports_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    years = shocked_macro.inputs.years
-    shortfall = flow_shortfall_gap(macro.exports(), shocked_macro.exports(), years)
-    gap = _external_gap_from_shortfall(macro, shortfall)
+    rate = float(residual_params.avg_interest_rate) / 100.0
+    gap = external_residual_borrowing(macro, shocked_macro, residual_interest_rate=rate)
     return _build_book(
         baseline_macro=macro,
         shocked_macro=shocked_macro,
@@ -245,13 +260,8 @@ def run_b4_other_flows_external(
     """Run the B4 other-flows (transfers + FDI) external stress test."""
     shocked_inputs = apply_other_flows_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    years = shocked_macro.inputs.years
-    shortfall = flow_shortfall_gap(
-        macro.inputs.current_transfers_net,
-        shocked_macro.inputs.current_transfers_net,
-        years,
-    ) + flow_shortfall_gap(macro.inputs.fdi, shocked_macro.inputs.fdi, years)
-    gap = _external_gap_from_shortfall(macro, shortfall)
+    rate = float(residual_params.avg_interest_rate) / 100.0
+    gap = external_residual_borrowing(macro, shocked_macro, residual_interest_rate=rate)
     return _build_book(
         baseline_macro=macro,
         shocked_macro=shocked_macro,
@@ -271,10 +281,20 @@ def run_b5_fx_external(
     """Run the B5 FX-depreciation external stress test."""
     shocked_inputs = apply_fx_depreciation_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    # Full B5 debt-identity residual (revaluation) is deferred; GDP-deflator
-    # pass-through alone drives the first-order PV/GDP move.
-    years = shocked_macro.inputs.years
-    gap = pd.Series(0.0, index=list(years), dtype=float)
+    rate = float(residual_params.avg_interest_rate) / 100.0
+    gap = external_residual_borrowing(
+        macro,
+        shocked_macro,
+        fx_depreciation_pct=input6.fx_depreciation_pct,
+        fx_passthrough=input6.fx_passthrough if input6.interactions_on else 0.0,
+        inflation_elasticity=input6.inflation_elasticity
+        if input6.interactions_on
+        else 0.0,
+        residual_interest_rate=rate,
+        net_exports_elasticity=input6.net_exports_elasticity
+        if input6.interactions_on
+        else 0.0,
+    )
     return _build_book(
         baseline_macro=macro,
         shocked_macro=shocked_macro,
@@ -294,17 +314,20 @@ def run_b6_combo_external(
     """Run the B6 half-size combination external stress test."""
     shocked_inputs = apply_combo_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    years = shocked_macro.inputs.years
-    shortfall = (
-        flow_shortfall_gap(macro.exports(), shocked_macro.exports(), years)
-        + flow_shortfall_gap(
-            macro.inputs.current_transfers_net,
-            shocked_macro.inputs.current_transfers_net,
-            years,
-        )
-        + flow_shortfall_gap(macro.inputs.fdi, shocked_macro.inputs.fdi, years)
+    rate = float(residual_params.avg_interest_rate) / 100.0
+    gap = external_residual_borrowing(
+        macro,
+        shocked_macro,
+        fx_depreciation_pct=input6.combo_fx_depreciation_pct,
+        fx_passthrough=input6.fx_passthrough if input6.interactions_on else 0.0,
+        inflation_elasticity=input6.inflation_elasticity
+        if input6.interactions_on
+        else 0.0,
+        residual_interest_rate=rate,
+        net_exports_elasticity=input6.net_exports_elasticity
+        if input6.interactions_on
+        else 0.0,
     )
-    gap = _external_gap_from_shortfall(macro, shortfall)
     return _build_book(
         baseline_macro=macro,
         shocked_macro=shocked_macro,

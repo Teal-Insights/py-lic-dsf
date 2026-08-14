@@ -25,6 +25,7 @@ from lic_dsf.stress import (
     StressExternalBook,
     apply_real_gdp_shock,
     load_input6_standard,
+    real_depreciation_pct,
     resfin_instrument,
     resfin_overlay_series,
     run_b1_gdp_external,
@@ -333,6 +334,7 @@ def test_stress_external_book_overlay_raises_pv_ratio() -> None:
         resfin_pv=overlay_pv,
         resfin_interest=z,
         resfin_amortization=z,
+        residual_borrowing=z,
         scenario_id="B1_GDP",
     )
     base_pv_gdp = (
@@ -429,22 +431,51 @@ def test_run_standard_external_stress_registry() -> None:
     [
         ("B3_Exports", "B3_Exports_ext"),
         ("B4_OtherFlows", "B4_other flows_ext"),
+        ("B5_FX", "B5_depreciation_ext"),
+        ("B6_Combo", "B6_Combo_mkt_ext"),
     ],
 )
-def test_standard_external_ratio_parity_flow_shocks(
-    scenario_id: str, sheet: str
+@pytest.mark.parametrize(
+    ("method", "row"),
+    [
+        ("pv_ppg_external_to_gdp", 35),
+        ("pv_ppg_external_to_exports", 36),
+        ("ppg_debt_service_to_exports", 39),
+    ],
+)
+def test_standard_external_ratio_parity(
+    scenario_id: str, sheet: str, method: str, row: int
 ) -> None:
-    years = [2024, 2025, 2026]
+    years = [2024, 2025, 2026, 2027, 2028]
     macro, external, params = _workbook_bundle()
     residual = external.residual_params()
     book = run_standard_external_stress(macro, external, params, residual)[scenario_id]
-    got = book.pv_ppg_external_to_gdp().reindex(years)
-    expected = _sheet_cached(sheet, 8, 3, 35, years)
+    got = getattr(book, method)().reindex(years)
+    expected = _sheet_cached(sheet, 8, 3, row, years)
     for year in expected.index:
-        tol = 0.25 if year >= 2026 else 1e-4
         assert got.loc[year] == pytest.approx(
-            float(expected.loc[year]), rel=1e-4, abs=tol
-        ), f"{scenario_id} R35 {year}"
+            float(expected.loc[year]), rel=1e-7, abs=1e-4
+        ), f"{scenario_id} {method} {year}"
+
+
+def test_real_depreciation_pct_matches_b5_b6_e43() -> None:
+    """B5/B6 E43: real dep uses foreign deflator growth, not the nominal shock."""
+    foreign_g = 1.8475197751998351
+    lcu_g = 9.635590457446707
+    assert real_depreciation_pct(
+        nominal_dep=30.0,
+        foreign_deflator_growth=foreign_g,
+        lcu_deflator_growth=lcu_g,
+        passthrough=0.3,
+    ) == pytest.approx(11.603756678103139, abs=1e-9)
+    assert real_depreciation_pct(
+        nominal_dep=15.0,
+        foreign_deflator_growth=foreign_g,
+        lcu_deflator_growth=lcu_g,
+        passthrough=0.3,
+        real_growth_gap=8.859360587787224 - 5.124091583320329,
+        inflation_elasticity=0.6,
+    ) == pytest.approx(4.674244044941062, abs=1e-9)
 
 
 def test_b5_fx_gdp_and_baseline_year_parity() -> None:
@@ -465,21 +496,4 @@ def test_b5_fx_gdp_and_baseline_year_parity() -> None:
     assert (
         book.pv_ppg_external_to_gdp().loc[2025]
         > book.pv_ppg_external_to_gdp().loc[2024]
-    )
-
-
-def test_b6_combo_moves_ratios() -> None:
-    macro, external, params = _workbook_bundle()
-    residual = external.residual_params()
-    book = run_standard_external_stress(macro, external, params, residual)["B6_Combo"]
-    baseline_r35 = (
-        100.0
-        * float(external.total_pv_of_debt().loc[2025])
-        / float(macro.gdp_usd().loc[2025])
-    )
-    assert book.macro.gdp_usd().loc[2025] < macro.gdp_usd().loc[2025]
-    assert book.pv_ppg_external_to_gdp().loc[2025] > baseline_r35
-    expected_gdp = _sheet_cached("B6_Combo_mkt_ext", 8, 3, 46, [2025])
-    assert book.macro.gdp_usd().loc[2025] == pytest.approx(
-        float(expected_gdp.loc[2025]), rel=0.02, abs=50.0
     )

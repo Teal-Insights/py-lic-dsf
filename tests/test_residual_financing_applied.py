@@ -26,6 +26,7 @@ from lic_dsf.stress import (
     public_residual_gap,
     run_b1_gdp_public,
     run_b3_exports_external,
+    run_b5_fx_external,
     split_residual_financing,
     stress_public_panel,
     stressed_external_stock_from_shortfall,
@@ -243,13 +244,31 @@ def test_b3_external_gap_r86_r89_parity() -> None:
     input6 = load_input6_standard(WORKBOOK)
     params = load_input7_residual_params(WORKBOOK)
     book = run_b3_exports_external(macro, external, input6, params)
-    years = [2024, 2025]
+    years = [2024, 2025, 2026, 2027, 2028]
     expected_r86 = _sheet_row("B3_Exports_ext", 8, 3, 86, years)
     expected_r89 = _sheet_row("B3_Exports_ext", 8, 3, 89, years)
-    # 2025: identity matches export shortfall / ResFin PV.
-    assert book.resfin_pv.loc[2025] == pytest.approx(
-        float(expected_r89.loc[2025]), rel=1e-5, abs=1e-3
-    )
-    assert float(expected_r86.loc[2025]) == pytest.approx(
-        float(expected_r89.loc[2025]), rel=1e-5, abs=1e-3
-    )
+    borrowing = book.residual_borrowing
+    for year in years:
+        if year < macro.inputs.first_projection_year:
+            continue
+        assert float(borrowing.loc[year]) == pytest.approx(
+            float(expected_r86.loc[year]), rel=1e-5, abs=1e-3
+        ), f"residual borrowing {year}"
+        assert book.resfin_pv.loc[year] == pytest.approx(
+            float(expected_r89.loc[year]), rel=1e-5, abs=1e-3
+        ), f"ResFin PV {year}"
+
+
+def test_b5_fx_gap_r87_parity() -> None:
+    macro, external = _workbook_books()
+    input6 = load_input6_standard(WORKBOOK)
+    params = load_input7_residual_params(WORKBOOK)
+    book = run_b5_fx_external(macro, external, input6, params)
+    years = [2024, 2025, 2026, 2027, 2028]
+    expected = _sheet_row("B5_depreciation_ext", 8, 3, 87, years)
+    for year in years:
+        if year < macro.inputs.first_projection_year:
+            continue
+        assert float(book.residual_borrowing.loc[year]) == pytest.approx(
+            float(expected.loc[year]), rel=1e-5, abs=1e-3
+        ), f"B5 residual borrowing {year}"

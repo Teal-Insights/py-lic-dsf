@@ -93,8 +93,9 @@ def resfin_instrument(
 
     Args:
         gap: Residual borrowing need by year (USD). When ``apply_share`` is
-            True, disbursements are ``max(gap, 0) × external_mlt_share``;
-            otherwise ``gap`` is treated as already-split ext MLT USD.
+            True, disbursements are ``gap × external_mlt_share`` (negative gap
+            is a FX/revaluation overlay); otherwise ``gap`` is already-split
+            ext MLT USD.
         params: Input 7 residual financing terms.
         discount_rate: DSA discount rate; defaults to ``params.discount_rate``.
         years: Calendar years aligned with ``gap``.
@@ -106,7 +107,7 @@ def resfin_instrument(
     year_list = list(years)
     aligned = gap.reindex(year_list).fillna(0.0).astype(float)
     share = params.external_mlt_share if apply_share else 1.0
-    disbursements = [max(float(aligned.loc[y]), 0.0) * share for y in year_list]
+    disbursements = [float(aligned.loc[y]) * share for y in year_list]
     grace = max(int(params.avg_grace_rounded), 0)
     maturity = max(int(params.avg_maturity_rounded), grace + 1)
     rate = (

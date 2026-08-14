@@ -249,6 +249,7 @@ def _workbook_macro_book() -> MacroDebtBook:
         ("short_term_external", 10, [2020, 2023, 2024, 2025]),
         ("revenues_incl_grants", 45, [2020, 2023, 2024]),
         ("gdp_usd", 56, [2020, 2023, 2024]),
+        ("foreign_gdp_deflator", 58, [2020, 2023, 2024]),
         ("fx_eop", 59, [2020, 2023, 2024]),
         ("fx_pa", 60, [2020, 2023, 2024]),
         ("external_gfn", 74, [2024, 2025, 2026]),

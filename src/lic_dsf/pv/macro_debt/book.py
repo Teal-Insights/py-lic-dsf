@@ -36,6 +36,13 @@ class MacroDebtBook:
         """Macro R57."""
         return self.inputs.gdp_constant.reindex(list(self.inputs.years)).astype(float)
 
+    def foreign_gdp_deflator(self) -> pd.Series:
+        """Macro R58 (foreign-currency GDP deflator index)."""
+        series = self.inputs.foreign_gdp_deflator
+        if series is None:
+            return pd.Series(dtype=float)
+        return series.reindex(list(self.inputs.years)).astype(float)
+
     def fx_eop(self) -> pd.Series:
         """Macro R59."""
         return self.inputs.fx_eop.reindex(list(self.inputs.years)).astype(float)
