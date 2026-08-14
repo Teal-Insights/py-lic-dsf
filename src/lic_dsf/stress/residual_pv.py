@@ -338,12 +338,13 @@ def dom_mlt_resfin_series(
     span = float(maturity - grace)
 
     amort = pd.Series(0.0, index=year_list, dtype=float)
-    # Cohort amortization: each disbursement amortizes evenly after grace.
+    # Cohort amortization: Excel R91 uses CHOOSE offsets so vintage t
+    # amortizes from t+grace+1 through t+maturity (not t+grace).
     for i, year in enumerate(year_list):
         amount = float(disb.loc[year])
         if amount <= 0.0:
             continue
-        for j in range(grace, maturity):
+        for j in range(grace + 1, maturity + 1):
             target_i = i + j
             if target_i >= len(year_list):
                 break

@@ -45,34 +45,135 @@ def _zero_fill(years: tuple[int, ...]) -> ResidualFill:
     )
 
 
+def _inflation_elasticity(input6: Input6StandardParams) -> float:
+    if not input6.interactions_on:
+        return 0.0
+    return float(input6.inflation_elasticity)
+
+
+def _growth_pct(level: pd.Series) -> pd.Series:
+    prior = pd.Series(level.shift(1), dtype=float)
+    return (100.0 * (level / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
+
+
+def _b1_public_gdp_lcu(
+    baseline_macro: MacroDebtBook,
+    shocked_macro: MacroDebtBook,
+    inflation_elasticity: float,
+) -> pd.Series:
+    """B1_GDP_pub R41: LCU GDP compounded with shocked real × LCU deflator.
+
+    Differs from ``gdp_usd × FX(pa)``: Excel applies the inflation elasticity
+    to the LCU deflator (Macro R109) and compounds in LCU, not USD.
+    """
+    years = shocked_macro.inputs.years
+    first = shocked_macro.inputs.first_projection_year
+    base_lcu = _align(baseline_macro.gdp_lcu(), years)
+    base_const = _align(baseline_macro.gdp_constant(), years).replace(0.0, pd.NA)
+    shock_const = _align(shocked_macro.gdp_constant(), years).replace(0.0, pd.NA)
+    real_s = _growth_pct(shock_const)
+    real_b = _growth_pct(base_const)
+    defl_b = _growth_pct(base_lcu / base_const)
+    defl_s = defl_b - (real_b - real_s) * inflation_elasticity
+    out = base_lcu.copy()
+    for year in years:
+        if year <= first:
+            continue
+        prior = year - 1
+        if prior not in out.index:
+            continue
+        rg = float(real_s.loc[year]) if pd.notna(real_s.loc[year]) else 0.0
+        dg = float(defl_s.loc[year]) if pd.notna(defl_s.loc[year]) else 0.0
+        out.loc[year] = float(out.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
+    return out.astype(float)
+
+
+def _b1_other_identified_flows_lcu(baseline_macro: MacroDebtBook) -> pd.Series:
+    """B1 R89: other identified debt-creating flows at baseline LCU.
+
+    Matches Baseline R33/100 × GDP_LCU: contingent + other flows −
+    privatization − debt relief.
+    """
+    years = baseline_macro.inputs.years
+    return (
+        _align(baseline_macro.inputs.contingent_liabilities, years).fillna(0.0)
+        + _align(baseline_macro.inputs.other_debt_creating_flows, years).fillna(0.0)
+        - _align(baseline_macro.inputs.privatization, years).fillna(0.0)
+        - _align(baseline_macro.inputs.debt_relief, years).fillna(0.0)
+    )
+
+
+def _b1_primary_deficit_lcu(
+    baseline_macro: MacroDebtBook,
+    shocked_gdp_lcu: pd.Series,
+) -> pd.Series:
+    """B1 R88: primary deficit LCU under a real-GDP shock.
+
+    Primary expenditure and grants stay at baseline LCU. Non-grant revenue
+    scales with shocked GDP (B1 holds rev/GDP from the first shock year).
+    """
+    years = baseline_macro.inputs.years
+    gdp_s = _align(shocked_gdp_lcu, years).replace(0.0, pd.NA)
+    gdp_b = _align(baseline_macro.gdp_lcu(), years).replace(0.0, pd.NA)
+    prim_exp = _align(baseline_macro.inputs.primary_expenditure, years).fillna(0.0)
+    grants = _align(baseline_macro.grants(), years).fillna(0.0)
+    rev_excl = _align(baseline_macro.revenues_incl_grants(), years).fillna(0.0) - grants
+    return (prim_exp - rev_excl * (gdp_s / gdp_b) - grants).astype(float)
+
+
 def estimate_b1_public_gfn(
     baseline_macro: MacroDebtBook,
     shocked_macro: MacroDebtBook,
     resfin: PublicResFinOverlay | None = None,
+    *,
+    inflation_elasticity: float = 0.0,
+    gdp_lcu: pd.Series | None = None,
 ) -> pd.Series:
-    """Estimate B1_GDP_pub R90-style public GFN (LCU).
+    """B1_GDP_pub R90 public GFN (LCU).
 
-    First-order term scales baseline GFN by the inverse GDP ratio (financing
-    need rises when GDP falls). Residual-financing interest / ST from a prior
-    iteration are added when ``resfin`` is provided.
+    Identity: primary deficit + existing interest + existing amort + prior
+    domestic ST + other identified flows. Debt service is not scaled with
+    GDP. Residual-financing service and prior ResFin ST are added when
+    ``resfin`` is provided (R84–R87 / prior R81).
+
+    Args:
+        baseline_macro: Unshocked Macro book (fiscal LCU and baseline GFN).
+        shocked_macro: B1-shocked Macro book (existing debt service).
+        resfin: Public ResFin overlay from a prior iteration, if any.
+        inflation_elasticity: Input 6 elasticity applied to the LCU deflator
+            when reconstructing B1 R41 (0 when interactions are off).
+        gdp_lcu: Optional precomputed B1 R41 path; computed from the books
+            when omitted.
     """
     years = shocked_macro.inputs.years
-    base_gfn = _align(baseline_macro.public_gfn(), years).fillna(0.0)
-    base_gdp = _align(baseline_macro.gdp_lcu(), years).replace(0.0, pd.NA)
-    shock_gdp = _align(shocked_macro.gdp_lcu(), years).replace(0.0, pd.NA)
-    gfn = (base_gfn * base_gdp / shock_gdp).fillna(base_gfn).astype(float)
+    shocked_gdp = (
+        gdp_lcu
+        if gdp_lcu is not None
+        else _b1_public_gdp_lcu(baseline_macro, shocked_macro, inflation_elasticity)
+    )
+    fx = _align(shocked_macro.fx_pa(), years).fillna(1.0)
+    interest = _align(shocked_macro.interest_expenditure(), years).fillna(0.0)
+    amort = (
+        _align(shocked_macro.ppg_amortization(), years).fillna(0.0)
+        + _align(shocked_macro.domestic_amortization(), years).fillna(0.0)
+    ) * fx
+    prior_st = _align(shocked_macro.domestic_st(), years).shift(1).fillna(0.0)
+    gfn = (
+        _b1_primary_deficit_lcu(baseline_macro, shocked_gdp)
+        + interest
+        + amort
+        + prior_st
+        + _b1_other_identified_flows_lcu(baseline_macro)
+    ).astype(float)
 
     if resfin is None:
         return gfn
 
-    fx = _align(shocked_macro.fx_pa(), years).fillna(1.0)
     first = shocked_macro.inputs.first_projection_year
     extra = pd.Series(0.0, index=list(years), dtype=float)
     for year in years:
         if year < first:
             continue
-        # ResFin domestic interest + ST interest + ext interest×FX + amort×FX
-        # + prior ST stock (feeds next-year GFN like B1 R81).
         extra.loc[year] = (
             float(resfin.dom_mlt.interest.reindex([year]).fillna(0.0).loc[year])
             + float(resfin.dom_st.interest.reindex([year]).fillna(0.0).loc[year])
@@ -82,13 +183,12 @@ def estimate_b1_public_gfn(
             * float(fx.loc[year])
             + float(resfin.dom_mlt.amortization.reindex([year]).fillna(0.0).loc[year])
         )
-    # Prior-year ResFin ST enters GFN (B1 R90 uses prior R81).
-    prior_st = resfin.dom_st.stock.shift(1).fillna(0.0)
+    prior_resfin_st = resfin.dom_st.stock.shift(1).fillna(0.0)
     for year in years:
         if year < first:
             continue
         extra.loc[year] = float(extra.loc[year]) + float(
-            prior_st.reindex([year]).fillna(0.0).loc[year]
+            prior_resfin_st.reindex([year]).fillna(0.0).loc[year]
         )
     return (gfn + extra).astype(float)
 
@@ -102,6 +202,7 @@ class StressPublicBook:
     baseline_macro: MacroDebtBook
     resfin: PublicResFinOverlay
     scenario_id: str = "B1_GDP_pub"
+    inflation_elasticity: float = 0.0
 
     @property
     def years(self) -> tuple[int, ...]:
@@ -109,8 +210,10 @@ class StressPublicBook:
         return self.macro.inputs.years
 
     def gdp_lcu(self) -> pd.Series:
-        """Shocked GDP in LCU."""
-        return self.macro.gdp_lcu()
+        """B1 R41 shocked GDP in LCU (real × LCU deflator compounding)."""
+        return _b1_public_gdp_lcu(
+            self.baseline_macro, self.macro, self.inflation_elasticity
+        )
 
     def _resfin_external_lcu(self) -> pd.Series:
         fx = self.macro.fx_pa()
@@ -181,8 +284,13 @@ class StressPublicBook:
         return _clamp_nonnegative(_pct(numer, self.macro.revenues_incl_grants()))
 
     def public_gfn(self) -> pd.Series:
-        """Stressed public GFN estimate (LCU)."""
-        return estimate_b1_public_gfn(self.baseline_macro, self.macro, self.resfin)
+        """B1 R90 public GFN (LCU)."""
+        return estimate_b1_public_gfn(
+            self.baseline_macro,
+            self.macro,
+            self.resfin,
+            inflation_elasticity=self.inflation_elasticity,
+        )
 
 
 def run_b1_gdp_public(
@@ -203,7 +311,7 @@ def run_b1_gdp_public(
         input6: Input 6 standard shock params.
         residual_params: Input 7 value-used params (public J shares + terms).
         iterations: Fixed-point iterations for GFN ↔ ResFin feedback.
-        public_gap: Optional precomputed public ΔGFN (LCU); skips estimation.
+        public_gap: Optional precomputed public ΔGFN (LCU); skips GFN iteration.
         ext_r86: Optional external residual gap (USD); defaults to zeros (B1).
 
     Returns:
@@ -212,14 +320,14 @@ def run_b1_gdp_public(
     shocked_inputs = apply_real_gdp_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
     years = shocked_macro.inputs.years
+    elasticity = _inflation_elasticity(input6)
+    shocked_gdp_lcu = _b1_public_gdp_lcu(macro, shocked_macro, elasticity)
     r86 = (
         ext_r86.reindex(list(years)).fillna(0.0).astype(float)
         if ext_r86 is not None
         else pd.Series(0.0, index=list(years), dtype=float)
     )
-    deflator = gdp_deflator_growth(
-        shocked_macro.inputs.gdp_usd, shocked_macro.inputs.gdp_constant
-    )
+    deflator = gdp_deflator_growth(macro.gdp_lcu(), macro.gdp_constant())
     fx = shocked_macro.fx_pa()
 
     if public_gap is not None:
@@ -236,12 +344,19 @@ def run_b1_gdp_public(
             baseline_macro=macro,
             resfin=overlay,
             scenario_id="B1_GDP_pub",
+            inflation_elasticity=elasticity,
         )
 
     overlay: PublicResFinOverlay | None = None
     fill = _zero_fill(years)
     for _ in range(max(iterations, 1)):
-        stressed_gfn = estimate_b1_public_gfn(macro, shocked_macro, overlay)
+        stressed_gfn = estimate_b1_public_gfn(
+            macro,
+            shocked_macro,
+            overlay,
+            inflation_elasticity=elasticity,
+            gdp_lcu=shocked_gdp_lcu,
+        )
         gap = public_residual_gap(stressed_gfn, macro.public_gfn(), years)
         # Zero gap before first projection year.
         for year in years:
@@ -261,6 +376,7 @@ def run_b1_gdp_public(
         baseline_macro=macro,
         resfin=overlay,
         scenario_id="B1_GDP_pub",
+        inflation_elasticity=elasticity,
     )
 
 

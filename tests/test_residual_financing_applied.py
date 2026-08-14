@@ -172,6 +172,26 @@ def test_dom_mlt_and_st_series_synthetic() -> None:
     assert st.interest.loc[2026] == pytest.approx(100.0 * (0.04 + 0.05))
 
 
+def test_dom_mlt_amort_starts_after_grace_full_years() -> None:
+    """Excel R91: vintage t amortizes from t+grace+1 through t+maturity."""
+    years = (2024, 2025, 2026, 2027, 2028, 2029)
+    disb = pd.Series(0.0, index=list(years), dtype=float)
+    disb.loc[2025] = 100.0
+    deflator = pd.Series(0.05, index=list(years), dtype=float)
+    mlt = dom_mlt_resfin_series(
+        disb,
+        real_rate=0.03,
+        grace=2,
+        maturity=3,
+        deflator=deflator,
+        years=years,
+    )
+    assert mlt.amortization.loc[2026] == pytest.approx(0.0)
+    assert mlt.amortization.loc[2027] == pytest.approx(0.0)
+    assert mlt.amortization.loc[2028] == pytest.approx(100.0)
+    assert mlt.amortization.loc[2029] == pytest.approx(0.0)
+
+
 def test_pv_resfin_pub_b1_fill_parity_with_excel_gap() -> None:
     """Given Excel public gap, split + overlays match PV_ResFin_pub B1 block."""
     years = [2024, 2025, 2026]
@@ -225,6 +245,27 @@ def test_run_b1_gdp_public_with_excel_gap() -> None:
     assert book.macro.gdp_usd().loc[2025] < macro.gdp_usd().loc[2025]
 
 
+def test_b1_public_gfn_matches_excel_r90_given_excel_gap() -> None:
+    """B1 R90 is a fiscal+DS identity, not baseline GFN scaled by inverse GDP."""
+    macro, external = _workbook_books()
+    input6 = load_input6_standard(WORKBOOK)
+    params = load_input7_residual_params(WORKBOOK)
+    years = list(range(2024, 2035))
+    gap = _sheet_row("PV_ResFin_pub", 2, 4, 67, years)
+    book = run_b1_gdp_public(macro, external, input6, params, public_gap=gap)
+    expected = _sheet_row("B1_GDP_pub", 7, 3, 90, years)
+    expected_gdp = _sheet_row("B1_GDP_pub", 7, 3, 41, years)
+    got = book.public_gfn()
+    got_gdp = book.gdp_lcu()
+    for year in years:
+        assert float(got_gdp.loc[year]) == pytest.approx(
+            float(expected_gdp.loc[year]), rel=1e-6, abs=0.1
+        ), f"B1 R41 GDP LCU {year}"
+        assert float(got.loc[year]) == pytest.approx(
+            float(expected.loc[year]), rel=1e-4, abs=1.0
+        ), f"B1 R90 GFN {year}"
+
+
 def test_b1_public_pv_to_revenue_uses_baseline_rev_to_gdp() -> None:
     """B1 holds rev/GDP; PV/rev must not use unshocked LCU revenue / shocked GDP."""
     macro, external = _workbook_books()
@@ -256,9 +297,20 @@ def test_run_b1_gdp_public_iterative_produces_positive_fill() -> None:
     assert float(book.resfin.fill.external_mlt_usd.loc[2025]) > 0.0
     assert float(book.resfin.fill.domestic_mlt_lcu.loc[2025]) > 0.0
     assert float(book.resfin.fill.domestic_st_lcu.loc[2025]) > 0.0
-    # Within ~20% of Excel B1 fill for 2025 (GDP-scaled GFN approx).
+    years = list(range(2024, 2029))
+    expected_gfn = _sheet_row("B1_GDP_pub", 7, 3, 90, years)
+    expected_gap = _sheet_row("PV_ResFin_pub", 2, 4, 67, years)
+    got_gfn = book.public_gfn()
+    got_gap = public_residual_gap(got_gfn, macro.public_gfn(), tuple(years))
+    for year in years:
+        assert float(got_gfn.loc[year]) == pytest.approx(
+            float(expected_gfn.loc[year]), rel=1e-3, abs=5.0
+        ), f"iterative B1 R90 {year}"
+        assert float(got_gap.loc[year]) == pytest.approx(
+            float(expected_gap.loc[year]), rel=1e-3, abs=5.0
+        ), f"iterative R67 {year}"
     assert book.resfin.fill.external_mlt_usd.loc[2025] == pytest.approx(
-        303.65, rel=0.2, abs=50.0
+        303.65, rel=1e-3, abs=1.0
     )
 
 
