@@ -17,6 +17,30 @@ def _as_float_list(values: Sequence[float], horizon: int) -> list[float]:
     return out[:horizon]
 
 
+def _pad_repeat_last(values: Sequence[float], horizon: int) -> list[float]:
+    """Pad by repeating the last observation (interest rates after Macro end)."""
+    out = [float(v) for v in values]
+    if not out:
+        return [0.0] * horizon
+    while len(out) < horizon:
+        out.append(out[-1])
+    return out[:horizon]
+
+
+def _pad_fx_extrapolate(values: Sequence[float], horizon: int) -> list[float]:
+    """Pad FX like PV_LC_NR: continue the last year-over-year growth factor."""
+    out = [float(v) for v in values]
+    if not out:
+        return [0.0] * horizon
+    if len(out) >= 2 and out[-2] != 0.0:
+        growth = out[-1] / out[-2]
+    else:
+        growth = 1.0
+    while len(out) < horizon:
+        out.append(out[-1] * growth)
+    return out[:horizon]
+
+
 @dataclass(slots=True)
 class LocalCurrencyNonResidentInstrument:
     """One LC-denominated locally-issued bond held by non-residents.
@@ -33,8 +57,10 @@ class LocalCurrencyNonResidentInstrument:
         disbursements_lc: New borrowing in LC by projection year.
         fx_pa: FX period-average (LC per USD) by year.
         fx_eop: FX end-of-period (LC per USD) by year.
-        years: Optional calendar year labels.
-        horizon: Projection length; defaults to ``len(disbursements_lc)``.
+        years: Optional calendar year labels (disbursement / Macro window).
+        horizon: Projection length. Defaults to disbursement years plus
+            ``maturity`` runoff so late vintages amortize and PV at the last
+            Macro year still sees future debt service (as on ``PV_LC_NR*``).
     """
 
     name: str
@@ -64,14 +90,12 @@ class LocalCurrencyNonResidentInstrument:
             ("fx_pa", self.fx_pa),
             ("fx_eop", self.fx_eop),
         ):
-            if len(series) != n and self.horizon is None:
+            if len(series) != n and self.horizon is None and len(series) < n:
                 # Allow shorter series only when horizon is explicit; else require
                 # matching lengths for the natural disbursement horizon.
-                if len(series) < n:
-                    raise ValueError(
-                        f"{label} length {len(series)} < disbursements "
-                        f"length {n}"
-                    )
+                raise ValueError(
+                    f"{label} length {len(series)} < disbursements length {n}"
+                )
         if self.years is not None and len(self.years) != n:
             raise ValueError(
                 "years must be the same length as disbursements_lc "
@@ -81,7 +105,10 @@ class LocalCurrencyNonResidentInstrument:
     def _horizon(self) -> int:
         if self.horizon is not None:
             return self.horizon
-        return max(len(self.disbursements_lc), self.maturity + 1)
+        n = len(self.disbursements_lc)
+        # Last vintage at index n-1 needs maturity years of amort after it, and
+        # PV at index n-1 needs those post-Macro cashflows in the NPV window.
+        return max(n + self.maturity, self.maturity + 1)
 
     def _years(self) -> list[object]:
         horizon = self._horizon()
@@ -102,9 +129,9 @@ class LocalCurrencyNonResidentInstrument:
         horizon = self._horizon()
         return (
             _as_float_list(self.disbursements_lc, horizon),
-            _as_float_list(self.interest_rates, horizon),
-            _as_float_list(self.fx_pa, horizon),
-            _as_float_list(self.fx_eop, horizon),
+            _pad_repeat_last(self.interest_rates, horizon),
+            _pad_fx_extrapolate(self.fx_pa, horizon),
+            _pad_fx_extrapolate(self.fx_eop, horizon),
         )
 
     def _cohort_series(
@@ -233,7 +260,7 @@ class LocalCurrencyNonResidentInstrument:
         columns = self._years()
         (
             disb_lc,
-            cumulative_lc,
+            _cumulative_lc,
             stock_usd,
             pv_usd,
             tds,

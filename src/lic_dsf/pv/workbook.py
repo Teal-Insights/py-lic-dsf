@@ -215,8 +215,10 @@ def load_lc_nr_instruments_from_workbook(
 
     Disbursements are the Input 5 local-currency financing rows (which Ext_Debt
     converts to USD and PV_LC_NR converts back via FX(pa)). FX(pa)/FX(eop) come
-    from ``Macro-Debt_Data`` rows 60/59 starting at the 2024 column. Discount
-    rate comes from ``Input 1 - Basics``!C25.
+    from ``Macro-Debt_Data`` rows 60/59 starting at the 2024 column; the
+    instrument then extends past Macro with the last FX growth factor so late
+    vintages can run off (matching ``PV_LC_NR*``). Discount rate comes from
+    ``Input 1 - Basics``!C25.
 
     Args:
         workbook_path: Path to the LIC-DSF ``.xlsx`` workbook.
