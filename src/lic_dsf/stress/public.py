@@ -143,6 +143,21 @@ class StressPublicBook:
         )
         return _clamp_nonnegative(_pct(numer, self.gdp_lcu()))
 
+    def pv_public_debt_to_revenue_grants(self) -> pd.Series:
+        """PV of public debt / revenue+grants (Output 3-2 middle block).
+
+        B1 holds fiscal ratios as percent of GDP, so the revenue/GDP
+        denominator is the baseline path. Do not divide unshocked LCU
+        revenue by shocked GDP.
+        """
+        base_rev_to_gdp = _pct(
+            self.baseline_macro.revenues_incl_grants(),
+            self.baseline_macro.gdp_lcu(),
+        )
+        return (
+            self.pv_public_debt_to_gdp() / base_rev_to_gdp.replace(0.0, pd.NA) * 100.0
+        ).astype(float)
+
     def debt_service_to_revenue_grants(self) -> pd.Series:
         """Debt service / revenue+grants including ResFin service."""
         fx = self.macro.fx_pa()
@@ -255,6 +270,9 @@ def stress_public_panel(book: StressPublicBook) -> pd.DataFrame:
         {
             "Public sector debt / GDP": book.public_sector_debt_to_gdp(),
             "PV of public debt / GDP": book.pv_public_debt_to_gdp(),
+            "PV of public debt / revenue+grants": (
+                book.pv_public_debt_to_revenue_grants()
+            ),
             "Debt service / revenue+grants": book.debt_service_to_revenue_grants(),
             "Public GFN (LCU)": book.public_gfn(),
         }
