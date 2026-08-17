@@ -11,21 +11,33 @@ from lic_dsf.scenario.customized import (
 )
 from lic_dsf.scenario.panels import probability_panel
 from lic_dsf.scenario.probability import (
+    EXCEL_DISTRESS_COEFFICIENTS,
+    DistressCoefficients,
+    DistressCovariates,
     ProbabilityAssumptions,
     borderline_bands,
     breach_probability,
+    distress_probability,
     max_path_probability,
     path_breach_probabilities,
+    path_distress_probabilities,
 )
+from lic_dsf.scenario.workbook import load_distress_covariates
 
 __all__ = [
+    "EXCEL_DISTRESS_COEFFICIENTS",
     "CustomizedScenarioSpec",
+    "DistressCoefficients",
+    "DistressCovariates",
     "ProbabilityAssumptions",
     "apply_customized_deltas",
     "borderline_bands",
     "breach_probability",
+    "distress_probability",
+    "load_distress_covariates",
     "max_path_probability",
     "path_breach_probabilities",
+    "path_distress_probabilities",
     "probability_panel",
     "register_custom_path",
 ]

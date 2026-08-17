@@ -90,6 +90,29 @@ def _lc_share_of_total(macro: MacroDebtBook) -> pd.Series:
     return (local / total.replace(0.0, pd.NA)).fillna(0.0).astype(float)
 
 
+def historical_identity_pins(macro: MacroDebtBook) -> tuple[float, float]:
+    """10-year historical means of Baseline R17 (CA deficit) and R24 (FDI).
+
+    Excel A1 ``E17 = −N70`` and ``E24 = −N75``: pin these % of GDP from the
+    second projection year onward.
+    """
+    years = macro.inputs.years
+    first = macro.inputs.first_projection_year
+    gdp = _align(macro.gdp_usd(), years)
+    r17 = -_pct_of_gdp(
+        _align(macro.inputs.current_account, years)
+        + _align(macro.external_interest(), years),
+        gdp,
+    )
+    r24 = -_pct_of_gdp(_align(macro.inputs.fdi, years), gdp)
+    hist_years = [y for y in years if y < first][-10:]
+    ca_vals = [float(r17.loc[y]) for y in hist_years if pd.notna(r17.loc[y])]
+    fdi_vals = [float(r24.loc[y]) for y in hist_years if pd.notna(r24.loc[y])]
+    ca_pin = float(sum(ca_vals) / len(ca_vals)) if ca_vals else 0.0
+    fdi_pin = float(sum(fdi_vals) / len(fdi_vals)) if fdi_vals else 0.0
+    return ca_pin, fdi_pin
+
+
 def external_residual_borrowing(
     baseline_macro: MacroDebtBook,
     shocked_macro: MacroDebtBook,
@@ -99,6 +122,9 @@ def external_residual_borrowing(
     inflation_elasticity: float = 0.0,
     residual_interest_rate: float = 0.0,
     net_exports_elasticity: float = 0.0,
+    historical_averages: bool = False,
+    hist_ca_deficit_pct: float | None = None,
+    hist_fdi_pct: float | None = None,
 ) -> pd.Series:
     """USD residual PPG MLT fill (Excel B-sheet residual gross borrowing).
 
@@ -111,6 +137,11 @@ def external_residual_borrowing(
     B5/B6 R58 shock in the second projection year. The following year uses
     unscaled baseline R18 minus ``net_exports_elasticity`` times real
     depreciation (B5/B6 E43), not the nominal shock size.
+
+    When ``historical_averages`` is true (A1), R17 / R24 are pinned to the
+    10-year historical means for every year from the second projection year,
+    R18 stays on the baseline % of GDP path, and the baseline residual (R30)
+    is copied unscaled.
     """
     years = baseline_macro.inputs.years
     first = baseline_macro.inputs.first_projection_year
@@ -221,6 +252,16 @@ def external_residual_borrowing(
             interest_usd=interest,
             lc_share=float(lc_share.loc[prev]),
         )
+        if historical_averages:
+            r17 = float(hist_ca_deficit_pct) if hist_ca_deficit_pct is not None else 0.0
+            r24 = float(hist_fdi_pct) if hist_fdi_pct is not None else 0.0
+            r16 = r17 + r24 + r25
+            r30 = r30_b[year]
+            r15 = r16 + r30
+            r12s[year] = r12s[prev] + r15
+            r84s[year] = r12s[year] / 100.0 * gdp
+            extra.loc[year] = r84s[year] - float(r82.loc[year])
+            continue
         scale = float(gdp_b.loc[year]) / gdp if gdp else 1.0
         if shock_window and year > shock_window[-1]:
             r18 = float(r18_b.loc[year]) * scale

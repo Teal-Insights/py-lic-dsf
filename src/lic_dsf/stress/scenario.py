@@ -11,7 +11,7 @@ from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.portfolio import PVPortfolio
-from lic_dsf.stress.bound import external_residual_borrowing
+from lic_dsf.stress.bound import external_residual_borrowing, historical_identity_pins
 from lic_dsf.stress.residual_pv import (
     external_dsa_residual_params,
     resfin_instrument,
@@ -21,6 +21,7 @@ from lic_dsf.stress.shocks import (
     apply_combo_shock,
     apply_exports_shock,
     apply_fx_depreciation_shock,
+    apply_historical_averages_shock,
     apply_other_flows_shock,
     apply_real_gdp_shock,
 )
@@ -201,6 +202,40 @@ def _build_book(
         resfin_amortization=amort,
         residual_borrowing=_align(gap, years).fillna(0.0).astype(float),
         scenario_id=scenario_id,
+    )
+
+
+def run_a1_historical_external(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    residual_params: ResidualFinancingParams,
+) -> StressExternalBook:
+    """Run the A1 historical-averages external scenario.
+
+    From the second projection year, real GDP growth and the USD deflator are
+    pinned to 10-year historical means, FDI/GDP and the non-interest current
+    account deficit follow the same averages, and residual borrowing uses the
+    A1 identity (unscaled baseline R30).
+    """
+    shocked_inputs = apply_historical_averages_shock(macro.inputs)
+    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
+    rate = float(residual_params.avg_interest_rate) / 100.0
+    ca_pin, fdi_pin = historical_identity_pins(macro)
+    gap = external_residual_borrowing(
+        macro,
+        shocked_macro,
+        residual_interest_rate=rate,
+        historical_averages=True,
+        hist_ca_deficit_pct=ca_pin,
+        hist_fdi_pct=fdi_pin,
+    )
+    return _build_book(
+        baseline_macro=macro,
+        shocked_macro=shocked_macro,
+        external=external,
+        residual_params=residual_params,
+        gap=gap,
+        scenario_id="A1_Historical",
     )
 
 

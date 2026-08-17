@@ -116,6 +116,61 @@ def multi_year_breach(
     return int(flags.sum()) >= 2
 
 
+def most_extreme_shock_id(
+    paths: dict[str, pd.Series],
+    threshold: float,
+    years: list[int],
+) -> str:
+    """Chart Data most-extreme shock (``D63`` / ``MATCH(1, AJ40:AJ50)``).
+
+    Rank eligible shocks by peak ratio over years 2–11 of the rating window
+    (Excel ``MAX(E:N)``). A path whose only tail breach is a single year, and
+    that does not also breach in year 1, is dropped (Excel ``AC`` / ``AD``).
+
+    Args:
+        paths: Scenario id → ratio series (standard + tailored shocks).
+        threshold: Applicable threshold for the ranking indicator (PV/GDP).
+        years: 11-year rating window (year 1 = first projection year).
+
+    Returns:
+        Scenario id of the rank-1 shock.
+
+    Raises:
+        ValueError: If `paths` is empty.
+    """
+    if not paths:
+        raise ValueError("most_extreme_shock_id requires at least one path")
+    if len(years) < 2:
+        return max(
+            paths,
+            key=lambda sid: float(paths[sid].reindex(years).max()),
+        )
+    year1 = years[0]
+    tail = years[1:]
+    ranked: list[tuple[float, str]] = []
+    for sid, series in paths.items():
+        tail_vals = series.reindex(tail).astype(float)
+        n_breach = int((tail_vals > threshold).fillna(False).sum())
+        y1 = series.reindex([year1])
+        y1_val = float(y1.iloc[0]) if len(y1) and pd.notna(y1.iloc[0]) else float("nan")
+        y1_breach = pd.notna(y1_val) and y1_val > threshold
+        if n_breach == 1 and not y1_breach:
+            continue
+        peak = float(tail_vals.max()) if tail_vals.notna().any() else float("-inf")
+        ranked.append((peak, sid))
+    if not ranked:
+        ranked = [
+            (
+                float(series.reindex(tail).max())
+                if series.reindex(tail).notna().any()
+                else float("-inf"),
+                sid,
+            )
+            for sid, series in paths.items()
+        ]
+    return max(ranked)[1]
+
+
 def indicator_breach_any_path(
     registry: ChartDataRegistry,
     indicator: str,

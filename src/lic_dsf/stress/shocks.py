@@ -450,6 +450,146 @@ def apply_primary_balance_shock(
     return replace(inputs, primary_expenditure=new_expenditure)
 
 
+def _usd_deflator_growth(inputs: MacroDebtInputs, years: tuple[int, ...]) -> pd.Series:
+    """USD GDP-deflator growth (%), with a fallback from USD vs real growth."""
+    real_g = _growth_pct(inputs.gdp_constant, years)
+    deflator_g = _growth_pct(
+        inputs.gdp_usd / inputs.gdp_constant.replace(0.0, pd.NA), years
+    )
+    usd_g = _growth_pct(inputs.gdp_usd, years)
+    for year in years:
+        if year == years[0]:
+            continue
+        if (
+            pd.isna(deflator_g.loc[year])
+            and pd.notna(usd_g.loc[year])
+            and pd.notna(real_g.loc[year])
+        ):
+            deflator_g.loc[year] = 100.0 * (
+                (1.0 + float(usd_g.loc[year]) / 100.0)
+                / (1.0 + float(real_g.loc[year]) / 100.0)
+                - 1.0
+            )
+    return deflator_g
+
+
+def _keep_share_of_gdp(
+    level: pd.Series,
+    old_gdp: pd.Series,
+    new_gdp: pd.Series,
+    years: tuple[int, ...],
+    from_year: int,
+) -> pd.Series:
+    """Rebuild levels so the old level/GDP share is applied to ``new_gdp``."""
+    out = _align(level, years).copy()
+    old = _align(old_gdp, years)
+    new = _align(new_gdp, years)
+    for year in years:
+        if year < from_year:
+            continue
+        if year not in old.index or not old.loc[year]:
+            continue
+        out.loc[year] = (
+            float(out.loc[year]) / float(old.loc[year]) * float(new.loc[year])
+        )
+    return out.astype(float)
+
+
+def apply_historical_averages_shock(inputs: MacroDebtInputs) -> MacroDebtInputs:
+    """A1: pin key variables to 10-year historical averages from year 2 on.
+
+    Excel ``A1_historical_ext``: first projection year stays on the baseline;
+    from the second projection year, real GDP growth and the USD deflator equal
+    their 10-year historical means, exports/imports/transfers/revenues keep
+    baseline shares of GDP, and FDI/GDP is the historical mean.
+    """
+    years = inputs.years
+    first = inputs.first_projection_year
+    proj = [y for y in years if y >= first]
+    start = proj[1] if len(proj) >= 2 else (proj[0] if proj else first)
+
+    real_g = _growth_pct(inputs.gdp_constant, years)
+    deflator_g = _usd_deflator_growth(inputs, years)
+    hist_real, _ = _hist_mean_sd(real_g, years, first)
+    hist_defl, _ = _hist_mean_sd(deflator_g, years, first)
+    fdi_ratio = (
+        100.0
+        * _align(inputs.fdi, years)
+        / _align(inputs.gdp_usd, years).replace(0.0, pd.NA)
+    )
+    hist_fdi, _ = _hist_mean_sd(fdi_ratio, years, first)
+
+    shocked_real = real_g.copy()
+    shocked_deflator = deflator_g.copy()
+    for year in years:
+        if year >= start:
+            shocked_real.loc[year] = hist_real
+            shocked_deflator.loc[year] = hist_defl
+
+    gdp_constant = _rebuild_levels_from_growth(
+        inputs.gdp_constant, years, first, shocked_real
+    )
+    gdp_usd = _align(inputs.gdp_usd, years).copy()
+    for year in years:
+        if year < first:
+            continue
+        rg = float(shocked_real.loc[year]) if pd.notna(shocked_real.loc[year]) else 0.0
+        dg = (
+            float(shocked_deflator.loc[year])
+            if pd.notna(shocked_deflator.loc[year])
+            else 0.0
+        )
+        gdp_usd.loc[year] = (
+            float(gdp_usd.loc[year - 1]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
+        )
+
+    exports = _keep_share_of_gdp(inputs.exports, inputs.gdp_usd, gdp_usd, years, start)
+    imports = _keep_share_of_gdp(inputs.imports, inputs.gdp_usd, gdp_usd, years, start)
+    transfers = _keep_share_of_gdp(
+        inputs.current_transfers_net, inputs.gdp_usd, gdp_usd, years, start
+    )
+    official = _keep_share_of_gdp(
+        inputs.current_transfers_official, inputs.gdp_usd, gdp_usd, years, start
+    )
+    revenues = _keep_share_of_gdp(
+        inputs.revenues_incl_grants, inputs.gdp_usd, gdp_usd, years, start
+    )
+    grants = _keep_share_of_gdp(inputs.grants, inputs.gdp_usd, gdp_usd, years, start)
+    expenditure = _keep_share_of_gdp(
+        inputs.primary_expenditure, inputs.gdp_usd, gdp_usd, years, start
+    )
+    fdi = _align(inputs.fdi, years).copy()
+    for year in years:
+        if year >= start:
+            fdi.loc[year] = float(gdp_usd.loc[year]) * hist_fdi / 100.0
+
+    ca_ratio = (
+        100.0
+        * _align(inputs.current_account, years)
+        / _align(inputs.gdp_usd, years).replace(0.0, pd.NA)
+    )
+    hist_ca, _ = _hist_mean_sd(ca_ratio, years, first)
+    current_account = _align(inputs.current_account, years).copy()
+    for year in years:
+        if year >= start:
+            current_account.loc[year] = float(gdp_usd.loc[year]) * hist_ca / 100.0
+
+    return replace(
+        inputs,
+        gdp_usd=gdp_usd.astype(float),
+        gdp_constant=gdp_constant.astype(float),
+        exports=exports,
+        imports=imports,
+        current_transfers_net=transfers,
+        current_transfers_official=official,
+        revenues_incl_grants=revenues,
+        grants=grants,
+        primary_expenditure=expenditure,
+        fdi=fdi.astype(float),
+        current_account=current_account.astype(float),
+    )
+
+
 def apply_combo_shock(
     inputs: MacroDebtInputs, params: Input6StandardParams
 ) -> MacroDebtInputs:

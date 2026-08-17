@@ -16,10 +16,12 @@ from lic_dsf.rating import (
     classify_ci,
     compute_mechanical_ratings,
     load_ci_summary,
+    load_input1_market,
     load_trigger_flags,
     market_panel,
     mechanical_rating_from_breaches,
     moderate_panel,
+    most_extreme_shock_id,
     multi_year_breach,
     risk_summary_panel,
     thresholds_for,
@@ -55,11 +57,29 @@ def test_ci_summary_parity() -> None:
     assert flags.isocode == "GHA"
 
 
+def test_load_input1_market_ghana() -> None:
+    access, embi = load_input1_market(WORKBOOK)
+    assert access is True
+    assert embi == pytest.approx(350.0)
+
+
 def test_multi_year_breach_excludes_one_year() -> None:
     path = pd.Series({2024: 41.0, 2025: 39.0, 2026: 38.0, 2027: 37.0})
     assert multi_year_breach(path, 40.0) is False
     path2 = pd.Series({2024: 41.0, 2025: 42.0, 2026: 38.0})
     assert multi_year_breach(path2, 40.0) is True
+
+
+def test_most_extreme_shock_id_chart_data_rule() -> None:
+    years = list(range(2024, 2035))
+    exports = pd.Series({y: 45.0 for y in years})
+    exports.loc[2026] = 55.8
+    one_year = pd.Series({y: 39.0 for y in years})
+    one_year.loc[2028] = 80.0
+    late = pd.Series({y: 41.0 for y in years})
+    late.loc[2044] = 90.0
+    paths = {"B3_Exports": exports, "one_year": one_year, "late": late}
+    assert most_extreme_shock_id(paths, 40.0, years) == "B3_Exports"
 
 
 def test_mechanical_ratings_chart_data_rule() -> None:
@@ -208,6 +228,8 @@ def test_output7_summary_and_judgement() -> None:
     )
     panel = risk_summary_panel(summary)
     assert panel.loc["Mechanical external", "Output 7"] == "High"
+    assert panel.loc["Final external", "Output 7"] == "High"
+    assert panel.loc["Judgement applied", "Output 7"] == "No"
     judged = summary.apply_judgement(
         final_external=RiskRating.MODERATE, note="staff judgement"
     )
@@ -234,3 +256,6 @@ def test_output5_moderate_and_market() -> None:
     assert market.embi_breach is True
     assert market.heightened_liquidity_needs is True
     assert "GFN breach" in market_panel(market).index
+    assert MarketFinancingInputs(
+        market_access=True, gfn_to_gdp=pd.Series({2024: 10.0})
+    ).embi_benchmark == pytest.approx(570.0)

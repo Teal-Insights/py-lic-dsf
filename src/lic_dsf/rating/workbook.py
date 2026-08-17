@@ -134,3 +134,34 @@ def load_trigger_flags(
         return None
     finally:
         wb.close()
+
+
+def load_input1_market(path: str | Path) -> tuple[bool, float | None]:
+    """Load Output 5-2 market-access and EMBI inputs from Input 1.
+
+    Excel Output 5-2 is gated by Input 1 ``C27`` (Market access), not the
+    Trigger-sheet ``incgr`` proxy. EMBI is ``C29`` when ``C28`` is Yes.
+
+    Args:
+        path: Path to the LIC-DSF Excel workbook.
+
+    Returns:
+        ``(market_access, embi_spread_bps)``. ``embi_spread`` is ``None``
+        when the spread is marked unavailable.
+    """
+    wb = load_workbook(path, data_only=True, read_only=True)
+    try:
+        ws = wb["Input 1 - Basics"]
+        access = str(ws.cell(27, 3).value or "").strip().lower() == "yes"
+        embi_available = str(ws.cell(28, 3).value or "").strip().lower() == "yes"
+        raw = ws.cell(29, 3).value
+        embi: float | None = None
+        if (
+            embi_available
+            and isinstance(raw, (int, float))
+            and not isinstance(raw, bool)
+        ):
+            embi = float(raw)
+        return access, embi
+    finally:
+        wb.close()

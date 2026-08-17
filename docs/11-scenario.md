@@ -13,8 +13,10 @@ Package: `lic_dsf.scenario`. Input 8 SDR remains in Ext via `lic_dsf.pv`.
 | `CustomizedScenarioSpec` | Named custom path deltas / levels |
 | `apply_customized_deltas` | Apply deltas to a baseline series |
 | `register_custom_path` | Push a path into `ChartDataRegistry` |
-| `ProbabilityAssumptions` | Probit / distribution assumptions |
-| `breach_probability` / `path_breach_probabilities` | Path vs threshold |
+| `ProbabilityAssumptions` | Borderline bandwidth (and simple Φ helper) |
+| `DistressCovariates` / `distress_probability` | Excel `NORMDIST` regression (CPIA, growth, …) |
+| `load_distress_covariates` | Input 3 + Imported data `H77:H81` averages |
+| `breach_probability` / `path_breach_probabilities` | Simple path vs threshold Φ |
 | `probability_panel` | Output 6-shaped probability summary |
 | `borderline_bands` | Near-threshold bands |
 
@@ -24,7 +26,7 @@ Package: `lic_dsf.scenario`. Input 8 SDR remains in Ext via `lic_dsf.pv`.
 from lic_dsf.rating import ChartDataRegistry
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
-    ProbabilityAssumptions,
+    load_distress_covariates,
     probability_panel,
     register_custom_path,
 )
@@ -32,7 +34,7 @@ from lic_dsf.scenario import (
 registry = ChartDataRegistry()
 # Build or load a custom PV/GDP (etc.) path, then:
 # register_custom_path(registry, ...)
-# probability_panel(...)  # with thresholds + ProbabilityAssumptions
+# probability_panel(..., covariates=load_distress_covariates(workbook))
 ```
 
 Full wiring with baseline/stress books is in
@@ -43,8 +45,9 @@ Full wiring with baseline/stress books is in
 | Concept | Template |
 |---------|----------|
 | User-defined shock / path | Customized Scenario |
-| Probability of breach | Output 6 probability block |
-| Feeds mechanical rating | Chart Data custom columns |
+| Probability of distress | Output 6 / Probability approach `NORMDIST` |
+| Most-extreme shock path | Chart Data `D63` (`lic_dsf.rating.most_extreme_shock_id`) |
+| Historical scenario | `A1_historical_ext` |
 
 ## Demo
 

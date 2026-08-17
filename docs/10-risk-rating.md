@@ -107,7 +107,8 @@ risk_summary_panel(summary)
 
 Add stress scenario series the same way (`is_baseline=False`) before calling
 `compute_mechanical_ratings`. See also Output 5/7 sections in
-[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb).
+[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb). Dedicated Output 7
+panel: [`demo/output_7.ipynb`](../demo/output_7.ipynb).
 
 ## Excel cues
 
@@ -120,7 +121,8 @@ Add stress scenario series the same way (`is_baseline=False`) before calling
 
 ## Demo
 
-[`demo/risk_rating.ipynb`](../demo/risk_rating.ipynb)
+- [`demo/output_7.ipynb`](../demo/output_7.ipynb) — Output 7 panel
+- [`demo/risk_rating.ipynb`](../demo/risk_rating.ipynb) — CI / Chart Data walkthrough
 
 ---
 

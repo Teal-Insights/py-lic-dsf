@@ -14,6 +14,7 @@ shocks Macro, fills residual financing, and rebuilds Output-shaped panels.
 | `load_input6_standard` | Input 6 shock sizes / rules |
 | `load_input7_residual_params` | Input 7 ResFin terms (`lic_dsf.pv`) |
 | `run_standard_external_stress` | Suite of external B-tests |
+| `run_a1_historical_external` | A1: key variables at 10-year historical averages |
 | `run_b1_gdp_external` / `run_b3_exports_external` / … | Named external scenarios |
 | `run_b1_gdp_public` | Public B1 GDP with three-way ResFin |
 | `StressExternalBook` / `StressPublicBook` | Stressed ratio engines |
@@ -85,8 +86,8 @@ keeps the three-way shares from Input 7.
 
 ## Caveats
 
-Public GFN ↔ ResFin may use fixed-point iterations / first-order GFN estimates
-documented in code; treat Excel as reference when comparing.
+Public GFN (B1 R90) is the fiscal + debt-service identity; ResFin is
+``R90 − baseline GFN``, solved with a short fixed-point loop.
 
 ## Demo
 

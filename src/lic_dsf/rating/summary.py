@@ -24,7 +24,8 @@ class RiskRatingSummary:
         ci_score: Optional CI score.
         final_external: Final external rating (defaults to mechanical).
         final_overall: Final overall rating (defaults to mechanical).
-        judgement_applied: Whether judgement overrides were set.
+        judgement_applied: Whether a final rating differs from mechanical
+            (Excel yellow-cell rule once a rating is selected).
         judgement_note: Free-text judgement description.
         moderate_granularity: Optional Output 5-1 granularity label.
     """
@@ -44,6 +45,11 @@ class RiskRatingSummary:
             self.final_external = self.mechanical.external
         if self.final_overall is None:
             self.final_overall = self.mechanical.overall
+        if (
+            self.final_external != self.mechanical.external
+            or self.final_overall != self.mechanical.overall
+        ):
+            self.judgement_applied = True
 
     def apply_judgement(
         self,

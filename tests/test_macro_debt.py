@@ -163,6 +163,9 @@ def test_stitch_uses_ext_in_projection() -> None:
     assert book.ppg_external().loc[2024] == pytest.approx(
         book.mlt_external().loc[2024] + book.short_term_external().loc[2024]
     )
+    assert book.total_external().loc[2024] == pytest.approx(
+        book.ppg_external().loc[2024] + book.private_external().loc[2024]
+    )
 
 
 def test_domestic_proj_and_public_debt() -> None:
@@ -245,6 +248,7 @@ def _workbook_macro_book() -> MacroDebtBook:
 @pytest.mark.parametrize(
     ("method", "row", "years"),
     [
+        ("total_external", 6, [2020, 2023, 2024, 2025]),
         ("mlt_external", 9, [2020, 2023, 2024, 2025]),
         ("short_term_external", 10, [2020, 2023, 2024, 2025]),
         ("revenues_incl_grants", 45, [2020, 2023, 2024]),

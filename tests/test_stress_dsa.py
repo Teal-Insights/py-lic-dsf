@@ -23,11 +23,13 @@ from lic_dsf.pv import (
 from lic_dsf.stress import (
     Input6StandardParams,
     StressExternalBook,
+    apply_historical_averages_shock,
     apply_real_gdp_shock,
     load_input6_standard,
     real_depreciation_pct,
     resfin_instrument,
     resfin_overlay_series,
+    run_a1_historical_external,
     run_b1_gdp_external,
     run_standard_external_stress,
     stress_external_panel,
@@ -298,6 +300,37 @@ def test_b1_growth_gdp_parity() -> None:
         assert shocked_inputs.gdp_usd.loc[year] == pytest.approx(
             float(expected_gdp.loc[year]), rel=1e-7, abs=1e-4
         ), f"gdp {year}"
+
+
+def test_a1_growth_gdp_parity() -> None:
+    macro, _external, _params = _workbook_bundle()
+    shocked = apply_historical_averages_shock(macro.inputs)
+    years = [2024, 2025, 2026, 2027]
+    expected_gdp = _sheet_cached("A1_historical_ext", 8, 3, 46, years)
+    expected_growth = _sheet_cached("A1_historical_ext", 8, 3, 50, years)
+    const = shocked.gdp_constant
+    for year in years:
+        prior = const.loc[year - 1]
+        got_g = (const.loc[year] / prior - 1.0) * 100.0
+        assert got_g == pytest.approx(
+            float(expected_growth.loc[year]), rel=1e-7, abs=1e-5
+        ), f"growth {year}"
+        assert shocked.gdp_usd.loc[year] == pytest.approx(
+            float(expected_gdp.loc[year]), rel=1e-7, abs=1e-4
+        ), f"gdp {year}"
+
+
+def test_a1_pv_gdp_parity() -> None:
+    years = [2024, 2025, 2026, 2027]
+    macro, external, _params = _workbook_bundle()
+    residual = external.residual_params()
+    book = run_a1_historical_external(macro, external, residual)
+    got = book.pv_ppg_external_to_gdp().reindex(years)
+    expected = _sheet_cached("A1_historical_ext", 8, 3, 35, years)
+    for year in expected.index:
+        assert got.loc[year] == pytest.approx(
+            float(expected.loc[year]), rel=1e-7, abs=1e-3
+        ), f"A1 pv/gdp {year}"
 
 
 def test_resfin_instrument_and_overlay() -> None:

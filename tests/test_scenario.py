@@ -14,10 +14,13 @@ from lic_dsf.rating import (
 )
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
+    DistressCovariates,
     ProbabilityAssumptions,
     apply_customized_deltas,
     borderline_bands,
     breach_probability,
+    distress_probability,
+    load_distress_covariates,
     probability_panel,
     register_custom_path,
 )
@@ -76,8 +79,8 @@ def _macro_inputs() -> MacroDebtInputs:
 
 def test_borderline_and_probability() -> None:
     lower, upper = borderline_bands(40.0, 0.1)
-    assert lower == pytest.approx(36.0)
-    assert upper == pytest.approx(44.0)
+    assert lower == pytest.approx(38.0)
+    assert upper == pytest.approx(42.0)
     assert breach_probability(40.0, 40.0) == pytest.approx(0.5)
     assert breach_probability(50.0, 40.0) > 0.5
     assert breach_probability(30.0, 40.0) < 0.5
@@ -91,6 +94,37 @@ def test_borderline_and_probability() -> None:
     )
     assert "baseline prob" in panel.index
     assert "lower_band" in panel.index
+
+
+def test_distress_probability_matches_excel_h84() -> None:
+    """Excel H84: NORMDIST on PV/GDP 2024 with template H77:H81 averages."""
+    covariates = DistressCovariates(
+        cpia=3.4057294375,
+        real_gdp_growth=5.4792562154561226,
+        reserves_imports=28.180285240899352,
+        remittances_gdp=4.2926348519862394,
+        world_growth=3.2106051033300083,
+    )
+    got = distress_probability(
+        44.884623746813403, covariates, indicator="pv_debt_to_gdp"
+    )
+    assert got * 100.0 == pytest.approx(18.415979429368583, abs=1e-8)
+
+
+def test_load_distress_covariates_template_h77_h81() -> None:
+    from pathlib import Path
+
+    workbook = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "lic-dsf-template-2025-08-12.xlsx"
+    )
+    covariates = load_distress_covariates(workbook)
+    assert covariates.cpia == pytest.approx(3.4057294375, abs=1e-6)
+    assert covariates.real_gdp_growth == pytest.approx(5.4792562154561226, abs=1e-6)
+    assert covariates.reserves_imports == pytest.approx(28.180285240899352, abs=1e-5)
+    assert covariates.remittances_gdp == pytest.approx(4.2926348519862394, abs=1e-5)
+    assert covariates.world_growth == pytest.approx(3.2106051033300083, abs=1e-6)
 
 
 def test_customized_deltas_and_chart_registration() -> None:

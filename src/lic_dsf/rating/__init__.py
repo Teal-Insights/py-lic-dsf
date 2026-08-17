@@ -11,6 +11,7 @@ from lic_dsf.rating.chart_data import (
     annual_breaches,
     compute_mechanical_ratings,
     mechanical_rating_from_breaches,
+    most_extreme_shock_id,
     multi_year_breach,
 )
 from lic_dsf.rating.classification import (
@@ -38,6 +39,7 @@ from lic_dsf.rating.workbook import (
     CiSummarySnapshot,
     TriggerFlags,
     load_ci_summary,
+    load_input1_market,
     load_trigger_flags,
 )
 
@@ -61,11 +63,13 @@ __all__ = [
     "classify_ci",
     "compute_mechanical_ratings",
     "load_ci_summary",
+    "load_input1_market",
     "load_trigger_flags",
     "market_panel",
     "mechanical_rating_from_breaches",
     "moderate_panel",
     "moderate_space_from_headroom",
+    "most_extreme_shock_id",
     "multi_year_breach",
     "risk_summary_panel",
     "thresholds_for",

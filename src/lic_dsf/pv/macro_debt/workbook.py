@@ -63,6 +63,9 @@ _I3_PRIVATE_AMORT = 60
 _I3_DOM_AMORT = 195
 _I3_CONCESSIONAL = 32
 _I3_FC_PUBLIC_DEBT = 214
+_I3_REMITTANCES = 45
+_I3_WORLD_GROWTH = 183
+_I3_RESERVES_STOCK = 184
 
 # Input 5 projection rows Macro uses from first projection year.
 _I5_PUBLIC_GFN = 56
@@ -222,6 +225,9 @@ def load_macro_debt_inputs(workbook_path: str | Path) -> MacroDebtInputs:
             domestic_interest_lcu_input5=i5(_I5_DOM_INTEREST_LCU),
             domestic_principal_lcu_input5=i5(_I5_DOM_PRINCIPAL_LCU),
             public_gfn_input5=i5(_I5_PUBLIC_GFN),
+            workers_remittances=i3(_I3_REMITTANCES),
+            world_real_growth=i3(_I3_WORLD_GROWTH),
+            reserves_stock=i3(_I3_RESERVES_STOCK),
         )
     finally:
         workbook.close()

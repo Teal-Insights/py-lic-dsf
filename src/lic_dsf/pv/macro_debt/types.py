@@ -73,3 +73,7 @@ class MacroDebtInputs:
     foreign_gdp_deflator: pd.Series | None = None
     # Macro R83 hist seed (Input 3 row 214, USD); × FX(eop) for LCU.
     fc_public_debt_usd: pd.Series | None = None
+    # Probability approach (Input 3 rows 45 / 183 / 184).
+    workers_remittances: pd.Series | None = None
+    world_real_growth: pd.Series | None = None
+    reserves_stock: pd.Series | None = None
