@@ -85,6 +85,14 @@ class MacroDebtBook:
         """Macro R8."""
         return _stocks.ppg_external(self.inputs, self.external)
 
+    def private_external(self) -> pd.Series:
+        """Macro R11 = private MLT + private short-term."""
+        return _stocks.private_external(self.inputs)
+
+    def total_external(self) -> pd.Series:
+        """Macro R6 = PPG external + private external."""
+        return _stocks.total_external(self.inputs, self.external)
+
     def domestic_debt(self) -> pd.Series:
         """Macro R14."""
         return _stocks.domestic_debt(self.inputs)

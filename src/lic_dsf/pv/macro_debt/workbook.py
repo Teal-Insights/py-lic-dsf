@@ -62,6 +62,7 @@ _I3_PPG_AMORT_ADD = 212
 _I3_PRIVATE_AMORT = 60
 _I3_DOM_AMORT = 195
 _I3_CONCESSIONAL = 32
+_I3_FC_PUBLIC_DEBT = 214
 
 # Input 5 projection rows Macro uses from first projection year.
 _I5_PUBLIC_GFN = 56
@@ -186,6 +187,7 @@ def load_macro_debt_inputs(workbook_path: str | Path) -> MacroDebtInputs:
             fx_eop=i3(_I3_FX_EOP),
             fx_pa=i3(_I3_FX_PA),
             foreign_gdp_deflator=i3(_I3_FOREIGN_DEFLATOR),
+            fc_public_debt_usd=i3(_I3_FC_PUBLIC_DEBT),
             current_account=i3(_I3_CA),
             exports=i3(_I3_EXPORTS),
             imports=i3(_I3_IMPORTS),

@@ -71,3 +71,5 @@ class MacroDebtInputs:
     public_gfn_input5: pd.Series
     # Macro R58 (Input 3 row 18); optional so synthetic fixtures stay compact.
     foreign_gdp_deflator: pd.Series | None = None
+    # Macro R83 hist seed (Input 3 row 214, USD); × FX(eop) for LCU.
+    fc_public_debt_usd: pd.Series | None = None

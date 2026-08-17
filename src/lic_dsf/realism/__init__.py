@@ -21,7 +21,9 @@ from lic_dsf.realism.forecast_error import (
     compare_to_quartiles,
     debt_creating_flow_panel,
     forecast_error,
+    gdp_rebase_scale,
     rebase_ratio_to_outturn_gdp,
+    total_external_to_gdp,
 )
 from lic_dsf.realism.imported import ImportedDataCatalog, load_imported_data
 from lic_dsf.realism.invest_growth import (
@@ -65,6 +67,7 @@ __all__ = [
     "fiscal_multiplier_panel",
     "forecast_error",
     "forecast_error_panel",
+    "gdp_rebase_scale",
     "invest_growth_panel",
     "load_capital_assumptions",
     "load_imported_data",
@@ -76,6 +79,7 @@ __all__ = [
     "rebase_ratio_to_outturn_gdp",
     "residual_growth_contribution",
     "three_year_fiscal_adjustment",
+    "total_external_to_gdp",
     "underlying_growth",
     "unit_impulse",
 ]
