@@ -49,12 +49,14 @@ snap = load_ci_summary(workbook)
 
 ext = ExternalDebtBook(
     portfolio=PVPortfolio(
-        instruments=tuple(load_instruments_from_workbook(
-            workbook, include_zero_disbursement=True
-        ))
-        + tuple(load_lc_nr_instruments_from_workbook(
-            workbook, include_zero_disbursement=True
-        ))
+        instruments=tuple(
+            load_instruments_from_workbook(workbook, include_zero_disbursement=True)
+        )
+        + tuple(
+            load_lc_nr_instruments_from_workbook(
+                workbook, include_zero_disbursement=True
+            )
+        )
     ),
     inputs=load_external_debt_inputs(workbook),
 )

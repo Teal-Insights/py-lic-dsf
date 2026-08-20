@@ -53,12 +53,8 @@ from lic_dsf.pv import (
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 
-instruments = load_instruments_from_workbook(
-    workbook, include_zero_disbursement=True
-)
-lc_nr = load_lc_nr_instruments_from_workbook(
-    workbook, include_zero_disbursement=True
-)
+instruments = load_instruments_from_workbook(workbook, include_zero_disbursement=True)
+lc_nr = load_lc_nr_instruments_from_workbook(workbook, include_zero_disbursement=True)
 external = ExternalDebtBook(
     portfolio=PVPortfolio(instruments=tuple(instruments) + tuple(lc_nr)),
     inputs=load_external_debt_inputs(workbook),
@@ -72,7 +68,7 @@ ext_base = BaselineExternalBook(macro=macro, external=external)
 pub_base = BaselinePublicBook(macro=macro, external=external)
 
 out_1_1 = external_dsa_panel(ext_base)  # Output 1-1 shape
-out_1_2 = public_dsa_panel(pub_base)    # Output 1-2 shape
+out_1_2 = public_dsa_panel(pub_base)  # Output 1-2 shape
 ```
 
 `include_zero_disbursement=True` keeps empty Input 4/5 slots so creditor

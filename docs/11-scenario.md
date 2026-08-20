@@ -38,7 +38,7 @@ registry = ChartDataRegistry()
 ```
 
 Full wiring with baseline/stress books is in
-[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb) (Output 6 section).
+[`demo/output_6.ipynb`](../demo/output_6.ipynb).
 
 ## Excel cues
 
@@ -51,7 +51,7 @@ Full wiring with baseline/stress books is in
 
 ## Demo
 
-Primary: [`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb)
+Primary: [`demo/output_6.ipynb`](../demo/output_6.ipynb)
 
 ---
 

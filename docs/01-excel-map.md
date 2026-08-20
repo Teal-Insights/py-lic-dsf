@@ -57,7 +57,7 @@ flowchart LR
 | Realism 1–4 / Output 4 | `lic_dsf.realism` panels + loaders | [`realism`](../demo/realism.ipynb) |
 | CI Summary / Classification | `load_ci_summary`, `DebtCarryingCapacity`, thresholds | [`risk_rating`](../demo/risk_rating.ipynb) |
 | Chart Data / Output 5 / 7 | `ChartDataRegistry`, `compute_mechanical_ratings`, `risk_summary_panel` | [`output_7`](../demo/output_7.ipynb), [`risk_rating`](../demo/risk_rating.ipynb) |
-| Customized Scenario / Probability / Output 6 | `CustomizedScenarioSpec`, `probability_panel` | [`all_outputs`](../demo/all_outputs.ipynb) |
+| Customized Scenario / Probability / Output 6 | `CustomizedScenarioSpec`, `probability_panel` | [`output_6`](../demo/output_6.ipynb) |
 | Full Outputs tour | all of the above | [`all_outputs`](../demo/all_outputs.ipynb) |
 
 ## Package roles (one line each)

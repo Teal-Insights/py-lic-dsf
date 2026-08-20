@@ -28,12 +28,8 @@ from lic_dsf.pv import (
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
-instruments = load_instruments_from_workbook(
-    workbook, include_zero_disbursement=True
-)
-lc_nr = load_lc_nr_instruments_from_workbook(
-    workbook, include_zero_disbursement=True
-)
+instruments = load_instruments_from_workbook(workbook, include_zero_disbursement=True)
+lc_nr = load_lc_nr_instruments_from_workbook(workbook, include_zero_disbursement=True)
 portfolio = PVPortfolio(instruments=tuple(instruments) + tuple(lc_nr))
 
 # One loan's Output-shaped panel

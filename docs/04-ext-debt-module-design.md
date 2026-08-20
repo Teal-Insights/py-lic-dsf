@@ -31,24 +31,24 @@ from lic_dsf.pv import (
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 portfolio = PVPortfolio(
-    instruments=tuple(load_instruments_from_workbook(
-        workbook, include_zero_disbursement=True
-    ))
-    + tuple(load_lc_nr_instruments_from_workbook(
-        workbook, include_zero_disbursement=True
-    ))
+    instruments=tuple(
+        load_instruments_from_workbook(workbook, include_zero_disbursement=True)
+    )
+    + tuple(
+        load_lc_nr_instruments_from_workbook(workbook, include_zero_disbursement=True)
+    )
 )
 ext = ExternalDebtBook(
     portfolio=portfolio,
     inputs=load_external_debt_inputs(workbook),
 )
 
-ext.total_pv_of_debt()          # Ext R391-style PPG PV
-ext.new_mlt_pv()                # new portfolio only
-ext.existing_mlt_pv()           # existing by creditor + Total
+ext.total_pv_of_debt()  # Ext R391-style PPG PV
+ext.new_mlt_pv()  # new portfolio only
+ext.existing_mlt_pv()  # existing by creditor + Total
 ext.new_disbursements_by_creditor()
 ext.debt_evolution()
-ext.summary()                   # compact headline table when available
+ext.summary()  # compact headline table when available
 ```
 
 ## Excel cues

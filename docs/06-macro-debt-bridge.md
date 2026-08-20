@@ -31,12 +31,14 @@ from lic_dsf.pv import (
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 ext = ExternalDebtBook(
     portfolio=PVPortfolio(
-        instruments=tuple(load_instruments_from_workbook(
-            workbook, include_zero_disbursement=True
-        ))
-        + tuple(load_lc_nr_instruments_from_workbook(
-            workbook, include_zero_disbursement=True
-        ))
+        instruments=tuple(
+            load_instruments_from_workbook(workbook, include_zero_disbursement=True)
+        )
+        + tuple(
+            load_lc_nr_instruments_from_workbook(
+                workbook, include_zero_disbursement=True
+            )
+        )
     ),
     inputs=load_external_debt_inputs(workbook),
 )
