@@ -1,4 +1,7 @@
-# Realism (Realism 1–4 / Output 4)
+---
+title: "Realism"
+guide-section: "DSA & analysis"
+---
 
 Excel analogues: **Realism** tools and **Output 4-1 / 4-2** — forecast-error
 checks, fiscal-adjustment placement, investment–growth, and fiscal-multiplier
@@ -68,7 +71,7 @@ fiscal_multiplier_panel(pb_pct, macro.real_gdp_growth(), first)
 ```
 
 Forecast-error / invest-growth / imported vintages are wired in
-[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb).
+[`demo/all_outputs.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/all_outputs.ipynb).
 
 ## Excel cues
 
@@ -81,8 +84,8 @@ Forecast-error / invest-growth / imported vintages are wired in
 
 ## Demo
 
-[`demo/realism.ipynb`](../demo/realism.ipynb)
+[`demo/realism.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/realism.ipynb)
 
 ---
 
-**Next:** [10. Risk rating](10-risk-rating.md)
+**Next:** [10. Risk rating](risk-rating.qmd)

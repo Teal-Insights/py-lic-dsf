@@ -1,4 +1,7 @@
-# Getting started
+---
+title: "Getting started"
+guide-section: "Getting Started"
+---
 
 End-to-end recipe for economists who already know the LIC-DSF template.
 
@@ -13,7 +16,7 @@ uv sync --all-groups
 Or as a dependency:
 
 ```bash
-uv add "lic-dsf @ git+https://github.com/Teal-Insights/lic-dsf"
+uv add "lic-dsf @ git+https://github.com/Teal-Insights/py-lic-dsf"
 ```
 
 Run Python through `uv run` (or a Jupyter kernel from this environment).
@@ -28,7 +31,7 @@ Point the same loaders at **your filled country workbook** by changing the path.
 Sheet layout must match the LIC-DSF template generation this library targets
 (see `data/PROVENANCE.md`).
 
-Template copyright: IMF/World Bank — [`NOTICE.md`](../NOTICE.md).
+Template copyright: IMF/World Bank — [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md).
 
 ## Minimal script: Ext + Macro → Output 1-1 / 1-2
 
@@ -78,10 +81,10 @@ grouping matches Excel row structure.
 
 | Goal | Doc | Demo |
 |------|-----|------|
-| Inspect Ext headlines / PV | [04-ext-debt-module-design.md](04-ext-debt-module-design.md) | `demo/ext_debt.ipynb` |
-| Stress paths (Input 6) | [08-stress-dsa.md](08-stress-dsa.md) | `demo/stress_dsa.ipynb` |
-| Mechanical risk rating | [10-risk-rating.md](10-risk-rating.md) | `demo/risk_rating.ipynb` |
-| All Outputs in one place | [01-excel-map.md](01-excel-map.md) | `demo/all_outputs.ipynb` |
+| Inspect Ext headlines / PV | [ext-debt-module-design.qmd](ext-debt-module-design.qmd) | `demo/ext_debt.ipynb` |
+| Stress paths (Input 6) | [stress-dsa.qmd](stress-dsa.qmd) | `demo/stress_dsa.ipynb` |
+| Mechanical risk rating | [risk-rating.qmd](risk-rating.qmd) | `demo/risk_rating.ipynb` |
+| All Outputs in one place | [excel-map.qmd](excel-map.qmd) | `demo/all_outputs.ipynb` |
 
 Quick stress sketch after the books above:
 
@@ -121,4 +124,4 @@ Each demo resolves `REPO_ROOT` whether you start from the repo root or `demo/`.
 
 ---
 
-**Next:** [3. PV instruments](03-pv-instruments.md)
+**Next:** [3. PV instruments](pv-instruments.qmd)

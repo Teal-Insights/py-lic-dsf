@@ -1,4 +1,7 @@
-# Stress DSA (Input 6 / Outputs 2–3)
+---
+title: "Stress DSA"
+guide-section: "DSA & analysis"
+---
 
 Excel analogues: **Input 6** standard stress parameters, **B** (external) and
 **B1** (public) shock sheets, residual financing from **Input 7**, and Output
@@ -93,8 +96,8 @@ Public GFN (B1 R90) is the fiscal + debt-service identity; ResFin is
 
 ## Demo
 
-[`demo/stress_dsa.ipynb`](../demo/stress_dsa.ipynb)
+[`demo/stress_dsa.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb)
 
 ---
 
-**Next:** [9. Realism](09-realism.md)
+**Next:** [9. Realism](realism.qmd)

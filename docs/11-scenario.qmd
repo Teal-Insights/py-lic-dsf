@@ -1,4 +1,7 @@
-# Customized scenario & probability (Output 6)
+---
+title: "Customized scenario & probability"
+guide-section: "DSA & analysis"
+---
 
 Excel analogues: **Customized Scenario** and the **Probability** approach on
 **Output 6**. Custom ratio paths can be registered into Chart Data for rating;
@@ -38,7 +41,7 @@ registry = ChartDataRegistry()
 ```
 
 Full wiring with baseline/stress books is in
-[`demo/output_6.ipynb`](../demo/output_6.ipynb).
+[`demo/output_6.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb).
 
 ## Excel cues
 
@@ -51,8 +54,8 @@ Full wiring with baseline/stress books is in
 
 ## Demo
 
-Primary: [`demo/output_6.ipynb`](../demo/output_6.ipynb)
+Primary: [`demo/output_6.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb)
 
 ---
 
-**Next:** [Docs hub](README.md) — end of the reading path.
+**Next:** [Docs hub](index.qmd) — end of the reading path.

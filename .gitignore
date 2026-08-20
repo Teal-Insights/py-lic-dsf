@@ -13,3 +13,6 @@ dist/
 build/
 *.xlsx#~*
 ~$*
+
+# Great Docs build output
+great-docs/

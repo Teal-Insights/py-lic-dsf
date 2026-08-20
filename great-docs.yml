@@ -1,0 +1,202 @@
+# Great Docs configuration for lic-dsf
+# https://posit-dev.github.io/great-docs/
+
+display_name: lic-dsf
+parser: google
+dynamic: false
+user_guide: docs
+
+exclude:
+  # Implementation modules / accidental imports — not part of the public API
+  - annotations
+  - compare
+
+reference:
+  - title: Present Value
+    desc: "Instruments, Ext/Dom/Macro debt books, and workbook loaders."
+    contents:
+      - pv.DomesticDebtBook
+      - pv.DomesticDebtInputs
+      - pv.ExternalDebtBook
+      - pv.ExternalDebtInputs
+      - pv.LocalCurrencyNonResidentInstrument
+      - pv.MacroDebtBook
+      - pv.MacroDebtInputs
+      - pv.PVPortfolio
+      - pv.PresentValueInstrument
+      - pv.ResidualFinancingOverrides
+      - pv.ResidualFinancingParams
+      - pv.calculate_residual_defaults
+      - pv.creditor_group_for_name
+      - pv.excel_npv
+      - pv.grant_element_new_disbursements
+      - pv.grant_element_value
+      - pv.load_domestic_debt_inputs
+      - pv.load_external_debt_inputs
+      - pv.load_input7_residual_params
+      - pv.load_instruments_from_workbook
+      - pv.load_lc_nr_instruments_from_workbook
+      - pv.load_macro_debt_inputs
+      - pv.new_disbursements_net_of_ge
+      - pv.public_dsa_residual_params
+      - pv.resolve_residual_params
+      - pv.CREDITOR_GROUPS
+      - pv.DEFAULT_PEER_MEDIAN_DEBT_TO_GDP
+      - pv.DEFAULT_PEER_MEDIAN_DS_TO_REVENUES
+
+  - title: Baseline DSA
+    desc: "Baseline sustainability ratios (Output 1-1 / 1-2)."
+    contents:
+      - dsa.BaselineExternalBook
+      - dsa.BaselinePublicBook
+      - dsa.external_dsa_panel
+      - dsa.load_core
+      - dsa.public_dsa_panel
+
+  - title: Stress tests
+    desc: "Input 6 standard stresses and residual financing."
+    contents:
+      - stress.CachedStressExternalBook
+      - stress.DomMltOverlay
+      - stress.DomStOverlay
+      - stress.Input6StandardParams
+      - stress.PublicResFinOverlay
+      - stress.ResFinOverlay
+      - stress.ResidualFill
+      - stress.StressExternalBook
+      - stress.StressPublicBook
+      - stress.apply_combo_shock
+      - stress.apply_exports_shock
+      - stress.apply_fx_depreciation_shock
+      - stress.apply_historical_averages_shock
+      - stress.apply_other_flows_shock
+      - stress.apply_primary_balance_shock
+      - stress.apply_real_gdp_shock
+      - stress.bsheet_exports_to_gdp
+      - stress.build_public_resfin_overlay
+      - stress.dom_mlt_resfin_series
+      - stress.dom_st_resfin_series
+      - stress.estimate_b1_public_gfn
+      - stress.external_dsa_residual_params
+      - stress.external_residual_borrowing
+      - stress.external_residual_gap
+      - stress.flow_shortfall_gap
+      - stress.historical_identity_pins
+      - stress.load_cached_external_stress
+      - stress.load_input6_standard
+      - stress.public_dsa_residual_params
+      - stress.public_residual_gap
+      - stress.real_depreciation_pct
+      - stress.rebuild_external_with_fx
+      - stress.resfin_instrument
+      - stress.resfin_overlay_series
+      - stress.run_a1_historical_external
+      - stress.run_b1_gdp_external
+      - stress.run_b1_gdp_public
+      - stress.run_b3_exports_external
+      - stress.run_b4_other_flows_external
+      - stress.run_b5_fx_external
+      - stress.run_b6_combo_external
+      - stress.run_standard_external_stress
+      - stress.split_residual_financing
+      - stress.stress_external_panel
+      - stress.stress_public_panel
+      - stress.stressed_external_stock_from_shortfall
+      - stress.StressScenarioId
+      - stress.ThresholdRule
+
+  - title: Realism
+    desc: "Realism 1-4 / Output 4 panels."
+    contents:
+      - realism.CapitalAssumptions
+      - realism.FiscalAdjustmentPlacement
+      - realism.ImportedDataCatalog
+      - realism.LicProgramDistribution
+      - realism.MultiplierAssumptions
+      - realism.QuartileBand
+      - realism.capital_growth_contribution
+      - realism.capital_stock_level
+      - realism.capital_stock_to_gdp
+      - realism.compare_to_quartiles
+      - realism.cumulative_multiplier_impact
+      - realism.debt_creating_flow_panel
+      - realism.debt_stock_from_ratio
+      - realism.fiscal_adjustment_from_primary_balance
+      - realism.fiscal_adjustment_panel
+      - realism.fiscal_multiplier_panel
+      - realism.forecast_error_panel
+      - realism.gdp_rebase_scale
+      - realism.invest_growth_panel
+      - realism.load_capital_assumptions
+      - realism.load_imported_data
+      - realism.load_lic_program_distribution
+      - realism.load_multiplier_grid
+      - realism.other_identified_flows_to_gdp
+      - realism.place_in_lic_histogram
+      - realism.placement_summary
+      - realism.projected_three_year_adjustment
+      - realism.public_automatic_debt_dynamics
+      - realism.rebase_ratio_to_outturn_gdp
+      - realism.residual_growth_contribution
+      - realism.three_year_fiscal_adjustment
+      - realism.total_external_to_gdp
+      - realism.underlying_growth
+      - realism.unit_impulse
+      - realism.DEFAULT_LIC_PROGRAM_DISTRIBUTION
+      - realism.forecast_error
+
+  - title: Risk rating
+    desc: "CI thresholds, Chart Data breaches, and Output 5/7."
+    contents:
+      - rating.ApplicableThresholds
+      - rating.ChartDataRegistry
+      - rating.CiSummarySnapshot
+      - rating.DebtCarryingCapacity
+      - rating.MarketFinancingInputs
+      - rating.MarketFinancingResult
+      - rating.MechanicalRatingResult
+      - rating.ModerateSpace
+      - rating.RatioPath
+      - rating.RiskRating
+      - rating.RiskRatingSummary
+      - rating.TriggerFlags
+      - rating.annual_breaches
+      - rating.assess_market_financing
+      - rating.classify_ci
+      - rating.compute_mechanical_ratings
+      - rating.load_ci_summary
+      - rating.load_input1_market
+      - rating.load_trigger_flags
+      - rating.market_panel
+      - rating.mechanical_rating_from_breaches
+      - rating.moderate_panel
+      - rating.moderate_space_from_headroom
+      - rating.most_extreme_shock_id
+      - rating.multi_year_breach
+      - rating.risk_summary_panel
+      - rating.thresholds_for
+      - rating.thresholds_from_ci
+      - rating.CI_STRONG_CUTOFF
+      - rating.CI_WEAK_CUTOFF
+
+  - title: Scenario
+    desc: "Customized Scenario and Probability / Output 6."
+    contents:
+      - scenario.CustomizedScenarioSpec
+      - scenario.DistressCoefficients
+      - scenario.DistressCovariates
+      - scenario.ProbabilityAssumptions
+      - scenario.apply_customized_deltas
+      - scenario.borderline_bands
+      - scenario.breach_probability
+      - scenario.distress_probability
+      - scenario.external_debt_scenarios_table
+      - scenario.load_distress_covariates
+      - scenario.max_path_probability
+      - scenario.path_breach_probabilities
+      - scenario.path_distress_probabilities
+      - scenario.probabilities_table
+      - scenario.probability_panel
+      - scenario.register_custom_path
+      - scenario.EXCEL_DISTRESS_COEFFICIENTS
+      - scenario.EXCEL_PROBABILITY_THRESHOLDS

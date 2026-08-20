@@ -1,4 +1,7 @@
-# Macro-Debt_Data (`MacroDebtBook`)
+---
+title: "Macro-debt bridge"
+guide-section: "Debt modules"
+---
 
 Excel analogue: **`Macro-Debt_Data`** — macro denominators (GDP, FX, exports,
 revenues), debt stocks in LCU/USD, GFN, fiscal balances, and the stitch of Ext
@@ -73,8 +76,8 @@ Macro still loads macro inputs but Ext-dependent series are incomplete.
 
 ## Demo
 
-[`demo/macro_debt.ipynb`](../demo/macro_debt.ipynb)
+[`demo/macro_debt.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/macro_debt.ipynb)
 
 ---
 
-**Next:** [7. Baseline DSA](07-baseline-dsa.md)
+**Next:** [7. Baseline DSA](baseline-dsa.qmd)
