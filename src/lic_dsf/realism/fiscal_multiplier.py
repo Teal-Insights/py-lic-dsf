@@ -63,11 +63,12 @@ def cumulative_multiplier_impact(
     """
     adj = fiscal_adjustment.astype(float).sort_index()
     years = [y for y in adj.index if y >= first_projection_year]
+    last_adj_year = first_projection_year + 13
     out: dict[int, float] = {}
     for t in years:
         total = 0.0
         for s in years:
-            if s > t:
+            if s > t or s > last_adj_year:
                 break
             a = adj.loc[s]
             if pd.isna(a):

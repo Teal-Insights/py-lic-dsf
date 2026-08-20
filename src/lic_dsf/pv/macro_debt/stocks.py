@@ -230,6 +230,20 @@ def grant_element_percent(
     )
 
 
+def fc_public_debt_usd(
+    inputs: MacroDebtInputs, external: ExternalDebtBook | None
+) -> pd.Series:
+    """Macro R83: I3 R214 hist; Ext R399 in projection."""
+    if external is None or inputs.fc_public_debt_usd is None:
+        return _align(inputs.fc_public_debt_usd or pd.Series(dtype=float), inputs.years)
+    return hist_proj(
+        inputs.fc_public_debt_usd,
+        external.inputs.fx_denominated_outstanding,
+        inputs.years,
+        inputs.first_projection_year,
+    )
+
+
 def new_public_external_mlt_disbursements(
     external: ExternalDebtBook | None,
     years: tuple[int, ...],

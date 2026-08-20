@@ -93,6 +93,10 @@ class MacroDebtBook:
         """Macro R6 = PPG external + private external."""
         return _stocks.total_external(self.inputs, self.external)
 
+    def fc_public_debt_usd(self) -> pd.Series:
+        """Macro R83: FC public debt (I3 R214 hist, Ext R399 proj)."""
+        return _stocks.fc_public_debt_usd(self.inputs, self.external)
+
     def domestic_debt(self) -> pd.Series:
         """Macro R14."""
         return _stocks.domestic_debt(self.inputs)

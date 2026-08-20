@@ -5,7 +5,11 @@ Sibling of ``lic_dsf.pv`` and ``lic_dsf.dsa``. Baseline ratios live in
 overlays (external and public three-way fill) to produce B-sheet paths.
 """
 
-from lic_dsf.stress.bound import external_residual_borrowing, historical_identity_pins
+from lic_dsf.stress.bound import (
+    bsheet_exports_to_gdp,
+    external_residual_borrowing,
+    historical_identity_pins,
+)
 from lic_dsf.stress.panels import stress_external_panel
 from lic_dsf.stress.public import (
     StressPublicBook,
@@ -33,6 +37,7 @@ from lic_dsf.stress.residual_pv import (
     stressed_external_stock_from_shortfall,
 )
 from lic_dsf.stress.scenario import (
+    CachedStressExternalBook,
     StressExternalBook,
     rebuild_external_with_fx,
     run_a1_historical_external,
@@ -54,9 +59,10 @@ from lic_dsf.stress.shocks import (
     real_depreciation_pct,
 )
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
-from lic_dsf.stress.workbook import load_input6_standard
+from lic_dsf.stress.workbook import load_cached_external_stress, load_input6_standard
 
 __all__ = [
+    "CachedStressExternalBook",
     "DomMltOverlay",
     "DomStOverlay",
     "Input6StandardParams",
@@ -74,6 +80,7 @@ __all__ = [
     "apply_other_flows_shock",
     "apply_primary_balance_shock",
     "apply_real_gdp_shock",
+    "bsheet_exports_to_gdp",
     "build_public_resfin_overlay",
     "dom_mlt_resfin_series",
     "dom_st_resfin_series",
@@ -83,6 +90,7 @@ __all__ = [
     "external_residual_gap",
     "flow_shortfall_gap",
     "historical_identity_pins",
+    "load_cached_external_stress",
     "load_input6_standard",
     "public_dsa_residual_params",
     "public_residual_gap",

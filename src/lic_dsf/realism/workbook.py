@@ -55,10 +55,13 @@ def load_capital_assumptions(path: str | Path) -> CapitalAssumptions:
         d = float(ws.cell(10, 3).value)
         phi = float(ws.cell(11, 3).value)
         beta = float(ws.cell(14, 3).value)
+        initial_gy_raw = ws.cell(70, 3).value
+        initial_gy = float(initial_gy_raw) if initial_gy_raw is not None else 0.5
         return CapitalAssumptions(
             depreciation=d,
             efficiency=phi,
             beta=beta,
+            initial_capital_to_gdp=initial_gy,
         )
     finally:
         wb.close()

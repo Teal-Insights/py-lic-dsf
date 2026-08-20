@@ -28,6 +28,97 @@ def _pct_of_gdp(level: pd.Series, gdp: pd.Series) -> pd.Series:
     return (100.0 * level / gdp.replace(0.0, pd.NA)).astype(float)
 
 
+def _exports_shocked(exp_usd_b: float, exp_usd_s: float) -> bool:
+    return abs(exp_usd_s - exp_usd_b) > 1e-9 * max(abs(exp_usd_b), 1.0)
+
+
+def _bsheet_r19_pct(
+    *,
+    year: int,
+    exp_b: float,
+    exp_s: float,
+    exp_usd_b: float,
+    exp_usd_s: float,
+    gdp_b: float,
+    gdp_s: float,
+    shock_window: tuple[int, ...],
+    nx_year: int | None,
+    fx_depreciation_pct: float,
+) -> float:
+    """B-sheet exports/GDP (R19): shocked ``E105/E46`` or baseline ``O19×O48/E46``."""
+    if gdp_s == 0.0:
+        return 0.0
+    if nx_year is not None and year == nx_year and fx_depreciation_pct:
+        return exp_b * gdp_b / gdp_s
+    if year in shock_window:
+        if _exports_shocked(exp_usd_b, exp_usd_s):
+            return exp_s
+        return exp_b * gdp_b / gdp_s
+    return exp_s
+
+
+def _bsheet_r18_shock_window(
+    *,
+    year: int,
+    imp_b: float,
+    exp_b: float,
+    exp_s: float,
+    exp_usd_b: float,
+    exp_usd_s: float,
+    gdp_b: float,
+    gdp_s: float,
+) -> float:
+    """B-sheet R18 = R20 − R19 in the shock window (non-NX years)."""
+    if gdp_s == 0.0:
+        return 0.0
+    r20 = imp_b * gdp_b / gdp_s
+    if _exports_shocked(exp_usd_b, exp_usd_s):
+        r19 = exp_s
+    else:
+        r19 = exp_b * gdp_b / gdp_s
+    return r20 - r19
+
+
+def bsheet_exports_to_gdp(
+    baseline_macro: MacroDebtBook,
+    shocked_macro: MacroDebtBook,
+    *,
+    fx_depreciation_pct: float = 0.0,
+) -> pd.Series:
+    """Exports/GDP (%) on the external B-sheet (R19), year-by-year."""
+    years = baseline_macro.inputs.years
+    year_list = list(years)
+    first = baseline_macro.inputs.first_projection_year
+    gdp_b = _align(baseline_macro.gdp_usd(), years)
+    gdp_s = _align(shocked_macro.gdp_usd(), years)
+    exp_s = _pct_of_gdp(_align(shocked_macro.exports(), years), gdp_s)
+    exp_b = _pct_of_gdp(_align(baseline_macro.exports(), years), gdp_b)
+    exp_usd_b = _align(baseline_macro.exports(), years)
+    exp_usd_s = _align(shocked_macro.exports(), years)
+    proj = [y for y in year_list if y >= first]
+    shock_window = tuple(proj[1:3])
+    nx_year = proj[2] if len(proj) >= 3 else None
+
+    out = pd.Series(0.0, index=year_list, dtype=float)
+    for year in year_list:
+        if year < first:
+            out.loc[year] = float(exp_b.loc[year]) if pd.notna(exp_b.loc[year]) else 0.0
+            continue
+        out.loc[year] = _bsheet_r19_pct(
+            year=year,
+            exp_b=float(exp_b.loc[year]),
+            exp_s=float(exp_s.loc[year]),
+            exp_usd_b=float(exp_usd_b.loc[year]),
+            exp_usd_s=float(exp_usd_s.loc[year]),
+            gdp_b=float(gdp_b.loc[year]),
+            gdp_s=float(gdp_s.loc[year]),
+            shock_window=shock_window,
+            nx_year=nx_year,
+            fx_depreciation_pct=fx_depreciation_pct,
+        )
+    return out.astype(float)
+
+
 def hybrid_external_debt_to_gdp(macro: MacroDebtBook) -> pd.Series:
     """Baseline R12: PPG in LCU/GDP LCU plus private USD/GDP USD.
 
@@ -121,10 +212,12 @@ def external_residual_borrowing(
     fx_passthrough: float = 0.0,
     inflation_elasticity: float = 0.0,
     residual_interest_rate: float = 0.0,
+    resfin_interest: pd.Series | None = None,
     net_exports_elasticity: float = 0.0,
     historical_averages: bool = False,
     hist_ca_deficit_pct: float | None = None,
     hist_fdi_pct: float | None = None,
+    additional_borrowing_interest: pd.Series | None = None,
 ) -> pd.Series:
     """USD residual PPG MLT fill (Excel B-sheet residual gross borrowing).
 
@@ -142,6 +235,10 @@ def external_residual_borrowing(
     10-year historical means for every year from the second projection year,
     R18 stays on the baseline % of GDP path, and the baseline residual (R30)
     is copied unscaled.
+
+    Pass ``resfin_interest`` (PV Stress R99) to feed ResFin interest into R25;
+    ``scenario._converged_external_gap`` iterates until gap and overlay agree.
+    ``additional_borrowing_interest`` adds B6 combo R112 (``PV_Base-add.cost.mkt``).
     """
     years = baseline_macro.inputs.years
     first = baseline_macro.inputs.first_projection_year
@@ -172,13 +269,10 @@ def external_residual_borrowing(
         foreign_g = pd.Series(0.0, index=year_list, dtype=float)
 
     exp_s = _pct_of_gdp(_align(shocked_macro.exports(), years), gdp_s)
-    imp_s = _pct_of_gdp(_align(baseline_macro.inputs.imports, years), gdp_s)
-    tr_s = -_pct_of_gdp(
-        _align(shocked_macro.inputs.current_transfers_net, years), gdp_s
-    )
-    fdi_s = -_pct_of_gdp(_align(shocked_macro.inputs.fdi, years), gdp_s)
     exp_b = _pct_of_gdp(_align(baseline_macro.exports(), years), gdp_b)
     imp_b = _pct_of_gdp(_align(baseline_macro.inputs.imports, years), gdp_b)
+    exp_usd_b = _align(baseline_macro.exports(), years)
+    exp_usd_s = _align(shocked_macro.exports(), years)
     tr_b = -_pct_of_gdp(
         _align(baseline_macro.inputs.current_transfers_net, years), gdp_b
     )
@@ -240,9 +334,16 @@ def external_residual_borrowing(
             dep = float(fx_depreciation_pct)
         else:
             dep = float(dep_s.loc[year]) if pd.notna(dep_s.loc[year]) else 0.0
-        interest = float(shocked_macro.external_interest().loc[year]) + (
-            residual_interest_rate * float(extra.loc[prev])
-        )
+        if resfin_interest is not None:
+            interest = float(shocked_macro.external_interest().loc[year]) + float(
+                resfin_interest.loc[year]
+            )
+        else:
+            interest = float(shocked_macro.external_interest().loc[year]) + (
+                residual_interest_rate * float(extra.loc[prev])
+            )
+        if additional_borrowing_interest is not None:
+            interest += float(additional_borrowing_interest.loc[year])
         r25 = _endogenous(
             prev_r12=r12s[prev],
             prev_nom=r84s[prev],
@@ -287,10 +388,29 @@ def external_residual_borrowing(
             )
             r18 = float(r18_b.loc[year]) - net_exports_elasticity * real_dep
         else:
-            r18 = float(imp_s.loc[year] - exp_s.loc[year])
-        r21 = float(tr_s.loc[year])
+            r18 = _bsheet_r18_shock_window(
+                year=year,
+                imp_b=float(imp_b.loc[year]),
+                exp_b=float(exp_b.loc[year]),
+                exp_s=float(exp_s.loc[year]),
+                exp_usd_b=float(exp_usd_b.loc[year]),
+                exp_usd_s=float(exp_usd_s.loc[year]),
+                gdp_b=float(gdp_b.loc[year]),
+                gdp_s=gdp,
+            )
+        if year in shock_window:
+            tr_s = float(shocked_macro.inputs.current_transfers_net.loc[year])
+            gdp_denom = float(gdp_b.loc[year])
+            r21 = -100.0 * tr_s / gdp_denom if gdp_denom else 0.0
+        else:
+            r21 = float(r21_b.loc[year]) * scale if pd.notna(r21_b.loc[year]) else 0.0
         r23 = float(r23_b.loc[year]) * scale if pd.notna(r23_b.loc[year]) else 0.0
-        r24 = float(fdi_s.loc[year])
+        if year in shock_window:
+            fdi_s = float(shocked_macro.inputs.fdi.loc[year])
+            gdp_denom = float(gdp_b.loc[year])
+            r24 = -100.0 * fdi_s / gdp_denom if gdp_denom else 0.0
+        else:
+            r24 = float(r24_b.loc[year]) * scale if pd.notna(r24_b.loc[year]) else 0.0
         r17 = r18 + r21 + r23
         r16 = r17 + r24 + r25
         r15 = r16 + r30_b[year] * scale

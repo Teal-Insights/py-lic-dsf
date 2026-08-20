@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 from dataclasses import dataclass
 
 import pandas as pd
@@ -47,3 +48,6 @@ class ExternalDebtInputs:
     short_term_interest_rate: float
     residual_interest_rates: dict[str, float]
     grant_element_weight_names: frozenset[str]
+    fx_denominated_outstanding: pd.Series = dataclasses.field(
+        default_factory=lambda: pd.Series(dtype=float)
+    )

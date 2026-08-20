@@ -31,6 +31,7 @@ from lic_dsf.realism.forecast_error import (
 from lic_dsf.realism.imported import ImportedDataCatalog, load_imported_data
 from lic_dsf.realism.invest_growth import (
     capital_growth_contribution,
+    capital_stock_level,
     capital_stock_to_gdp,
     residual_growth_contribution,
 )
@@ -61,6 +62,7 @@ __all__ = [
     "MultiplierAssumptions",
     "QuartileBand",
     "capital_growth_contribution",
+    "capital_stock_level",
     "capital_stock_to_gdp",
     "compare_to_quartiles",
     "cumulative_multiplier_impact",

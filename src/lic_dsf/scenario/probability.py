@@ -132,6 +132,14 @@ class DistressCovariates:
 
 
 # Cached template coefficients (Probability approach I/J/K/L 64–74).
+# Probability approach ``O64:O67`` distress-probability cutoffs (×100 in Output 6).
+EXCEL_PROBABILITY_THRESHOLDS: dict[str, float] = {
+    "pv_debt_to_gdp": 15.5,
+    "pv_debt_to_exports": 16.0,
+    "debt_service_to_exports": 13.8,
+    "debt_service_to_revenue": 15.0,
+}
+
 EXCEL_DISTRESS_COEFFICIENTS: dict[str, DistressCoefficients] = {
     "pv_debt_to_gdp": DistressCoefficients(
         ratio=1.541,

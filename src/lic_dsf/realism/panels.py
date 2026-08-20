@@ -101,7 +101,7 @@ def invest_growth_panel(
     """
     assumptions = assumptions or CapitalAssumptions()
     stock = capital_stock_to_gdp(investment_to_gdp, real_gdp_growth, assumptions)
-    contrib = capital_growth_contribution(stock, assumptions)
+    contrib = capital_growth_contribution(stock, real_gdp_growth, assumptions)
     residual = residual_growth_contribution(real_gdp_growth, contrib)
     return pd.DataFrame(
         {

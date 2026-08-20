@@ -104,7 +104,8 @@ def apply_real_gdp_shock(
     Rebuilds ``gdp_constant`` from shocked real growth and ``gdp_usd`` from
     shocked real growth plus the Input 6 inflation-elasticity adjustment to the
     GDP deflator (B1 ``R50`` / ``R51`` / ``R46``). Absolute exports are left
-    unchanged (B1 holds export levels and rescales exports/GDP).
+    unchanged (B1 holds export levels and rescales exports/GDP). Non-grant
+    revenue keeps the baseline share of GDP (B-sheet R106).
 
     Args:
         inputs: Baseline Macro inputs.
@@ -186,7 +187,18 @@ def apply_real_gdp_shock(
             float(gdp_usd.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
         )
 
-    return replace(inputs, gdp_usd=gdp_usd.astype(float), gdp_constant=gdp_constant)
+    revenues = _hold_nongrant_revenue_to_gdp(
+        inputs,
+        old_gdp_usd=inputs.gdp_usd,
+        new_gdp_usd=gdp_usd,
+        from_year=first,
+    )
+    return replace(
+        inputs,
+        gdp_usd=gdp_usd.astype(float),
+        gdp_constant=gdp_constant,
+        revenues_incl_grants=revenues,
+    )
 
 
 def apply_exports_shock(
@@ -199,7 +211,9 @@ def apply_exports_shock(
     """Shock nominal export growth in projection years 2–3 (B3).
 
     Also applies the Input 6 real-GDP elasticity to export growth when
-    interactions are on. FDI / transfers are unchanged.
+    interactions are on. FDI / transfers are unchanged. Non-grant revenue
+    keeps the baseline share of GDP (B-sheet R106); grants stay at baseline
+    LCU.
     """
     years = inputs.years
     first = inputs.first_projection_year
@@ -223,32 +237,10 @@ def apply_exports_shock(
 
     exports = _rebuild_levels_from_growth(inputs.exports, years, first, shocked_exp_g)
 
-    # GDP interaction (B3 R50):
-    # - if shocked export growth < 0: base_gdp + ε × shocked_exp_g × prior exp/GDP
-    # - else: base_gdp − ε × (base_exp_g − shocked_exp_g) × prior exp/GDP
+    # GDP interaction (B3 R50): use prior-year shocked export/GDP (B-sheet E19),
+    # not the baseline share, when ε is applied in the shock window.
     real_g = _growth_pct(inputs.gdp_constant, years)
     shocked_real = real_g.copy()
-    if window is not None and elasticity:
-        gdp = _align(inputs.gdp_usd, years)
-        exports_base = _align(inputs.exports, years)
-        for year in window:
-            prior = year - 1
-            share = (
-                float(exports_base.loc[prior] / gdp.loc[prior])
-                if gdp.loc[prior]
-                else 0.0
-            )
-            shocked_eg = float(shocked_exp_g.loc[year])
-            base_eg = float(exp_g.loc[year])
-            base_rg = float(real_g.loc[year])
-            if shocked_eg < 0.0:
-                shocked_real.loc[year] = base_rg + elasticity * shocked_eg * share
-            else:
-                shocked_real.loc[year] = (
-                    base_rg - elasticity * (base_eg - shocked_eg) * share
-                )
-
-    # Keep baseline deflator; rebuild USD from shocked real × baseline deflator.
     deflator_g = _growth_pct(
         inputs.gdp_usd / inputs.gdp_constant.replace(0.0, pd.NA), years
     )
@@ -262,29 +254,64 @@ def apply_exports_shock(
                 (1.0 + float(usd_g.loc[year]) / 100.0) / (1.0 + rg / 100.0) - 1.0
             )
 
+    gdp_constant = _align(inputs.gdp_constant, years).copy()
+    gdp_usd = _align(inputs.gdp_usd, years).copy()
+    if window is not None and elasticity:
+        for year in window:
+            prior = year - 1
+            share = (
+                float(exports.loc[prior] / gdp_usd.loc[prior])
+                if gdp_usd.loc[prior]
+                else 0.0
+            )
+            shocked_eg = float(shocked_exp_g.loc[year])
+            base_eg = float(exp_g.loc[year])
+            base_rg = float(real_g.loc[year])
+            if shocked_eg < 0.0:
+                shocked_real.loc[year] = base_rg + elasticity * shocked_eg * share
+            else:
+                shocked_real.loc[year] = (
+                    base_rg - elasticity * (base_eg - shocked_eg) * share
+                )
+            rg = float(shocked_real.loc[year])
+            dg = float(deflator_g.loc[year]) if pd.notna(deflator_g.loc[year]) else 0.0
+            gdp_constant.loc[year] = float(gdp_constant.loc[prior]) * (1.0 + rg / 100.0)
+            gdp_usd.loc[year] = (
+                float(gdp_usd.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
+            )
+
     gdp_constant = _rebuild_levels_from_growth(
         inputs.gdp_constant, years, first, shocked_real
     )
-    gdp_usd = _align(inputs.gdp_usd, years).copy()
     for year in years:
         if year < first:
+            continue
+        prior = year - 1
+        if window is not None and elasticity and year in window:
             continue
         rg = float(shocked_real.loc[year]) if pd.notna(shocked_real.loc[year]) else 0.0
         dg = float(deflator_g.loc[year]) if pd.notna(deflator_g.loc[year]) else 0.0
         gdp_usd.loc[year] = (
-            float(gdp_usd.loc[year - 1]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
+            float(gdp_usd.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
         )
 
     # Current account: reduce by export shortfall (financing need channel).
     shortfall = _align(inputs.exports, years) - exports
     current_account = _align(inputs.current_account, years) - shortfall
 
+    revenues = _hold_nongrant_revenue_to_gdp(
+        inputs,
+        old_gdp_usd=inputs.gdp_usd,
+        new_gdp_usd=gdp_usd,
+        from_year=first,
+    )
     return replace(
         inputs,
         exports=exports.astype(float),
         gdp_usd=gdp_usd.astype(float),
         gdp_constant=gdp_constant.astype(float),
         current_account=current_account.astype(float),
+        revenues_incl_grants=revenues,
     )
 
 
@@ -409,11 +436,19 @@ def apply_fx_depreciation_shock(
             float(gdp_usd.loc[year - 1]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
         )
 
+    revenues = _hold_nongrant_revenue_to_gdp(
+        inputs,
+        old_gdp_usd=inputs.gdp_usd,
+        new_gdp_usd=gdp_usd,
+        new_fx_pa=fx_pa,
+        from_year=first,
+    )
     return replace(
         inputs,
         fx_eop=fx_eop.astype(float),
         fx_pa=fx_pa.astype(float),
         gdp_usd=gdp_usd.astype(float),
+        revenues_incl_grants=revenues,
     )
 
 
@@ -493,6 +528,42 @@ def _keep_share_of_gdp(
             float(out.loc[year]) / float(old.loc[year]) * float(new.loc[year])
         )
     return out.astype(float)
+
+
+def _hold_nongrant_revenue_to_gdp(
+    inputs: MacroDebtInputs,
+    *,
+    old_gdp_usd: pd.Series,
+    new_gdp_usd: pd.Series,
+    new_fx_pa: pd.Series | None = None,
+    from_year: int | None = None,
+) -> pd.Series:
+    """Rebuild LCU revenues so non-grant revenue/GDP matches B-sheet R106.
+
+    Excel R106 is baseline ``(revenues − grants) / GDP × shocked GDP``. Grants
+    stay at baseline LCU. USD excl-grant revenue is scaled by
+    ``new_gdp / old_gdp`` from `from_year`, then converted back with
+    `new_fx_pa` (defaults to the current period-average FX).
+
+    Args:
+        inputs: Macro inputs whose current revenues/grants/FX define the
+            starting excl-grant USD path.
+        old_gdp_usd: GDP path the current revenues were expressed against.
+        new_gdp_usd: Shocked GDP path.
+        new_fx_pa: FX used to convert the scaled USD revenue back to LCU.
+        from_year: First year to rescale (defaults to first projection year).
+
+    Returns:
+        New `revenues_incl_grants` series in LCU.
+    """
+    years = inputs.years
+    start = from_year if from_year is not None else inputs.first_projection_year
+    fx_old = _align(inputs.fx_pa, years).replace(0.0, pd.NA)
+    fx_new = _align(new_fx_pa if new_fx_pa is not None else inputs.fx_pa, years)
+    grants = _align(inputs.grants, years).fillna(0.0)
+    excl_usd = (_align(inputs.revenues_incl_grants, years) - grants) / fx_old
+    new_excl_usd = _keep_share_of_gdp(excl_usd, old_gdp_usd, new_gdp_usd, years, start)
+    return (new_excl_usd * fx_new + grants).astype(float)
 
 
 def apply_historical_averages_shock(inputs: MacroDebtInputs) -> MacroDebtInputs:
@@ -616,13 +687,25 @@ def apply_combo_shock(
         out,
         params,
         shock_sd=params.combo_exports_shock_sd,
-        gdp_elasticity=params.exports_gdp_elasticity,
+        # B6 R50 takes MIN(gdp shock, baseline−SD, baseline+ε·Δexport); the
+        # template keeps the GDP-shock path, not B3's export→real-GDP rewrite.
+        gdp_elasticity=0.0,
     )
-    out = apply_other_flows_shock(
-        out,
+    # Excel combo applies the other-flows thresholds on the baseline flow/GDP
+    # path (then combines with the GDP/export/FX shocks), rather than on the
+    # already GDP-shocked intermediate path.
+    other_flows = apply_other_flows_shock(
+        inputs,
         params,
         transfers_sd=params.combo_transfers_shock_sd,
         fdi_sd=params.combo_fdi_shock_sd,
+    )
+    out = replace(
+        out,
+        current_transfers_net=other_flows.current_transfers_net,
+        current_transfers_official=other_flows.current_transfers_official,
+        fdi=other_flows.fdi,
+        current_account=other_flows.current_account,
     )
 
     years = out.years
@@ -668,11 +751,19 @@ def apply_combo_shock(
             float(gdp_usd.loc[year - 1]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
         )
 
+    revenues = _hold_nongrant_revenue_to_gdp(
+        out,
+        old_gdp_usd=out.gdp_usd,
+        new_gdp_usd=gdp_usd,
+        new_fx_pa=fx_pa,
+        from_year=first,
+    )
     return replace(
         out,
         fx_eop=fx_eop.astype(float),
         fx_pa=fx_pa.astype(float),
         gdp_usd=gdp_usd.astype(float),
+        revenues_incl_grants=revenues,
     )
 
 

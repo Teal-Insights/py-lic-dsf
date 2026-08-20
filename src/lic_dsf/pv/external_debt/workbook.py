@@ -116,6 +116,9 @@ _INPUT8_PV_ROW = 24
 _INPUT8_INTEREST_ROW = 17
 _EXT_RESIDENCY_CELL = (120, 3)  # C120
 _LOOKUP_RESIDENCY_CELL = (4, 24)  # X4
+_EXT_R399_ROW = 399
+_EXT_YEAR_ROW = 1
+_EXT_FIRST_YEAR_COL = 5
 
 
 def _as_float(value: Any) -> float | None:
@@ -346,6 +349,14 @@ def load_external_debt_inputs(
             else:
                 grant_element_weight_names.add(base)
 
+        # Ext R399: FX-denominated debt outstanding (used as Macro R83 in projection)
+        ext_year_cols, ext_years = _year_columns(
+            ext, _EXT_YEAR_ROW, _EXT_FIRST_YEAR_COL
+        )
+        fx_denom = _align_series(
+            _series_from_row(ext, _EXT_R399_ROW, ext_year_cols, ext_years), years
+        )
+
         return ExternalDebtInputs(
             years=years,
             existing_debt_service=existing_debt_service.fillna(0.0),
@@ -370,6 +381,7 @@ def load_external_debt_inputs(
             short_term_interest_rate=float(st_rate),
             residual_interest_rates=residual_interest_rates,
             grant_element_weight_names=frozenset(grant_element_weight_names),
+            fx_denominated_outstanding=fx_denom,
         )
     finally:
         workbook.close()

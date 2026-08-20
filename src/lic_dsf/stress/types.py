@@ -13,11 +13,16 @@ ThresholdRule = Literal[
 
 StressScenarioId = Literal[
     "A1_Historical",
+    "A2_Custom",
     "B1_GDP",
     "B3_Exports",
     "B4_OtherFlows",
     "B5_FX",
     "B6_Combo",
+    "C1_CombinedCL",
+    "C2_NaturalDisaster",
+    "C3_Commodity",
+    "C4_Market",
 ]
 
 

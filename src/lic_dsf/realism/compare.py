@@ -382,9 +382,7 @@ def compute_realism1_outputs(path: str | Path) -> dict[tuple[str, str], pd.Serie
         if "DU_GDP" in rebased_pub_last:
             _put(store, "Public / Chart", "Previous DSA", rebased_pub_last["DU_GDP"])
 
-    fc_usd = macro.inputs.fc_public_debt_usd
-    if fc_usd is None:
-        fc_usd = macro.ppg_external()
+    fc_usd = macro.fc_public_debt_usd()
     gdp_lcu = macro.gdp_lcu()
     fc_to_gdp = (
         100.0

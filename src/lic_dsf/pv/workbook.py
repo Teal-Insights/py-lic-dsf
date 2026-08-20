@@ -91,8 +91,7 @@ def _year_columns(worksheet: Any) -> tuple[tuple[int, ...], tuple[int, ...]]:
         col += 1
     if not columns:
         raise ValueError(
-            f"{_INPUT4_SHEET} has no year headers from column "
-            f"{_FIRST_DISBURSEMENT_COL}"
+            f"{_INPUT4_SHEET} has no year headers from column {_FIRST_DISBURSEMENT_COL}"
         )
     return tuple(columns), tuple(years)
 

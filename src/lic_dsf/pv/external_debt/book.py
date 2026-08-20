@@ -237,9 +237,7 @@ class ExternalDebtBook:
         """Grant-element dollar amount of new disbursements (Ext R409)."""
         return _grant_element_value(self)
 
-    def residual_defaults(
-        self, *, average_years: int = 11
-    ) -> ResidualFinancingParams:
+    def residual_defaults(self, *, average_years: int = 11) -> ResidualFinancingParams:
         """Input 7 default shares/terms (Ext ``C126–C128``, ``C131–C133``)."""
         return calculate_residual_defaults(self, average_years=average_years)
 

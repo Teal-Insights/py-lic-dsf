@@ -71,9 +71,7 @@ def grant_element_new_disbursements(book: ExternalDebtBook) -> pd.Series:
 
 def new_disbursements_net_of_ge(book: ExternalDebtBook) -> pd.Series:
     """New external MLT disbursements net of grant element (Ext R407)."""
-    disb = book.portfolio.aggregate_external().loc[
-        "New forex borrowing (gross, USD)"
-    ]
+    disb = book.portfolio.aggregate_external().loc["New forex borrowing (gross, USD)"]
     ge = grant_element_new_disbursements(book)
     years = list(book.inputs.years)
     disb = disb.reindex(years).fillna(0.0)
@@ -83,9 +81,7 @@ def new_disbursements_net_of_ge(book: ExternalDebtBook) -> pd.Series:
 
 def grant_element_value(book: ExternalDebtBook) -> pd.Series:
     """Grant-element dollar amount of new disbursements (Ext R409)."""
-    disb = book.portfolio.aggregate_external().loc[
-        "New forex borrowing (gross, USD)"
-    ]
+    disb = book.portfolio.aggregate_external().loc["New forex borrowing (gross, USD)"]
     ge = grant_element_new_disbursements(book)
     years = list(book.inputs.years)
     disb = disb.reindex(years).fillna(0.0)

@@ -183,4 +183,3 @@ def new_pv_by_creditor(book: ExternalDebtBook) -> pd.DataFrame:
 def new_stock_by_creditor(book: ExternalDebtBook) -> pd.DataFrame:
     """New MLT stock by Ext creditor group (Ext R329–R374 shape)."""
     return _metric_by_creditor(book, book.portfolio.stock())
-
