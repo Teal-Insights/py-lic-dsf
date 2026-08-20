@@ -1,4 +1,7 @@
-# Risk rating (CI / Chart Data / Output 5 & 7)
+---
+title: "Risk rating"
+guide-section: "DSA & analysis"
+---
 
 Excel analogues: **Classification / CI Summary** thresholds, **Chart Data**
 breach logic, mechanical **risk of debt distress**, market-financing and
@@ -109,8 +112,8 @@ risk_summary_panel(summary)
 
 Add stress scenario series the same way (`is_baseline=False`) before calling
 `compute_mechanical_ratings`. See also Output 5/7 sections in
-[`demo/all_outputs.ipynb`](../demo/all_outputs.ipynb). Dedicated Output 7
-panel: [`demo/output_7.ipynb`](../demo/output_7.ipynb).
+[`demo/all_outputs.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/all_outputs.ipynb). Dedicated Output 7
+panel: [`demo/output_7.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb).
 
 ## Excel cues
 
@@ -123,9 +126,9 @@ panel: [`demo/output_7.ipynb`](../demo/output_7.ipynb).
 
 ## Demo
 
-- [`demo/output_7.ipynb`](../demo/output_7.ipynb) — Output 7 panel
-- [`demo/risk_rating.ipynb`](../demo/risk_rating.ipynb) — CI / Chart Data walkthrough
+- [`demo/output_7.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb) — Output 7 panel
+- [`demo/risk_rating.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) — CI / Chart Data walkthrough
 
 ---
 
-**Next:** [11. Scenario](11-scenario.md)
+**Next:** [11. Scenario](scenario.qmd)

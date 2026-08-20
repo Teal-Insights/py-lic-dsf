@@ -1,4 +1,7 @@
-# Dom_Debt indicators (`DomesticDebtBook`)
+---
+title: "Domestic debt indicators"
+guide-section: "Debt modules"
+---
 
 Excel analogues: **`Dom_Debt_Data`** / **`Dom_Debt_Indicators`** — domestic
 public debt stocks, service, and presentation bands (including peer medians
@@ -45,8 +48,8 @@ Dom indicator rows (e.g. debt/GDP, DS/revenues).
 
 ## Demo
 
-[`demo/dom_debt.ipynb`](../demo/dom_debt.ipynb)
+[`demo/dom_debt.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/dom_debt.ipynb)
 
 ---
 
-**Next:** [6. Macro debt](06-macro-debt-bridge.md)
+**Next:** [6. Macro debt](macro-debt-bridge.qmd)

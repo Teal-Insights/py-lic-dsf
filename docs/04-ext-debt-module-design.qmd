@@ -1,4 +1,7 @@
-# Ext_Debt_Data (`ExternalDebtBook`)
+---
+title: "External debt book"
+guide-section: "Debt modules"
+---
 
 Excel analogue: **`Ext_Debt_Data`** — existing PPG external MLT, new portfolio
 MLT, ST / locally issued / SDR pieces, creditor groups, grant element, and
@@ -10,7 +13,7 @@ PPG PV headlines (e.g. Ext R391).
 |-------|------|
 | `ExternalDebtBook` | Sheet engine: `portfolio` + `ExternalDebtInputs` |
 | `load_external_debt_inputs` | Existing debt / Ext input blocks from the workbook |
-| `PVPortfolio` | New MLT schedules ([03-pv-instruments.md](03-pv-instruments.md)) |
+| `PVPortfolio` | New MLT schedules ([pv-instruments.qmd](pv-instruments.qmd)) |
 | `load_input7_residual_params` | Input 7 residual-financing terms (used heavily in stress) |
 
 Creditor grouping, grant element, debt evolution, and memorandum panels are
@@ -73,8 +76,8 @@ ExternalDebtBook  →  MacroDebtBook / Baseline DSA
 
 ## Demo
 
-[`demo/ext_debt.ipynb`](../demo/ext_debt.ipynb)
+[`demo/ext_debt.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/ext_debt.ipynb)
 
 ---
 
-**Next:** [5. Dom debt](05-dom-debt-indicators.md)
+**Next:** [5. Dom debt](dom-debt-indicators.qmd)

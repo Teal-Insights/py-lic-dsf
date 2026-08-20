@@ -1,4 +1,7 @@
-# Baseline DSA (Output 1-1 / 1-2)
+---
+title: "Baseline DSA"
+guide-section: "DSA & analysis"
+---
 
 Excel analogues: **`Baseline - external`** / **`Baseline - public`**, feeding
 **Output 1-1** and **Output 1-2**.
@@ -89,8 +92,8 @@ Book methods expose the same series individually (e.g.
 
 ## Demo
 
-[`demo/baseline_dsa.ipynb`](../demo/baseline_dsa.ipynb)
+[`demo/baseline_dsa.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb)
 
 ---
 
-**Next:** [8. Stress DSA](08-stress-dsa.md)
+**Next:** [8. Stress DSA](stress-dsa.qmd)

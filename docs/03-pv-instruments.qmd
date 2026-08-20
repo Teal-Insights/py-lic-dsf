@@ -1,4 +1,7 @@
-# PV instruments (Input 4 / 5)
+---
+title: "PV instruments"
+guide-section: "Debt modules"
+---
 
 Excel analogues: hidden **`PV_Base`** tables (Input 4, USD) and **`PV_LC_NR1/2/3`**
 (Input 5, local-currency non-resident bonds converted to USD).
@@ -14,7 +17,7 @@ Excel analogues: hidden **`PV_Base`** tables (Input 4, USD) and **`PV_LC_NR1/2/3
 | `load_lc_nr_instruments_from_workbook` | Input 5 → list of LC-NR instruments |
 
 `PVPortfolio` owns **new MLT only**. Existing debt, ST, SDR, and Ext headlines
-live on [`ExternalDebtBook`](04-ext-debt-module-design.md).
+live on [`ExternalDebtBook`](ext-debt-module-design.qmd).
 
 ## Load and inspect
 
@@ -54,10 +57,10 @@ interest, and amortization (see `PVPortfolio.aggregate_external()`).
 
 ## Demos
 
-- [`demo/pv.ipynb`](../demo/pv.ipynb) — single USD instrument
-- [`demo/lc_nr.ipynb`](../demo/lc_nr.ipynb) — LC-NR
-- [`demo/portfolio.ipynb`](../demo/portfolio.ipynb) — combined portfolio
+- [`demo/pv.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/pv.ipynb) — single USD instrument
+- [`demo/lc_nr.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/lc_nr.ipynb) — LC-NR
+- [`demo/portfolio.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/portfolio.ipynb) — combined portfolio
 
 ---
 
-**Next:** [4. Ext debt](04-ext-debt-module-design.md)
+**Next:** [4. Ext debt](ext-debt-module-design.qmd)

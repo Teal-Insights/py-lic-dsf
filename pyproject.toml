@@ -12,11 +12,12 @@ license = { text = "MIT" }
 authors = [{ name = "Teal Insights" }]
 dependencies = [
     "fastpyxl>=1.0.9",
+    "great-docs>=0.17.0",
     "pandas>=2.2",
 ]
 
 [project.urls]
-Repository = "https://github.com/Teal-Insights/lic-dsf"
+Repository = "https://github.com/Teal-Insights/py-lic-dsf"
 
 [tool.setuptools.packages.find]
 where = ["src"]
