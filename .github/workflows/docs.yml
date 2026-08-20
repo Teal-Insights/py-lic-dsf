@@ -40,7 +40,8 @@ jobs:
 
       - name: How to preview this build locally
         if: github.event_name == 'pull_request'
-        run: great-docs ci notice --run ${{ github.run_id }} --pr ${{ github.event.number }}
+        continue-on-error: true
+        run: uv run great-docs ci notice --run ${{ github.run_id }} --pr ${{ github.event.number }}
 
       - name: Upload build timings
         uses: actions/upload-artifact@v7
