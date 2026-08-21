@@ -6,6 +6,11 @@ parser: google
 dynamic: false
 user_guide: docs
 
+announcement:
+  content: "UNDER CONSTRUCTION: This *unofficial* Python implementation of the LIC DSF is preliminary and unstable, and the library API and behavior may change considerably before stable release!"
+  type: warning
+  dismissable: false
+
 exclude:
   # Implementation modules / accidental imports — not part of the public API
   - annotations
