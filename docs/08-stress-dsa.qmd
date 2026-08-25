@@ -92,7 +92,11 @@ keeps the three-way shares from Input 7.
 ## Caveats
 
 Public GFN (B1 R90) is the fiscal + debt-service identity; ResFin is
-``R90 − baseline GFN``, solved with a short fixed-point loop.
+``R90 − baseline GFN`` (``Baseline - public`` R78 / ``macro.public_gfn()``),
+solved with a fixed-point loop that stops when successive gaps change by
+less than a small LCU tolerance. Domestic ResFin interest uses the
+**baseline** GDP-deflator path (``PV_ResFin_pub`` R24), not B1 shocked LCU
+inflation.
 
 ## Demo
 

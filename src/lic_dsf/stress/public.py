@@ -11,7 +11,6 @@ from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.stress.residual_pv import (
     PublicResFinOverlay,
-    ResidualFill,
     build_public_resfin_overlay,
     gdp_deflator_growth,
     public_residual_gap,
@@ -34,15 +33,6 @@ def _clamp_nonnegative(series: pd.Series) -> pd.Series:
 def _pct(numer: pd.Series, denom: pd.Series) -> pd.Series:
     out = 100.0 * numer / denom.replace(0.0, pd.NA)
     return out.replace([float("inf"), float("-inf")], pd.NA).astype(float)
-
-
-def _zero_fill(years: tuple[int, ...]) -> ResidualFill:
-    z = pd.Series(0.0, index=list(years), dtype=float)
-    return ResidualFill(
-        external_mlt_usd=z.copy(),
-        domestic_mlt_lcu=z.copy(),
-        domestic_st_lcu=z.copy(),
-    )
 
 
 def _inflation_elasticity(input6: Input6StandardParams) -> float:
@@ -299,7 +289,8 @@ def run_b1_gdp_public(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
     *,
-    iterations: int = 4,
+    iterations: int = 25,
+    tol: float = 1e-6,
     public_gap: pd.Series | None = None,
     ext_r86: pd.Series | None = None,
 ) -> StressPublicBook:
@@ -310,7 +301,9 @@ def run_b1_gdp_public(
         external: Baseline Ext book.
         input6: Input 6 standard shock params.
         residual_params: Input 7 value-used params (public J shares + terms).
-        iterations: Fixed-point iterations for GFN ↔ ResFin feedback.
+        iterations: Max fixed-point iterations for GFN ↔ ResFin feedback
+            (stops early when ``max(|Δ gap|) < tol``).
+        tol: Convergence tolerance on successive public residual gaps (LCU).
         public_gap: Optional precomputed public ΔGFN (LCU); skips GFN iteration.
         ext_r86: Optional external residual gap (USD); defaults to zeros (B1).
 
@@ -327,8 +320,12 @@ def run_b1_gdp_public(
         if ext_r86 is not None
         else pd.Series(0.0, index=list(years), dtype=float)
     )
+    # PV_ResFin_pub R24 uses baseline GDP-deflator growth (not B1 shocked
+    # LCU inflation). Domestic ResFin interest tracks that path.
     deflator = gdp_deflator_growth(macro.gdp_lcu(), macro.gdp_constant())
     fx = shocked_macro.fx_pa()
+    # macro.public_gfn() matches 'Baseline - public'!R78 on the template.
+    baseline_gfn = macro.public_gfn()
 
     if public_gap is not None:
         gap = public_gap.reindex(list(years)).fillna(0.0).astype(float)
@@ -348,7 +345,7 @@ def run_b1_gdp_public(
         )
 
     overlay: PublicResFinOverlay | None = None
-    fill = _zero_fill(years)
+    prev_gap: pd.Series | None = None
     for _ in range(max(iterations, 1)):
         stressed_gfn = estimate_b1_public_gfn(
             macro,
@@ -357,7 +354,7 @@ def run_b1_gdp_public(
             inflation_elasticity=elasticity,
             gdp_lcu=shocked_gdp_lcu,
         )
-        gap = public_residual_gap(stressed_gfn, macro.public_gfn(), years)
+        gap = public_residual_gap(stressed_gfn, baseline_gfn, years)
         # Zero gap before first projection year.
         for year in years:
             if year < shocked_macro.inputs.first_projection_year:
@@ -368,6 +365,9 @@ def run_b1_gdp_public(
         overlay = build_public_resfin_overlay(
             fill, residual_params, deflator=deflator, years=years
         )
+        if prev_gap is not None and float((gap - prev_gap).abs().max()) < tol:
+            break
+        prev_gap = gap
 
     assert overlay is not None
     return StressPublicBook(

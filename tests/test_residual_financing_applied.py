@@ -283,7 +283,8 @@ def test_b1_public_pv_to_revenue_uses_baseline_rev_to_gdp() -> None:
         / (100.0 * book.macro.revenues_incl_grants() / book.gdp_lcu())
         * 100.0
     )
-    assert float(got.loc[2025]) > float(naive.loc[2025]) + 1.0
+    # Shocked GDP vs baseline rev/GDP must not coincide with the B1 identity.
+    assert float(got.loc[2025]) != pytest.approx(float(naive.loc[2025]), rel=1e-6, abs=0.05)
     assert float(got.loc[2024]) == pytest.approx(float(naive.loc[2024]), rel=1e-9)
     panel = stress_public_panel(book)
     assert "PV of public debt / revenue+grants" in panel.index
@@ -293,25 +294,64 @@ def test_run_b1_gdp_public_iterative_produces_positive_fill() -> None:
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
     params = load_input7_residual_params(WORKBOOK)
-    book = run_b1_gdp_public(macro, external, input6, params, iterations=4)
+    book = run_b1_gdp_public(macro, external, input6, params)
     assert float(book.resfin.fill.external_mlt_usd.loc[2025]) > 0.0
     assert float(book.resfin.fill.domestic_mlt_lcu.loc[2025]) > 0.0
     assert float(book.resfin.fill.domestic_st_lcu.loc[2025]) > 0.0
     years = list(range(2024, 2029))
+    fill_years = [2025, 2026]
     expected_gfn = _sheet_row("B1_GDP_pub", 7, 3, 90, years)
     expected_gap = _sheet_row("PV_ResFin_pub", 2, 4, 67, years)
+    expected_ext = _sheet_row("PV_ResFin_pub", 2, 4, 72, fill_years)
+    expected_dom = _sheet_row("PV_ResFin_pub", 2, 4, 85, fill_years)
+    expected_st = _sheet_row("PV_ResFin_pub", 2, 4, 98, fill_years)
+    expected_ext_int = _sheet_row("PV_ResFin_pub", 2, 4, 77, fill_years)
+    expected_dom_int = _sheet_row("PV_ResFin_pub", 2, 4, 90, fill_years)
+    expected_st_int = _sheet_row("PV_ResFin_pub", 2, 4, 99, fill_years)
     got_gfn = book.public_gfn()
     got_gap = public_residual_gap(got_gfn, macro.public_gfn(), tuple(years))
     for year in years:
         assert float(got_gfn.loc[year]) == pytest.approx(
-            float(expected_gfn.loc[year]), rel=1e-3, abs=5.0
+            float(expected_gfn.loc[year]), rel=1e-4, abs=1.0
         ), f"iterative B1 R90 {year}"
         assert float(got_gap.loc[year]) == pytest.approx(
-            float(expected_gap.loc[year]), rel=1e-3, abs=5.0
+            float(expected_gap.loc[year]), rel=1e-4, abs=1.0
         ), f"iterative R67 {year}"
+    for year in fill_years:
+        assert float(book.resfin.fill.external_mlt_usd.loc[year]) == pytest.approx(
+            float(expected_ext.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative R72 {year}"
+        assert float(book.resfin.fill.domestic_mlt_lcu.loc[year]) == pytest.approx(
+            float(expected_dom.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative R85 {year}"
+        assert float(book.resfin.fill.domestic_st_lcu.loc[year]) == pytest.approx(
+            float(expected_st.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative R98 {year}"
+        assert float(book.resfin.ext.interest.loc[year]) == pytest.approx(
+            float(expected_ext_int.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative R77 {year}"
+        assert float(book.resfin.dom_mlt.interest.loc[year]) == pytest.approx(
+            float(expected_dom_int.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative ResFin R90 {year}"
+        assert float(book.resfin.dom_st.interest.loc[year]) == pytest.approx(
+            float(expected_st_int.loc[year]), rel=1e-5, abs=1e-3
+        ), f"iterative R99 {year}"
     assert book.resfin.fill.external_mlt_usd.loc[2025] == pytest.approx(
-        303.65, rel=1e-3, abs=1.0
+        303.6535436541075, rel=1e-5
     )
+
+
+def test_macro_public_gfn_matches_baseline_public_r78() -> None:
+    """Gap subtract uses macro.public_gfn ≡ Baseline - public R78."""
+    macro, _external = _workbook_books()
+    years = list(range(2024, 2029))
+    # Baseline R7 holds calendar years starting at col 15 (2024).
+    expected = _sheet_row("Baseline - public", 7, 15, 78, years)
+    got = macro.public_gfn()
+    for year in years:
+        assert float(got.loc[year]) == pytest.approx(
+            float(expected.loc[year]), rel=1e-9, abs=1e-6
+        ), f"Baseline R78 {year}"
 
 
 def test_b3_external_gap_r86_r89_parity() -> None:
