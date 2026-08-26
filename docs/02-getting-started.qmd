@@ -23,13 +23,9 @@ Run Python through `uv run` (or a Jupyter kernel from this environment).
 
 ## Workbook
 
-Demos and tests use the macros-stripped template:
+Demos and tests use the macros-stripped template: `data/lic-dsf-template-2025-08-12.xlsx`
 
-`data/lic-dsf-template-2025-08-12.xlsx`
-
-Point the same loaders at **your filled country workbook** by changing the path.
-Sheet layout must match the LIC-DSF template generation this library targets
-(see `data/PROVENANCE.md`).
+Point the same loaders at **your filled country workbook** by changing the path. Sheet layout must match the LIC-DSF template generation this library targets (see `data/PROVENANCE.md`).
 
 Template copyright: IMF/World Bank — [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md).
 
@@ -74,8 +70,7 @@ out_1_1 = external_dsa_panel(ext_base)  # Output 1-1 shape
 out_1_2 = public_dsa_panel(pub_base)  # Output 1-2 shape
 ```
 
-`include_zero_disbursement=True` keeps empty Input 4/5 slots so creditor
-grouping matches Excel row structure.
+`include_zero_disbursement=True` keeps empty Input 4/5 slots so creditor grouping matches Excel row structure.
 
 ## Next steps
 
