@@ -11,6 +11,24 @@ If you already know the workbook, this user guide maps sheets (Inputs, Ext/Dom/M
 
 Bundled template: [`data/lic-dsf-template-2025-08-12.xlsx`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/lic-dsf-template-2025-08-12.xlsx) (see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) for IMF/World Bank provenance).
 
+## Documentation reading order
+
+Each page links to the next at the bottom.
+
+| # | Doc | Excel analogue | Demo |
+|---|-----|----------------|------|
+| 1 | [Excel → Python map](01-excel-map.qmd) | Full sheet map | — |
+| 2 | [Getting started](02-getting-started.qmd) | End-to-end recipe | `all_outputs` |
+| 3 | [PV instruments](03-pv-instruments.qmd) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
+| 4 | [External debt book](04-ext-debt-module-design.qmd) | Ext_Debt_Data | `ext_debt` |
+| 5 | [Domestic debt indicators](05-dom-debt-indicators.qmd) | Dom_Debt_* | `dom_debt` |
+| 6 | [Macro-debt bridge](06-macro-debt-bridge.qmd) | Macro-Debt_Data | `macro_debt` |
+| 7 | [Baseline DSA](07-baseline-dsa.qmd) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
+| 8 | [Stress DSA](08-stress-dsa.qmd) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
+| 9 | [Realism](09-realism.qmd) | Realism / Output 4 | `realism` |
+| 10 | [Risk rating](10-risk-rating.qmd) | CI / Chart Data / Output 5, 7 | `risk_rating` |
+| 11 | [Customized scenario & probability](11-scenario.qmd) | Customized / Probability / Output 6 | `output_6` |
+
 ## Quick Start
 
 Install from GitHub:
@@ -30,54 +48,30 @@ Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map
 | **Panel** | Output-shaped `pandas.DataFrame` (rows ≈ Excel indicators, columns = years) |
 | **Portfolio** | New MLT instruments behind Ext (`PVPortfolio`) |
 
-Typical flow: load workbook → build Ext + Macro books → baseline / stress panels →
-rating.
+Typical flow: load workbook → build Ext + Macro books → baseline / stress panels → rating.
 
-## Reading order
+## Verifying parity with Excel
 
-Each page links to the next at the bottom.
+To verify that the library produces the same outputs as the official Excel template, we have shipped a "differential test" suite that runs realistic user scenarios against the library and the Excel template and compares the results.
 
-| # | Doc | Excel analogue | Demo |
-|---|-----|----------------|------|
-| 1 | [Excel → Python map](01-excel-map.qmd) | Full sheet map | — |
-| 2 | [Getting started](02-getting-started.qmd) | End-to-end recipe | `all_outputs` |
-| 3 | [PV instruments](03-pv-instruments.qmd) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
-| 4 | [External debt book](04-ext-debt-module-design.qmd) | Ext_Debt_Data | `ext_debt` |
-| 5 | [Domestic debt indicators](05-dom-debt-indicators.qmd) | Dom_Debt_* | `dom_debt` |
-| 6 | [Macro-debt bridge](06-macro-debt-bridge.qmd) | Macro-Debt_Data | `macro_debt` |
-| 7 | [Baseline DSA](07-baseline-dsa.qmd) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
-| 8 | [Stress DSA](08-stress-dsa.qmd) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
-| 9 | [Realism](09-realism.qmd) | Realism / Output 4 | `realism` |
-| 10 | [Risk rating](10-risk-rating.qmd) | CI / Chart Data / Output 5, 7 | `risk_rating` |
-| 11 | [Customized scenario & probability](11-scenario.qmd) | Customized / Probability / Output 6 | `output_6` |
+However, the oracle is live Microsoft Excel automated by the `xlwings` library, so **you must be on a Windows system with a licensed Microsoft Excel installation** to run the differential test suite. Default `uv run pytest` stays Excel-free.
+
+To run differential tests, make sure to install the `xlwings` extra dependency:
+
+```bash
+uv sync --extra excel
+```
+
+Then run:
+
+```
+LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Excel
+```
 
 ## License note
 
 MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World
 Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
-
-## Output-panel parity (live Excel)
-
-Default `uv run pytest` stays Excel-free (`-m 'not live_excel'`). Coverage is
-the **probe catalog** for Output sheets (row-keyed 1-1/1-2, scenario-keyed
-3-x, cell-keyed 5/7) — not every formula on Ext/Macro/B.
-
-The system under test is the Excel-shaped table (`output_11_table`,
-`output_31_table`, …). The oracle is **live Microsoft Excel** (xlwings/COM)
-on the official `.xlsm`:
-
-```bash
-uv sync --extra excel
-LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Excel
-```
-
-Linux CI never starts Excel. Cached `data_only` cells in the bundled `.xlsx`
-are a convenience for unit tests, not the official oracle.
-
-Inventory of numeric Output rows: [`data/parity/output_inventory.csv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/parity/output_inventory.csv)
-(regenerate with `uv run python -m tests.parity.inventory`).
-Side-by-side CSV builders: `tests.parity.compare_probes` and the existing
-`compare_realism1` / `compare_outputs_5_7` helpers.
 
 ---
 
