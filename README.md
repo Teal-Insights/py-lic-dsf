@@ -29,6 +29,8 @@ uv run pytest                          # skips live_excel (Linux CI)
 LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Microsoft Excel
 ```
 
+## Quick Start
+
 Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map](01-excel-map.qmd) to understand how the library maps to sheets.
 
 ```python
