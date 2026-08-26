@@ -7,7 +7,8 @@ Excel analogues: **`Baseline - external`** / **`Baseline - public`**, feeding
 **Output 1-1** and **Output 1-2**.
 
 Package: `lic_dsf.dsa`. Consumes Macro + Ext books; does not recompute instrument
-PV schedules (`lic_dsf.pv`) or apply Input 6 shocks (`lic_dsf.stress`).
+PV schedules (`lic_dsf.pv`) or apply Input 6 shocks (`lic_dsf.stress`). Output
+DataFrames live in `lic_dsf.output`.
 
 ## What you get
 
@@ -15,8 +16,10 @@ PV schedules (`lic_dsf.pv`) or apply Input 6 shocks (`lic_dsf.stress`).
 |-------|------------|
 | `BaselineExternalBook` | External sustainability ratios |
 | `BaselinePublicBook` | Public sustainability / Dom feeder ratios |
-| `external_dsa_panel` | Output 1-1-shaped DataFrame |
-| `public_dsa_panel` | Output 1-2-shaped DataFrame |
+| `external_dsa_panel` (`lic_dsf.output`) | Output 1-1 headline six-row DataFrame (economist labels) |
+| `public_dsa_panel` (`lic_dsf.output`) | Output 1-2 headline DataFrame (economist labels) |
+| `output_11_table` (`lic_dsf.output`) | Full Output 1-1 geometry (index = Excel row) |
+| `output_12_table` (`lic_dsf.output`) | Full Output 1-2 geometry (index = Excel row) |
 
 ## Load and compute
 
@@ -26,9 +29,8 @@ from pathlib import Path
 from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
-    external_dsa_panel,
-    public_dsa_panel,
 )
+from lic_dsf.output import external_dsa_panel, output_11_table, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
@@ -60,7 +62,11 @@ pub_base = BaselinePublicBook(macro=macro, external=ext)
 
 external_dsa_panel(ext_base)
 public_dsa_panel(pub_base)
+output_11_table(ext_base)  # Excel row index; same years as the thin panel
 ```
+
+Headline panels keep economist labels. The Excel-shaped tables are the
+parity SUT (Output 1-1 / 1-2 numeric series vs live Excel).
 
 ## Panel rows (familiar indicators)
 

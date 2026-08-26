@@ -17,6 +17,12 @@ from lic_dsf.pv import (
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.output import (
+    fiscal_adjustment_panel,
+    fiscal_multiplier_panel,
+    forecast_error_panel,
+    invest_growth_panel,
+)
 from lic_dsf.realism import (
     CapitalAssumptions,
     MultiplierAssumptions,
@@ -24,12 +30,8 @@ from lic_dsf.realism import (
     debt_creating_flow_panel,
     debt_stock_from_ratio,
     fiscal_adjustment_from_primary_balance,
-    fiscal_adjustment_panel,
-    fiscal_multiplier_panel,
     forecast_error,
-    forecast_error_panel,
     gdp_rebase_scale,
-    invest_growth_panel,
     load_capital_assumptions,
     load_imported_data,
     load_lic_program_distribution,

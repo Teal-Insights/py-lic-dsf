@@ -8,6 +8,7 @@ Excel analogues: **Customized Scenario** and the **Probability** approach on
 probability tools map path-vs-threshold gaps into breach probabilities.
 
 Package: `lic_dsf.scenario`. Input 8 SDR remains in Ext via `lic_dsf.pv`.
+Output 6 panels live in `lic_dsf.output`.
 
 ## What you get
 
@@ -20,17 +21,17 @@ Package: `lic_dsf.scenario`. Input 8 SDR remains in Ext via `lic_dsf.pv`.
 | `DistressCovariates` / `distress_probability` | Excel `NORMDIST` regression (CPIA, growth, …) |
 | `load_distress_covariates` | Input 3 + Imported data `H77:H81` averages |
 | `breach_probability` / `path_breach_probabilities` | Simple path vs threshold Φ |
-| `probability_panel` | Output 6-shaped probability summary |
+| `probability_panel` (`lic_dsf.output`) | Output 6-shaped probability summary |
 | `borderline_bands` | Near-threshold bands |
 
 ## Typical use
 
 ```python
+from lic_dsf.output import probability_panel
 from lic_dsf.rating import ChartDataRegistry
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
     load_distress_covariates,
-    probability_panel,
     register_custom_path,
 )
 

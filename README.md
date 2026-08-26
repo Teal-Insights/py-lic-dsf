@@ -20,6 +20,15 @@ Or from a local checkout:
 
 ```bash
 uv sync --all-groups
+# optional: live-Excel oracle on Windows
+uv sync --extra excel
+```
+
+## Tests
+
+```bash
+uv run pytest                          # skips live_excel (Linux CI)
+LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Microsoft Excel
 ```
 
 ## Quick start
@@ -30,9 +39,8 @@ from pathlib import Path
 from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
-    external_dsa_panel,
-    public_dsa_panel,
 )
+from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
@@ -70,15 +78,16 @@ and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
 | Path | Contents |
 |---|---|
 | `src/lic_dsf/pv/` | Instruments, Ext/Dom/Macro books, workbook loaders |
-| `src/lic_dsf/dsa/` | Baseline sustainability ratios (Output 1-1 / 1-2) |
-| `src/lic_dsf/stress/` | Input 6 stresses + residual financing (Output 2–3) |
-| `src/lic_dsf/realism/` | Realism 1–4 / Output 4 |
-| `src/lic_dsf/rating/` | CI thresholds, Chart Data, Output 5 / 7 |
-| `src/lic_dsf/scenario/` | Customized Scenario / Probability / Output 6 |
+| `src/lic_dsf/dsa/` | Baseline sustainability ratios |
+| `src/lic_dsf/output/` | Output-sheet DataFrames (panels and Excel-geometry tables) |
+| `src/lic_dsf/stress/` | Input 6 stresses + residual financing |
+| `src/lic_dsf/realism/` | Realism 1–4 math |
+| `src/lic_dsf/rating/` | CI thresholds, Chart Data, mechanical ratings |
+| `src/lic_dsf/scenario/` | Customized Scenario / Probability math |
 | `docs/` | Economist-facing guides (Excel → Python) |
 | `demo/` | Runnable notebooks paired with `docs/` |
 | `data/` | Bundled LIC-DSF template (see `NOTICE.md`) |
-| `tests/` | Unit tests; FormulaEvaluator differential via `pytest -m differential` |
+| `tests/` | Unit tests; `tests/parity/` golden-master helpers (not installed); `live_excel` is Windows + Excel only |
 
 ## License
 

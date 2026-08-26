@@ -19,6 +19,9 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/Teal-Insights/py-lic-dsf"
 
+[project.optional-dependencies]
+excel = ["xlwings>=0.33"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
@@ -32,7 +35,10 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "-v"
+addopts = "-v -m 'not live_excel'"
+markers = [
+    "live_excel: tests that drive live Microsoft Excel (Windows + xlwings)",
+]
 testpaths = ["tests"]
 
 [tool.ruff.format]

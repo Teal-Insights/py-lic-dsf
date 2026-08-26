@@ -20,6 +20,7 @@ from lic_dsf.pv import (
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.output import stress_external_panel
 from lic_dsf.stress import (
     Input6StandardParams,
     StressExternalBook,
@@ -32,7 +33,6 @@ from lic_dsf.stress import (
     run_a1_historical_external,
     run_b1_gdp_external,
     run_standard_external_stress,
-    stress_external_panel,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

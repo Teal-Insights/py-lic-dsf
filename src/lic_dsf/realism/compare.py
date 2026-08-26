@@ -21,7 +21,7 @@ from lic_dsf.realism.forecast_error import (
     total_external_to_gdp,
 )
 from lic_dsf.realism.imported import ImportedDataCatalog, load_imported_data
-from lic_dsf.realism.panels import forecast_error_panel
+from lic_dsf.output.realism import forecast_error_panel
 
 REALISM1_SHEET = "Realism 1 - Forecast Error"
 _YEAR_HEADER_ROW = 11

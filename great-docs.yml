@@ -54,9 +54,7 @@ reference:
     contents:
       - dsa.BaselineExternalBook
       - dsa.BaselinePublicBook
-      - dsa.external_dsa_panel
       - dsa.load_core
-      - dsa.public_dsa_panel
 
   - title: Stress tests
     desc: "Input 6 standard stresses and residual financing."
@@ -89,6 +87,7 @@ reference:
       - stress.historical_identity_pins
       - stress.load_cached_external_stress
       - stress.load_input6_standard
+      - stress.load_tailored_params
       - stress.public_dsa_residual_params
       - stress.public_residual_gap
       - stress.real_depreciation_pct
@@ -96,18 +95,27 @@ reference:
       - stress.resfin_instrument
       - stress.resfin_overlay_series
       - stress.run_a1_historical_external
+      - stress.run_a1_historical_public
       - stress.run_b1_gdp_external
       - stress.run_b1_gdp_public
+      - stress.run_b2_pb_external
+      - stress.run_b2_pb_public
       - stress.run_b3_exports_external
+      - stress.run_b3_exports_public
       - stress.run_b4_other_flows_external
+      - stress.run_b4_other_flows_public
       - stress.run_b5_fx_external
+      - stress.run_b5_fx_public
       - stress.run_b6_combo_external
+      - stress.run_b6_combo_public
       - stress.run_standard_external_stress
+      - stress.run_standard_public_stress
+      - stress.run_tailored_external_stress
+      - stress.run_tailored_public_stress
       - stress.split_residual_financing
-      - stress.stress_external_panel
-      - stress.stress_public_panel
       - stress.stressed_external_stock_from_shortfall
       - stress.StressScenarioId
+      - stress.TailoredParams
       - stress.ThresholdRule
 
   - title: Realism
@@ -127,18 +135,13 @@ reference:
       - realism.debt_creating_flow_panel
       - realism.debt_stock_from_ratio
       - realism.fiscal_adjustment_from_primary_balance
-      - realism.fiscal_adjustment_panel
-      - realism.fiscal_multiplier_panel
-      - realism.forecast_error_panel
       - realism.gdp_rebase_scale
-      - realism.invest_growth_panel
       - realism.load_capital_assumptions
       - realism.load_imported_data
       - realism.load_lic_program_distribution
       - realism.load_multiplier_grid
       - realism.other_identified_flows_to_gdp
       - realism.place_in_lic_histogram
-      - realism.placement_summary
       - realism.projected_three_year_adjustment
       - realism.public_automatic_debt_dynamics
       - realism.rebase_ratio_to_outturn_gdp
@@ -195,13 +198,39 @@ reference:
       - scenario.borderline_bands
       - scenario.breach_probability
       - scenario.distress_probability
-      - scenario.external_debt_scenarios_table
       - scenario.load_distress_covariates
       - scenario.max_path_probability
       - scenario.path_breach_probabilities
       - scenario.path_distress_probabilities
-      - scenario.probabilities_table
-      - scenario.probability_panel
       - scenario.register_custom_path
       - scenario.EXCEL_DISTRESS_COEFFICIENTS
       - scenario.EXCEL_PROBABILITY_THRESHOLDS
+
+  - title: Output
+    desc: "Excel Output-sheet DataFrames assembled from DSA, stress, realism, and rating books."
+    contents:
+      - output.external_dsa_panel
+      - output.external_debt_scenarios_table
+      - output.fiscal_adjustment_panel
+      - output.fiscal_multiplier_panel
+      - output.forecast_error_panel
+      - output.invest_growth_panel
+      - output.output_11_table
+      - output.output_12_table
+      - output.output_31_table
+      - output.output_32_table
+      - output.output_41_table
+      - output.output_42_fiscal_adjustment_table
+      - output.output_42_invest_table
+      - output.output_42_multiplier_table
+      - output.output_51_table
+      - output.output_52_table
+      - output.output_6_table
+      - output.output_7_table
+      - output.placement_summary
+      - output.probabilities_table
+      - output.probability_panel
+      - output.public_dsa_panel
+      - output.stress_external_panel
+      - output.stress_public_panel
+

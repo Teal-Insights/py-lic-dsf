@@ -10,10 +10,9 @@ import pytest
 from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
-    external_dsa_panel,
     load_core,
-    public_dsa_panel,
 )
+from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,

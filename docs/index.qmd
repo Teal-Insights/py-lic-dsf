@@ -52,28 +52,28 @@ Each page links to the next at the bottom.
 MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World
 Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
 
-## FormulaEvaluator differential tests
+## Output-panel parity (live Excel)
 
-Default `uv run pytest` stays fast (`-m 'not differential'`). Cell-level parity
-against `excel-grapher`'s `FormulaEvaluator` is opt-in:
+Default `uv run pytest` stays Excel-free (`-m 'not live_excel'`). Coverage is
+the **probe catalog** for Output sheets (row-keyed 1-1/1-2, scenario-keyed
+3-x, cell-keyed 5/7) — not every formula on Ext/Macro/B.
+
+The system under test is the Excel-shaped table (`output_11_table`,
+`output_31_table`, …). The oracle is **live Microsoft Excel** (xlwings/COM)
+on the official `.xlsm`:
 
 ```bash
-uv run pytest -m differential
-# or build the graph cache + CSV reports without pytest:
-uv run python -m tests.differential
-uv run python scripts/regenerate_graph_cache.py   # --force rebuild
+uv sync --extra excel
+LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Excel
 ```
 
-The first graph build takes a few minutes (~100k+ nodes) and is pickled under
-`.cache/dependency-graph/` (gitignored). Later runs reuse that cache.
+Linux CI never starts Excel. Cached `data_only` cells in the bundled `.xlsx`
+are a convenience for unit tests, not the official oracle.
 
-Reports: [`data/differential/evaluator_vs_python.csv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/differential/)
-(`golden` = evaluator, `sut` = `lic_dsf`). Group filters:
-`uv run python scripts/compare_realism1.py` and
-`uv run python scripts/compare_outputs_5_7.py`.
-
-Linux evaluator values can differ from live Excel / xlwings. This suite is
-evaluator-only; known remaining identities are xfails listed in [`issues.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/issues.md).
+Inventory of numeric Output rows: [`data/parity/output_inventory.csv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/parity/output_inventory.csv)
+(regenerate with `uv run python -m tests.parity.inventory`).
+Side-by-side CSV builders: `tests.parity.compare_probes` and the existing
+`compare_realism1` / `compare_outputs_5_7` helpers.
 
 ---
 

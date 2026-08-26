@@ -10,12 +10,17 @@ from lic_dsf.stress.bound import (
     external_residual_borrowing,
     historical_identity_pins,
 )
-from lic_dsf.stress.panels import stress_external_panel
 from lic_dsf.stress.public import (
     StressPublicBook,
     estimate_b1_public_gfn,
+    run_a1_historical_public,
     run_b1_gdp_public,
-    stress_public_panel,
+    run_b2_pb_public,
+    run_b3_exports_public,
+    run_b4_other_flows_public,
+    run_b5_fx_public,
+    run_b6_combo_public,
+    run_standard_public_stress,
 )
 from lic_dsf.stress.residual_pv import (
     DomMltOverlay,
@@ -42,6 +47,7 @@ from lic_dsf.stress.scenario import (
     rebuild_external_with_fx,
     run_a1_historical_external,
     run_b1_gdp_external,
+    run_b2_pb_external,
     run_b3_exports_external,
     run_b4_other_flows_external,
     run_b5_fx_external,
@@ -58,6 +64,12 @@ from lic_dsf.stress.shocks import (
     apply_real_gdp_shock,
     real_depreciation_pct,
 )
+from lic_dsf.stress.tailored import (
+    TailoredParams,
+    load_tailored_params,
+    run_tailored_external_stress,
+    run_tailored_public_stress,
+)
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
 from lic_dsf.stress.workbook import load_cached_external_stress, load_input6_standard
 
@@ -72,6 +84,7 @@ __all__ = [
     "StressExternalBook",
     "StressPublicBook",
     "StressScenarioId",
+    "TailoredParams",
     "ThresholdRule",
     "apply_combo_shock",
     "apply_exports_shock",
@@ -92,6 +105,7 @@ __all__ = [
     "historical_identity_pins",
     "load_cached_external_stress",
     "load_input6_standard",
+    "load_tailored_params",
     "public_dsa_residual_params",
     "public_residual_gap",
     "real_depreciation_pct",
@@ -99,15 +113,23 @@ __all__ = [
     "resfin_instrument",
     "resfin_overlay_series",
     "run_a1_historical_external",
+    "run_a1_historical_public",
     "run_b1_gdp_external",
     "run_b1_gdp_public",
+    "run_b2_pb_external",
+    "run_b2_pb_public",
     "run_b3_exports_external",
+    "run_b3_exports_public",
     "run_b4_other_flows_external",
+    "run_b4_other_flows_public",
     "run_b5_fx_external",
+    "run_b5_fx_public",
     "run_b6_combo_external",
+    "run_b6_combo_public",
     "run_standard_external_stress",
+    "run_standard_public_stress",
+    "run_tailored_external_stress",
+    "run_tailored_public_stress",
     "split_residual_financing",
-    "stress_external_panel",
-    "stress_public_panel",
     "stressed_external_stock_from_shortfall",
 ]
