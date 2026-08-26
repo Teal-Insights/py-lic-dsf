@@ -16,11 +16,11 @@ from lic_dsf.dsa.compare import (
     write_comparison_csv,
     year_cols,
 )
-from lic_dsf.dsa.workbook import load_core
-from lic_dsf.pv import load_input7_residual_params
-from lic_dsf.rating.workbook import load_ci_summary
+from lic_dsf.load.core import load_core
+from lic_dsf.load.input6 import load_input6_standard
+from lic_dsf.load.input7 import load_input7_residual_params
+from lic_dsf.load.rating import load_ci_summary
 from lic_dsf.stress import (
-    load_input6_standard,
     run_a1_historical_external,
     run_b1_gdp_public,
     run_standard_external_stress,

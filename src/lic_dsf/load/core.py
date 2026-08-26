@@ -7,16 +7,16 @@ from typing import cast
 
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.dsa.baseline.public import BaselinePublicBook
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PresentValueInstrument,
-    PVPortfolio,
-    load_external_debt_inputs,
+from lic_dsf.load.ext import load_external_debt_inputs
+from lic_dsf.load.instruments import (
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
+from lic_dsf.load.macro import load_macro_debt_inputs
+from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.pv.instrument import PresentValueInstrument
+from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.pv.portfolio import PVPortfolio
 
 
 def load_core(

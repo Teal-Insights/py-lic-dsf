@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any
 from fastpyxl import load_workbook
 
 if TYPE_CHECKING:
-    from lic_dsf.pv import PresentValueInstrument
+    from lic_dsf.pv.instrument import PresentValueInstrument
     from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 
 # Input 4 rows that back PV_Base's 34 instrument tables (see docs/pv-base-tables.md).
@@ -138,8 +138,7 @@ def load_instruments_from_workbook(
     Returns:
         ``PresentValueInstrument`` instances in PV_Base / Input 4 order.
     """
-    # Local import avoids a package cycle with ``lic_dsf_pv.__init__``.
-    from lic_dsf.pv import PresentValueInstrument
+    from lic_dsf.pv.instrument import PresentValueInstrument
 
     path = Path(workbook_path)
     workbook = load_workbook(path, data_only=True, read_only=True)

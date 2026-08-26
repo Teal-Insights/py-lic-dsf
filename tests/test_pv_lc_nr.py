@@ -6,10 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from lic_dsf.pv import (
-    LocalCurrencyNonResidentInstrument,
-    load_lc_nr_instruments_from_workbook,
-)
+from lic_dsf.load import load_lc_nr_instruments_from_workbook
+from lic_dsf.pv import LocalCurrencyNonResidentInstrument
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK = REPO_ROOT / "data" / "lic-dsf-template-2025-08-12.xlsx"
@@ -267,12 +265,8 @@ def test_loaded_lc_nr_pv_matches_ext_through_macro_end() -> None:
     """Input-5/Macro-truncated load must still match Ext LC PV at outer Macro years."""
     from fastpyxl import load_workbook
 
-    from lic_dsf.pv import (
-        ExternalDebtBook,
-        PVPortfolio,
-        load_external_debt_inputs,
-        load_instruments_from_workbook,
-    )
+    from lic_dsf.load import load_external_debt_inputs, load_instruments_from_workbook
+    from lic_dsf.pv import ExternalDebtBook, PVPortfolio
 
     workbook = load_workbook(WORKBOOK, data_only=True, read_only=True)
     try:

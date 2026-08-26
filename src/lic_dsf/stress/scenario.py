@@ -435,7 +435,7 @@ def run_b6_combo_external(
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
     add_int = None
     if workbook_path is not None:
-        from lic_dsf.stress.workbook import load_combo_additional_borrowing_interest
+        from lic_dsf.load.input6 import load_combo_additional_borrowing_interest
 
         add_int = load_combo_additional_borrowing_interest(
             workbook_path, macro.inputs.years

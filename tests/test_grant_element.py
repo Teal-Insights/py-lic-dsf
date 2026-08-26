@@ -8,15 +8,17 @@ import pandas as pd
 import pytest
 from fastpyxl import load_workbook
 
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
     grant_element_new_disbursements,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

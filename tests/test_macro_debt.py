@@ -7,6 +7,13 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from lic_dsf.load import (
+    load_domestic_debt_inputs,
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,
@@ -14,11 +21,6 @@ from lic_dsf.pv import (
     MacroDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
-    load_domestic_debt_inputs,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

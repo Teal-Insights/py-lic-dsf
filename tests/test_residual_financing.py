@@ -8,6 +8,12 @@ import pandas as pd
 import pytest
 from fastpyxl import load_workbook
 
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_input7_residual_params,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,
@@ -16,10 +22,6 @@ from lic_dsf.pv import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
-    load_external_debt_inputs,
-    load_input7_residual_params,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
     resolve_residual_params,
 )
 

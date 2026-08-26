@@ -12,7 +12,7 @@ where the template provides them).
 | Piece | Role |
 |-------|------|
 | `DomesticDebtBook` | Domestic debt engine from workbook inputs |
-| `load_domestic_debt_inputs` | Dom sheet blocks → `DomesticDebtInputs` |
+| `load_domestic_debt_inputs` (`lic_dsf.load`) | Dom sheet blocks → `DomesticDebtInputs` |
 
 Public DSA and Macro already stitch domestic stocks into public ratios when
 you build `MacroDebtBook` with Ext; use Dom when you need Dom-sheet indicators
@@ -23,7 +23,8 @@ or presentation panels directly.
 ```python
 from pathlib import Path
 
-from lic_dsf.pv import DomesticDebtBook, load_domestic_debt_inputs
+from lic_dsf.load import load_domestic_debt_inputs
+from lic_dsf.pv import DomesticDebtBook
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 dom = DomesticDebtBook(inputs=load_domestic_debt_inputs(workbook))

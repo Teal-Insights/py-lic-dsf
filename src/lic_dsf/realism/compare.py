@@ -8,7 +8,9 @@ from pathlib import Path
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.dsa import load_core
+from lic_dsf.load.core import load_core
+from lic_dsf.load.realism import load_imported_data
+from lic_dsf.output.realism import forecast_error_panel
 from lic_dsf.realism.forecast_error import (
     GdpRebaseMode,
     debt_creating_flow_panel,
@@ -20,8 +22,7 @@ from lic_dsf.realism.forecast_error import (
     rebase_ratio_to_outturn_gdp,
     total_external_to_gdp,
 )
-from lic_dsf.realism.imported import ImportedDataCatalog, load_imported_data
-from lic_dsf.output.realism import forecast_error_panel
+from lic_dsf.realism.imported import ImportedDataCatalog
 
 REALISM1_SHEET = "Realism 1 - Forecast Error"
 _YEAR_HEADER_ROW = 11

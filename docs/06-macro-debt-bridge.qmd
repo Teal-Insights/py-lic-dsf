@@ -12,7 +12,7 @@ PPG PV/service into the macro identity.
 | Piece | Role |
 |-------|------|
 | `MacroDebtBook` | Macro engine; optional `external=` for PPG stitch |
-| `load_macro_debt_inputs` | Input 3 / Macro blocks from the workbook |
+| `load_macro_debt_inputs` (`lic_dsf.load`) | Input 3 / Macro blocks from the workbook |
 
 Almost every downstream panel (baseline DSA, stress, realism) needs Macro.
 
@@ -21,15 +21,13 @@ Almost every downstream panel (baseline DSA, stress, realism) needs Macro.
 ```python
 from pathlib import Path
 
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 ext = ExternalDebtBook(

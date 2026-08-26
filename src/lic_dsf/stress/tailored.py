@@ -8,10 +8,8 @@ SUT never reads materialized B-sheet ratios.
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-from pathlib import Path
 
 import pandas as pd
-from fastpyxl import load_workbook
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
@@ -22,18 +20,6 @@ from lic_dsf.stress.public import StressPublicBook, _run_public_stress
 from lic_dsf.stress.scenario import StressExternalBook, _build_book, _converged_external_gap
 from lic_dsf.stress.shocks import apply_fx_depreciation_shock
 from lic_dsf.stress.types import Input6StandardParams
-from lic_dsf.stress.workbook import _prefer_user, _tailored_applicability
-
-
-def _safe_prefer(default: object, user: object, fallback: float = 0.0) -> float:
-    try:
-        return _prefer_user(default, user)
-    except ValueError:
-        return fallback
-
-
-_TAILORED_SHEET = "Input 6 - Tailored Tests"
-_CUSTOMIZED_EXTERNAL_SHEET = "Customized Scenario-External"
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,35 +36,6 @@ class TailoredParams:
     market_cost_bps: float
     market_fx_depreciation_pct: float
     cl_shock_pct_gdp: float = 10.0
-
-
-def load_tailored_params(path: str | Path) -> TailoredParams:
-    """Load tailored-test flags and sizes from Input 6 - Tailored Tests."""
-    workbook = load_workbook(path, data_only=True, read_only=True)
-    try:
-        ws = workbook[_TAILORED_SHEET]
-        flags = _tailored_applicability(ws)
-        avg_shock = _safe_prefer(ws.cell(46, 7).value, ws.cell(46, 8).value)
-        adj_share = _safe_prefer(ws.cell(30, 7).value, ws.cell(30, 8).value)
-        return TailoredParams(
-            natural_disaster=flags["C2_NaturalDisaster"],
-            commodity=flags["C3_Commodity"],
-            market=flags["C4_Market"],
-            disaster_shock_pct_gdp=_safe_prefer(
-                ws.cell(21, 7).value, ws.cell(21, 8).value
-            ),
-            commodity_close_years=_safe_prefer(
-                ws.cell(26, 7).value, ws.cell(26, 8).value
-            ),
-            commodity_adj_share=adj_share,
-            commodity_avg_price_shock=avg_shock,
-            market_cost_bps=_safe_prefer(ws.cell(52, 7).value, ws.cell(52, 8).value),
-            market_fx_depreciation_pct=_safe_prefer(
-                ws.cell(58, 7).value, ws.cell(58, 8).value
-            ),
-        )
-    finally:
-        workbook.close()
 
 
 def _one_off_flow(
@@ -275,20 +232,6 @@ def run_a2_custom_external(
         gap=gap,
         scenario_id="A2_Custom",
     )
-
-
-def load_customized_spec(path: str | Path) -> CustomizedScenarioSpec | None:
-    """Load A2 spec when Customized Scenario-External D3 is Yes; else None."""
-    wb = load_workbook(path, data_only=True, read_only=True)
-    try:
-        ws = wb[_CUSTOMIZED_EXTERNAL_SHEET]
-        on = str(ws.cell(3, 4).value or "").strip().lower() == "yes"
-        if not on:
-            return None
-        title = str(ws.cell(2, 4).value or "Custom").strip()
-        return CustomizedScenarioSpec(name=title, short_name="A2")
-    finally:
-        wb.close()
 
 
 def run_tailored_external_stress(

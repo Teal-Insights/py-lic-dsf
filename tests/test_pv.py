@@ -6,11 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from lic_dsf.pv import (
-    PresentValueInstrument,
-    PVPortfolio,
-    load_instruments_from_workbook,
-)
+from lic_dsf.load import load_instruments_from_workbook
+from lic_dsf.pv import PresentValueInstrument, PVPortfolio
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK = REPO_ROOT / "data" / "lic-dsf-template-2025-08-12.xlsx"

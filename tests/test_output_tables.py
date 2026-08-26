@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from lic_dsf.dsa import load_core
+from lic_dsf.load import load_core
 from lic_dsf.output import (
     external_dsa_panel,
     output_11_table,

@@ -32,12 +32,10 @@ from lic_dsf.pv.external_debt.residual import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
-    load_input7_residual_params,
     public_dsa_residual_params,
     resolve_residual_params,
 )
 from lic_dsf.pv.external_debt.types import ExternalDebtInputs
-from lic_dsf.pv.external_debt.workbook import load_external_debt_inputs
 
 __all__ = [
     "CREDITOR_GROUPS",
@@ -57,8 +55,6 @@ __all__ = [
     "grant_element_value",
     "group_instrument_panel",
     "lc_to_usd",
-    "load_external_debt_inputs",
-    "load_input7_residual_params",
     "memorandum",
     "new_amortization_by_creditor",
     "new_disbursements_by_creditor",

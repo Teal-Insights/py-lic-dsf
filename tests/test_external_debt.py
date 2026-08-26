@@ -7,15 +7,17 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
     excel_npv,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
 )
 from lic_dsf.pv.external_debt.existing_debt import existing_mlt_pv
 from lic_dsf.pv.external_debt.fxutil import lc_to_usd

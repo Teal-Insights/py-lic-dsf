@@ -7,6 +7,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from lic_dsf.load import load_ci_summary, load_input1_market, load_trigger_flags
 from lic_dsf.rating import (
     ChartDataRegistry,
     MarketFinancingInputs,
@@ -15,9 +16,6 @@ from lic_dsf.rating import (
     assess_market_financing,
     classify_ci,
     compute_mechanical_ratings,
-    load_ci_summary,
-    load_input1_market,
-    load_trigger_flags,
     market_panel,
     mechanical_rating_from_breaches,
     moderate_panel,

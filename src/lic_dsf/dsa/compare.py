@@ -14,7 +14,7 @@ from typing import Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.dsa.workbook import load_core
+from lic_dsf.load.core import load_core
 from lic_dsf.output.baseline import external_dsa_panel, public_dsa_panel
 from lic_dsf.realism.compare import _a1, _as_year, _year_int
 

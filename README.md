@@ -40,15 +40,17 @@ from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
 )
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
 from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
     PVPortfolio,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
@@ -77,7 +79,8 @@ and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
 
 | Path | Contents |
 |---|---|
-| `src/lic_dsf/pv/` | Instruments, Ext/Dom/Macro books, workbook loaders |
+| `src/lic_dsf/pv/` | Instruments, Ext/Dom/Macro books |
+| `src/lic_dsf/load/` | Excel Input / CI / Realism sheet parsers |
 | `src/lic_dsf/dsa/` | Baseline sustainability ratios |
 | `src/lic_dsf/output/` | Output-sheet DataFrames (panels and Excel-geometry tables) |
 | `src/lic_dsf/stress/` | Input 6 stresses + residual financing |

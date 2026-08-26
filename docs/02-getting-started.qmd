@@ -42,15 +42,17 @@ from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
 )
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
 from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
     PVPortfolio,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
@@ -88,12 +90,9 @@ grouping matches Excel row structure.
 Quick stress sketch after the books above:
 
 ```python
+from lic_dsf.load import load_input6_standard, load_input7_residual_params
 from lic_dsf.output import stress_external_panel
-from lic_dsf.pv import load_input7_residual_params
-from lic_dsf.stress import (
-    load_input6_standard,
-    run_b1_gdp_external,
-)
+from lic_dsf.stress import run_b1_gdp_external
 
 input6 = load_input6_standard(workbook)
 residual = load_input7_residual_params(workbook)

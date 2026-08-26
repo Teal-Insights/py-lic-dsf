@@ -3,35 +3,18 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 
 import pandas as pd
 from fastpyxl import load_workbook
 
+from lic_dsf.load._cells import _as_float, _as_int
+from lic_dsf.load.macro import load_macro_debt_inputs
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.pv.macro_debt.workbook import load_macro_debt_inputs
 from lic_dsf.scenario.probability import DistressCovariates
 
 _IMPORTED = "Imported data"
 _HIST_YEARS = 5
 _PROJ_YEARS = 11
-
-
-def _as_float(value: Any) -> float | None:
-    if value is None or value == "":
-        return None
-    if isinstance(value, bool):
-        return None
-    if isinstance(value, (int, float)):
-        return float(value)
-    return None
-
-
-def _as_int(value: Any) -> int | None:
-    number = _as_float(value)
-    if number is None:
-        return None
-    return int(number)
 
 
 def _average(series: pd.Series, years: list[int]) -> float:

@@ -15,10 +15,32 @@ exclude:
   # Implementation modules / accidental imports — not part of the public API
   - annotations
   - compare
+  - _cells
 
 reference:
+  - title: Load
+    desc: "Excel Input / CI / Realism sheet parsers."
+    contents:
+      - load.load_capital_assumptions
+      - load.load_ci_summary
+      - load.load_core
+      - load.load_distress_covariates
+      - load.load_domestic_debt_inputs
+      - load.load_external_debt_inputs
+      - load.load_imported_data
+      - load.load_input1_market
+      - load.load_input6_standard
+      - load.load_input7_residual_params
+      - load.load_instruments_from_workbook
+      - load.load_lc_nr_instruments_from_workbook
+      - load.load_lic_program_distribution
+      - load.load_macro_debt_inputs
+      - load.load_multiplier_grid
+      - load.load_tailored_params
+      - load.load_trigger_flags
+
   - title: Present Value
-    desc: "Instruments, Ext/Dom/Macro debt books, and workbook loaders."
+    desc: "Instruments, Ext/Dom/Macro debt books, and residual-financing math."
     contents:
       - pv.DomesticDebtBook
       - pv.DomesticDebtInputs
@@ -36,12 +58,6 @@ reference:
       - pv.excel_npv
       - pv.grant_element_new_disbursements
       - pv.grant_element_value
-      - pv.load_domestic_debt_inputs
-      - pv.load_external_debt_inputs
-      - pv.load_input7_residual_params
-      - pv.load_instruments_from_workbook
-      - pv.load_lc_nr_instruments_from_workbook
-      - pv.load_macro_debt_inputs
       - pv.new_disbursements_net_of_ge
       - pv.public_dsa_residual_params
       - pv.resolve_residual_params
@@ -54,7 +70,6 @@ reference:
     contents:
       - dsa.BaselineExternalBook
       - dsa.BaselinePublicBook
-      - dsa.load_core
 
   - title: Stress tests
     desc: "Input 6 standard stresses and residual financing."
@@ -86,8 +101,6 @@ reference:
       - stress.flow_shortfall_gap
       - stress.historical_identity_pins
       - stress.load_cached_external_stress
-      - stress.load_input6_standard
-      - stress.load_tailored_params
       - stress.public_dsa_residual_params
       - stress.public_residual_gap
       - stress.real_depreciation_pct
@@ -136,10 +149,6 @@ reference:
       - realism.debt_stock_from_ratio
       - realism.fiscal_adjustment_from_primary_balance
       - realism.gdp_rebase_scale
-      - realism.load_capital_assumptions
-      - realism.load_imported_data
-      - realism.load_lic_program_distribution
-      - realism.load_multiplier_grid
       - realism.other_identified_flows_to_gdp
       - realism.place_in_lic_histogram
       - realism.projected_three_year_adjustment
@@ -172,9 +181,6 @@ reference:
       - rating.assess_market_financing
       - rating.classify_ci
       - rating.compute_mechanical_ratings
-      - rating.load_ci_summary
-      - rating.load_input1_market
-      - rating.load_trigger_flags
       - rating.market_panel
       - rating.mechanical_rating_from_breaches
       - rating.moderate_panel
@@ -198,7 +204,6 @@ reference:
       - scenario.borderline_bands
       - scenario.breach_probability
       - scenario.distress_probability
-      - scenario.load_distress_covariates
       - scenario.max_path_probability
       - scenario.path_breach_probabilities
       - scenario.path_distress_probabilities

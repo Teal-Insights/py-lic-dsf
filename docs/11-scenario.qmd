@@ -19,7 +19,7 @@ Output 6 panels live in `lic_dsf.output`.
 | `register_custom_path` | Push a path into `ChartDataRegistry` |
 | `ProbabilityAssumptions` | Borderline bandwidth (and simple Φ helper) |
 | `DistressCovariates` / `distress_probability` | Excel `NORMDIST` regression (CPIA, growth, …) |
-| `load_distress_covariates` | Input 3 + Imported data `H77:H81` averages |
+| `load_distress_covariates` (`lic_dsf.load`) | Input 3 + Imported data `H77:H81` averages |
 | `breach_probability` / `path_breach_probabilities` | Simple path vs threshold Φ |
 | `probability_panel` (`lic_dsf.output`) | Output 6-shaped probability summary |
 | `borderline_bands` | Near-threshold bands |
@@ -27,11 +27,11 @@ Output 6 panels live in `lic_dsf.output`.
 ## Typical use
 
 ```python
+from lic_dsf.load import load_distress_covariates
 from lic_dsf.output import probability_panel
 from lic_dsf.rating import ChartDataRegistry
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
-    load_distress_covariates,
     register_custom_path,
 )
 

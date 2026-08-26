@@ -66,12 +66,11 @@ from lic_dsf.stress.shocks import (
 )
 from lic_dsf.stress.tailored import (
     TailoredParams,
-    load_tailored_params,
     run_tailored_external_stress,
     run_tailored_public_stress,
 )
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
-from lic_dsf.stress.workbook import load_cached_external_stress, load_input6_standard
+from lic_dsf.stress.workbook import load_cached_external_stress
 
 __all__ = [
     "CachedStressExternalBook",
@@ -104,8 +103,6 @@ __all__ = [
     "flow_shortfall_gap",
     "historical_identity_pins",
     "load_cached_external_stress",
-    "load_input6_standard",
-    "load_tailored_params",
     "public_dsa_residual_params",
     "public_residual_gap",
     "real_depreciation_pct",

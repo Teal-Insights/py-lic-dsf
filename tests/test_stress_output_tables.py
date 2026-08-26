@@ -6,16 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from lic_dsf.dsa import load_core
+from lic_dsf.load import load_core, load_input6_standard, load_input7_residual_params
 from lic_dsf.output import (
     output_31_table,
     output_32_table,
     stress_external_panel,
     stress_public_panel,
 )
-from lic_dsf.pv import load_input7_residual_params
 from lic_dsf.stress import (
-    load_input6_standard,
     run_a1_historical_external,
     run_b1_gdp_public,
     run_b2_pb_public,

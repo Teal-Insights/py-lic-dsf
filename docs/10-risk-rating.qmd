@@ -14,14 +14,14 @@ not recompute DSA numerators.
 
 | Piece | Role |
 |-------|------|
-| `load_ci_summary` | Country, CI score, DCC, applicable thresholds |
+| `load_ci_summary` (`lic_dsf.load`) | Country, CI score, DCC, applicable thresholds |
 | `DebtCarryingCapacity` / `classify_ci` / `thresholds_from_ci` | Weak / Medium / Strong |
 | `ChartDataRegistry` / `RatioPath` | Register baseline + stress paths |
 | `compute_mechanical_ratings` | Breach → mechanical rating |
 | `risk_summary_panel` / `RiskRatingSummary` | Output 7-style summary |
 | `assess_market_financing` / `market_panel` | Market-access / GFN checks |
 | `moderate_panel` | Moderate “space” / headroom |
-| `load_trigger_flags` | Template trigger flags |
+| `load_trigger_flags` (`lic_dsf.load`) | Template trigger flags |
 
 ## Load and compute
 
@@ -29,20 +29,18 @@ not recompute DSA numerators.
 from pathlib import Path
 
 from lic_dsf.dsa import BaselineExternalBook, BaselinePublicBook
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
+    load_ci_summary,
     load_external_debt_inputs,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 from lic_dsf.rating import (
     ChartDataRegistry,
     RiskRatingSummary,
     compute_mechanical_ratings,
-    load_ci_summary,
     risk_summary_panel,
 )
 

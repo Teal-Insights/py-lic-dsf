@@ -7,23 +7,21 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
+    load_input6_standard,
     load_input7_residual_params,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
 from lic_dsf.output import stress_public_panel
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 from lic_dsf.stress import (
     build_public_resfin_overlay,
     dom_mlt_resfin_series,
     dom_st_resfin_series,
     external_residual_gap,
-    load_input6_standard,
     public_residual_gap,
     run_b1_gdp_public,
     run_b3_exports_external,

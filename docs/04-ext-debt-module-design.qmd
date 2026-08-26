@@ -12,9 +12,9 @@ PPG PV headlines (e.g. Ext R391).
 | Piece | Role |
 |-------|------|
 | `ExternalDebtBook` | Sheet engine: `portfolio` + `ExternalDebtInputs` |
-| `load_external_debt_inputs` | Existing debt / Ext input blocks from the workbook |
+| `load_external_debt_inputs` (`lic_dsf.load`) | Existing debt / Ext input blocks from the workbook |
 | `PVPortfolio` | New MLT schedules ([pv-instruments.qmd](pv-instruments.qmd)) |
-| `load_input7_residual_params` | Input 7 residual-financing terms (used heavily in stress) |
+| `load_input7_residual_params` (`lic_dsf.load`) | Input 7 residual-financing terms (used heavily in stress) |
 
 Creditor grouping, grant element, debt evolution, and memorandum panels are
 methods / helpers on or under this book — not on `PVPortfolio`.
@@ -24,13 +24,12 @@ methods / helpers on or under this book — not on `PVPortfolio`.
 ```python
 from pathlib import Path
 
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
 )
+from lic_dsf.pv import ExternalDebtBook, PVPortfolio
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 portfolio = PVPortfolio(

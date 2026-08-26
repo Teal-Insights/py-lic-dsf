@@ -10,7 +10,7 @@ from fastpyxl import load_workbook
 from lic_dsf.dsa.compare import write_comparison_csv
 from lic_dsf.realism.compare import _a1, _as_year, _books, _year_int
 from lic_dsf.output.realism import invest_growth_panel
-from lic_dsf.realism.workbook import load_capital_assumptions
+from lic_dsf.load.realism import load_capital_assumptions
 
 REALISM3_SHEET = "Realism 3 - Invest-Growth"
 _CURR_DSA_LABEL = "Real GDP growth - Curr. DSA"

@@ -14,8 +14,8 @@ Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings. Output
 
 | Piece | Role |
 |-------|------|
-| `load_imported_data` | `Imported data` vintage catalog |
-| `load_capital_assumptions` / `load_multiplier_grid` | Realism assumption blocks |
+| `load_imported_data` (`lic_dsf.load`) | `Imported data` vintage catalog |
+| `load_capital_assumptions` / `load_multiplier_grid` (`lic_dsf.load`) | Realism assumption blocks |
 | `forecast_error_panel` (`lic_dsf.output`) | Forecast error / debt-creating flows |
 | `fiscal_adjustment_panel` (`lic_dsf.output`) / `place_in_lic_histogram` | 3-year adjustment vs LIC programs |
 | `invest_growth_panel` (`lic_dsf.output`) | Capital stock / growth contribution |
@@ -32,15 +32,13 @@ from lic_dsf.output import (
     fiscal_multiplier_panel,
     placement_summary,
 )
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 from lic_dsf.realism import (
     place_in_lic_histogram,
     projected_three_year_adjustment,

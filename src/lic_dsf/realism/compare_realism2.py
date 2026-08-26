@@ -10,7 +10,7 @@ from fastpyxl import load_workbook
 from lic_dsf.dsa.compare import write_comparison_csv
 from lic_dsf.realism.compare import _a1, _as_year, _books, _year_int
 from lic_dsf.output.realism import fiscal_multiplier_panel
-from lic_dsf.realism.workbook import load_multiplier_grid
+from lic_dsf.load.realism import load_multiplier_grid
 
 REALISM2_SHEET = "Realism 2 - Fiscal multiplier"
 _CSV_COLS = (

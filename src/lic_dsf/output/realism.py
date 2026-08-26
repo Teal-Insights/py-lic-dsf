@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from lic_dsf.dsa.workbook import load_core
+from lic_dsf.load.core import load_core
+from lic_dsf.load.realism import load_capital_assumptions, load_multiplier_grid
 from lic_dsf.realism.fiscal_adjustment import (
     DEFAULT_LIC_PROGRAM_DISTRIBUTION,
     FiscalAdjustmentPlacement,
@@ -26,7 +27,6 @@ from lic_dsf.realism.invest_growth import (
     residual_growth_contribution,
 )
 from lic_dsf.realism.types import CapitalAssumptions, MultiplierAssumptions
-from lic_dsf.realism.workbook import load_capital_assumptions, load_multiplier_grid
 
 
 def fiscal_adjustment_panel(

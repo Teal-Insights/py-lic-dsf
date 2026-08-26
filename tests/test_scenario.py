@@ -5,6 +5,8 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
+from lic_dsf.load import load_distress_covariates
+from lic_dsf.output import probability_panel
 from lic_dsf.pv import MacroDebtInputs
 from lic_dsf.rating import (
     ChartDataRegistry,
@@ -12,7 +14,6 @@ from lic_dsf.rating import (
     compute_mechanical_ratings,
     thresholds_for,
 )
-from lic_dsf.output import probability_panel
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
     DistressCovariates,
@@ -21,7 +22,6 @@ from lic_dsf.scenario import (
     borderline_bands,
     breach_probability,
     distress_probability,
-    load_distress_covariates,
     register_custom_path,
 )
 

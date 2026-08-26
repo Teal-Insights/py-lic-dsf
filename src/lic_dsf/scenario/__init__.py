@@ -22,7 +22,6 @@ from lic_dsf.scenario.probability import (
     path_breach_probabilities,
     path_distress_probabilities,
 )
-from lic_dsf.scenario.workbook import load_distress_covariates
 
 __all__ = [
     "EXCEL_DISTRESS_COEFFICIENTS",
@@ -35,7 +34,6 @@ __all__ = [
     "borderline_bands",
     "breach_probability",
     "distress_probability",
-    "load_distress_covariates",
     "max_path_probability",
     "path_breach_probabilities",
     "path_distress_probabilities",

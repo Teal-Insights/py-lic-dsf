@@ -7,6 +7,14 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from lic_dsf.load import (
+    load_external_debt_inputs,
+    load_input6_standard,
+    load_instruments_from_workbook,
+    load_lc_nr_instruments_from_workbook,
+    load_macro_debt_inputs,
+)
+from lic_dsf.output import stress_external_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     ExternalDebtInputs,
@@ -15,18 +23,12 @@ from lic_dsf.pv import (
     PresentValueInstrument,
     PVPortfolio,
     ResidualFinancingParams,
-    load_external_debt_inputs,
-    load_instruments_from_workbook,
-    load_lc_nr_instruments_from_workbook,
-    load_macro_debt_inputs,
 )
-from lic_dsf.output import stress_external_panel
 from lic_dsf.stress import (
     Input6StandardParams,
     StressExternalBook,
     apply_historical_averages_shock,
     apply_real_gdp_shock,
-    load_input6_standard,
     real_depreciation_pct,
     resfin_instrument,
     resfin_overlay_series,

@@ -15,8 +15,8 @@ shocks Macro and fills residual financing. Output DataFrames live in
 
 | Piece | Role |
 |-------|------|
-| `load_input6_standard` | Input 6 shock sizes / rules |
-| `load_input7_residual_params` | Input 7 ResFin terms (`lic_dsf.pv`) |
+| `load_input6_standard` (`lic_dsf.load`) | Input 6 shock sizes / rules |
+| `load_input7_residual_params` (`lic_dsf.load`) | Input 7 ResFin terms |
 | `run_standard_external_stress` | Suite of external B-tests (including B2) |
 | `run_standard_public_stress` | Public A1 and B1–B6 |
 | `run_tailored_external_stress` | Python A2 / C1–C4 (skips Off tailored tests) |
@@ -32,23 +32,21 @@ shocks Macro and fills residual financing. Output DataFrames live in
 ```python
 from pathlib import Path
 
-from lic_dsf.output import (
-    output_31_table,
-    stress_external_panel,
-    stress_public_panel,
-)
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
+    load_input6_standard,
     load_input7_residual_params,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.output import (
+    output_31_table,
+    stress_external_panel,
+    stress_public_panel,
+)
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 from lic_dsf.stress import (
-    load_input6_standard,
     run_b1_gdp_external,
     run_b1_gdp_public,
     run_standard_external_stress,

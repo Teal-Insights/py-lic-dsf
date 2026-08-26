@@ -30,16 +30,14 @@ from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
 )
-from lic_dsf.output import external_dsa_panel, output_11_table, public_dsa_panel
-from lic_dsf.pv import (
-    ExternalDebtBook,
-    MacroDebtBook,
-    PVPortfolio,
+from lic_dsf.load import (
     load_external_debt_inputs,
     load_instruments_from_workbook,
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.output import external_dsa_panel, output_11_table, public_dsa_panel
+from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 ext = ExternalDebtBook(
