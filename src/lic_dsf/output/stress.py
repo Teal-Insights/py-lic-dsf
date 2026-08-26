@@ -139,15 +139,33 @@ def output_32_table(
     pub_base: BaselinePublicBook,
     *,
     public_stress: dict[str, StressPublicBook] | None = None,
+    tailored: dict[str, StressPublicBook] | None = None,
     public_threshold: float | None = None,
 ) -> pd.DataFrame:
-    """Output 3-2 MultiIndex table ``(indicator, scenario) × years``."""
+    """Output 3-2 MultiIndex table ``(indicator, scenario) × years``.
+
+    Args:
+        pub_base: Baseline public book.
+        public_stress: A1 / B-test id → book (from ``run_standard_public_stress``).
+        tailored: A2 / C* id → book (from ``run_tailored_public_stress``).
+        public_threshold: TOTAL public debt benchmark (PV public debt / GDP).
+
+    Returns:
+        DataFrame with a two-level index. The three chart indicators are always
+        filled; ``Threshold`` is added only under PV of Debt-to-GDP Ratio when
+        ``public_threshold`` is set.
+    """
     years = _years_from(pub_base)
     store: dict[tuple[str, str], pd.Series] = {}
     books: dict[str, Any] = {"Baseline": pub_base}
     if public_stress:
         books.update(public_stress)
-    for indicator, method in _PUB_INDICATORS:
+    if tailored:
+        books.update(tailored)
+    # Chart indicators (Output 3-2); Debt Service-to-GDP stays in _PUB_INDICATORS
+    # for callers that pass books but is not required for the probe catalog.
+    chart_indicators = _PUB_INDICATORS[:3]
+    for indicator, method in chart_indicators:
         for sid, book in books.items():
             label = _EXT_SCENARIO_LABELS.get(sid, sid)
             getter = getattr(book, method, None)

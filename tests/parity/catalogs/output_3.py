@@ -19,7 +19,6 @@ _PUB_INDICATORS = (
     "PV of Debt-to-GDP Ratio",
     "PV of Debt-to-Revenue Ratio",
     "Debt Service-to-Revenue Ratio",
-    "Debt Service-to-GDP Ratio",
 )
 
 
@@ -45,9 +44,15 @@ def _scenario_row_map(
     sections: tuple[str, ...],
 ) -> dict[tuple[str, str], int]:
     """Map ``(indicator, scenario-label)`` to Excel row from Output 3-x."""
-    from lic_dsf.stress.compare import _EXT_SECTIONS, _PUB_SECTIONS, _SCENARIO_KEYS, _norm
+    from lic_dsf.stress.compare import (
+        _EXT_SECTIONS,
+        _PUB_SECTIONS,
+        _norm,
+        scenario_key,
+    )
 
     section_map = _EXT_SECTIONS if sheet == OUTPUT31_SHEET else _PUB_SECTIONS
+    allowed = set(sections)
     wb = load_workbook(path, data_only=True, read_only=True)
     try:
         ws = wb[sheet]
@@ -57,10 +62,13 @@ def _scenario_row_map(
             raw = ws.cell(row, label_col).value
             header = _norm(raw)
             if header in section_map:
-                section = section_map[header]
+                mapped = section_map[header]
+                # Clear when leaving an allowed block so later sections
+                # (e.g. Debt Service-to-GDP) do not inherit the prior key.
+                section = mapped if mapped in allowed else ""
                 continue
-            key = _SCENARIO_KEYS.get(header)
-            if key is None or not section or section not in sections:
+            key = scenario_key(header)
+            if key is None or not section:
                 continue
             out[(section, key)] = row
         return out

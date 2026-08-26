@@ -20,10 +20,12 @@ from lic_dsf.load.core import load_core
 from lic_dsf.load.input6 import load_input6_standard
 from lic_dsf.load.input7 import load_input7_residual_params
 from lic_dsf.load.rating import load_ci_summary
+from lic_dsf.load.tailored import load_customized_public_spec, load_tailored_params
 from lic_dsf.stress import (
     run_a1_historical_external,
-    run_b1_gdp_public,
     run_standard_external_stress,
+    run_standard_public_stress,
+    run_tailored_public_stress,
 )
 
 OUTPUT31_SHEET = "Output 3-1 Stress-external"
@@ -67,6 +69,42 @@ _SCENARIO_KEYS = {
     "threshold": "Threshold",
     "total public debt benchmark": "Threshold",
 }
+
+# Output 3-2 chart indicators (excl. Debt Service-to-GDP Ratio).
+_PUB_COMPARE_SECTIONS = {
+    "pv of debt-to-gdp ratio": "PV of Debt-to-GDP Ratio",
+    "pv of debt-to-revenue ratio": "PV of Debt-to-Revenue Ratio",
+    "debt service-to-revenue ratio": "Debt Service-to-Revenue Ratio",
+}
+
+_PUB_SCENARIO_IDS = {
+    "A1 historical": "A1_Historical",
+    "A2 custom": "A2_Custom",
+    "B1. Real GDP growth": "B1_GDP",
+    "B2. Primary balance": "B2_PrimaryBalance",
+    "B3. Exports": "B3_Exports",
+    "B4. Other flows": "B4_OtherFlows",
+    "B5. Depreciation": "B5_FX",
+    "B6. Combination of B1-B5": "B6_Combo",
+    "C1. Combined contingent liabilities": "C1_CombinedCL",
+    "C2. Natural disaster": "C2_NaturalDisaster",
+    "C3. Commodity price": "C3_Commodity",
+    "C4. Market Financing": "C4_Market",
+}
+
+
+def scenario_key(header: str) -> str | None:
+    """Map a normalized Output 3-x scenario label to the SUT match key.
+
+    Output 3-2 A2 rows append a customizable title
+    (``A2. Alternative Scenario :[…]``); accept any label that starts with
+    the A2 prefix.
+    """
+    if header in _SCENARIO_KEYS:
+        return _SCENARIO_KEYS[header]
+    if header.startswith("a2. alternative scenario"):
+        return "A2 custom"
+    return None
 
 _EXT_METHODS = {
     "PV of debt-to GDP ratio": ("pv_ppg_external_to_gdp", "pv_debt_to_gdp"),
@@ -128,13 +166,21 @@ def _read_scenario_table(
         cols = year_cols(ws, year_row, first_col)
         records: list[dict[str, Any]] = []
         section = ""
+        allowed_sections = set(sections.values())
         for row in range(1, (ws.max_row or 0) + 1):
             raw = ws.cell(row, label_col).value
             header = _norm(raw)
             if header in sections:
-                section = sections[header]
+                mapped = sections[header]
+                section = mapped if mapped in allowed_sections else ""
                 continue
-            key = _SCENARIO_KEYS.get(header)
+            # Full public map may include sections we intentionally skip;
+            # clear active section when leaving an allowed block.
+            if sheet == OUTPUT32_SHEET and header in _PUB_SECTIONS:
+                mapped = _PUB_SECTIONS[header]
+                section = mapped if mapped in allowed_sections else ""
+                continue
+            key = scenario_key(header)
             if key is None or not section or key not in allowed_keys:
                 continue
             label = str(raw).strip()
@@ -166,7 +212,7 @@ class _StressBundle:
     pub_base: Any
     external_stress: dict[str, Any]
     historical: Any
-    public_b1: Any
+    public_stress: dict[str, Any]
     thresholds: dict[str, float]
 
 
@@ -175,6 +221,18 @@ def _stress_bundle(path: str) -> _StressBundle:
     macro, external, ext_base, pub_base = load_core(path)
     input6 = load_input6_standard(path)
     residual = load_input7_residual_params(path)
+    tailored = load_tailored_params(path)
+    public = run_standard_public_stress(macro, external, input6, residual)
+    public.update(
+        run_tailored_public_stress(
+            macro,
+            external,
+            residual,
+            tailored,
+            input6,
+            custom_spec=load_customized_public_spec(path),
+        )
+    )
     return _StressBundle(
         ext_base=ext_base,
         pub_base=pub_base,
@@ -182,7 +240,7 @@ def _stress_bundle(path: str) -> _StressBundle:
             macro, external, input6, residual, workbook_path=path
         ),
         historical=run_a1_historical_external(macro, external, residual),
-        public_b1=run_b1_gdp_public(macro, external, input6, residual),
+        public_stress=public,
         thresholds=load_ci_summary(path).thresholds.as_dict(),
     )
 
@@ -215,7 +273,11 @@ def compute_output22_32_outputs(
     store: dict[tuple[str, str], pd.Series] = {}
     for section, method in _PUB_METHODS.items():
         store[(section, "Baseline")] = getattr(stress.pub_base, method)()
-        store[(section, "B1. Real GDP growth")] = getattr(stress.public_b1, method)()
+        for key, sid in _PUB_SCENARIO_IDS.items():
+            book = stress.public_stress.get(sid)
+            if book is None:
+                continue
+            store[(section, key)] = getattr(book, method)()
         if section == "PV of Debt-to-GDP Ratio":
             store[(section, "Threshold")] = _constant(thresh, years)
     return store
@@ -250,8 +312,12 @@ def build_output22_32_comparison(path: str | Path) -> pd.DataFrame:
         year_row=_OUTPUT32_YEAR_ROW,
         first_col=_OUTPUT32_FIRST_COL,
         label_col=_OUTPUT32_LABEL_COL,
-        sections=_PUB_SECTIONS,
-        allowed_keys={"Baseline", "B1. Real GDP growth", "Threshold"},
+        sections=_PUB_COMPARE_SECTIONS,
+        allowed_keys={
+            "Baseline",
+            *_PUB_SCENARIO_IDS,
+            "Threshold",
+        },
     )
     return pair_frame(excel, compute_output22_32_outputs(path))
 

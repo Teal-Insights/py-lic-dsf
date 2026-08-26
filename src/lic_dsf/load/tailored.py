@@ -12,6 +12,7 @@ from lic_dsf.stress.tailored import TailoredParams
 
 _TAILORED_SHEET = "Input 6 - Tailored Tests"
 _CUSTOMIZED_EXTERNAL_SHEET = "Customized Scenario-External"
+_CUSTOMIZED_PUBLIC_SHEET = "Customized Scenario - public"
 
 
 def _safe_prefer(default: object, user: object, fallback: float = 0.0) -> float:
@@ -59,6 +60,20 @@ def load_customized_spec(path: str | Path) -> CustomizedScenarioSpec | None:
         if not on:
             return None
         title = str(ws.cell(2, 4).value or "Custom").strip()
+        return CustomizedScenarioSpec(name=title, short_name="A2")
+    finally:
+        wb.close()
+
+
+def load_customized_public_spec(path: str | Path) -> CustomizedScenarioSpec | None:
+    """Load A2 public spec when Customized Scenario - public C3 is Yes."""
+    wb = load_workbook(path, data_only=True, read_only=True)
+    try:
+        ws = wb[_CUSTOMIZED_PUBLIC_SHEET]
+        on = str(ws.cell(3, 3).value or "").strip().lower() == "yes"
+        if not on:
+            return None
+        title = str(ws.cell(7, 2).value or "Custom").strip()
         return CustomizedScenarioSpec(name=title, short_name="A2")
     finally:
         wb.close()

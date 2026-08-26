@@ -267,6 +267,25 @@ def run_tailored_external_stress(
     return out
 
 
+def run_a2_custom_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    residual_params: ResidualFinancingParams,
+    spec: CustomizedScenarioSpec | None,
+) -> StressPublicBook:
+    """A2 customized public scenario; baseline path when ``spec`` is None."""
+    if spec is None:
+        return _run_public_stress(
+            macro, external, residual_params, macro, "A2_Custom_pub"
+        )
+    shocked = MacroDebtBook(
+        inputs=apply_customized_deltas(macro.inputs, spec), external=external
+    )
+    return _run_public_stress(
+        macro, external, residual_params, shocked, "A2_Custom_pub"
+    )
+
+
 def run_c1_combined_cl_public(
     macro: MacroDebtBook,
     external: ExternalDebtBook,
@@ -288,9 +307,14 @@ def run_tailored_public_stress(
     residual_params: ResidualFinancingParams,
     params: TailoredParams,
     input6: Input6StandardParams,
+    *,
+    custom_spec: CustomizedScenarioSpec | None = None,
 ) -> dict[str, StressPublicBook]:
-    """Public C1 always; C2–C4 when applicable."""
+    """A2 + C1 always; C2–C4 when Input 6 marks them applicable."""
     out: dict[str, StressPublicBook] = {
+        "A2_Custom": run_a2_custom_public(
+            macro, external, residual_params, custom_spec
+        ),
         "C1_CombinedCL": run_c1_combined_cl_public(
             macro, external, residual_params, params
         ),
