@@ -8,7 +8,8 @@ Excel analogues: **Input 6** standard stress parameters, **B** (external) and
 **2-x / 3-x** stressed ratio paths.
 
 Package: `lic_dsf.stress`. Baseline ratios stay in `lic_dsf.dsa`; this layer
-shocks Macro, fills residual financing, and rebuilds Output-shaped panels.
+shocks Macro and fills residual financing. Output DataFrames live in
+`lic_dsf.output`.
 
 ## What you get
 
@@ -16,18 +17,26 @@ shocks Macro, fills residual financing, and rebuilds Output-shaped panels.
 |-------|------|
 | `load_input6_standard` | Input 6 shock sizes / rules |
 | `load_input7_residual_params` | Input 7 ResFin terms (`lic_dsf.pv`) |
-| `run_standard_external_stress` | Suite of external B-tests |
+| `run_standard_external_stress` | Suite of external B-tests (including B2) |
+| `run_standard_public_stress` | Public A1 and B1–B6 |
+| `run_tailored_external_stress` | Python A2 / C1–C4 (skips Off tailored tests) |
+| `output_31_table` / `output_32_table` (`lic_dsf.output`) | Output 3-x MultiIndex `(indicator, scenario)` |
 | `run_a1_historical_external` | A1: key variables at 10-year historical averages |
-| `run_b1_gdp_external` / `run_b3_exports_external` / … | Named external scenarios |
+| `run_b1_gdp_external` / `run_b2_pb_external` / `run_b3_exports_external` / … | Named external scenarios |
 | `run_b1_gdp_public` | Public B1 GDP with three-way ResFin |
 | `StressExternalBook` / `StressPublicBook` | Stressed ratio engines |
-| `stress_external_panel` / `stress_public_panel` | Output 2/3-shaped frames |
+| `stress_external_panel` / `stress_public_panel` (`lic_dsf.output`) | Single-scenario headline frames |
 
 ## Load and compute
 
 ```python
 from pathlib import Path
 
+from lic_dsf.output import (
+    output_31_table,
+    stress_external_panel,
+    stress_public_panel,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
@@ -43,8 +52,6 @@ from lic_dsf.stress import (
     run_b1_gdp_external,
     run_b1_gdp_public,
     run_standard_external_stress,
-    stress_external_panel,
-    stress_public_panel,
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
@@ -76,6 +83,11 @@ suite = run_standard_external_stress(macro, ext, input6, residual)
 b1_pub = run_b1_gdp_public(macro, ext, input6, residual)
 stress_public_panel(b1_pub)
 ```
+
+`output_31_table(ext_base, historical=…, external_stress=suite)` is the
+Excel-geometry SUT for Output 3-1. `load_cached_external_stress` remains a
+debug dump of B-sheet ratios, not an SUT input. C-tests that Input 6 marks
+Off are omitted (Excel `n.a.`).
 
 ## Excel cues
 

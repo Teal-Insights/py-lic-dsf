@@ -282,6 +282,93 @@ class StressPublicBook:
             inflation_elasticity=self.inflation_elasticity,
         )
 
+    def debt_service_to_gdp(self) -> pd.Series:
+        """Public DS / GDP including ResFin service."""
+        rev_to_gdp = _pct(
+            self.baseline_macro.revenues_incl_grants(),
+            self.baseline_macro.gdp_lcu(),
+        )
+        return (self.debt_service_to_revenue_grants() * rev_to_gdp / 100.0).astype(
+            float
+        )
+
+
+def _run_public_stress(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    residual_params: ResidualFinancingParams,
+    shocked_macro: MacroDebtBook,
+    scenario_id: str,
+    *,
+    inflation_elasticity: float = 0.0,
+    iterations: int = 25,
+    tol: float = 1e-6,
+    public_gap: pd.Series | None = None,
+    ext_r86: pd.Series | None = None,
+) -> StressPublicBook:
+    """Shocked Macro + three-way public ResFin fixed point."""
+    years = shocked_macro.inputs.years
+    shocked_gdp_lcu = _b1_public_gdp_lcu(macro, shocked_macro, inflation_elasticity)
+    r86 = (
+        ext_r86.reindex(list(years)).fillna(0.0).astype(float)
+        if ext_r86 is not None
+        else pd.Series(0.0, index=list(years), dtype=float)
+    )
+    deflator = gdp_deflator_growth(macro.gdp_lcu(), macro.gdp_constant())
+    fx = shocked_macro.fx_pa()
+    baseline_gfn = macro.public_gfn()
+
+    if public_gap is not None:
+        gap = public_gap.reindex(list(years)).fillna(0.0).astype(float)
+        fill = split_residual_financing(
+            gap, r86, residual_params, fx, modality="capped", years=years
+        )
+        overlay = build_public_resfin_overlay(
+            fill, residual_params, deflator=deflator, years=years
+        )
+        return StressPublicBook(
+            macro=shocked_macro,
+            external=external,
+            baseline_macro=macro,
+            resfin=overlay,
+            scenario_id=scenario_id,
+            inflation_elasticity=inflation_elasticity,
+        )
+
+    overlay: PublicResFinOverlay | None = None
+    prev_gap: pd.Series | None = None
+    for _ in range(max(iterations, 1)):
+        stressed_gfn = estimate_b1_public_gfn(
+            macro,
+            shocked_macro,
+            overlay,
+            inflation_elasticity=inflation_elasticity,
+            gdp_lcu=shocked_gdp_lcu,
+        )
+        gap = public_residual_gap(stressed_gfn, baseline_gfn, years)
+        for year in years:
+            if year < shocked_macro.inputs.first_projection_year:
+                gap.loc[year] = 0.0
+        fill = split_residual_financing(
+            gap, r86, residual_params, fx, modality="capped", years=years
+        )
+        overlay = build_public_resfin_overlay(
+            fill, residual_params, deflator=deflator, years=years
+        )
+        if prev_gap is not None and float((gap - prev_gap).abs().max()) < tol:
+            break
+        prev_gap = gap
+
+    assert overlay is not None
+    return StressPublicBook(
+        macro=shocked_macro,
+        external=external,
+        baseline_macro=macro,
+        resfin=overlay,
+        scenario_id=scenario_id,
+        inflation_elasticity=inflation_elasticity,
+    )
+
 
 def run_b1_gdp_public(
     macro: MacroDebtBook,
@@ -312,84 +399,148 @@ def run_b1_gdp_public(
     """
     shocked_inputs = apply_real_gdp_shock(macro.inputs, input6)
     shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    years = shocked_macro.inputs.years
-    elasticity = _inflation_elasticity(input6)
-    shocked_gdp_lcu = _b1_public_gdp_lcu(macro, shocked_macro, elasticity)
-    r86 = (
-        ext_r86.reindex(list(years)).fillna(0.0).astype(float)
-        if ext_r86 is not None
-        else pd.Series(0.0, index=list(years), dtype=float)
-    )
-    # PV_ResFin_pub R24 uses baseline GDP-deflator growth (not B1 shocked
-    # LCU inflation). Domestic ResFin interest tracks that path.
-    deflator = gdp_deflator_growth(macro.gdp_lcu(), macro.gdp_constant())
-    fx = shocked_macro.fx_pa()
-    # macro.public_gfn() matches 'Baseline - public'!R78 on the template.
-    baseline_gfn = macro.public_gfn()
-
-    if public_gap is not None:
-        gap = public_gap.reindex(list(years)).fillna(0.0).astype(float)
-        fill = split_residual_financing(
-            gap, r86, residual_params, fx, modality="capped", years=years
-        )
-        overlay = build_public_resfin_overlay(
-            fill, residual_params, deflator=deflator, years=years
-        )
-        return StressPublicBook(
-            macro=shocked_macro,
-            external=external,
-            baseline_macro=macro,
-            resfin=overlay,
-            scenario_id="B1_GDP_pub",
-            inflation_elasticity=elasticity,
-        )
-
-    overlay: PublicResFinOverlay | None = None
-    prev_gap: pd.Series | None = None
-    for _ in range(max(iterations, 1)):
-        stressed_gfn = estimate_b1_public_gfn(
-            macro,
-            shocked_macro,
-            overlay,
-            inflation_elasticity=elasticity,
-            gdp_lcu=shocked_gdp_lcu,
-        )
-        gap = public_residual_gap(stressed_gfn, baseline_gfn, years)
-        # Zero gap before first projection year.
-        for year in years:
-            if year < shocked_macro.inputs.first_projection_year:
-                gap.loc[year] = 0.0
-        fill = split_residual_financing(
-            gap, r86, residual_params, fx, modality="capped", years=years
-        )
-        overlay = build_public_resfin_overlay(
-            fill, residual_params, deflator=deflator, years=years
-        )
-        if prev_gap is not None and float((gap - prev_gap).abs().max()) < tol:
-            break
-        prev_gap = gap
-
-    assert overlay is not None
-    return StressPublicBook(
-        macro=shocked_macro,
-        external=external,
-        baseline_macro=macro,
-        resfin=overlay,
-        scenario_id="B1_GDP_pub",
-        inflation_elasticity=elasticity,
+    return _run_public_stress(
+        macro,
+        external,
+        residual_params,
+        shocked_macro,
+        "B1_GDP_pub",
+        inflation_elasticity=_inflation_elasticity(input6),
+        iterations=iterations,
+        tol=tol,
+        public_gap=public_gap,
+        ext_r86=ext_r86,
     )
 
 
-def stress_public_panel(book: StressPublicBook) -> pd.DataFrame:
-    """Output 1-2-shaped public stress sustainability rows."""
-    return pd.DataFrame(
-        {
-            "Public sector debt / GDP": book.public_sector_debt_to_gdp(),
-            "PV of public debt / GDP": book.pv_public_debt_to_gdp(),
-            "PV of public debt / revenue+grants": (
-                book.pv_public_debt_to_revenue_grants()
-            ),
-            "Debt service / revenue+grants": book.debt_service_to_revenue_grants(),
-            "Public GFN (LCU)": book.public_gfn(),
-        }
-    ).T
+def run_a1_historical_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public A1: key variables at 10-year historical averages."""
+    from lic_dsf.stress.shocks import apply_historical_averages_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_historical_averages_shock(macro.inputs), external=external
+    )
+    return _run_public_stress(
+        macro, external, residual_params, shocked_macro, "A1_Historical_pub"
+    )
+
+
+def run_b2_pb_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public B2 primary-balance stress."""
+    from lic_dsf.stress.shocks import apply_primary_balance_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_primary_balance_shock(macro.inputs, input6), external=external
+    )
+    return _run_public_stress(
+        macro, external, residual_params, shocked_macro, "B2_PrimaryBalance_pub"
+    )
+
+
+def run_b3_exports_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public B3 exports stress."""
+    from lic_dsf.stress.shocks import apply_exports_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_exports_shock(macro.inputs, input6), external=external
+    )
+    return _run_public_stress(
+        macro, external, residual_params, shocked_macro, "B3_Exports_pub"
+    )
+
+
+def run_b4_other_flows_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public B4 other-flows stress."""
+    from lic_dsf.stress.shocks import apply_other_flows_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_other_flows_shock(macro.inputs, input6), external=external
+    )
+    return _run_public_stress(
+        macro, external, residual_params, shocked_macro, "B4_OtherFlows_pub"
+    )
+
+
+def run_b5_fx_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public B5 FX-depreciation stress."""
+    from lic_dsf.stress.shocks import apply_fx_depreciation_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_fx_depreciation_shock(macro.inputs, input6), external=external
+    )
+    return _run_public_stress(
+        macro,
+        external,
+        residual_params,
+        shocked_macro,
+        "B5_FX_pub",
+        inflation_elasticity=_inflation_elasticity(input6),
+    )
+
+
+def run_b6_combo_public(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressPublicBook:
+    """Public B6 combination stress."""
+    from lic_dsf.stress.shocks import apply_combo_shock
+
+    shocked_macro = MacroDebtBook(
+        inputs=apply_combo_shock(macro.inputs, input6), external=external
+    )
+    return _run_public_stress(
+        macro,
+        external,
+        residual_params,
+        shocked_macro,
+        "B6_Combo_pub",
+        inflation_elasticity=_inflation_elasticity(input6),
+    )
+
+
+def run_standard_public_stress(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> dict[str, StressPublicBook]:
+    """Run public A1 / B1–B6 and return them by scenario id."""
+    return {
+        "A1_Historical": run_a1_historical_public(macro, external, residual_params),
+        "B1_GDP": run_b1_gdp_public(macro, external, input6, residual_params),
+        "B2_PrimaryBalance": run_b2_pb_public(
+            macro, external, input6, residual_params
+        ),
+        "B3_Exports": run_b3_exports_public(macro, external, input6, residual_params),
+        "B4_OtherFlows": run_b4_other_flows_public(
+            macro, external, input6, residual_params
+        ),
+        "B5_FX": run_b5_fx_public(macro, external, input6, residual_params),
+        "B6_Combo": run_b6_combo_public(macro, external, input6, residual_params),
+    }

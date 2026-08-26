@@ -53,11 +53,17 @@ _PUB_SECTIONS = {
 _SCENARIO_KEYS = {
     "baseline": "Baseline",
     "a1. key variables at their historical averages in 2024-2034 2/": "A1 historical",
+    "a2. alternative scenario": "A2 custom",
     "b1. real gdp growth": "B1. Real GDP growth",
+    "b2. primary balance": "B2. Primary balance",
     "b3. exports": "B3. Exports",
     "b4. other flows 3/": "B4. Other flows",
     "b5. depreciation": "B5. Depreciation",
     "b6. combination of b1-b5": "B6. Combination of B1-B5",
+    "c1. combined contingent liabilities": "C1. Combined contingent liabilities",
+    "c2. natural disaster": "C2. Natural disaster",
+    "c3. commodity price": "C3. Commodity price",
+    "c4. market financing": "C4. Market Financing",
     "threshold": "Threshold",
     "total public debt benchmark": "Threshold",
 }
@@ -86,6 +92,7 @@ _PUB_METHODS = {
 
 _EXT_SCENARIO_IDS = {
     "B1. Real GDP growth": "B1_GDP",
+    "B2. Primary balance": "B2_PrimaryBalance",
     "B3. Exports": "B3_Exports",
     "B4. Other flows": "B4_OtherFlows",
     "B5. Depreciation": "B5_FX",

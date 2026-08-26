@@ -37,9 +37,8 @@ from pathlib import Path
 from lic_dsf.dsa import (
     BaselineExternalBook,
     BaselinePublicBook,
-    external_dsa_panel,
-    public_dsa_panel,
 )
+from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
@@ -84,11 +83,11 @@ out_1_2 = public_dsa_panel(pub_base)  # Output 1-2 shape
 Quick stress sketch after the books above:
 
 ```python
+from lic_dsf.output import stress_external_panel
 from lic_dsf.pv import load_input7_residual_params
 from lic_dsf.stress import (
     load_input6_standard,
     run_b1_gdp_external,
-    stress_external_panel,
 )
 
 input6 = load_input6_standard(workbook)

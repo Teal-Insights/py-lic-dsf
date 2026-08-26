@@ -1,4 +1,9 @@
-"""Excel vs Python comparison for Output 1-1 / 1-2 (baseline DSA)."""
+"""Excel vs Python comparison for Output 1-1 / 1-2 (baseline DSA).
+
+Headline CSV helpers. Prefer ``tests.parity.compare_probes`` against
+``lic_dsf.output.output_11_table`` / ``output_12_table`` for full Output-panel
+catalogs.
+"""
 
 from __future__ import annotations
 
@@ -9,8 +14,8 @@ from typing import Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.dsa.baseline.panels import external_dsa_panel, public_dsa_panel
 from lic_dsf.dsa.workbook import load_core
+from lic_dsf.output.baseline import external_dsa_panel, public_dsa_panel
 from lic_dsf.realism.compare import _a1, _as_year, _year_int
 
 OUTPUT11_SHEET = "Output 1-1 - External DSA"

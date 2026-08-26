@@ -12,6 +12,7 @@ from lic_dsf.rating import (
     compute_mechanical_ratings,
     thresholds_for,
 )
+from lic_dsf.output import probability_panel
 from lic_dsf.scenario import (
     CustomizedScenarioSpec,
     DistressCovariates,
@@ -21,7 +22,6 @@ from lic_dsf.scenario import (
     breach_probability,
     distress_probability,
     load_distress_covariates,
-    probability_panel,
     register_custom_path,
 )
 

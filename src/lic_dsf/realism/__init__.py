@@ -35,13 +35,6 @@ from lic_dsf.realism.invest_growth import (
     capital_stock_to_gdp,
     residual_growth_contribution,
 )
-from lic_dsf.realism.panels import (
-    fiscal_adjustment_panel,
-    fiscal_multiplier_panel,
-    forecast_error_panel,
-    invest_growth_panel,
-    placement_summary,
-)
 from lic_dsf.realism.types import (
     CapitalAssumptions,
     LicProgramDistribution,
@@ -69,19 +62,14 @@ __all__ = [
     "debt_creating_flow_panel",
     "debt_stock_from_ratio",
     "fiscal_adjustment_from_primary_balance",
-    "fiscal_adjustment_panel",
-    "fiscal_multiplier_panel",
     "forecast_error",
-    "forecast_error_panel",
     "gdp_rebase_scale",
-    "invest_growth_panel",
     "load_capital_assumptions",
     "load_imported_data",
     "load_lic_program_distribution",
     "load_multiplier_grid",
     "other_identified_flows_to_gdp",
     "place_in_lic_histogram",
-    "placement_summary",
     "projected_three_year_adjustment",
     "public_automatic_debt_dynamics",
     "rebase_ratio_to_outturn_gdp",

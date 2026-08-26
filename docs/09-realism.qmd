@@ -7,7 +7,8 @@ Excel analogues: **Realism** tools and **Output 4-1 / 4-2** — forecast-error
 checks, fiscal-adjustment placement, investment–growth, and fiscal-multiplier
 views. Uses Baseline public / Macro series and Imported-data vintages.
 
-Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings.
+Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings. Output
+4 panels live in `lic_dsf.output`.
 
 ## What you get
 
@@ -15,10 +16,10 @@ Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings.
 |-------|------|
 | `load_imported_data` | `Imported data` vintage catalog |
 | `load_capital_assumptions` / `load_multiplier_grid` | Realism assumption blocks |
-| `forecast_error_panel` | Forecast error / debt-creating flows |
-| `fiscal_adjustment_panel` / `place_in_lic_histogram` | 3-year adjustment vs LIC programs |
-| `invest_growth_panel` | Capital stock / growth contribution |
-| `fiscal_multiplier_panel` | Multiplier / underlying growth |
+| `forecast_error_panel` (`lic_dsf.output`) | Forecast error / debt-creating flows |
+| `fiscal_adjustment_panel` (`lic_dsf.output`) / `place_in_lic_histogram` | 3-year adjustment vs LIC programs |
+| `invest_growth_panel` (`lic_dsf.output`) | Capital stock / growth contribution |
+| `fiscal_multiplier_panel` (`lic_dsf.output`) | Multiplier / underlying growth |
 
 ## Load and compute
 
@@ -26,6 +27,11 @@ Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings.
 from pathlib import Path
 
 from lic_dsf.dsa import BaselinePublicBook
+from lic_dsf.output import (
+    fiscal_adjustment_panel,
+    fiscal_multiplier_panel,
+    placement_summary,
+)
 from lic_dsf.pv import (
     ExternalDebtBook,
     MacroDebtBook,
@@ -36,10 +42,7 @@ from lic_dsf.pv import (
     load_macro_debt_inputs,
 )
 from lic_dsf.realism import (
-    fiscal_adjustment_panel,
-    fiscal_multiplier_panel,
     place_in_lic_histogram,
-    placement_summary,
     projected_three_year_adjustment,
 )
 

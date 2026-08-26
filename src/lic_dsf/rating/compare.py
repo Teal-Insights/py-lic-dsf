@@ -32,7 +32,7 @@ from lic_dsf.rating.workbook import (
     load_trigger_flags,
 )
 from lic_dsf.realism.compare import _a1, _as_year, _books, _year_int
-from lic_dsf.scenario.panels import probability_panel
+from lic_dsf.output.scenario import probability_panel
 from lic_dsf.scenario.probability import ProbabilityAssumptions, borderline_bands
 from lic_dsf.scenario.workbook import load_distress_covariates
 from lic_dsf.stress import (

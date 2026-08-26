@@ -28,6 +28,7 @@ from lic_dsf.stress.shocks import (
     apply_fx_depreciation_shock,
     apply_historical_averages_shock,
     apply_other_flows_shock,
+    apply_primary_balance_shock,
     apply_real_gdp_shock,
 )
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId
@@ -301,6 +302,26 @@ def run_a1_historical_external(
     )
 
 
+def run_b2_pb_external(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6: Input6StandardParams,
+    residual_params: ResidualFinancingParams,
+) -> StressExternalBook:
+    """Run the B2 primary-balance external stress test."""
+    shocked_inputs = apply_primary_balance_shock(macro.inputs, input6)
+    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
+    gap = _converged_external_gap(macro, shocked_macro, external, residual_params)
+    return _build_book(
+        baseline_macro=macro,
+        shocked_macro=shocked_macro,
+        external=external,
+        residual_params=residual_params,
+        gap=gap,
+        scenario_id="B2_PrimaryBalance",
+    )
+
+
 def run_b1_gdp_external(
     macro: MacroDebtBook,
     external: ExternalDebtBook,
@@ -457,6 +478,9 @@ def run_standard_external_stress(
     """Run the standard external B-tests and return them by scenario id."""
     return {
         "B1_GDP": run_b1_gdp_external(macro, external, input6, residual_params),
+        "B2_PrimaryBalance": run_b2_pb_external(
+            macro, external, input6, residual_params
+        ),
         "B3_Exports": run_b3_exports_external(macro, external, input6, residual_params),
         "B4_OtherFlows": run_b4_other_flows_external(
             macro, external, input6, residual_params

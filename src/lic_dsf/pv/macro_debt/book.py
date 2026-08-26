@@ -71,6 +71,44 @@ class MacroDebtBook:
         """Macro R29."""
         return self.inputs.exports.reindex(list(self.inputs.years)).astype(float)
 
+    def imports(self) -> pd.Series:
+        """Macro R30."""
+        return self.inputs.imports.reindex(list(self.inputs.years)).astype(float)
+
+    def current_transfers_net(self) -> pd.Series:
+        """Macro R31."""
+        return self.inputs.current_transfers_net.reindex(list(self.inputs.years)).astype(
+            float
+        )
+
+    def current_transfers_official(self) -> pd.Series:
+        """Macro R32."""
+        return self.inputs.current_transfers_official.reindex(
+            list(self.inputs.years)
+        ).astype(float)
+
+    def fdi(self) -> pd.Series:
+        """Macro R33."""
+        return self.inputs.fdi.reindex(list(self.inputs.years)).astype(float)
+
+    def exceptional_financing(self) -> pd.Series:
+        """Macro R34."""
+        return self.inputs.exceptional_financing.reindex(list(self.inputs.years)).astype(
+            float
+        )
+
+    def concessional_loans(self) -> pd.Series:
+        """Input 3 concessional loans (USD)."""
+        return self.inputs.concessional_loans.reindex(list(self.inputs.years)).astype(
+            float
+        )
+
+    def primary_expenditure(self) -> pd.Series:
+        """Macro primary expenditure (LCU)."""
+        return self.inputs.primary_expenditure.reindex(list(self.inputs.years)).astype(
+            float
+        )
+
     # --- Stocks / service stitch --------------------------------------
 
     def mlt_external(self) -> pd.Series:
@@ -208,6 +246,29 @@ class MacroDebtBook:
     def real_gdp_growth(self) -> pd.Series:
         """Macro R107."""
         return _derived.real_gdp_growth(self.inputs)
+
+    def interest_rate_external(self) -> pd.Series:
+        """Macro R86: PPG interest / prior PPG external × 100."""
+        return _derived.interest_rate_external(self.inputs, self.external)
+
+    def interest_rate_domestic(self) -> pd.Series:
+        """Macro R87: domestic interest / prior domestic × FX(pa) × 100."""
+        return _derived.interest_rate_domestic(self.inputs)
+
+    def usd_deflator_growth(self) -> pd.Series:
+        """Percent change in the USD GDP deflator (``gdp_usd / gdp_constant``)."""
+        years = self.inputs.years
+        ratio = (
+            self.gdp_usd() / self.gdp_constant().replace(0.0, pd.NA)
+        ).astype(float)
+        prior = pd.Series(ratio.shift(1), dtype=float)
+        return (100.0 * (ratio / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
+
+    def lcu_deflator_growth(self) -> pd.Series:
+        """Percent change in the LCU GDP deflator (``gdp_lcu / gdp_constant``)."""
+        ratio = (self.gdp_lcu() / self.gdp_constant().replace(0.0, pd.NA)).astype(float)
+        prior = pd.Series(ratio.shift(1), dtype=float)
+        return (100.0 * (ratio / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
 
     def depreciation_of_nc(self) -> pd.Series:
         """Macro R114."""

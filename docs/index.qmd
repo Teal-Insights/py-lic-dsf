@@ -53,7 +53,31 @@ Each page links to the next at the bottom.
 
 ## License note
 
-MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
+MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World
+Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
+
+## Output-panel parity (live Excel)
+
+Default `uv run pytest` stays Excel-free (`-m 'not live_excel'`). Coverage is
+the **probe catalog** for Output sheets (row-keyed 1-1/1-2, scenario-keyed
+3-x, cell-keyed 5/7) — not every formula on Ext/Macro/B.
+
+The system under test is the Excel-shaped table (`output_11_table`,
+`output_31_table`, …). The oracle is **live Microsoft Excel** (xlwings/COM)
+on the official `.xlsm`:
+
+```bash
+uv sync --extra excel
+LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Excel
+```
+
+Linux CI never starts Excel. Cached `data_only` cells in the bundled `.xlsx`
+are a convenience for unit tests, not the official oracle.
+
+Inventory of numeric Output rows: [`data/parity/output_inventory.csv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/parity/output_inventory.csv)
+(regenerate with `uv run python -m tests.parity.inventory`).
+Side-by-side CSV builders: `tests.parity.compare_probes` and the existing
+`compare_realism1` / `compare_outputs_5_7` helpers.
 
 ---
 

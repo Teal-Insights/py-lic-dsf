@@ -35,6 +35,9 @@ class MarketFinancingResult:
     gfn_breach: bool
     embi_breach: bool
     heightened_liquidity_needs: bool
+    gfn_benchmark: float = 14.0
+    embi_benchmark: float = 570.0
+    embi_spread: float | None = None
 
 
 def assess_market_financing(inputs: MarketFinancingInputs) -> MarketFinancingResult:
@@ -53,6 +56,9 @@ def assess_market_financing(inputs: MarketFinancingInputs) -> MarketFinancingRes
             gfn_breach=False,
             embi_breach=False,
             heightened_liquidity_needs=False,
+            gfn_benchmark=inputs.gfn_benchmark,
+            embi_benchmark=inputs.embi_benchmark,
+            embi_spread=inputs.embi_spread,
         )
     gfn = inputs.gfn_to_gdp.astype(float).dropna()
     max_gfn = float(gfn.max()) if len(gfn) else 0.0
@@ -66,6 +72,9 @@ def assess_market_financing(inputs: MarketFinancingInputs) -> MarketFinancingRes
         gfn_breach=gfn_breach,
         embi_breach=embi_breach,
         heightened_liquidity_needs=gfn_breach or embi_breach,
+        gfn_benchmark=inputs.gfn_benchmark,
+        embi_benchmark=inputs.embi_benchmark,
+        embi_spread=inputs.embi_spread,
     )
 
 
@@ -75,7 +84,10 @@ def market_panel(result: MarketFinancingResult) -> pd.DataFrame:
         {
             "Applicable": result.applicable,
             "Max GFN / GDP": result.max_gfn_to_gdp,
+            "GFN benchmark": result.gfn_benchmark,
             "GFN breach": result.gfn_breach,
+            "EMBI spread": result.embi_spread,
+            "EMBI benchmark": result.embi_benchmark,
             "EMBI breach": result.embi_breach,
             "Heightened liquidity needs": result.heightened_liquidity_needs,
         },

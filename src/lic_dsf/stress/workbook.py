@@ -226,9 +226,10 @@ def load_cached_external_stress(
 ) -> dict[str, CachedStressExternalBook]:
     """Load A2 / tailored C* external ratios from Excel stress sheets.
 
-    Full Python runners for these scenarios are not implemented yet; this loader
-    reads the materialized B-sheet ratios so Output 3-1 tables can include A2
-    and C1/C3/C4 (and skips C2/C3/C4 when Input 6 marks them inapplicable).
+    Debug dump only — not an Output 3-x SUT input. Use
+    ``run_tailored_external_stress`` for Python-computed A2/C* paths. This
+    loader still reads materialized B-sheet ratios for side-by-side debugging
+    (and skips C2/C3/C4 when Input 6 marks them inapplicable).
 
     Args:
         path: Path to a LIC-DSF workbook.

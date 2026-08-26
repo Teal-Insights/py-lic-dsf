@@ -17,6 +17,7 @@ from lic_dsf.pv import (
     load_lc_nr_instruments_from_workbook,
     load_macro_debt_inputs,
 )
+from lic_dsf.output import stress_public_panel
 from lic_dsf.stress import (
     build_public_resfin_overlay,
     dom_mlt_resfin_series,
@@ -28,7 +29,6 @@ from lic_dsf.stress import (
     run_b3_exports_external,
     run_b5_fx_external,
     split_residual_financing,
-    stress_public_panel,
     stressed_external_stock_from_shortfall,
 )
 

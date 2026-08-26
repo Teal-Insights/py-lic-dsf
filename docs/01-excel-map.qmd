@@ -54,13 +54,13 @@ flowchart LR
 | `Macro-Debt_Data` | `MacroDebtBook`, `load_macro_debt_inputs` | [`macro_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/macro_debt.ipynb) |
 | Input 7 residual terms | `load_input7_residual_params`, `ResidualFinancingParams` | used in stress demos |
 | Baseline – external / public | `BaselineExternalBook`, `BaselinePublicBook` | [`baseline_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb) |
-| Output 1-1 / 1-2 | `external_dsa_panel`, `public_dsa_panel` | [`baseline_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb) |
+| Output 1-1 / 1-2 | `lic_dsf.output.external_dsa_panel`, `public_dsa_panel` | [`baseline_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb) |
 | Input 6 standard stresses | `load_input6_standard`, `run_standard_external_stress`, … | [`stress_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb) |
-| Output 2 / 3 (B / B1 paths) | `stress_external_panel`, `stress_public_panel` | [`stress_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb) |
-| Realism 1–4 / Output 4 | `lic_dsf.realism` panels + loaders | [`realism`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/realism.ipynb) |
+| Output 2 / 3 (B / B1 paths) | `lic_dsf.output.stress_external_panel`, `stress_public_panel` | [`stress_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb) |
+| Realism 1–4 / Output 4 | `lic_dsf.realism` math + `lic_dsf.output` panels | [`realism`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/realism.ipynb) |
 | CI Summary / Classification | `load_ci_summary`, `DebtCarryingCapacity`, thresholds | [`risk_rating`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) |
 | Chart Data / Output 5 / 7 | `ChartDataRegistry`, `compute_mechanical_ratings`, `risk_summary_panel` | [`output_7`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb), [`risk_rating`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) |
-| Customized Scenario / Probability / Output 6 | `CustomizedScenarioSpec`, `probability_panel` | [`output_6`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb) |
+| Customized Scenario / Probability / Output 6 | `CustomizedScenarioSpec`, `lic_dsf.output.probability_panel` | [`output_6`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb) |
 | Full Outputs tour | all of the above | [`all_outputs`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/all_outputs.ipynb) |
 
 ## Package roles (one line each)
@@ -68,11 +68,12 @@ flowchart LR
 | Package | Owns | Does not own |
 |---------|------|--------------|
 | `lic_dsf.pv` | Instruments, Ext/Dom/Macro books, Input loaders, ResFin instrument math | Baseline ratio panels, ratings |
-| `lic_dsf.dsa` | Baseline external/public sustainability ratios | Stress shocks, CI thresholds |
+| `lic_dsf.dsa` | Baseline external/public sustainability ratios | Stress shocks, CI thresholds, Output DataFrames |
+| `lic_dsf.output` | Output-sheet panels and Excel-geometry tables | Ratio math, shocks, ratings |
 | `lic_dsf.stress` | Input 6 shocks, ResFin overlays, B/B1 paths | Baseline-only math, final rating |
-| `lic_dsf.realism` | Realism 1–4 / Output 4 tools | Chart Data, risk ratings |
-| `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings, Output 5/7 | DSA ratio numerators |
-| `lic_dsf.scenario` | Customized paths, probability / Output 6 | Input 8 SDR (lives in Ext via `pv`) |
+| `lic_dsf.realism` | Realism 1–4 math and loaders | Chart Data, risk ratings, Output 4 frames |
+| `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings | DSA ratio numerators |
+| `lic_dsf.scenario` | Customized paths, probability math | Input 8 SDR (lives in Ext via `pv`); Output 6 frames |
 
 ---
 

@@ -1,9 +1,12 @@
-"""Output 4-1 / 4-2 shaped realism panels (no i18n chrome)."""
+"""Output 4-1 / 4-2 shaped realism panels and tables."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 
+from lic_dsf.dsa.workbook import load_core
 from lic_dsf.realism.fiscal_adjustment import (
     DEFAULT_LIC_PROGRAM_DISTRIBUTION,
     FiscalAdjustmentPlacement,
@@ -16,12 +19,14 @@ from lic_dsf.realism.fiscal_multiplier import (
     fiscal_adjustment_from_primary_balance,
     underlying_growth,
 )
+from lic_dsf.realism.forecast_error import forecast_error as fe
 from lic_dsf.realism.invest_growth import (
     capital_growth_contribution,
     capital_stock_to_gdp,
     residual_growth_contribution,
 )
 from lic_dsf.realism.types import CapitalAssumptions, MultiplierAssumptions
+from lic_dsf.realism.workbook import load_capital_assumptions, load_multiplier_grid
 
 
 def fiscal_adjustment_panel(
@@ -129,8 +134,6 @@ def forecast_error_panel(
     Returns:
         Panel comparing vintages and errors.
     """
-    from lic_dsf.realism.forecast_error import forecast_error as fe
-
     err = errors if errors is not None else fe(prior_debt_pct, current_debt_pct)
     return pd.DataFrame(
         {
@@ -151,4 +154,79 @@ def placement_summary(placement: FiscalAdjustmentPlacement) -> pd.Series:
             "percent_of_sample": placement.percent_of_sample,
             "cumulative_percent": placement.cumulative_percent,
         }
+    )
+
+
+def output_41_table(
+    current_debt_pct: pd.Series,
+    prior_debt_pct: pd.Series,
+    errors: pd.Series | None = None,
+) -> pd.DataFrame:
+    """Output 4-1 / Realism 1 forecast-error panel.
+
+    Args:
+        current_debt_pct: Current-DSA debt ratio.
+        prior_debt_pct: Prior-vintage debt ratio (same units).
+        errors: Optional pre-computed forecast error.
+
+    Returns:
+        Panel indexed by series label, columns = years.
+    """
+    return forecast_error_panel(current_debt_pct, prior_debt_pct, errors)
+
+
+def output_42_multiplier_table(path: str | Path) -> pd.DataFrame:
+    """Output 4-2 fiscal-multiplier panel (impact and underlying growth by ``m``).
+
+    Args:
+        path: LIC-DSF workbook path (inputs only; does not read Output cells).
+
+    Returns:
+        Multi-index columns ``(metric, m)`` over projection years.
+    """
+    path = Path(path)
+    macro, _ext, _eb, _pb = load_core(path)
+    pb_pct = 100.0 * macro.primary_balance() / macro.gdp_lcu().replace(0.0, pd.NA)
+    return fiscal_multiplier_panel(
+        pb_pct,
+        macro.real_gdp_growth(),
+        macro.inputs.first_projection_year,
+        multipliers=load_multiplier_grid(path) or None,
+    )
+
+
+def output_42_invest_table(path: str | Path) -> pd.DataFrame:
+    """Output 4-2 invest/growth panel.
+
+    Args:
+        path: LIC-DSF workbook path.
+
+    Returns:
+        Panel with capital stock, G contribution, residual, and real growth.
+    """
+    path = Path(path)
+    macro, _ext, _eb, _pb = load_core(path)
+    invest = (
+        100.0
+        * macro.primary_expenditure().reindex(list(macro.inputs.years)).astype(float)
+        / macro.gdp_lcu().replace(0.0, pd.NA)
+    )
+    return invest_growth_panel(
+        invest.fillna(0.0), macro.real_gdp_growth(), load_capital_assumptions(path)
+    )
+
+
+def output_42_fiscal_adjustment_table(path: str | Path) -> pd.DataFrame:
+    """Output 4-2 histogram / 3-year adjustment panel.
+
+    Args:
+        path: LIC-DSF workbook path.
+
+    Returns:
+        Histogram bins plus projected-adjustment placement.
+    """
+    path = Path(path)
+    _macro, _ext, _eb, pub = load_core(path)
+    return fiscal_adjustment_panel(
+        pub.primary_deficit_to_gdp(), pub.macro.inputs.first_projection_year
     )

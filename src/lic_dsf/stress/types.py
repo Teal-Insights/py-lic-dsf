@@ -15,6 +15,7 @@ StressScenarioId = Literal[
     "A1_Historical",
     "A2_Custom",
     "B1_GDP",
+    "B2_PrimaryBalance",
     "B3_Exports",
     "B4_OtherFlows",
     "B5_FX",
