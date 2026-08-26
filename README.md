@@ -1,28 +1,22 @@
 # lic-dsf
 
-Python implementation of the IMF/World Bank **LIC-DSF** (Low-Income Country Debt
-Sustainability Framework) Excel template.
+The `py-lic-dsf` library is an **unofficial** Python implementation of the [IMF/World Bank Debt Sustainability Framework for Low-Income Countries](https://www.worldbank.org/en/programs/debt-toolkit/dsf), or LIC-DSF. This library is **under active construction** and should be treated as an unstable alpha release.
 
-Aimed at economists who already know the workbook: load a country file, compute
-the same Ext/Macro/Baseline/stress/rating panels as DataFrames.
+Created by [Teal Insights](https://tealinsights.com/) and (Nature Finance)[https://www.naturefinance.net/], `py-lic-dsf` aims to faithfully replicate the logic of the official August 12, 2025 ["New LIC-DSF template (Excel file)"](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm) published by the World Bank.
 
-**Start here:** [`docs/index.qmd`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/docs/index.qmd) ·
-[`docs/01-excel-map.qmd`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/docs/01-excel-map.qmd) ·
-[`docs/02-getting-started.qmd`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/docs/02-getting-started.qmd)
+Read the [full documentation](https://teal-insights.github.io/py-lic-dsf/) for more detail.
 
-## Install
+## Installation
 
-```bash
+Install from GitHub:
+
+``` bash
 uv add "lic-dsf @ git+https://github.com/Teal-Insights/py-lic-dsf"
 ```
 
-Or from a local checkout:
+## Quick Start
 
-```bash
-uv sync --all-groups
-```
-
-## Quick start
+Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map](01-excel-map.qmd) to understand how the library maps to sheets.
 
 ```python
 from pathlib import Path
@@ -61,11 +55,7 @@ external_dsa_panel(ext_base)  # Output 1-1
 public_dsa_panel(pub_base)  # Output 1-2
 ```
 
-For Ext-only exploration, see the older portfolio recipe in
-[`docs/03-pv-instruments.qmd`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/docs/03-pv-instruments.qmd)
-and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
-
-## Layout
+## Repo Layout
 
 | Path | Contents |
 |---|---|
@@ -82,7 +72,6 @@ and [`demo/ext_debt.ipynb`](demo/ext_debt.ipynb).
 
 ## License
 
-MIT for source code. The bundled Excel template is an IMF/World Bank work —
-see `NOTICE.md` and `data/PROVENANCE.md`.
+MIT for source code. The bundled Excel template is an IMF/World Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
 
 Created by [Teal Insights](https://tealinsights.com).

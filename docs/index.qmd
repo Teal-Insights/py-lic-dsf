@@ -3,19 +3,23 @@ title: "Overview"
 guide-section: "Getting Started"
 ---
 
-Python parity layer over the IMF/World Bank **LIC-DSF** Excel template.
-If you already know the workbook (Inputs, Ext/Dom/Macro, Baseline, stresses, CI,
-Outputs), these pages map sheets to packages and point at runnable demos.
+The `py-lic-dsf` library is an **unofficial** Python implementation of the [IMF/World Bank Debt Sustainability Framework for Low-Income Countries](https://www.worldbank.org/en/programs/debt-toolkit/dsf), or LIC-DSF. This library is **under active construction** and should be treated as an unstable alpha release.
 
-## 10-minute path
+Created by [Teal Insights](https://tealinsights.com/) and (Nature Finance)[https://www.naturefinance.net/], `py-lic-dsf` aims to faithfully replicate the logic of the official August 12, 2025 ["New LIC-DSF template (Excel file)"](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm) published by the World Bank.
 
-1. Install (from a checkout): `uv sync --all-groups`
-2. Open [`getting-started.qmd`](getting-started.qmd) or run
-   [`demo/all_outputs.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/all_outputs.ipynb)
-3. Bookmark [`excel-map.qmd`](excel-map.qmd) for sheet → code lookup
+If you already know the workbook, this user guide maps sheets (Inputs, Ext/Dom/Macro, Baseline, stresses, CI, Outputs) to package modules and points at runnable demos.
 
-Bundled template: [`data/lic-dsf-template-2025-08-12.xlsx`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/lic-dsf-template-2025-08-12.xlsx)
-(see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) for IMF/World Bank provenance).
+Bundled template: [`data/lic-dsf-template-2025-08-12.xlsx`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/lic-dsf-template-2025-08-12.xlsx) (see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) for IMF/World Bank provenance).
+
+## Quick Start
+
+Install from GitHub:
+
+```
+uv add "lic-dsf @ git+https://github.com/Teal-Insights/py-lic-dsf"
+```
+
+Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map](01-excel-map.qmd) to understand how the library maps to sheets.
 
 ## Python mental model
 
@@ -35,45 +39,21 @@ Each page links to the next at the bottom.
 
 | # | Doc | Excel analogue | Demo |
 |---|-----|----------------|------|
-| 1 | [excel-map.qmd](excel-map.qmd) | Full sheet map | — |
-| 2 | [getting-started.qmd](getting-started.qmd) | End-to-end recipe | `all_outputs` |
-| 3 | [pv-instruments.qmd](pv-instruments.qmd) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
-| 4 | [ext-debt-module-design.qmd](ext-debt-module-design.qmd) | Ext_Debt_Data | `ext_debt` |
-| 5 | [dom-debt-indicators.qmd](dom-debt-indicators.qmd) | Dom_Debt_* | `dom_debt` |
-| 6 | [macro-debt-bridge.qmd](macro-debt-bridge.qmd) | Macro-Debt_Data | `macro_debt` |
-| 7 | [baseline-dsa.qmd](baseline-dsa.qmd) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
-| 8 | [stress-dsa.qmd](stress-dsa.qmd) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
-| 9 | [realism.qmd](realism.qmd) | Realism / Output 4 | `realism` |
-| 10 | [risk-rating.qmd](risk-rating.qmd) | CI / Chart Data / Output 5, 7 | `risk_rating` |
-| 11 | [scenario.qmd](scenario.qmd) | Customized / Probability / Output 6 | `output_6` |
+| 1 | [Excel → Python map](01-excel-map.qmd) | Full sheet map | — |
+| 2 | [Getting started](02-getting-started.qmd) | End-to-end recipe | `all_outputs` |
+| 3 | [PV instruments](03-pv-instruments.qmd) | PV_Base / PV_LC_NR | `pv`, `lc_nr`, `portfolio` |
+| 4 | [External debt book](04-ext-debt-module-design.qmd) | Ext_Debt_Data | `ext_debt` |
+| 5 | [Domestic debt indicators](05-dom-debt-indicators.qmd) | Dom_Debt_* | `dom_debt` |
+| 6 | [Macro-debt bridge](06-macro-debt-bridge.qmd) | Macro-Debt_Data | `macro_debt` |
+| 7 | [Baseline DSA](07-baseline-dsa.qmd) | Baseline / Output 1-1, 1-2 | `baseline_dsa` |
+| 8 | [Stress DSA](08-stress-dsa.qmd) | Input 6 / B & B1 / Output 2–3 | `stress_dsa` |
+| 9 | [Realism](09-realism.qmd) | Realism / Output 4 | `realism` |
+| 10 | [Risk rating](10-risk-rating.qmd) | CI / Chart Data / Output 5, 7 | `risk_rating` |
+| 11 | [Customized scenario & probability](11-scenario.qmd) | Customized / Probability / Output 6 | `output_6` |
 
 ## License note
 
-MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World
-Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
-
-## FormulaEvaluator differential tests
-
-Default `uv run pytest` stays fast (`-m 'not differential'`). Cell-level parity
-against `excel-grapher`'s `FormulaEvaluator` is opt-in:
-
-```bash
-uv run pytest -m differential
-# or build the graph cache + CSV reports without pytest:
-uv run python -m tests.differential
-uv run python scripts/regenerate_graph_cache.py   # --force rebuild
-```
-
-The first graph build takes a few minutes (~100k+ nodes) and is pickled under
-`.cache/dependency-graph/` (gitignored). Later runs reuse that cache.
-
-Reports: [`data/differential/evaluator_vs_python.csv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/differential/)
-(`golden` = evaluator, `sut` = `lic_dsf`). Group filters:
-`uv run python scripts/compare_realism1.py` and
-`uv run python scripts/compare_outputs_5_7.py`.
-
-Linux evaluator values can differ from live Excel / xlwings. This suite is
-evaluator-only; known remaining identities are xfails listed in [`issues.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/issues.md).
+MIT covers the Python source. The bundled LIC-DSF template remains an IMF/World Bank work — see [`NOTICE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/NOTICE.md) and [`data/PROVENANCE.md`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/data/PROVENANCE.md).
 
 ---
 
