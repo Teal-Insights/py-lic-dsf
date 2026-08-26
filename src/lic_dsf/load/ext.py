@@ -11,6 +11,7 @@ from fastpyxl import load_workbook
 from lic_dsf.pv.external_debt.fxutil import lc_to_usd, sum_rows_lc
 from lic_dsf.pv.external_debt.types import ExternalDebtInputs
 
+_INPUT1 = "Input 1 - Basics"
 _INPUT3 = "Input 3 - Macro-Debt data(DMX)"
 _INPUT4 = "Input 4 - External Financing"
 _INPUT5 = "Input 5 - Local-debt Financing"
@@ -18,6 +19,7 @@ _INPUT8 = "Input 8 - SDR"
 _MACRO = "Macro-Debt_Data"
 _EXT = "Ext_Debt_Data"
 _LOOKUP = "lookup"
+_INPUT1_CONCESSIONALITY_CELL = (15, 3)  # C15
 
 # (Input 4 terms row, Input 3 existing-service row)
 _EXISTING_CREDITOR_ROWS: tuple[tuple[int, int], ...] = (
@@ -357,6 +359,13 @@ def load_external_debt_inputs(
             _series_from_row(ext, _EXT_R399_ROW, ext_year_cols, ext_years), years
         )
 
+        input1 = workbook[_INPUT1]
+        concessionality = _as_float(
+            input1.cell(*_INPUT1_CONCESSIONALITY_CELL).value
+        )
+        if concessionality is None:
+            concessionality = 0.35
+
         return ExternalDebtInputs(
             years=years,
             existing_debt_service=existing_debt_service.fillna(0.0),
@@ -382,6 +391,7 @@ def load_external_debt_inputs(
             residual_interest_rates=residual_interest_rates,
             grant_element_weight_names=frozenset(grant_element_weight_names),
             fx_denominated_outstanding=fx_denom,
+            concessionality_threshold=float(concessionality),
         )
     finally:
         workbook.close()

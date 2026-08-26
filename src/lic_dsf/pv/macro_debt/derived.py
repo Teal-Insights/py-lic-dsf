@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import numpy as np
 import pandas as pd
 
 from lic_dsf.pv.macro_debt import stocks as _stocks
@@ -18,8 +19,9 @@ def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:
 
 
 def _safe_rate(numer: pd.Series, denom: pd.Series) -> pd.Series:
-    out = 100.0 * numer / denom.replace(0.0, pd.NA)
-    return out.replace([float("inf"), float("-inf")], pd.NA).astype(float)
+    # Use np.nan (not pd.NA): zero denominators must stay float64-compatible.
+    out = 100.0 * numer / denom.replace(0.0, np.nan)
+    return out.replace([float("inf"), float("-inf")], np.nan).astype(float)
 
 
 def primary_balance(inputs: MacroDebtInputs) -> pd.Series:
@@ -83,7 +85,7 @@ def residual_financing_gap(
     out = gap.copy()
     for year in years:
         if year < inputs.first_projection_year:
-            out.loc[year] = pd.NA
+            out.loc[year] = np.nan
     return out.astype(float)
 
 
@@ -121,8 +123,8 @@ def interest_rate_domestic(inputs: MacroDebtInputs) -> pd.Series:
     interest = _stocks.domestic_interest(inputs)
     prior = pd.Series(_stocks.domestic_debt(inputs).shift(1), dtype=float)
     fx = _align(inputs.fx_pa, years)
-    out = 100.0 * interest / prior.replace(0.0, pd.NA) * fx
-    return out.replace([float("inf"), float("-inf")], pd.NA).astype(float)
+    out = 100.0 * interest / prior.replace(0.0, np.nan) * fx
+    return out.replace([float("inf"), float("-inf")], np.nan).astype(float)
 
 
 def public_gfn(inputs: MacroDebtInputs, external: ExternalDebtBook | None) -> pd.Series:
@@ -165,7 +167,7 @@ def real_gdp_growth(inputs: MacroDebtInputs) -> pd.Series:
 def exchange_rate_dollar_per_nc(inputs: MacroDebtInputs) -> pd.Series:
     """Macro R113 = 1 / FX(pa)."""
     fx = _align(inputs.fx_pa, inputs.years)
-    return (1.0 / fx.replace(0.0, pd.NA)).fillna(0.0).astype(float)
+    return (1.0 / fx.replace(0.0, np.nan)).fillna(0.0).astype(float)
 
 
 def depreciation_of_nc(inputs: MacroDebtInputs) -> pd.Series:

@@ -28,10 +28,23 @@ def _pct(numer: pd.Series, denom: pd.Series) -> pd.Series:
 
 
 def _lc_share_of_total_external(macro: MacroDebtBook) -> pd.Series:
-    """LC-denominated external share of total external USD (Baseline R43)."""
+    """LC-denominated external share of total external USD (Macro R85 / 100).
+
+    History uses Input 3 row 208 / total external. Projection uses locally-issued
+    stock plus LC-NR instrument stocks over total external (Macro R6).
+    """
     from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
+    from lic_dsf.pv.macro_debt import stocks as _stocks
 
     years = macro.inputs.years
+    total = _stocks.total_external(macro.inputs, macro.external)
+    total = total.reindex(list(years)).replace(0.0, pd.NA)
+    hist_usd = macro.inputs.lc_external_usd
+    if hist_usd is None:
+        hist = pd.Series(0.0, index=list(years), dtype=float)
+    else:
+        hist = (hist_usd.reindex(list(years)).fillna(0.0) / total).astype(float)
+
     local = pd.Series(0.0, index=list(years), dtype=float)
     if macro.external is not None:
         local = (
@@ -46,8 +59,10 @@ def _lc_share_of_total_external(macro: MacroDebtBook) -> pd.Series:
             for year in years:
                 if year in stock.index:
                     local.loc[year] = float(local.loc[year]) + float(stock.loc[year])
-    total = macro.total_external()
-    return (local / total.replace(0.0, pd.NA)).fillna(0.0).astype(float)
+    proj = (local / total).astype(float)
+    return _stocks.hist_proj(
+        hist, proj, years, macro.inputs.first_projection_year
+    ).fillna(0.0)
 
 
 @dataclass(slots=True)
@@ -131,12 +146,12 @@ class BaselineExternalBook:
         return self.macro.external_gfn()
 
     def external_debt_to_gdp(self) -> pd.Series:
-        """Output 1-1 R8: nominal external debt / GDP × 100."""
-        return _pct(self.macro.total_external(), self.macro.gdp_usd())
+        """Output 1-1 R8 / Baseline R12: hybrid external debt / GDP × 100."""
+        return self.macro.hybrid_external_debt_to_gdp()
 
     def ppg_external_to_gdp_nominal(self) -> pd.Series:
-        """Output 1-1 R9: PPG external (face) / GDP × 100."""
-        return _pct(self.macro.ppg_external(), self.macro.gdp_usd())
+        """Output 1-1 R9 / Baseline R13: hybrid PPG external / GDP × 100."""
+        return self.macro.hybrid_ppg_external_to_gdp()
 
     def change_in_external_debt(self) -> pd.Series:
         """Output 1-1 R11: Δ of R8."""
@@ -160,11 +175,11 @@ class BaselineExternalBook:
 
     def net_transfers_to_gdp(self) -> pd.Series:
         """Output 1-1 R17 (negative = inflow)."""
-        return _pct(self.macro.current_transfers_net(), self.macro.gdp_usd())
+        return _pct(-self.macro.current_transfers_net(), self.macro.gdp_usd())
 
     def official_transfers_to_gdp(self) -> pd.Series:
-        """Output 1-1 R18."""
-        return _pct(self.macro.current_transfers_official(), self.macro.gdp_usd())
+        """Output 1-1 R18 (negative = inflow)."""
+        return _pct(-self.macro.current_transfers_official(), self.macro.gdp_usd())
 
     def other_current_account_to_gdp(self) -> pd.Series:
         """Output 1-1 R19: CAD residual after G&S and transfers."""
@@ -179,8 +194,8 @@ class BaselineExternalBook:
         return _pct(-self.macro.fdi(), self.macro.gdp_usd())
 
     def exceptional_financing_to_gdp(self) -> pd.Series:
-        """Output 1-1 R27."""
-        return _pct(self.macro.exceptional_financing(), self.macro.gdp_usd())
+        """Output 1-1 R27 (negative = inflow)."""
+        return _pct(-self.macro.exceptional_financing(), self.macro.gdp_usd())
 
     def endogenous_denominator(self) -> pd.Series:
         """Output 1-1 R22: ``1 + g + ρ + gρ``."""
@@ -192,7 +207,8 @@ class BaselineExternalBook:
         """Output 1-1 R21 / R23–R25 endogenous contributions.
 
         Uses the Baseline-external identity
-        ``[r − g − ρ(1+g) + εα(1+r)] / (1+g+ρ+gρ) × prior debt/GDP``.
+        ``[r − g − ρ(1+g) + εα(1+r)] / (1+g+ρ+gρ) × prior debt/GDP``,
+        where ``r`` is Baseline R54 (ext interest / prior hybrid stock).
         """
         years = self.years
         prev = _align(self.external_debt_to_gdp().shift(1), years)
@@ -200,10 +216,14 @@ class BaselineExternalBook:
         real_g = _align(self.macro.real_gdp_growth(), years)
         defl = _align(self.macro.usd_deflator_growth(), years)
         dep = _align(self.macro.depreciation_of_nc(), years)
-        prior_nom = _align(self.macro.total_external().shift(1), years)
-        interest = _align(self.macro.external_interest(), years)
-        rate = (interest / prior_nom.replace(0.0, pd.NA) * 100.0).astype(float)
-        alpha = _lc_share_of_total_external(self.macro).reindex(list(years)).fillna(0.0)
+        rate = _align(self.effective_interest_rate_external(), years)
+        # Baseline R29 uses prior-year LC share (O43), not the current year.
+        alpha = (
+            _lc_share_of_total_external(self.macro)
+            .reindex(list(years))
+            .fillna(0.0)
+            .shift(1)
+        )
         r23 = (rate / 100.0) * prev / den
         r24 = -(real_g / 100.0) * prev / den
         r25 = (
@@ -256,17 +276,24 @@ class BaselineExternalBook:
         return _pct(numer, self.macro.gdp_usd())
 
     def grant_equivalent_to_external_financing(self) -> pd.Series:
-        """Output 1-1 R49: grant-equivalent / (GE dollars + new MLT disb)."""
+        """Output 1-1 R49: ``(grants + GE$) / (grants + new MLT disb)`` × 100."""
         ge = _align(self.external.grant_element_value(), self.years).fillna(0.0)
+        grants = _align(self.grants_usd(), self.years).fillna(0.0)
         disb = (
             self.external.portfolio.aggregate_external()
             .loc["New forex borrowing (gross, USD)"]
             .reindex(list(self.years))
             .fillna(0.0)
         )
-        numer = ge + _align(self.grants_usd(), self.years).fillna(0.0)
-        denom = ge + disb + _align(self.grants_usd(), self.years).fillna(0.0)
-        return _pct(numer, denom)
+        return _pct(ge + grants, grants + disb)
+
+    def effective_interest_rate_external(self) -> pd.Series:
+        """Output 1-1 R40 / Baseline R54: ext interest / prior hybrid stock × 100."""
+        interest = _align(self.macro.external_interest(), self.years)
+        prior_ratio = _align(self.external_debt_to_gdp().shift(1), self.years) / 100.0
+        prior_gdp = _align(self.macro.gdp_usd().shift(1), self.years)
+        stock = (prior_ratio * prior_gdp).replace(0.0, pd.NA)
+        return (100.0 * interest / stock).astype(float)
 
     def pv_total_external_to_gdp(self) -> pd.Series:
         """Output 1-1 R54: PPG PV + private face / GDP × 100."""

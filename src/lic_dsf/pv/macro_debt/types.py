@@ -77,3 +77,4 @@ class MacroDebtInputs:
     workers_remittances: pd.Series | None = None
     world_real_growth: pd.Series | None = None
     reserves_stock: pd.Series | None = None
+    lc_external_usd: pd.Series | None = None

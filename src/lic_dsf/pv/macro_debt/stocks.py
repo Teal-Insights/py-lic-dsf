@@ -255,3 +255,41 @@ def new_public_external_mlt_disbursements(
         "New forex borrowing (gross, USD)"
     ]
     return _align(borrowing, years)
+
+
+def concessional_loans(
+    inputs: MacroDebtInputs, external: ExternalDebtBook | None
+) -> pd.Series:
+    """Macro R54: Input 3 R32 hist; Ext R417 (GE≥threshold disb) in projection."""
+    if external is None:
+        return _align(inputs.concessional_loans, inputs.years)
+    from lic_dsf.pv.external_debt.grant_element import concessional_new_disbursements
+
+    proj = concessional_new_disbursements(external)
+    return hist_proj(
+        inputs.concessional_loans, proj, inputs.years, inputs.first_projection_year
+    )
+
+
+def hybrid_ppg_external_to_gdp(
+    inputs: MacroDebtInputs, external: ExternalDebtBook | None
+) -> pd.Series:
+    """Baseline R13: ``100 × PPG × FX_eop / (GDP_USD × FX_pa)``."""
+    years = inputs.years
+    gdp = _align(inputs.gdp_usd, years).replace(0.0, pd.NA)
+    fx_eop = _align(inputs.fx_eop, years)
+    fx_pa = _align(inputs.fx_pa, years).replace(0.0, pd.NA)
+    ppg = ppg_external(inputs, external)
+    return (100.0 * ppg * fx_eop / (gdp * fx_pa)).astype(float)
+
+
+def hybrid_external_debt_to_gdp(
+    inputs: MacroDebtInputs, external: ExternalDebtBook | None
+) -> pd.Series:
+    """Baseline R12: hybrid PPG/GDP + private USD/GDP."""
+    years = inputs.years
+    gdp = _align(inputs.gdp_usd, years).replace(0.0, pd.NA)
+    priv = private_external(inputs)
+    r13 = hybrid_ppg_external_to_gdp(inputs, external)
+    r14 = (100.0 * priv / gdp).astype(float)
+    return (r13 + r14).astype(float)

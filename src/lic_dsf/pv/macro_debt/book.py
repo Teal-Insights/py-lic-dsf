@@ -98,10 +98,16 @@ class MacroDebtBook:
         )
 
     def concessional_loans(self) -> pd.Series:
-        """Input 3 concessional loans (USD)."""
-        return self.inputs.concessional_loans.reindex(list(self.inputs.years)).astype(
-            float
-        )
+        """Macro R54: Input 3 hist; Ext R417 concessional new MLT in projection."""
+        return _stocks.concessional_loans(self.inputs, self.external)
+
+    def hybrid_ppg_external_to_gdp(self) -> pd.Series:
+        """Baseline R13: PPG × FX_eop / (GDP × FX_pa) × 100."""
+        return _stocks.hybrid_ppg_external_to_gdp(self.inputs, self.external)
+
+    def hybrid_external_debt_to_gdp(self) -> pd.Series:
+        """Baseline R12: hybrid PPG/GDP + private external/GDP."""
+        return _stocks.hybrid_external_debt_to_gdp(self.inputs, self.external)
 
     def primary_expenditure(self) -> pd.Series:
         """Macro primary expenditure (LCU)."""

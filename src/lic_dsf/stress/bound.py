@@ -125,15 +125,7 @@ def hybrid_external_debt_to_gdp(macro: MacroDebtBook) -> pd.Series:
     Excel uses ``100 × Macro R81 / (GDP_USD × FX_pa)`` for PPG (eop LCU over
     period-average GDP LCU) plus private external / GDP.
     """
-    years = macro.inputs.years
-    gdp = _align(macro.gdp_usd(), years)
-    fx_eop = _align(macro.fx_eop(), years)
-    fx_pa = _align(macro.fx_pa(), years).replace(0.0, pd.NA)
-    ppg = _align(macro.ppg_external(), years)
-    priv = _align(_stocks.private_external(macro.inputs), years)
-    r13 = 100.0 * ppg * fx_eop / (gdp * fx_pa)
-    r14 = 100.0 * priv / gdp.replace(0.0, pd.NA)
-    return (r13 + r14).astype(float)
+    return _stocks.hybrid_external_debt_to_gdp(macro.inputs, macro.external)
 
 
 def _endogenous(
@@ -163,8 +155,17 @@ def _lc_share_of_total(macro: MacroDebtBook) -> pd.Series:
 
     LC-denominated external (locally-issued + LC-NR) over total external USD
     (Macro R6), not the hybrid R12 stock which scales PPG by FX(eop)/FX(pa).
+    History uses Input 3 row 208; projection uses Ext locally-issued + LC-NR.
     """
     years = macro.inputs.years
+    total = _align(_stocks.total_external(macro.inputs, macro.external), years)
+    total = total.replace(0.0, pd.NA)
+    hist_usd = macro.inputs.lc_external_usd
+    if hist_usd is None:
+        hist = pd.Series(0.0, index=list(years), dtype=float)
+    else:
+        hist = (_align(hist_usd, years) / total).astype(float)
+
     local = pd.Series(0.0, index=list(years), dtype=float)
     if macro.external is not None:
         local = _align(macro.external.inputs.locally_issued_debt_stock, years).fillna(
@@ -177,8 +178,10 @@ def _lc_share_of_total(macro: MacroDebtBook) -> pd.Series:
             for year in years:
                 if year in stock.index:
                     local.loc[year] = float(local.loc[year]) + float(stock.loc[year])
-    total = _align(_stocks.total_external(macro.inputs, macro.external), years)
-    return (local / total.replace(0.0, pd.NA)).fillna(0.0).astype(float)
+    proj = (local / total).astype(float)
+    return _stocks.hist_proj(
+        hist, proj, years, macro.inputs.first_projection_year
+    ).fillna(0.0)
 
 
 def historical_identity_pins(macro: MacroDebtBook) -> tuple[float, float]:

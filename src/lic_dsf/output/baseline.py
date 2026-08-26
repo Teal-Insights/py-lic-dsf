@@ -62,6 +62,10 @@ def output_11_table(book: BaselineExternalBook) -> pd.DataFrame:
     Columns are Macro years. Thin ``external_dsa_panel`` remains the
     headline six-row view with economist labels.
 
+    Projection years mirror Output's layout quirk: R21 is interest + real-GDP
+    only (price/FX is omitted and shown as blank on R25). History keeps the
+    full Baseline identity. R12 / R26 follow from that R21 definition.
+
     Args:
         book: Baseline external DSA book.
 
@@ -69,11 +73,34 @@ def output_11_table(book: BaselineExternalBook) -> pd.DataFrame:
         DataFrame indexed by Output 1-1 row numbers.
     """
     endog = book.endogenous_debt_dynamics()
+    first = book.macro.inputs.first_projection_year
+    years = list(book.years)
+    price_fx = endog["price_fx"].reindex(years).astype(float)
+    interest = endog["interest"].reindex(years).astype(float)
+    real_gdp = endog["real_gdp"].reindex(years).astype(float)
+    full_endog = endog["endogenous"].reindex(years).astype(float)
+    is_proj = pd.Series([y >= first for y in years], index=years)
+    # Output R21: full endogenous in history; interest+growth only in projection.
+    r21 = full_endog.where(~is_proj, interest + real_gdp)
+    # Output R25: blank (NaN) from first projection year onward.
+    r25 = price_fx.where(~is_proj, pd.NA).astype(float)
+    identified = (
+        book.non_interest_cad_to_gdp().reindex(years)
+        + book.net_fdi_to_gdp().reindex(years)
+        + r21
+    ).astype(float)
+    # With projection R21 excluding price/FX, change − identified already matches
+    # Output R26 (= Baseline residual + price/FX). History uses full R21 so this
+    # is the true residual.
+    residual = (
+        book.change_in_external_debt().reindex(years) - identified
+    ).astype(float)
+
     rows: dict[int, pd.Series] = {
         8: book.external_debt_to_gdp(),
         9: book.ppg_external_to_gdp_nominal(),
         11: book.change_in_external_debt(),
-        12: book.identified_net_debt_creating_flows(),
+        12: identified,
         13: book.non_interest_cad_to_gdp(),
         14: book.goods_services_deficit_to_gdp(),
         15: book.exports_to_gdp(),
@@ -82,12 +109,12 @@ def output_11_table(book: BaselineExternalBook) -> pd.DataFrame:
         18: book.official_transfers_to_gdp(),
         19: book.other_current_account_to_gdp(),
         20: book.net_fdi_to_gdp(),
-        21: endog["endogenous"],
+        21: r21,
         22: book.endogenous_denominator(),
-        23: endog["interest"],
-        24: endog["real_gdp"],
-        25: endog["price_fx"],
-        26: book.residual_debt_creating_flows(),
+        23: interest,
+        24: real_gdp,
+        25: r25,
+        26: residual,
         27: book.exceptional_financing_to_gdp(),
         30: book.pv_ppg_external_to_gdp(),
         31: book.pv_ppg_external_to_exports(),
@@ -97,7 +124,7 @@ def output_11_table(book: BaselineExternalBook) -> pd.DataFrame:
         35: book.external_gfn_usd(),
         38: book.macro.real_gdp_growth(),
         39: book.macro.usd_deflator_growth(),
-        40: book.macro.interest_rate_external(),
+        40: book.effective_interest_rate_external(),
         41: book.export_growth(),
         42: book.import_growth(),
         43: book.macro.grant_element_percent(),

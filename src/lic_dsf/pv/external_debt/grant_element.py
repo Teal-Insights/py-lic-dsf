@@ -87,3 +87,34 @@ def grant_element_value(book: ExternalDebtBook) -> pd.Series:
     disb = disb.reindex(years).fillna(0.0)
     ge = ge.reindex(years).fillna(0.0)
     return ge * disb / 100.0
+
+
+def concessional_new_disbursements(book: ExternalDebtBook) -> pd.Series:
+    """Ext R417: new MLT disb for GE-weighted instruments with GE% ≥ threshold.
+
+    Matches ``SUM(R419:R443)`` where each creditor line contributes its Ext
+    disbursement when ``Input4!I/100 >= Input1!C15`` (default 0.35). Uses the
+    same instrument name set as Ext R408 (``grant_element_weight_names``), which
+    excludes IDA NEW rows outside that block.
+    """
+    years = list(book.inputs.years)
+    threshold = float(book.inputs.concessionality_threshold)
+    included = book.inputs.grant_element_weight_names
+    out = pd.Series(0.0, index=years, dtype=float)
+    for year in years:
+        total = 0.0
+        for instrument in book.portfolio.instruments:
+            if included and instrument.name not in included:
+                continue
+            if _unit_grant_element_percent(instrument) / 100.0 < threshold:
+                continue
+            disb = float(
+                instrument.external()
+                .loc["New forex borrowing (gross, USD)"]
+                .reindex([year])
+                .fillna(0.0)
+                .loc[year]
+            )
+            total += disb
+        out.loc[year] = total
+    return out

@@ -62,6 +62,7 @@ _I3_PPG_AMORT_ADD = 212
 _I3_PRIVATE_AMORT = 60
 _I3_DOM_AMORT = 195
 _I3_CONCESSIONAL = 32
+_I3_LC_EXTERNAL = 208
 _I3_FC_PUBLIC_DEBT = 214
 _I3_REMITTANCES = 45
 _I3_WORLD_GROWTH = 183
@@ -228,6 +229,7 @@ def load_macro_debt_inputs(workbook_path: str | Path) -> MacroDebtInputs:
             workers_remittances=i3(_I3_REMITTANCES),
             world_real_growth=i3(_I3_WORLD_GROWTH),
             reserves_stock=i3(_I3_RESERVES_STOCK),
+            lc_external_usd=i3(_I3_LC_EXTERNAL),
         )
     finally:
         workbook.close()
