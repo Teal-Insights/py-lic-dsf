@@ -149,6 +149,10 @@ def output_11_table(book: BaselineExternalBook) -> pd.DataFrame:
 def output_12_table(book: BaselinePublicBook) -> pd.DataFrame:
     """Output 1-2 shaped table keyed by Excel row number.
 
+    Projection years mirror Output's layout quirk: R21 (exchange-rate
+    contribution) is blank, R17 is interest+growth only, and R53 is blank.
+    History keeps the full Baseline automatic-dynamics identity.
+
     Args:
         book: Baseline public DSA book.
 
@@ -156,27 +160,50 @@ def output_12_table(book: BaselinePublicBook) -> pd.DataFrame:
         DataFrame indexed by Output 1-2 row numbers.
     """
     auto = book.automatic_debt_dynamics()
+    first = book.macro.inputs.first_projection_year
+    years = list(book.years)
+    is_proj = pd.Series([y >= first for y in years], index=years)
+    ducir = auto.loc["DUCIR_GDP"].reindex(years).astype(float)
+    ducgdpr = auto.loc["DUCGDPR_GDP"].reindex(years).astype(float)
+    ducer = auto.loc["DUCER_GDP"].reindex(years).astype(float)
+    r18 = (ducir + ducgdpr).astype(float)
+    # Output R17: full auto in history; interest+growth only in projection.
+    r17 = (r18 + ducer).where(~is_proj, r18)
+    # Output R21: blank from first projection year.
+    r21 = ducer.where(~is_proj, pd.NA).astype(float)
+    r53 = book.real_exchange_rate_depreciation().reindex(years).astype(float)
+    r53 = r53.where(~is_proj, pd.NA).astype(float)
+    identified = (
+        book.primary_deficit_to_gdp().reindex(years)
+        + r17
+        + book.other_identified_flows_to_gdp().reindex(years)
+    ).astype(float)
+    # With projection R17 excluding DUCER, change − identified matches Output R28.
+    residual = (
+        book.change_in_public_debt().reindex(years) - identified
+    ).astype(float)
+
     rows: dict[int, pd.Series] = {
         8: book.public_sector_debt_to_gdp(),
         9: book.ppg_external_debt_to_gdp(),
         11: book.change_in_public_debt(),
-        12: book.identified_debt_creating_flows(),
+        12: identified,
         13: book.primary_deficit_to_gdp(),
         14: book.revenues_incl_grants_to_gdp(),
         15: book.grants_to_gdp(),
         16: book.primary_expenditure_to_gdp(),
-        17: auto.loc["DUCIR_GDP"] + auto.loc["DUCGDPR_GDP"] + auto.loc["DUCER_GDP"],
-        18: auto.loc["DUCIR_GDP"] + auto.loc["DUCGDPR_GDP"],
-        19: auto.loc["DUCIR_GDP"],
-        20: auto.loc["DUCGDPR_GDP"],
-        21: auto.loc["DUCER_GDP"],
+        17: r17,
+        18: r18,
+        19: ducir,
+        20: ducgdpr,
+        21: r21,
         22: 1.0 + book.macro.real_gdp_growth() / 100.0,
         23: book.other_identified_flows_to_gdp(),
         24: book.privatization_to_gdp(),
         25: book.contingent_liabilities_to_gdp(),
         26: book.debt_relief_to_gdp(),
         27: book.other_debt_creating_to_gdp(),
-        28: book.residual_public_flows(),
+        28: residual,
         31: book.pv_public_debt_to_gdp(),
         32: book.pv_public_debt_to_revenue_grants(),
         33: book.pv_public_debt_to_revenue(),
@@ -192,13 +219,13 @@ def output_12_table(book: BaselinePublicBook) -> pd.DataFrame:
         46: book.real_interest_public(),
         47: book.real_interest_domestic(),
         48: book.real_interest_external(),
-        49: book.macro.fx_pa(),
-        50: book.macro.depreciation_of_nc(),
+        49: book.macro.fx_eop(),
+        50: book.depreciation_of_nc_eop(),
         51: book.fx_dollar_per_lc(),
         52: book.nominal_appreciation(),
-        53: book.real_exchange_rate_depreciation(),
+        53: r53,
         54: book.macro.lcu_deflator_growth(),
-        55: book.macro.usd_deflator_growth(),
+        55: book.macro.foreign_deflator_growth(),
         56: book.real_primary_spending_growth(),
         57: book.stabilizing_primary_deficit(),
         58: book.pv_contingent_liabilities_to_gdp(),

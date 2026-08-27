@@ -148,20 +148,20 @@ class BaselinePublicBook:
         """Output 1-2 R17–R21 via ``public_automatic_debt_dynamics``."""
         from lic_dsf.realism.forecast_error import public_automatic_debt_dynamics
 
-        fc = _pct(self.macro.public_external_debt_lcu(), self.gdp_lcu())
-        i_ext = self.macro.interest_rate_external()
-        i_dom = self.macro.interest_rate_domestic()
-        blended = (i_ext.fillna(0.0) + i_dom.fillna(0.0)) / 2.0
+        fc = _pct(
+            self.macro.fc_public_debt_usd() * self.macro.fx_eop(),
+            self.gdp_lcu(),
+        )
         return public_automatic_debt_dynamics(
             public_debt_to_gdp=self.public_sector_debt_to_gdp(),
             fc_debt_to_gdp=fc,
             real_gdp_growth=self.macro.real_gdp_growth(),
             gdp_deflator_growth=self.macro.lcu_deflator_growth(),
-            us_deflator_growth=self.macro.usd_deflator_growth(),
+            us_deflator_growth=self.macro.foreign_deflator_growth(),
             fx_eop=self.macro.fx_eop(),
-            interest_rate_external=i_ext,
-            interest_rate_domestic=i_dom,
-            public_interest_rate=blended,
+            interest_rate_external=self.macro.interest_rate_external(),
+            interest_rate_domestic=self.macro.interest_rate_domestic(),
+            public_interest_rate=self.average_nominal_interest_public(),
         )
 
     def identified_debt_creating_flows(self) -> pd.Series:
@@ -225,13 +225,11 @@ class BaselinePublicBook:
         return self.contingent_liabilities_to_gdp()
 
     def average_nominal_interest_public(self) -> pd.Series:
-        """Output 1-2 R43: blended external/domestic nominal rate."""
-        i_ext = self.macro.interest_rate_external()
-        i_dom = self.macro.interest_rate_domestic()
-        d_ext = self.ppg_external_debt_to_gdp()
-        d_tot = self.public_sector_debt_to_gdp().replace(0.0, pd.NA)
-        alpha = d_ext / d_tot
-        return (alpha * i_ext + (1.0 - alpha) * i_dom).astype(float)
+        """Output 1-2 R43 / Baseline R54: interest expenditure / prior public debt."""
+        return _pct(
+            self.macro.interest_expenditure(),
+            self.macro.total_public_debt().shift(1),
+        )
 
     def real_interest_domestic(self) -> pd.Series:
         """Output 1-2 R47: ``(i_dom − π) / (1+π)``."""
@@ -240,15 +238,22 @@ class BaselinePublicBook:
         return ((i_dom - pi) / (1.0 + pi / 100.0)).astype(float)
 
     def real_interest_external(self) -> pd.Series:
-        """Output 1-2 R48: ``(i_ext − π_US) / (1+π_US)``."""
+        """Output 1-2 R48: ``(i_ext − π_US) / (1+π_US)`` with Macro R112."""
         i_ext = self.macro.interest_rate_external()
-        pi_us = self.macro.usd_deflator_growth()
+        pi_us = self.macro.foreign_deflator_growth()
         return ((i_ext - pi_us) / (1.0 + pi_us / 100.0)).astype(float)
 
+    def fc_public_debt_to_gdp(self) -> pd.Series:
+        """Baseline R14: Macro R83 FC public debt × FX(eop) / GDP_LCU."""
+        return _pct(
+            self.macro.fc_public_debt_usd() * self.macro.fx_eop(),
+            self.gdp_lcu(),
+        )
+
     def real_interest_public(self) -> pd.Series:
-        """Output 1-2 R46: FC-share weighted average real rate."""
+        """Output 1-2 R46: lagged FC-share weighted average real rate."""
         d_tot = self.public_sector_debt_to_gdp().shift(1).replace(0.0, pd.NA)
-        d_fc = self.ppg_external_debt_to_gdp().shift(1)
+        d_fc = self.fc_public_debt_to_gdp().shift(1)
         alpha = d_fc / d_tot
         return (
             alpha * self.real_interest_external()
@@ -256,34 +261,30 @@ class BaselinePublicBook:
         ).astype(float)
 
     def fx_dollar_per_lc(self) -> pd.Series:
-        """Output 1-2 R51."""
-        from lic_dsf.pv.macro_debt.derived import exchange_rate_dollar_per_nc
+        """Output 1-2 R51: ``1 / FX(eop)``."""
+        return (1.0 / self.macro.fx_eop().replace(0.0, pd.NA)).astype(float)
 
-        return exchange_rate_dollar_per_nc(self.macro.inputs)
+    def depreciation_of_nc_eop(self) -> pd.Series:
+        """Output 1-2 R50: percent change in FX(eop) (LC per USD)."""
+        fx = self.macro.fx_eop()
+        return (100.0 * (fx / fx.shift(1).replace(0.0, pd.NA) - 1.0)).astype(float)
 
     def nominal_appreciation(self) -> pd.Series:
-        """Output 1-2 R52: increase in USD value of LC."""
+        """Output 1-2 R52: growth of USD per LC (``1 / FX(eop)``)."""
         rate = self.fx_dollar_per_lc()
         return (100.0 * (rate / rate.shift(1).replace(0.0, pd.NA) - 1.0)).astype(float)
 
     def real_exchange_rate_depreciation(self) -> pd.Series:
-        """Output 1-2 R53."""
-        auto = self.automatic_debt_dynamics()
-        # Reconstruct from DUCER identity when available; else nom dep adjusted.
-        nom = 100.0 * (
-            self.macro.fx_eop()
-            / self.macro.fx_eop().shift(1).replace(0.0, pd.NA)
-            - 1.0
-        )
+        """Output 1-2 R53: real depreciation from eop FX and the two deflators."""
+        nom = self.depreciation_of_nc_eop()
         pi = self.macro.lcu_deflator_growth()
-        pi_us = self.macro.usd_deflator_growth()
+        pi_us = self.macro.foreign_deflator_growth()
         return (
             (100.0 + nom) * (1.0 + pi_us / 100.0) / (1.0 + pi / 100.0) - 100.0
         ).astype(float)
 
     def real_primary_spending_growth(self) -> pd.Series:
-        """Output 1-2 R56: primary spending deflated by GDP deflator."""
-        real = self.macro.primary_expenditure() / (
-            1.0 + self.macro.lcu_deflator_growth() / 100.0
-        )
+        """Output 1-2 R56 / Macro R100: growth of primary exp / LCU deflator index."""
+        defl = self.macro.gdp_lcu() / self.macro.gdp_constant().replace(0.0, pd.NA)
+        real = self.macro.primary_expenditure() / defl.replace(0.0, pd.NA)
         return (100.0 * (real / real.shift(1).replace(0.0, pd.NA) - 1.0)).astype(float)

@@ -270,6 +270,14 @@ class MacroDebtBook:
         prior = pd.Series(ratio.shift(1), dtype=float)
         return (100.0 * (ratio / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
 
+    def foreign_deflator_growth(self) -> pd.Series:
+        """Macro R112: percent change in the foreign GDP deflator index (R58)."""
+        level = self.foreign_gdp_deflator()
+        if level.empty:
+            return pd.Series(0.0, index=list(self.inputs.years), dtype=float)
+        prior = pd.Series(level.shift(1), dtype=float)
+        return (100.0 * (level / prior.replace(0.0, pd.NA) - 1.0)).astype(float)
+
     def lcu_deflator_growth(self) -> pd.Series:
         """Percent change in the LCU GDP deflator (``gdp_lcu / gdp_constant``)."""
         ratio = (self.gdp_lcu() / self.gdp_constant().replace(0.0, pd.NA)).astype(float)
