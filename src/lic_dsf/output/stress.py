@@ -87,6 +87,7 @@ def output_31_table(
     *,
     historical: StressExternalBook | None = None,
     external_stress: dict[str, Any] | None = None,
+    public_stress: dict[str, Any] | None = None,
     tailored: dict[str, Any] | None = None,
     thresholds: dict[str, float] | None = None,
 ) -> pd.DataFrame:
@@ -96,6 +97,9 @@ def output_31_table(
         ext_base: Baseline external book.
         historical: Optional A1 book.
         external_stress: B-test id → book (from ``run_standard_external_stress``).
+        public_stress: Optional public B-test books. When present, B2 uses the
+            public book's external-ratio methods (Excel Chart Data wires
+            Output 3-1 B2 to ``B2_PB_*_pub``, not an external B2 sheet).
         tailored: A2/C* id → book (from ``run_tailored_external_stress``).
         thresholds: CI threshold map (``pv_debt_to_gdp``, …).
 
@@ -109,6 +113,8 @@ def output_31_table(
         books["A1_Historical"] = historical
     if external_stress:
         books.update(external_stress)
+    if public_stress and "B2_PrimaryBalance" in public_stress:
+        books["B2_PrimaryBalance"] = public_stress["B2_PrimaryBalance"]
     if tailored:
         books.update(tailored)
     thresh_keys = {

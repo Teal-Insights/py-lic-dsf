@@ -462,12 +462,13 @@ def apply_primary_balance_shock(
 
     Lowers the primary-balance-to-GDP ratio with the Input 6 threshold rule,
     then raises ``primary_expenditure`` so revenues minus spending hit the
-    shocked balance.
+    shocked balance. Fiscal flows are LCU, so the ratio uses LCU GDP
+    (``gdp_usd × fx_pa``), matching Baseline / B2 public R17.
     """
     years = inputs.years
     first = inputs.first_projection_year
     sd = params.primary_balance_shock_sd if shock_sd is None else shock_sd
-    gdp = _align(inputs.gdp_usd, years)
+    gdp = _align(inputs.gdp_usd, years) * _align(inputs.fx_pa, years)
     revenue = _align(inputs.revenues_incl_grants, years)
     expenditure = _align(inputs.primary_expenditure, years)
     pb_pct = 100.0 * (revenue - expenditure) / gdp.replace(0.0, pd.NA)

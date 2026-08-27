@@ -12,7 +12,9 @@ from __future__ import annotations
 
 import os
 import shutil
+import subprocess
 import tempfile
+import time
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -23,6 +25,30 @@ from tests.parity.probes import Probe, a1
 
 class ExcelNotAvailable(RuntimeError):
     """Raised when live Excel cannot be started."""
+
+
+class ExcelComCrashed(RuntimeError):
+    """Raised when Excel dies mid-session (RPC / COM failure)."""
+
+
+def _kill_excel_processes() -> None:
+    """Force-quit leftover EXCEL.EXE processes (Windows only).
+
+    Orphan Excel instances from a prior COM crash are the usual cause of
+    ``0x800706be`` / ``0x800706ba`` on the next live probe.
+    """
+    if os.name != "nt":
+        return
+    try:
+        subprocess.run(
+            ["taskkill", "/F", "/IM", "EXCEL.EXE", "/T"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return
+    time.sleep(0.5)
 
 
 def excel_available() -> bool:
@@ -38,12 +64,17 @@ def excel_available() -> bool:
     except ImportError:
         return False
     try:
+        _kill_excel_processes()
         import xlwings as xw
 
         app = xw.App(visible=False, add_book=False)
-        app.quit()
+        try:
+            app.quit()
+        except Exception:
+            _kill_excel_processes()
         return True
     except Exception:
+        _kill_excel_processes()
         return False
 
 
@@ -55,6 +86,14 @@ def _require_excel() -> None:
         )
 
 
+def _safe_quit(app: object) -> None:
+    """Quit the xlwings App; fall back to killing EXCEL.EXE on COM failure."""
+    try:
+        app.quit()  # type: ignore[attr-defined]
+    except Exception:
+        _kill_excel_processes()
+
+
 def read_live_output(workbook: str | Path, probes: Sequence[Probe]) -> pd.DataFrame:
     """Open a temp copy of ``workbook`` in Excel, calculate, and read probes.
 
@@ -64,6 +103,9 @@ def read_live_output(workbook: str | Path, probes: Sequence[Probe]) -> pd.DataFr
 
     Returns:
         DataFrame with probe metadata and ``excel_value``.
+
+    Raises:
+        ExcelComCrashed: When Excel/COM dies mid-session (RPC errors).
     """
     _require_excel()
     import xlwings as xw
@@ -72,26 +114,61 @@ def read_live_output(workbook: str | Path, probes: Sequence[Probe]) -> pd.DataFr
     records: list[dict[object, object]] = []
     tmp_dir = tempfile.mkdtemp(prefix="lic-dsf-excel-")
     tmp_path = Path(tmp_dir) / src.name
+    # Fresh Excel process per call — avoids RPC failures from a prior crash.
+    _kill_excel_processes()
+    app = None
+    book = None
     try:
         shutil.copy2(src, tmp_path)
         app = xw.App(visible=False, add_book=False)
+        app.display_alerts = False
+        app.screen_updating = False
+        # Skip Workbook_Open / auto macros; formula calculate still runs.
         try:
-            app.display_alerts = False
-            app.screen_updating = False
-            book = app.books.open(str(tmp_path), update_links=False, read_only=True)
+            app.api.AutomationSecurity = 3  # msoAutomationSecurityForceDisable
+        except Exception:
+            pass
+        try:
+            app.calculation = "manual"
+        except Exception:
+            pass
+        book = app.books.open(
+            str(tmp_path),
+            update_links=False,
+            read_only=True,
+            ignore_read_only_recommended=True,
+        )
+        try:
+            book.app.calculate()
+        except Exception as exc:
+            raise ExcelComCrashed(
+                f"Excel calculate failed ({exc!r}). Close Excel, kill EXCEL.EXE, "
+                "and re-run one live test at a time."
+            ) from exc
+        for probe in probes:
+            if probe.col is None:
+                raise ValueError(f"probe {probe!r} missing col")
             try:
-                book.app.calculate()
-                for probe in probes:
-                    if probe.col is None:
-                        raise ValueError(f"probe {probe!r} missing col")
-                    sheet = book.sheets[probe.sheet]
-                    value = sheet.range(a1(probe.row, probe.col)).value
-                    records.append(_record(probe, value))
-            finally:
-                book.close()
-        finally:
-            app.quit()
+                sheet = book.sheets[probe.sheet]
+                value = sheet.range(a1(probe.row, probe.col)).value
+            except Exception as exc:
+                raise ExcelComCrashed(
+                    f"Excel COM failed reading {probe.sheet}!"
+                    f"{a1(probe.row, probe.col)} ({exc!r}). "
+                    "RPC 0x800706be/0x800706ba usually means Excel crashed; "
+                    "kill EXCEL.EXE and retry."
+                ) from exc
+            records.append(_record(probe, value))
     finally:
+        if book is not None:
+            try:
+                book.close()
+            except Exception:
+                pass
+        if app is not None:
+            _safe_quit(app)
+        else:
+            _kill_excel_processes()
         shutil.rmtree(tmp_dir, ignore_errors=True)
     return pd.DataFrame.from_records(records)
 

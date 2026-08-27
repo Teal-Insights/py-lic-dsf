@@ -13,6 +13,7 @@ from tests.parity.compare import (
 )
 from tests.parity.equality import ABS_TOL, REL_TOL, abs_diff, close, error_class
 from tests.parity.excel import (
+    ExcelComCrashed,
     ExcelNotAvailable,
     excel_available,
     read_cached_output,
@@ -23,6 +24,7 @@ from tests.parity.probes import Probe, a1, as_year, probes_for_years, year_colum
 __all__ = [
     "ABS_TOL",
     "REL_TOL",
+    "ExcelComCrashed",
     "ExcelNotAvailable",
     "Probe",
     "a1",
