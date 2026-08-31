@@ -6,7 +6,7 @@
 
 This document is the data-model contract. An implementation may choose supporting libraries (pydantic for validation is recommended) as long as the types, invariants, and APIs below are preserved.
 
-**Codegen assumption.** Formula Python is produced by [excel-grapher](https://github.com/Teal-Insights/excel-grapher): it parses each formula cell to an AST, interns *parameterizable shapes* (the same skeleton with address holes), and emits shared helpers. Bindings attach published series to those helpers (`output.compute.helper`). This spec is helper-aware: the typed graph is the addressable surface; interned helpers are the formula layer. Do not treat “one unique property body per A1 cell” as the codegen unit.
+**Target.** This is the object model an [excel-grapher](https://github.com/Teal-Insights/excel-grapher) codegen rewrite should emit. Today’s exporter generates a Records API of free functions (`set_*`, `compute_*`, `xl_cell`). That is not the public surface here. The rewrite still interns parameterizable formula ASTs and emits reusable helpers; what changes is the *caller*: generated `ExcelTable` subclasses with `@excel_property` methods that dispatch to those helpers. Do not treat “one unique property body per A1 cell” as the codegen unit, and do not emit `compute_*` as the typed API.
 
 ---
 
@@ -18,7 +18,7 @@ Constraints:
 
 1. **Traceability.** Every modeled value maps to a sheet, column, and row (or to an absolute cell on a sparse sheet).
 
-2. **Fidelity.** Hardcoded Excel values are stored on records. Formula cells are Python properties (or generated `compute_*` methods) that *dispatch* to interned helpers. Helpers *are* the emitted interned shape; they are not a unique handwritten AST per address.
+2. **Fidelity.** Hardcoded Excel values are stored on records. Formula cells are `@excel_property` methods that *dispatch* to interned helpers. Helpers *are* the emitted interned shape; they are not a unique handwritten AST per address.
 
 3. **Addressability.** Callers can resolve Excel-style addresses and ranges (`'Input 1 - Basics'!C19`, `PV_Base!D9:BD9`) to records and attributes. Resolution is a router onto the same helper as the typed property, not a second formula implementation.
 
@@ -35,6 +35,8 @@ Non-goals:
 - A durable store or query language. The graph exists only for the lifetime of a `Workbook`.
 
 - One unique Python method body per formula cell. Reuse is interned at the shape, then (when bindings lift keys) at the helper.
+
+- Today’s excel-grapher Records export (`compute_*`, `set_*`, package-level `list_computes`). The public API is `Workbook` + table records + properties.
 
 ---
 
@@ -56,9 +58,9 @@ A sheet may contain several tables. A table never spans sheets. Records of a tab
 **Geometry vs formula reuse are different layers.**
 
 - Tables, records, `data_range`, and `value_map` are *provenance*: which keys map to which cells, so `resolve` and golden-master address checks work.
-- Formula evaluation is *interned*: many cells share one shape. Codegen emits one helper; each cell or series call site passes parameters. Binding `key:` lists (and cluster-refactor sweep keys) are those parameters. `record_index` is how a geometric record maps onto keys, not the helper’s public signature.
+- Formula evaluation is *interned*: many cells share one shape. Codegen emits one helper; each `@excel_property` call site passes parameters. Binding `key:` lists (and cluster-refactor sweep keys) are those parameters. `record_index` is how a geometric record maps onto keys, not the helper’s public signature.
 
-Table classes may be generated from a dependence graph of the workbook. That graph is a codegen input. It is not loaded into the running `Workbook` (section 12). Formula *bodies* are not “each edge baked into a unique property.” They come from interned shapes (section 6.4). Thin property / `compute_*` wrappers map the current record’s keys into a helper call.
+Table classes are generated from a dependence graph of the workbook. That graph is a codegen input. It is not loaded into the running `Workbook` (section 12). Formula *bodies* are not “each edge baked into a unique property.” They come from interned shapes (section 6.4). Thin `@excel_property` methods map the current record’s keys into a helper call.
 
 Cross-sheet formulas do not open Excel. Mechanical shape helpers may still take resolved A1 holes (`xl_cell` / `xl_eval`). Key-lifted internals helpers query other helpers or modeled series by key, not by string-address lookups for cells that already have a table class.
 
@@ -269,7 +271,7 @@ Blank Excel cells become `None` for `Optional` types. They do not omit the recor
 
 ### 6.2 Formula
 
-A cell whose Excel content starts with `=` is a `@property` with `@excel_property` / `@excel_cell_property` (or a generated `compute_*` on a series binding). The wrapper is thin: it maps this record’s identity onto helper parameters and calls the interned helper (section 6.4). It does not duplicate the AST.
+A cell whose Excel content starts with `=` is a `@property` with `@excel_property` / `@excel_cell_property`. The method is thin: it maps this record’s identity onto helper parameters and calls the interned helper (section 6.4). It does not duplicate the AST, and it is not a package-level `compute_*` function.
 
 ```python
 @property
@@ -342,20 +344,17 @@ Helper parameter names follow effective dimension ids (`time_period`, `instrumen
 
 #### 6.4.4 Binding attachment
 
-Internal formula cells are bound as `internal: {}` series so they resolve `{address, key, record}` for clustering. They do not emit `set_*` / `compute_*`.
+Series bindings remain a *codegen input*: they triangulate formula cells as `{address, key, record}` so intern and cluster refactor can parameterize helpers. `internal: {}` series do that for non-public formula nodes.
 
-When an internals helper covers a published output series’ leaves, declare `output.compute.helper` (schema 1.13.0) so generated `compute_*` calls the helper from record dims instead of `xl_cell(address)`:
+They do **not** define the public Python API. Today’s exporter turns an `output` series into `compute_*` (optionally via `output.compute.helper`) and an `input` series into `set_*`. The OOP rewrite instead:
 
-```yaml
-output:
-  compute:
-    name: compute_scenario_primary_expenditure_pct_gdp
-    helper:
-      name: scenario_primary_expenditure_pct_gdp_hot
-      dims: [TIME_PERIOD]
-```
+- Emits an `ExcelTable` subclass (or property on an existing one) for the bound region.
+- Generates an `@excel_property` that calls the interned helper with the record’s keys.
+- Uses `xl_cell` only inside helpers (or as a last-resort fallback) for leaves the helper does not cover.
 
-`dims` defaults to the series `key` when omitted. The typed `@excel_property` for those cells must call that same helper with the same dims. `resolve("'Sheet'!E27")` and `record.interest` are not allowed to be different implementations.
+`resolve("'Sheet'!E27")` and `record.interest` must be the same implementation: the property, which calls the helper. Do not generate a parallel `compute_*` beside the property.
+
+`output.compute.helper` in schema 1.13.0 is how the *current* exporter wires a helper to a Records function. Treat it as provenance of helper name and `dims`, not as a requirement to emit `compute_*`.
 
 #### 6.4.5 Fallback (fail closed)
 
@@ -380,12 +379,13 @@ Bindings that keep `key: [TIME_PERIOD]` while the workbook repeats the same shap
 
 #### 6.4.7 What wrappers must not do
 
-Formula properties and `compute_*` methods:
+Formula properties:
 
 - Must not copy-paste the helper body.
 - Must not call `Workbook.resolve` / `lookup_named` to reach a cell that already has a table class or a helper.
 - Must not open files or import openpyxl.
 - Must not implement their own cache (`functools.cached_property`, instance dict, module globals). Helper memo lives on the workbook (section 12).
+- Must not exist alongside a generated `compute_*` for the same cells.
 
 ---
 
@@ -635,7 +635,7 @@ OOP table classes and interned helpers are generated from a dependence graph of 
 1. Interns formula shapes (shared skeletons, per-instance address holes).
 2. Emits mechanical `_shape_N` helpers when a shape is used more than once.
 3. Cluster-refactors profitable clusters into key-lifted internals helpers.
-4. Emits thin property / `compute_*` wrappers that call those helpers.
+4. Emits thin `@excel_property` methods that call those helpers. Does not emit `compute_*` / `set_*`.
 
 The running `Workbook` does **not** store that graph. Edge count is high; keeping adjacency lists (especially reverse edges for dirty-bit flood) is expensive relative to storing computed values. Do not hang per-cell dep sets or reader sets on records. Do not re-parse A1 or walk the graph at evaluation time when a helper covers the cell.
 
@@ -721,7 +721,7 @@ The write path is `ExcelTable.__setattr__` (section 7.3). Writes to `record_inde
 
 - Read a formula twice with no writes: the second call does not re-enter the body (spy / call counter on a tiny fake table) and returns the same object/value.
 
-- Two properties (or a property and a `compute_*`) that call the same helper with the same keys: the helper body runs once.
+- Two `@excel_property` methods that call the same helper with the same keys: the helper body runs once.
 
 - A helper that recurses on `time_period − 1`: evaluating year 50 then year 51 enters the body once more, not fifty times.
 
@@ -805,7 +805,7 @@ For every registered table class:
 
   - Public `@excel_property` / `@excel_cell_property` names point at formula cells.
 
-  - Formula properties with interned coverage call the documented helper (same name and dims as `output.compute.helper` when that block exists). Two cells that share a `shape_key` must not ship two independent bodies.
+  - Formula properties with interned coverage call the documented helper (name and dims from the interned shape / cluster refactor, not from a `compute_*` binding). Two cells that share a `shape_key` must not ship two independent bodies.
 
 - MIXED public properties are exempt from the “must be formula” check; their internal storage attributes must cover the column, and tests for those properties must cover both a literal row and a formula row. The formula row must use the interned helper.
 
@@ -997,6 +997,8 @@ Sheet modules import helper **functions** and peer table **classes**. They call 
 
 ## 18. Implementation notes for agents
 
+This spec is the target for an excel-grapher codegen rewrite. Do not implement it by wrapping today’s `generate_modules()` Records export.
+
 - Implement the base (`meta`, `table`, `workbook`, `helpers`, `loading`, errors) under tests first, using a tiny fake sheet, before extracting real LIC-DSF sheets.
 
 - Implement epoch-flush memo on that fake sheet (section 12.4) before any real formula batch — including helper_memo sharing across two wrappers.
@@ -1007,8 +1009,8 @@ Sheet modules import helper **functions** and peer table **classes**. They call 
   2. Emit mechanical `_shape_N` helpers for shapes used more than once; per-node AST only when a shape is unique or the overlay is cold.
   3. Bind internals (`internal: {}`) so cluster refactor can see keys. Prefer reshape-to-keys (`INSTRUMENT`, `HOLDER`, `SCENARIO`, `ISSUANCE_YEAR`, …) before refactor so one helper covers pasted copies.
   4. Cluster-refactor under Contract A or B; skip `operand_level_variation_unsupported` rather than inventing counterpart dims.
-  5. Attach `output.compute.helper` where an internals helper covers published leaves. Uncovered leaves stay `xl_cell`.
-  6. Generate thin `@excel_property` wrappers that call those helpers. Stubs that are not yet generated raise `UnmodeledDependencyError` or `NotImplementedError` (not `return None`).
+  5. For formula cells with helper coverage, generate `@excel_property` methods that call the helper with the record’s keys. Uncovered leaves stay `xl_cell` inside the helper (or raise `UnmodeledDependencyError` if the property claims to be modeled). Do not emit `compute_*`.
+  6. Stubs that are not yet generated raise `UnmodeledDependencyError` or `NotImplementedError` (not `return None`).
 
 - Outer loop for layout still applies: inspect layout → classify literal vs formula vs MIXED → declare class metadata and attributes. Do not hand-write a unique property body per cell.
 
