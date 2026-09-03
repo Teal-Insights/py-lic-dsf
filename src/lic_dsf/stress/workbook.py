@@ -85,10 +85,11 @@ def _read_ratio_series(
 def load_cached_external_stress(path: str | Path) -> dict[str, CachedStressExternalBook]:
     """Load A2 / tailored C* external ratios from Excel stress sheets.
 
-    Debug dump only — not an Output 3-x SUT input. Use
-    ``run_tailored_external_stress`` for Python-computed A2/C* paths. This
-    loader still reads materialized B-sheet ratios for side-by-side debugging
-    (and skips C2/C3/C4 when Input 6 marks them inapplicable).
+    .. deprecated::
+        Debug dump only. Production Output 3-x SUT uses
+        ``run_tailored_external_stress`` / ``StressSuite.run_tailored_external``.
+        This loader still reads materialized B-sheet ratios for side-by-side
+        debugging (and skips C2/C3/C4 when Input 6 marks them inapplicable).
 
     Args:
         path: Path to a LIC-DSF workbook.
@@ -96,6 +97,13 @@ def load_cached_external_stress(path: str | Path) -> dict[str, CachedStressExter
     Returns:
         Scenario id → cached ratio book.
     """
+    import warnings
+
+    warnings.warn(
+        "load_cached_external_stress is deprecated; use run_tailored_external_stress",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     from lic_dsf.stress.scenario import CachedStressExternalBook
 
     workbook = load_workbook(path, data_only=True, read_only=True)

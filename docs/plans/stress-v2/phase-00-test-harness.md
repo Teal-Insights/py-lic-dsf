@@ -1,6 +1,6 @@
 # Phase 0 — Test harness and acceptance criteria
 
-**Status:** Not started  
+**Status:** Complete  
 **Depends on:** Nothing (start here)  
 **Blocks:** All implementation phases
 
@@ -57,8 +57,8 @@ Per scenario (`B1_GDP_pub`, `B2_PB_*_pub`, …):
 | 42 | Real GDP growth | Phase 2 |
 | 90 | Public GFN | Phase 6 |
 | 13 | PV public / GDP | Phase 6 |
-| 43 | PV public / revenue | Phase 6 |
-| Debt service rows | DS / revenue | Phase 6 |
+| 95 | PV public / revenue+grants (template; not R43) | Phase 6 |
+| 93 | DS / revenue+grants | Phase 6 |
 
 ### ResFin (`resfin.py`)
 
@@ -110,16 +110,16 @@ Use `read_cached_output` (fastpyxl) in CI. Reserve `@pytest.mark.live_excel` for
 
 ## Definition of done
 
-- [ ] Probe catalogs exist for external B-sheets (B1, B3, B5 minimum), public
+- [x] Probe catalogs exist for external B-sheets (B1, B3, B5 minimum), public
       B1, and ResFin B1 fill.
-- [ ] `scripts/stress_parity_report.py` runs and reports legacy baseline
+- [x] `scripts/stress_parity_report.py` runs and reports legacy baseline
       pass rates (establishes current gap baseline).
-- [ ] `tests/test_stress_v2_parity.py` exists with parametrized catalog tests.
-- [ ] Known gaps documented in this file or a `KNOWN_GAPS.md` appendix:
+- [x] `tests/test_stress_v2_parity.py` exists with parametrized catalog tests.
+- [x] Known gaps documented in [`KNOWN_GAPS.md`](KNOWN_GAPS.md):
       - B2 Output 3-1 2026 PV ~1e-3 drift
       - Tailored external not in full Output 3-1 bundle
       - B6 add.int loaded from workbook when path passed
-- [ ] Phase 1 can start without ambiguity about acceptance criteria.
+- [x] Phase 1 can start without ambiguity about acceptance criteria.
 
 ## Out of scope
 

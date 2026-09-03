@@ -201,44 +201,27 @@ def apply_real_gdp_shock(
     )
 
 
-def apply_exports_shock(
+def _apply_export_shock_side_effects(
     inputs: MacroDebtInputs,
+    exports: pd.Series,
     params: Input6StandardParams,
     *,
-    shock_sd: float | None = None,
     gdp_elasticity: float | None = None,
 ) -> MacroDebtInputs:
-    """Shock nominal export growth in projection years 2–3 (B3).
-
-    Also applies the Input 6 real-GDP elasticity to export growth when
-    interactions are on. FDI / transfers are unchanged. Non-grant revenue
-    keeps the baseline share of GDP (B-sheet R106); grants stay at baseline
-    LCU.
-    """
+    """Apply B3-style GDP ε, CA export shortfall, and revenue hold after export shock."""
     years = inputs.years
     first = inputs.first_projection_year
-    sd = params.exports_shock_sd if shock_sd is None else shock_sd
     elasticity = (
         params.exports_gdp_elasticity if gdp_elasticity is None else gdp_elasticity
     )
     if not params.interactions_on:
         elasticity = 0.0
 
+    exports = _align(exports, years).astype(float)
     exp_g = _growth_pct(inputs.exports, years)
-    hist_avg, hist_sd = _hist_mean_sd(exp_g, years, first)
-    shocked_exp_g = exp_g.copy()
+    shocked_exp_g = _growth_pct(exports, years)
     window = _projection_shock_years(years, first)
-    if window is not None:
-        for year in window:
-            base_g = float(exp_g.loc[year])
-            shocked_exp_g.loc[year] = _shocked_growth(
-                base_g, hist_avg, hist_sd, sd, params.threshold_rule
-            )
 
-    exports = _rebuild_levels_from_growth(inputs.exports, years, first, shocked_exp_g)
-
-    # GDP interaction (B3 R50): use prior-year shocked export/GDP (B-sheet E19),
-    # not the baseline share, when ε is applied in the shock window.
     real_g = _growth_pct(inputs.gdp_constant, years)
     shocked_real = real_g.copy()
     deflator_g = _growth_pct(
@@ -295,10 +278,8 @@ def apply_exports_shock(
             float(gdp_usd.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
         )
 
-    # Current account: reduce by export shortfall (financing need channel).
     shortfall = _align(inputs.exports, years) - exports
     current_account = _align(inputs.current_account, years) - shortfall
-
     revenues = _hold_nongrant_revenue_to_gdp(
         inputs,
         old_gdp_usd=inputs.gdp_usd,
@@ -307,11 +288,49 @@ def apply_exports_shock(
     )
     return replace(
         inputs,
-        exports=exports.astype(float),
+        exports=exports,
         gdp_usd=gdp_usd.astype(float),
         gdp_constant=gdp_constant.astype(float),
         current_account=current_account.astype(float),
         revenues_incl_grants=revenues,
+    )
+
+
+def apply_exports_shock(
+    inputs: MacroDebtInputs,
+    params: Input6StandardParams,
+    *,
+    shock_sd: float | None = None,
+    gdp_elasticity: float | None = None,
+) -> MacroDebtInputs:
+    """Shock nominal export growth in projection years 2–3 (B3).
+
+    Also applies the Input 6 real-GDP elasticity to export growth when
+    interactions are on. FDI / transfers are unchanged. Non-grant revenue
+    keeps the baseline share of GDP (B-sheet R106); grants stay at baseline
+    LCU.
+    """
+    years = inputs.years
+    first = inputs.first_projection_year
+    sd = params.exports_shock_sd if shock_sd is None else shock_sd
+
+    exp_g = _growth_pct(inputs.exports, years)
+    hist_avg, hist_sd = _hist_mean_sd(exp_g, years, first)
+    shocked_exp_g = exp_g.copy()
+    window = _projection_shock_years(years, first)
+    if window is not None:
+        for year in window:
+            base_g = float(exp_g.loc[year])
+            shocked_exp_g.loc[year] = _shocked_growth(
+                base_g, hist_avg, hist_sd, sd, params.threshold_rule
+            )
+
+    exports = _rebuild_levels_from_growth(inputs.exports, years, first, shocked_exp_g)
+    return _apply_export_shock_side_effects(
+        inputs,
+        exports,
+        params,
+        gdp_elasticity=gdp_elasticity,
     )
 
 

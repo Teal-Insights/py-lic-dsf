@@ -226,6 +226,32 @@ def test_pv_resfin_pub_b1_fill_parity_with_excel_gap() -> None:
     )
 
 
+def test_pv_resfin_pub_b6_fill_parity_with_excel_gap() -> None:
+    """Given Excel B6 public gap, split matches PV_ResFin_pub combo block."""
+    years = [2025, 2026, 2027, 2028]
+    params = load_input7_residual_params(WORKBOOK)
+    off = 141
+    gap = _sheet_row("PV_ResFin_pub", 2, 4, 67 + off, years)
+    r86 = _sheet_row("PV_ResFin_pub", 2, 4, 69 + off, years)
+    fx = _sheet_row("PV_ResFin_pub", 2, 4, 27, years)
+    fill = split_residual_financing(
+        gap, r86, params, fx, modality="capped", years=tuple(years)
+    )
+    expected_ext = _sheet_row("PV_ResFin_pub", 2, 4, 72 + off, years)
+    expected_dom = _sheet_row("PV_ResFin_pub", 2, 4, 85 + off, years)
+    expected_st = _sheet_row("PV_ResFin_pub", 2, 4, 98 + off, years)
+    for year in years:
+        assert fill.external_mlt_usd.loc[year] == pytest.approx(
+            float(expected_ext.loc[year]), rel=1e-6, abs=1e-4
+        ), f"ext {year}"
+        assert fill.domestic_mlt_lcu.loc[year] == pytest.approx(
+            float(expected_dom.loc[year]), rel=1e-6, abs=1e-4
+        ), f"dom {year}"
+        assert fill.domestic_st_lcu.loc[year] == pytest.approx(
+            float(expected_st.loc[year]), rel=1e-6, abs=1e-4
+        ), f"st {year}"
+
+
 def test_run_b1_gdp_public_with_excel_gap() -> None:
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
@@ -264,26 +290,32 @@ def test_b1_public_gfn_matches_excel_r90_given_excel_gap() -> None:
         ), f"B1 R90 GFN {year}"
 
 
-def test_b1_public_pv_to_revenue_uses_baseline_rev_to_gdp() -> None:
-    """B1 holds rev/GDP; PV/rev must not use unshocked LCU revenue / shocked GDP."""
+def test_b1_public_pv_to_revenue_uses_bsheet_r18() -> None:
+    """B1 R95 = R13 / R18 × 100 with Excel revenue/GDP identity.
+
+    R18 holds baseline (revenue − grants)/GDP and adds shocked grants /
+    shocked GDP — not unshocked LCU revenue / shocked GDP, and not plain
+    baseline revenue/GDP after year 1.
+    """
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
     params = load_input7_residual_params(WORKBOOK)
     book = run_b1_gdp_public(macro, external, input6, params, iterations=4)
 
-    base_rev_to_gdp = 100.0 * macro.revenues_incl_grants() / macro.gdp_lcu()
-    expected = book.pv_public_debt_to_gdp() / base_rev_to_gdp * 100.0
+    expected_r95 = _sheet_row("B1_GDP_pub", 7, 3, 95, [2024, 2025, 2026])
     got = book.pv_public_debt_to_revenue_grants()
-    assert float(got.loc[2025]) == pytest.approx(float(expected.loc[2025]), rel=1e-9)
+    for year in (2024, 2025, 2026):
+        assert float(got.loc[year]) == pytest.approx(
+            float(expected_r95.loc[year]), rel=1e-9, abs=1e-6
+        ), f"R95 {year}"
 
     naive = (
         book.pv_public_debt_to_gdp()
         / (100.0 * book.macro.revenues_incl_grants() / book.gdp_lcu())
         * 100.0
     )
-    # Shocked GDP vs baseline rev/GDP must not coincide with the B1 identity.
+    # Shocked GDP vs unshocked revenue must not coincide with the B1 identity.
     assert float(got.loc[2025]) != pytest.approx(float(naive.loc[2025]), rel=1e-6, abs=0.05)
-    assert float(got.loc[2024]) == pytest.approx(float(naive.loc[2024]), rel=1e-9)
     panel = stress_public_panel(book)
     assert "PV of public debt / revenue+grants" in panel.index
 

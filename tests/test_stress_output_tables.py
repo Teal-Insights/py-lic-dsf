@@ -61,11 +61,22 @@ def _bundle():
         residual = load_input7_residual_params(WORKBOOK)
         tailored = load_tailored_params(WORKBOOK)
         market_access, _embi = load_input1_market(WORKBOOK)
+        from lic_dsf.load.tailored import load_customized_spec
+        from lic_dsf.stress import run_tailored_external_stress
+
         _EXT_STRESS = (
             run_standard_external_stress(macro, external, input6, residual),
             run_a1_historical_external(macro, external, residual),
             input6,
             residual,
+            run_tailored_external_stress(
+                macro,
+                external,
+                residual,
+                tailored,
+                input6,
+                custom_spec=load_customized_spec(WORKBOOK),
+            ),
         )
         public = run_standard_public_stress(
             macro, external, input6, residual, market_access=market_access
@@ -83,19 +94,23 @@ def _bundle():
 
 
 def _output_31():
-    (_macro, _ext, ext_base, _pub), (suite, historical, _i6, _res), (public, _pt) = (
-        _bundle()
-    )
+    (_macro, _ext, ext_base, _pub), (suite, historical, _i6, _res, tailored), (
+        public,
+        _pt,
+    ) = _bundle()
     return output_31_table(
         ext_base,
         historical=historical,
         external_stress=suite,
         public_stress=public,
+        tailored=tailored,
     )
 
 
 def test_output_31_table_includes_baseline_and_b2() -> None:
-    (_macro, _ext, _ext_base, _pub), (suite, _historical, _i6, _res), _pub_s = _bundle()
+    (_macro, _ext, _ext_base, _pub), (suite, _historical, _i6, _res, _tailored), _pub_s = (
+        _bundle()
+    )
     table = _output_31()
     assert ("PV of debt-to GDP ratio", "Baseline") in table.index
     assert ("PV of debt-to GDP ratio", "B2. Primary balance") in table.index
@@ -176,8 +191,9 @@ def test_output_31_cached_baseline_matches_excel() -> None:
 def test_output_31_cached_b2_matches_excel() -> None:
     """Output 3-1 B2 follows public B2 external ratios (Chart Data wiring).
 
-    Shock-window years match Excel at the global 1e-6 tolerance. Later-year
-    debt-service still has small residual drift from ResFin block timing.
+    PV indicators match Excel at the global 1e-6 tolerance through 2034.
+    Debt-service matches in the shock window; later-year DS still drifts
+    (documented in KNOWN_GAPS).
     """
     sut = _output_31()
     probes = tuple(
@@ -185,25 +201,19 @@ def test_output_31_cached_b2_matches_excel() -> None:
         for p in output_31_probes(WORKBOOK)
         if isinstance(p.sut_key, tuple)
         and p.sut_key[1] == "B2. Primary balance"
-        and p.year in {2024, 2025, 2026}
+        and p.year is not None
+        and 2024 <= int(p.year) <= 2034
         and p.sut_key[0].startswith("PV of debt")
     )
     excel = read_cached_output(WORKBOOK, probes)
     excel = excel[excel["excel_value"].map(lambda v: isinstance(v, (int, float)))]
-    report = compare_probes(excel, sut)
-    # 2026 PV can still drift by ~1e-4 from ResFin/add.int fixed-point noise.
-    near = report[report["year"] == 2026]
-    early = report[report["year"].isin({2024, 2025})]
-    assert_all_passed(early)
-    if not near.empty:
-        assert float(near["abs_diff"].max()) < 1e-3
-    # Debt service in the shock window (add.int interest is still near zero).
+    assert_all_passed(compare_probes(excel, sut))
     ds_probes = tuple(
         p
         for p in output_31_probes(WORKBOOK)
         if isinstance(p.sut_key, tuple)
         and p.sut_key[1] == "B2. Primary balance"
-        and p.year in {2024, 2025}
+        and p.year in {2024, 2025, 2026}
         and p.sut_key[0].startswith("Debt service")
     )
     ds_excel = read_cached_output(WORKBOOK, ds_probes)

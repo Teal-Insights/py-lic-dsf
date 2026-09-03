@@ -236,10 +236,13 @@ def split_residual_financing(
     """Split public residual gap into ext MLT / dom MLT / ST.
 
     Args:
-        public_gap_lcu: Public ΔGFN (LCU).
+        public_gap_lcu: Public ΔGFN (LCU). Capped modality keeps the sign
+            (Excel ``PV_ResFin_pub`` allows negative residual when stressed
+            GFN falls below baseline, as in B5's shock year).
         ext_r86_usd: External DSA residual gross borrowing (USD).
         params: Public Input 7 shares (J9–J11).
-        fx_pa: Period-average FX (LCU per USD).
+        fx_pa: Period-average FX (LCU per USD) — baseline FX for public
+            ``PV_ResFin_pub`` R27.
         modality: ``capped`` (B1/B5/B6) or ``absolute`` (B2 PB).
         years: Optional year horizon.
 
@@ -274,34 +277,35 @@ def split_residual_financing(
         g = float(gap.loc[year])
         fx_y = float(fx.loc[year])
         r86 = float(ext86.loc[year])
-        if g <= 0.0 and modality == "capped":
-            # Negative / zero public gap: no additional public residual fill.
+
+        if modality == "absolute":
+            # B2 absolute: Excel still floors at zero (no negative residual).
+            ext_usd[year] = max(g, 0.0) * j9 / fx_y if fx_y else 0.0
+            dom_mlt[year] = max(g, 0.0) * j10
+            dom_st[year] = max(g, 0.0) * j11
+            continue
+
+        # Capped (B1/B5/B6): Excel PV_ResFin_pub keeps the sign of the public
+        # gap (B5 shock-year ΔGFN is negative). Modality flag uses share
+        # threshold R174 > gap×J9/FX; modality-1 fill caps at full gap/FX.
+        if g == 0.0 or fx_y == 0.0:
             ext_usd[year] = 0.0
             dom_mlt[year] = 0.0
             dom_st[year] = 0.0
             continue
 
-        if modality == "absolute":
-            ext_usd[year] = max(g, 0.0) * j9 / fx_y
-            dom_mlt[year] = max(g, 0.0) * j10
-            dom_st[year] = max(g, 0.0) * j11
-            continue
-
-        # Capped (B1/B5/B6): modality 1 if external residual exceeds public
-        # share × gap / FX; else modality 2 share split.
-        threshold = (g * j9 / fx_y) if fx_y else 0.0
-        if r86 > threshold >= 0.0:
-            # Modality 1: cover with external up to public gap / FX.
-            ext_usd[year] = max(g, 0.0) / fx_y if fx_y else 0.0
-            dom_mlt[year] = 0.0
-            dom_st[year] = 0.0
+        threshold = g * j9 / fx_y
+        gap_usd = g / fx_y
+        if r86 > threshold:
+            # Modality 1: ext = gap/FX when R86 exceeds it, else R86 (signed).
+            ext_u = gap_usd if r86 > gap_usd else r86
         else:
-            # Modality 2.
-            ext_u = max(g, 0.0) * j9 / fx_y if fx_y else 0.0
-            remainder = max(g - ext_u * fx_y, 0.0)
-            ext_usd[year] = ext_u
-            dom_mlt[year] = remainder * j10 / dom_share_sum
-            dom_st[year] = remainder * j11 / dom_share_sum
+            # Modality 2: share split.
+            ext_u = g * j9 / fx_y
+        remainder = g - ext_u * fx_y
+        ext_usd[year] = ext_u
+        dom_mlt[year] = remainder * j10 / dom_share_sum
+        dom_st[year] = remainder * j11 / dom_share_sum
 
     return ResidualFill(
         external_mlt_usd=pd.Series(ext_usd, dtype=float),
@@ -342,7 +346,7 @@ def dom_mlt_resfin_series(
     # amortizes from t+grace+1 through t+maturity (not t+grace).
     for i, year in enumerate(year_list):
         amount = float(disb.loc[year])
-        if amount <= 0.0:
+        if amount == 0.0:
             continue
         for j in range(grace + 1, maturity + 1):
             target_i = i + j

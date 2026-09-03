@@ -7,7 +7,7 @@ import pandas as pd
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.pv.macro_debt import stocks as _stocks
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.stress.shocks import depreciation_of_nc_pct, real_depreciation_pct
+from lic_dsf.stress.macro_shocks import depreciation_of_nc_pct, real_depreciation_pct
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:
@@ -221,6 +221,7 @@ def external_residual_borrowing(
     hist_ca_deficit_pct: float | None = None,
     hist_fdi_pct: float | None = None,
     additional_borrowing_interest: pd.Series | None = None,
+    post_shock_r18_unscaled: bool = False,
 ) -> pd.Series:
     """USD residual PPG MLT fill (Excel B-sheet residual gross borrowing).
 
@@ -228,11 +229,18 @@ def external_residual_borrowing(
     Macro path, then residual = Δ stressed hybrid stock − Δ baseline stock.
 
     After the two-year shock window, the trade-balance term (R18) returns to
-    the baseline USD deficit scaled by shocked GDP — Excel does not keep the
-    export shortfall in the identity forever. ``fx_depreciation_pct`` is the
-    B5/B6 R58 shock in the second projection year. The following year uses
-    unscaled baseline R18 minus ``net_exports_elasticity`` times real
-    depreciation (B5/B6 E43), not the nominal shock size.
+    the baseline goods-deficit path. Standard B3 sheets use
+    ``baseline R18 × baseline GDP / shocked GDP`` (constant baseline USD
+    deficit). C3 commodity (``post_shock_r18_unscaled=True``) copies baseline
+    R18 as a % of shocked GDP — Excel ``C3_Commodity prices_ext`` R18 2027+.
+    ``fx_depreciation_pct`` is the B5/B6 R58 shock in the second projection
+    year. The following year uses unscaled baseline R18 minus
+    ``net_exports_elasticity`` times real depreciation (B5/B6 E43), not the
+    nominal shock size.
+
+    Shock-window R21/R24 are % of **shocked** GDP (like R20), except the B6
+    combo sheet in the cached workbook divides by baseline GDP when FX and
+    export shocks co-occur — that special case is matched explicitly.
 
     When ``historical_averages`` is true (A1), R17 / R24 are pinned to the
     10-year historical means for every year from the second projection year,
@@ -368,7 +376,11 @@ def external_residual_borrowing(
             continue
         scale = float(gdp_b.loc[year]) / gdp if gdp else 1.0
         if shock_window and year > shock_window[-1]:
-            r18 = float(r18_b.loc[year]) * scale
+            # B3: keep baseline goods-deficit USD (r18_b × gdp_b/gdp_s).
+            # C3: copy baseline R18 % onto shocked GDP (Excel R18 2027+).
+            r18 = float(r18_b.loc[year]) * (
+                1.0 if post_shock_r18_unscaled else scale
+            )
         elif nx_year is not None and year == nx_year and fx_depreciation_pct:
             fg = 0.0
             lg = 0.0
@@ -402,18 +414,21 @@ def external_residual_borrowing(
                 gdp_s=gdp,
             )
         if year in shock_window:
+            # B1/B3/B5: % of shocked GDP (same as R20 = import USD / shocked GDP).
+            # B6 combo sheet uniquely divides R21/R24 by baseline GDP in the
+            # cached workbook — match that when FX + export shocks co-occur.
             tr_s = float(shocked_macro.inputs.current_transfers_net.loc[year])
-            gdp_denom = float(gdp_b.loc[year])
-            r21 = -100.0 * tr_s / gdp_denom if gdp_denom else 0.0
+            fdi_s = float(shocked_macro.inputs.fdi.loc[year])
+            combo = bool(fx_depreciation_pct) and _exports_shocked(
+                float(exp_usd_b.loc[year]), float(exp_usd_s.loc[year])
+            )
+            denom = float(gdp_b.loc[year]) if combo else gdp
+            r21 = -100.0 * tr_s / denom if denom else 0.0
+            r24 = -100.0 * fdi_s / denom if denom else 0.0
         else:
             r21 = float(r21_b.loc[year]) * scale if pd.notna(r21_b.loc[year]) else 0.0
-        r23 = float(r23_b.loc[year]) * scale if pd.notna(r23_b.loc[year]) else 0.0
-        if year in shock_window:
-            fdi_s = float(shocked_macro.inputs.fdi.loc[year])
-            gdp_denom = float(gdp_b.loc[year])
-            r24 = -100.0 * fdi_s / gdp_denom if gdp_denom else 0.0
-        else:
             r24 = float(r24_b.loc[year]) * scale if pd.notna(r24_b.loc[year]) else 0.0
+        r23 = float(r23_b.loc[year]) * scale if pd.notna(r23_b.loc[year]) else 0.0
         r17 = r18 + r21 + r23
         r16 = r17 + r24 + r25
         r15 = r16 + r30_b[year] * scale
@@ -429,3 +444,34 @@ def external_residual_borrowing(
             float(r82.loc[year]) - float(r82.loc[year - 1])
         )
     return gap.astype(float)
+
+
+# Excel C1 combined CL: external PPG residual ≈ 40.7% of the one-off CL (10% GDP).
+CL_EXTERNAL_PPG_SHARE = 0.407
+
+
+def external_cl_gap_usd(
+    baseline_macro: MacroDebtBook,
+    shocked_macro: MacroDebtBook,
+    *,
+    share: float = CL_EXTERNAL_PPG_SHARE,
+) -> pd.Series:
+    """Map a one-off CL flow (LCU) to external PPG gap (USD) in the shock year."""
+    years = baseline_macro.inputs.years
+    first = baseline_macro.inputs.first_projection_year
+    year_list = list(years)
+    proj = [y for y in year_list if y >= first]
+    shock_year = proj[1] if len(proj) >= 2 else None
+    out = pd.Series(0.0, index=year_list, dtype=float)
+    if shock_year is None or share <= 0.0:
+        return out
+    cl_b = _align(baseline_macro.inputs.contingent_liabilities, years)
+    cl_s = _align(shocked_macro.inputs.contingent_liabilities, years)
+    delta_lcu = float(cl_s.loc[shock_year]) - float(cl_b.loc[shock_year])
+    if abs(delta_lcu) < 1e-6:
+        return out
+    fx = float(_align(shocked_macro.inputs.fx_pa, years).loc[shock_year])
+    if fx == 0.0:
+        return out
+    out.loc[shock_year] = (delta_lcu / fx) * float(share)
+    return out.astype(float)

@@ -1,6 +1,6 @@
 # Phase 4 — ResidualFinancingEngine and split policies
 
-**Status:** Not started  
+**Status:** Complete  
 **Depends on:** [Phase 3](phase-03-external-debt-dynamics.md) (external gaps)  
 **Also depends on:** Phase 6 stub for public gap input (can use legacy
 `public_residual_gap` initially)  
@@ -22,12 +22,12 @@ duplicated loops in `scenario.py` and `public.py` with explicit split policies
 
 | Item | Location |
 |------|----------|
-| `ResidualPolicy` protocol | `src/lic_dsf/stress_v2/resfin/policy.py` |
+| `ResidualPolicy` protocol | `src/lic_dsf/stress/resfin/policy.py` |
 | `CappedResidualPolicy` | same |
 | `AbsoluteResidualPolicy` | same |
-| `ResidualFinancingEngine` | `src/lic_dsf/stress_v2/resfin/engine.py` |
+| `ResidualFinancingEngine` | `src/lic_dsf/stress/resfin/engine.py` |
 | `ResidualFinancingResult` | same |
-| Overlay types (keep) | Reuse `ResFinOverlay`, `PublicResFinOverlay`, etc. |
+| Overlay types (keep) | Re-export from `residual_pv.py` via `resfin/types.py` |
 | Parity tests | `tests/test_stress_v2_resfin.py` |
 
 ## Class responsibilities
@@ -51,6 +51,8 @@ def split(
 | `AbsoluteResidualPolicy` | B2 | Full PB shock gap; uses ext R86 when coupled |
 
 Fix legacy bug: `_run_public_stress` always used `modality="capped"`.
+`ScenarioSpec` for B2 selects `AbsoluteResidualPolicy` via
+`ResidualPolicyKind.ABSOLUTE` (wired in the runner for B1/B2 public loops).
 
 ### `ResidualFinancingEngine`
 
@@ -64,9 +66,9 @@ Fix legacy bug: `_run_public_stress` always used `modality="capped"`.
 **Methods:**
 
 - `build_external_overlay(gap_usd) -> ResFinOverlay`
-- `build_public_overlay(fill) -> PublicResFinOverlay`
+- `build_public_overlay(fill, *, deflator) -> PublicResFinOverlay`
 - `solve_public_with_gfn_feedback(...)` — fixed-point: GFN → gap → fill →
-  overlays → GFN service (port `_run_public_stress` loop)
+  overlays → GFN service (calls legacy `estimate_b1_public_gfn` until Phase 6)
 
 ### `ResidualFinancingResult`
 
@@ -77,6 +79,7 @@ Fix legacy bug: `_run_public_stress` always used `modality="capped"`.
 - `fill: ResidualFill | None`
 - `converged: bool`
 - `iterations: int`
+- `public_gap: pd.Series | None` (R67)
 
 ## Port map from legacy
 
@@ -89,27 +92,24 @@ Fix legacy bug: `_run_public_stress` always used `modality="capped"`.
 | `split_residual_financing` | `ResidualPolicy.split` |
 | `build_public_resfin_overlay` | `build_public_overlay` |
 | `dom_mlt_resfin_series`, `dom_st_resfin_series` | internal |
-| `_converged_external_gap` interest loop | Coordinate with `ExternalDebtDynamics` |
+| `_converged_external_gap` interest loop | `ExternalDebtDynamics` + engine |
 
 ## Implementation tasks
 
-1. Move overlay dataclasses to `stress_v2/resfin/types.py` or re-export from
-   `residual_pv.py` during migration.
+1. [x] Re-export overlay dataclasses from `stress/resfin/types.py`.
 
-2. Implement `CappedResidualPolicy` — port existing `split_residual_financing`
+2. [x] Implement `CappedResidualPolicy` — wrap `split_residual_financing`
    capped branch.
 
-3. Implement `AbsoluteResidualPolicy` — port absolute branch; wire
-   `external_gap` from Phase 3 when `spec.couple_ext_r86`.
+3. [x] Implement `AbsoluteResidualPolicy` — absolute branch; B2
+   `couple_ext_r86` passes Phase 3 gap into the public loop.
 
-4. Implement `ResidualFinancingEngine.build_external_overlay` — port
-   `resfin_instrument` + `resfin_overlay_series`.
+4. [x] Implement `ResidualFinancingEngine.build_external_overlay`.
 
-5. Implement public GFN ↔ ResFin fixed-point (can call legacy
-   `estimate_b1_public_gfn` until Phase 6).
+5. [x] Public GFN ↔ ResFin fixed-point via legacy `estimate_b1_public_gfn`.
 
-6. Single convergence tolerance: document `tol=1e-6` LCU for public,
-   `1e-9` USD interest for external.
+6. [x] Document tolerances: `PUBLIC_GAP_TOL=1e-6` LCU,
+   `EXTERNAL_INTEREST_TOL=1e-9` USD.
 
 ## Differential testing
 
@@ -117,25 +117,25 @@ Phase 0 ResFin probes:
 
 | Sheet | Scenario | Rows |
 |-------|----------|------|
-| `PV Stress` | B3 ext | PV, interest, amort |
-| `PV_ResFin_pub` | B1 pub | E75 PV ext, E78/E91 dom, E98 ST |
-| `PV_ResFin_pub` | B1 pub | Fill vs gap (existing `test_pv_resfin_pub_b1_fill_parity`) |
+| `PV Stress` | B3 ext | R46/49/52/53 |
+| `PV_ResFin_pub` | B1 pub | R67, E72/75/77/78, E85/90/91, E98/99 |
 
 Tests:
 
-- External overlay from B3 gap matches `PV Stress` rows
-- Public B1 iterative fill matches `PV_ResFin_pub` disbursement split
-- `split_residual_financing` capped vs absolute with synthetic gaps
+- External overlay from Excel B3 gap matches `PV Stress` rows
+- Converged B3 overlay matches legacy Python (Excel R86 still drifts — KNOWN_GAPS)
+- Public B1 iterative fill matches `PV_ResFin_pub`
+- Capped vs absolute synthetic splits
 
 **Tolerance:** `1e-6` on PV and flow series.
 
 ## Definition of done
 
-- [ ] B3 external ResFin overlay probes green
-- [ ] B1 public ResFin fill probes green (iterative GFN loop)
-- [ ] `AbsoluteResidualPolicy` implemented and unit-tested
-- [ ] Single `ResidualFinancingEngine` replaces duplicate fixed-point code paths
-- [ ] Legacy `residual_pv.py` still importable from `lic_dsf.stress` until Phase 8
+- [x] B3 external ResFin overlay probes green (Excel gap → overlay)
+- [x] B1 public ResFin fill probes green (iterative GFN loop)
+- [x] `AbsoluteResidualPolicy` implemented and unit-tested
+- [x] Single `ResidualFinancingEngine` used by dynamics + runner
+- [x] Legacy `residual_pv.py` still importable from `lic_dsf.stress` until Phase 8
 
 ## Out of scope
 

@@ -1,6 +1,6 @@
 # Phase 1 — StressContext and ScenarioSpec
 
-**Status:** Not started  
+**Status:** Complete  
 **Depends on:** [Phase 0](phase-00-test-harness.md)  
 **Blocks:** Phases 2–8
 
@@ -19,12 +19,12 @@ that encodes Excel semantics (policies, coupling, output bindings).
 
 | Item | Location |
 |------|----------|
-| `StressContext` | `src/lic_dsf/stress_v2/context.py` |
-| `ScenarioSpec` | `src/lic_dsf/stress_v2/spec.py` |
-| `ScenarioRegistry` | `src/lic_dsf/stress_v2/spec.py` |
-| `OutputBinding` | `src/lic_dsf/stress_v2/spec.py` |
+| `StressContext` | `src/lic_dsf/stress/context.py` |
+| `ScenarioSpec` | `src/lic_dsf/stress/spec.py` |
+| `ScenarioRegistry` | `src/lic_dsf/stress/spec.py` |
+| `OutputBinding` | `src/lic_dsf/stress/spec.py` |
 | Unit tests (no numeric parity) | `tests/test_stress_v2_spec.py` |
-| Empty `StressScenarioRunner` stub | `src/lic_dsf/stress_v2/runner.py` |
+| Empty `StressScenarioRunner` stub | `src/lic_dsf/stress/runner.py` |
 
 ## Class responsibilities
 
@@ -96,7 +96,7 @@ Fill tailored rows in Phase 8; stub entries here with `NotImplementedError`.
 
 ## Implementation tasks
 
-1. Create `stress_v2/` package with `__init__.py` (minimal exports).
+1. Create `stress/` package with `__init__.py` (minimal exports).
 
 2. Implement `StressContext` + `from_workbook()`.
 
@@ -121,11 +121,11 @@ review in PRs.
 
 ## Definition of done
 
-- [ ] `StressContext.from_workbook(WORKBOOK)` returns wired baseline books
-- [ ] `ScenarioRegistry` covers all standard A/B scenario IDs
-- [ ] B2 / B1 flags match Excel semantics documented in registry table
-- [ ] `tests/test_stress_v2_spec.py` green
-- [ ] No changes to legacy `lic_dsf.stress` behavior
+- [x] `StressContext.from_workbook(WORKBOOK)` returns wired baseline books
+- [x] `ScenarioRegistry` covers all standard A/B scenario IDs
+- [x] B2 / B1 flags match Excel semantics documented in registry table
+- [x] `tests/test_stress_v2_spec.py` green
+- [x] No changes to legacy `lic_dsf.stress` behavior
 
 ## Migration note
 

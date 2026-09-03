@@ -22,7 +22,7 @@ from lic_dsf.stress.residual_pv import (
     resfin_instrument,
     resfin_overlay_series,
 )
-from lic_dsf.stress.shocks import (
+from lic_dsf.stress.macro_shocks import (
     apply_combo_shock,
     apply_exports_shock,
     apply_fx_depreciation_shock,
@@ -273,33 +273,10 @@ def run_a1_historical_external(
     external: ExternalDebtBook,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the A1 historical-averages external scenario.
+    """Run the A1 historical-averages external scenario (v2 facade)."""
+    from lic_dsf.stress.facade import run_a1_historical_external as _v2
 
-    From the second projection year, real GDP growth and the USD deflator are
-    pinned to 10-year historical means, FDI/GDP and the non-interest current
-    account deficit follow the same averages, and residual borrowing uses the
-    A1 identity (unscaled baseline R30).
-    """
-    shocked_inputs = apply_historical_averages_shock(macro.inputs)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    ca_pin, fdi_pin = historical_identity_pins(macro)
-    gap = _converged_external_gap(
-        macro,
-        shocked_macro,
-        external,
-        residual_params,
-        hist_ca_deficit_pct=ca_pin,
-        hist_fdi_pct=fdi_pin,
-        historical_averages=True,
-    )
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="A1_Historical",
-    )
+    return _v2(macro, external, residual_params)
 
 
 def run_b2_pb_external(
@@ -308,17 +285,11 @@ def run_b2_pb_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B2 primary-balance external stress test."""
-    shocked_inputs = apply_primary_balance_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    gap = _converged_external_gap(macro, shocked_macro, external, residual_params)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B2_PrimaryBalance",
+    """Run the B2 primary-balance external stress test (v2 facade)."""
+    from lic_dsf.stress.facade import run_external_scenario
+
+    return run_external_scenario(
+        "B2_PrimaryBalance", macro, external, input6, residual_params
     )
 
 
@@ -328,24 +299,10 @@ def run_b1_gdp_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B1 real-GDP external stress test.
+    """Run the B1 real-GDP external stress test (v2 facade)."""
+    from lic_dsf.stress.facade import run_external_scenario
 
-    GDP-only shocks in the LIC-DSF template leave the B1 debt-identity residual
-    (R86) at ~0, so the ResFin overlay is zero and ratios move with the shocked
-    GDP denominator (exports held absolute).
-    """
-    shocked_inputs = apply_real_gdp_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    years = shocked_macro.inputs.years
-    gap = pd.Series(0.0, index=list(years), dtype=float)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B1_GDP",
-    )
+    return run_external_scenario("B1_GDP", macro, external, input6, residual_params)
 
 
 def run_b3_exports_external(
@@ -354,17 +311,11 @@ def run_b3_exports_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B3 exports external stress test."""
-    shocked_inputs = apply_exports_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    gap = _converged_external_gap(macro, shocked_macro, external, residual_params)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B3_Exports",
+    """Run the B3 exports external stress test (v2 facade)."""
+    from lic_dsf.stress.facade import run_external_scenario
+
+    return run_external_scenario(
+        "B3_Exports", macro, external, input6, residual_params
     )
 
 
@@ -374,17 +325,11 @@ def run_b4_other_flows_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B4 other-flows (transfers + FDI) external stress test."""
-    shocked_inputs = apply_other_flows_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    gap = _converged_external_gap(macro, shocked_macro, external, residual_params)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B4_OtherFlows",
+    """Run the B4 other-flows external stress test (v2 facade)."""
+    from lic_dsf.stress.facade import run_external_scenario
+
+    return run_external_scenario(
+        "B4_OtherFlows", macro, external, input6, residual_params
     )
 
 
@@ -394,32 +339,10 @@ def run_b5_fx_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B5 FX-depreciation external stress test."""
-    shocked_inputs = apply_fx_depreciation_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    gap = _converged_external_gap(
-        macro,
-        shocked_macro,
-        external,
-        residual_params,
-        fx_depreciation_pct=input6.fx_depreciation_pct,
-        fx_passthrough=input6.fx_passthrough if input6.interactions_on else 0.0,
-        inflation_elasticity=input6.inflation_elasticity
-        if input6.interactions_on
-        else 0.0,
-        net_exports_elasticity=input6.net_exports_elasticity
-        if input6.interactions_on
-        else 0.0,
-    )
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B5_FX",
-        fx_depreciation_pct=input6.fx_depreciation_pct,
-    )
+    """Run the B5 FX-depreciation external stress test (v2 facade)."""
+    from lic_dsf.stress.facade import run_external_scenario
+
+    return run_external_scenario("B5_FX", macro, external, input6, residual_params)
 
 
 def run_b6_combo_external(
@@ -430,41 +353,11 @@ def run_b6_combo_external(
     *,
     workbook_path: str | Path | None = None,
 ) -> StressExternalBook:
-    """Run the B6 half-size combination external stress test."""
-    shocked_inputs = apply_combo_shock(macro.inputs, input6)
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    add_int = None
-    if workbook_path is not None:
-        from lic_dsf.load.input6 import load_combo_additional_borrowing_interest
+    """Run the B6 combo external stress test (v2 facade; ``workbook_path`` unused)."""
+    del workbook_path
+    from lic_dsf.stress.facade import run_external_scenario
 
-        add_int = load_combo_additional_borrowing_interest(
-            workbook_path, macro.inputs.years
-        )
-    gap = _converged_external_gap(
-        macro,
-        shocked_macro,
-        external,
-        residual_params,
-        fx_depreciation_pct=input6.combo_fx_depreciation_pct,
-        fx_passthrough=input6.fx_passthrough if input6.interactions_on else 0.0,
-        inflation_elasticity=input6.inflation_elasticity
-        if input6.interactions_on
-        else 0.0,
-        net_exports_elasticity=input6.net_exports_elasticity
-        if input6.interactions_on
-        else 0.0,
-        additional_borrowing_interest=add_int,
-    )
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="B6_Combo",
-        fx_depreciation_pct=input6.combo_fx_depreciation_pct,
-        additional_borrowing_interest=add_int,
-    )
+    return run_external_scenario("B6_Combo", macro, external, input6, residual_params)
 
 
 def run_standard_external_stress(
@@ -475,25 +368,12 @@ def run_standard_external_stress(
     *,
     workbook_path: str | Path | None = None,
 ) -> dict[str, StressExternalBook]:
-    """Run the standard external B-tests and return them by scenario id."""
-    return {
-        "B1_GDP": run_b1_gdp_external(macro, external, input6, residual_params),
-        "B2_PrimaryBalance": run_b2_pb_external(
-            macro, external, input6, residual_params
-        ),
-        "B3_Exports": run_b3_exports_external(macro, external, input6, residual_params),
-        "B4_OtherFlows": run_b4_other_flows_external(
-            macro, external, input6, residual_params
-        ),
-        "B5_FX": run_b5_fx_external(macro, external, input6, residual_params),
-        "B6_Combo": run_b6_combo_external(
-            macro,
-            external,
-            input6,
-            residual_params,
-            workbook_path=workbook_path,
-        ),
-    }
+    """Run the standard external B-tests via the v2 facade."""
+    from lic_dsf.stress.facade import run_standard_external_stress as _v2
+
+    return _v2(
+        macro, external, input6, residual_params, workbook_path=workbook_path
+    )
 
 
 @dataclass(slots=True)

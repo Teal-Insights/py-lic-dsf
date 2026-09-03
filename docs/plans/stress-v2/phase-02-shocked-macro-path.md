@@ -1,6 +1,6 @@
 # Phase 2 — MacroShock and ShockedMacroPath
 
-**Status:** Not started  
+**Status:** Complete  
 **Depends on:** [Phase 1](phase-01-context-and-spec.md)  
 **Blocks:** Phases 3–8
 
@@ -18,10 +18,10 @@ only shocked `MacroDebtInputs` and derived denominators (GDP, exports/GDP).
 
 | Item | Location |
 |------|----------|
-| `MacroShock` protocol | `src/lic_dsf/stress_v2/path.py` |
-| Concrete shocks | `src/lic_dsf/stress_v2/shocks/` (or port `stress/shocks.py`) |
-| `ShockedMacroPath` | `src/lic_dsf/stress_v2/path.py` |
-| `ShockMetadata` | `src/lic_dsf/stress_v2/path.py` |
+| `MacroShock` protocol | `src/lic_dsf/stress/path.py` |
+| Concrete shocks | `src/lic_dsf/stress/shocks/` (or port `stress/shocks.py`) |
+| `ShockedMacroPath` | `src/lic_dsf/stress/path.py` |
+| `ShockMetadata` | `src/lic_dsf/stress/path.py` |
 | Parity tests | `tests/test_stress_v2_macro_path.py` |
 
 ## Class responsibilities
@@ -106,10 +106,10 @@ Compare v2 `ShockedMacroPath` series to cached Excel cells via
 
 ## Definition of done
 
-- [ ] All macro-path probes green for A1 + B1–B6 (standard shocks)
-- [ ] Legacy `shocks.py` still passes existing `test_stress_dsa.py` tests
-- [ ] `ShockedMacroPath` has no ResFin or ratio methods
-- [ ] Shock window (proj years 2–3) verified against Excel for each scenario
+- [x] All macro-path probes green for A1 + B1–B6 (standard shocks)
+- [x] Legacy `shocks.py` still passes existing `test_stress_dsa.py` tests
+- [x] `ShockedMacroPath` has no ResFin or ratio methods
+- [x] Shock window (proj years 2–3) verified against Excel for each scenario
 
 ## Out of scope
 
