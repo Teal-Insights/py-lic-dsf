@@ -31,6 +31,7 @@ from lic_dsf.output.realism import (
     output_42_invest_table,
     output_42_multiplier_table,
     placement_summary,
+    realism4_sheet_table,
 )
 from lic_dsf.output.scenario import (
     external_debt_scenarios_table,
@@ -76,6 +77,7 @@ __all__ = [
     "probabilities_table",
     "probability_panel",
     "public_dsa_panel",
+    "realism4_sheet_table",
     "stress_external_panel",
     "stress_public_panel",
 ]

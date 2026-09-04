@@ -230,3 +230,61 @@ def output_42_fiscal_adjustment_table(path: str | Path) -> pd.DataFrame:
     return fiscal_adjustment_panel(
         pub.primary_deficit_to_gdp(), pub.macro.inputs.first_projection_year
     )
+
+
+def realism4_sheet_table(path: str | Path) -> pd.DataFrame:
+    """Excel-shaped ``Realism 4 - Fiscal adjustment`` projection table.
+
+    Rows mirror sheet labels; columns are calendar years from the Realism 4
+    year header (template: 2021–2035). The 3-yr adjustment row is ``NaN`` for
+    years Excel leaves blank (before the first populated R10 cell).
+
+    Args:
+        path: LIC-DSF workbook path.
+
+    Returns:
+        DataFrame indexed by ``Primary deficit`` / ``3-yr Fiscal adjustment``.
+        ``attrs["placement"]`` holds :class:`FiscalAdjustmentPlacement`;
+        ``attrs["histogram"]`` holds the LIC program histogram frame;
+        ``attrs["adjustment_series"]`` holds the full 3-yr series.
+    """
+    from fastpyxl import load_workbook
+
+    from lic_dsf.realism.compare import _as_year
+
+    path = Path(path)
+    _macro, _ext, _eb, pub = load_core(path)
+    first_proj = pub.macro.inputs.first_projection_year
+    pd_pct = pub.primary_deficit_to_gdp().astype(float)
+    adj = three_year_fiscal_adjustment(pd_pct)
+
+    wb = load_workbook(path, data_only=True, read_only=True)
+    try:
+        ws = wb["Realism 4 - Fiscal adjustment"]
+        years_map: dict[int, int] = {}
+        for col in range(6, (ws.max_column or 6) + 1):
+            year = _as_year(ws.cell(8, col).value)
+            if year is not None:
+                years_map[year] = col
+    finally:
+        wb.close()
+
+    years = sorted(years_map)
+    adj_row = adj.reindex(years).astype(float)
+    adj_row.loc[adj_row.index < first_proj] = float("nan")
+
+    table = pd.DataFrame(
+        {
+            "Primary deficit": pd_pct.reindex(years).astype(float),
+            "3-yr Fiscal adjustment": adj_row,
+        }
+    ).T
+    table.columns = years
+
+    panel = fiscal_adjustment_panel(pd_pct, first_proj)
+    table.attrs["placement"] = panel.attrs["placement"]
+    table.attrs["histogram"] = panel.drop(
+        columns=["projected_adjustment"], errors="ignore"
+    )
+    table.attrs["adjustment_series"] = adj
+    return table

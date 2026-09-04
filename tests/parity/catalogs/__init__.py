@@ -9,6 +9,7 @@ from tests.parity.catalogs.output_5 import (
     output_51_probes,
     output_52_probes,
 )
+from tests.parity.catalogs.realism4 import realism4_probes
 from tests.parity.catalogs.resfin import resfin_probes
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "output_32_probes",
     "output_51_probes",
     "output_52_probes",
+    "realism4_probes",
     "resfin_probes",
 ]
