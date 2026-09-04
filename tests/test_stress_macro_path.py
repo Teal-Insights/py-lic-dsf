@@ -1,4 +1,4 @@
-"""Phase 2 macro-path parity: shocked GDP / growth vs external B-sheets."""
+"""Macro-path parity: shocked GDP / growth vs external B-sheets."""
 
 from __future__ import annotations
 
@@ -48,11 +48,6 @@ def _macro_sut(path: ShockedMacroPath, scenario_id: str) -> dict:
         out[(scenario_id, 46, int(year))] = float(gdp.loc[year])
         out[(scenario_id, 50, int(year))] = float(growth.loc[year])
     return out
-
-
-@pytest.fixture(scope="module")
-def stress_context() -> StressContext:
-    return StressContext.from_workbook(WORKBOOK)
 
 
 @pytest.mark.parametrize("scenario_id", tuple(_MACRO_SHEETS))

@@ -1,4 +1,4 @@
-"""Structural tests for stress Phase 1 (context + scenario registry)."""
+"""Structural tests for the stress context and scenario registry."""
 
 from __future__ import annotations
 
@@ -6,7 +6,6 @@ from typing import get_args
 
 import pytest
 
-from lic_dsf.stress.types import StressScenarioId
 from lic_dsf.stress import (
     OutputBinding,
     ResidualPolicyKind,
@@ -16,6 +15,7 @@ from lic_dsf.stress import (
     StressContext,
     StressScenarioRunner,
 )
+from lic_dsf.stress.types import StressScenarioId
 from tests.conftest import WORKBOOK_XLSX
 
 WORKBOOK = WORKBOOK_XLSX
@@ -76,7 +76,7 @@ def test_b2_absolute_policy_and_output_binding() -> None:
 
 
 def test_b5_b6_fx_revalue_off_matches_excel_cache() -> None:
-    """Cached B5/B6 sheets do not include LC-NR reval in R35 (Phase 9 W3)."""
+    """Cached B5/B6 sheets do not include LC-NR reval in R35."""
     assert ScenarioRegistry.get("B5_FX").fx_revalue_portfolio is False
     assert ScenarioRegistry.get("B6_Combo").fx_revalue_portfolio is False
     assert ScenarioRegistry.get("B3_Exports").fx_revalue_portfolio is False

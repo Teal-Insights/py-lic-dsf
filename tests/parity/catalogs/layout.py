@@ -40,12 +40,19 @@ def probes_for_metric_rows(
     first_col: int,
     scenario_id: str,
     rows: tuple[tuple[int, str], ...],
+    last_year: int | None = None,
 ) -> tuple[Probe, ...]:
-    """One probe per ``(sheet_row, year)`` with ``sut_key=(scenario_id, row, year)``."""
+    """One probe per ``(sheet_row, year)`` with ``sut_key=(scenario_id, row, year)``.
+
+    ``last_year`` drops header years beyond the model horizon (ResFin sheets
+    carry amortization columns decades past the projection).
+    """
     years = year_cols(path, sheet, year_row, first_col)
     probes: list[Probe] = []
     for row, label in rows:
         for year, col in sorted(years.items()):
+            if last_year is not None and year > last_year:
+                continue
             probes.append(
                 Probe(
                     sheet=sheet,

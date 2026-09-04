@@ -14,15 +14,15 @@ from tests.parity.probes import Probe
 # Confirmed against the bundled template B1_GDP_ext labels (col B).
 # B5 residual gross borrowing is on row 87 (row 86 is "Increase"); other
 # standard external sheets use row 86.
-EXTERNAL_METRIC_ROWS: tuple[tuple[int, str, str], ...] = (
-    (46, "gdp_usd", "Phase 2"),
-    (50, "real_gdp_growth", "Phase 2"),
-    (19, "exports_to_gdp", "Phase 2–3"),
-    (86, "residual_gross_borrowing", "Phase 3"),
-    (35, "pv_ppg_to_gdp", "Phase 5"),
-    (36, "pv_ppg_to_exports", "Phase 5"),
-    (39, "ppg_ds_to_exports", "Phase 5"),
-    (40, "ppg_ds_to_revenue", "Phase 5"),
+EXTERNAL_METRIC_ROWS: tuple[tuple[int, str], ...] = (
+    (46, "gdp_usd"),
+    (50, "real_gdp_growth"),
+    (19, "exports_to_gdp"),
+    (86, "residual_gross_borrowing"),
+    (35, "pv_ppg_to_gdp"),
+    (36, "pv_ppg_to_exports"),
+    (39, "ppg_ds_to_exports"),
+    (40, "ppg_ds_to_revenue"),
 )
 
 # Scenario-specific residual row overrides (sheet layout differs).
@@ -57,7 +57,7 @@ def bsheet_external_probes(
         )
     residual_row = EXTERNAL_RESIDUAL_ROW.get(scenario_id, 86)
     rows: list[tuple[int, str]] = []
-    for row, label, _phase in EXTERNAL_METRIC_ROWS:
+    for row, label in EXTERNAL_METRIC_ROWS:
         if row == 86:
             rows.append((residual_row, label))
         else:

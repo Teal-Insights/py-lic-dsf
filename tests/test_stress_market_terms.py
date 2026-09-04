@@ -1,4 +1,4 @@
-"""Unit tests for C4 market-term shortening (Phase 13)."""
+"""Unit tests for C4 market-term shortening."""
 
 from __future__ import annotations
 

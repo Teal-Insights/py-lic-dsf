@@ -1,4 +1,4 @@
-"""Phase 4 residual-financing engine: policies, overlays, public GFN loop."""
+"""Residual-financing engine: policies, overlays, public GFN loop."""
 
 from __future__ import annotations
 
@@ -6,7 +6,6 @@ import pandas as pd
 import pytest
 
 from lic_dsf.load import load_input7_residual_params
-from lic_dsf.stress import run_b1_gdp_public, run_b3_exports_external, split_residual_financing
 from lic_dsf.stress import (
     AbsoluteResidualPolicy,
     CappedResidualPolicy,
@@ -14,27 +13,23 @@ from lic_dsf.stress import (
     ScenarioRegistry,
     StressContext,
     StressScenarioRunner,
+    split_residual_financing,
 )
-from lic_dsf.stress.runner.public import PublicScenarioRunner
 from lic_dsf.stress.resfin import policy_from_spec
+from lic_dsf.stress.runner.public import PublicScenarioRunner
 from lic_dsf.stress.spec import ResidualPolicyKind
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output
 from tests.parity.catalogs.layout import probes_for_metric_rows
 from tests.parity.catalogs.resfin import (
+    PV_RESFIN_PUB_SHEET,
     PV_STRESS_B3_ROWS,
     PV_STRESS_SHEET,
     RESFIN_PUB_B1_ROWS,
     RESFIN_PUB_B6_ROWS,
-    PV_RESFIN_PUB_SHEET,
 )
 
 WORKBOOK = WORKBOOK_XLSX
-
-
-@pytest.fixture(scope="module")
-def stress_context() -> StressContext:
-    return StressContext.from_workbook(WORKBOOK)
 
 
 def _sheet_row(
@@ -97,7 +92,7 @@ def test_b3_overlay_from_excel_gap_matches_pv_stress(
     """Given Excel R46 gap, engine PV/interest/amort match ``PV Stress`` B3.
 
     Horizon matches the short projection window used by Excel's CHOOSE-based
-    ResFin schedule (same as legacy residual tests).
+    ResFin schedule.
     """
     years = [2024, 2025, 2026, 2027, 2028]
     gap = _sheet_row(PV_STRESS_SHEET, 3, 4, 46, years)
@@ -135,32 +130,6 @@ def test_b3_overlay_from_excel_gap_matches_pv_stress(
     assert_all_passed(compare_probes(excel, sut))
 
 
-def test_b3_converged_overlay_matches_legacy(
-    stress_context: StressContext,
-) -> None:
-    result = StressScenarioRunner(context=stress_context).run(
-        ScenarioRegistry.get("B3_Exports")
-    )
-    legacy = run_b3_exports_external(
-        stress_context.macro,
-        stress_context.external,
-        stress_context.input6,
-        stress_context.residual,
-    )
-    assert result.resfin.external is not None
-    years = [y for y in result.path.years if y > result.path.first_projection_year]
-    for year in years:
-        assert float(result.resfin.external.pv.loc[year]) == pytest.approx(
-            float(legacy.resfin_pv.loc[year]), abs=1e-9, rel=1e-12
-        ), f"pv {year}"
-        assert float(result.resfin.external.interest.loc[year]) == pytest.approx(
-            float(legacy.resfin_interest.loc[year]), abs=1e-9, rel=1e-12
-        ), f"interest {year}"
-        assert float(result.resfin.external.amortization.loc[year]) == pytest.approx(
-            float(legacy.resfin_amortization.loc[year]), abs=1e-9, rel=1e-12
-        ), f"amort {year}"
-
-
 def test_b1_public_iterative_fill_matches_excel(
     stress_context: StressContext,
 ) -> None:
@@ -170,7 +139,6 @@ def test_b1_public_iterative_fill_matches_excel(
     assert result.resfin.public is not None
     assert result.resfin.converged
     pub = result.resfin.public
-    # Same early-projection window as legacy ``test_run_b1_gdp_public_iterative_*``.
     fill_years = [2025, 2026]
     series_map = {
         67: result.resfin.public_gap,
@@ -273,32 +241,3 @@ def test_b6_public_iterative_fill_matches_excel_2025(
         if series is not None
     }
     assert_all_passed(compare_probes(excel, sut))
-
-
-def test_b1_public_matches_legacy_runner(stress_context: StressContext) -> None:
-    result = StressScenarioRunner(context=stress_context).run(
-        ScenarioRegistry.get("B1_GDP")
-    )
-    legacy = run_b1_gdp_public(
-        stress_context.macro,
-        stress_context.external,
-        stress_context.input6,
-        stress_context.residual,
-    )
-    assert result.resfin.public is not None
-    for year in (2025, 2026):
-        assert float(result.resfin.public.fill.external_mlt_usd.loc[year]) == (
-            pytest.approx(
-                float(legacy.resfin.fill.external_mlt_usd.loc[year]),
-                abs=1e-9,
-                rel=1e-12,
-            )
-        )
-
-
-def test_legacy_residual_pv_still_importable() -> None:
-    from lic_dsf.stress import residual_pv
-    from lic_dsf.stress.residual_pv import split_residual_financing
-
-    assert callable(split_residual_financing)
-    assert residual_pv.ResFinOverlay is not None

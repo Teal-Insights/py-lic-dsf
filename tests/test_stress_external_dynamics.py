@@ -1,10 +1,9 @@
-"""Phase 3 external debt-dynamics parity: R86 gap + R19 exports/GDP."""
+"""External debt-dynamics parity: R86 gap + R19 exports/GDP."""
 
 from __future__ import annotations
 
 import pytest
 
-from lic_dsf.stress import run_b3_exports_external, run_b5_fx_external
 from lic_dsf.stress import ScenarioRegistry, StressContext, StressScenarioRunner
 from lic_dsf.stress.external_dynamics import ExternalDebtDynamics
 from lic_dsf.stress.runner import ScenarioRunResult
@@ -14,7 +13,6 @@ from tests.parity.catalogs.layout import probes_for_metric_rows
 
 WORKBOOK = WORKBOOK_XLSX
 
-# Excel-cached residual matches Python at 1e-6 (Phase 9).
 _EXCEL_GAP_SHEETS: dict[str, tuple[str, int]] = {
     "A1_Historical": ("A1_historical_ext", 86),
     "B1_GDP": ("B1_GDP_ext", 86),
@@ -28,11 +26,6 @@ _EXPORTS_SHEETS: dict[str, str] = {
     "B1_GDP": "B1_GDP_ext",
     "B3_Exports": "B3_Exports_ext",
 }
-
-
-@pytest.fixture(scope="module")
-def stress_context() -> StressContext:
-    return StressContext.from_workbook(WORKBOOK)
 
 
 def _run(ctx: StressContext, scenario_id: str) -> ScenarioRunResult:
@@ -67,33 +60,6 @@ def test_external_gap_matches_bsheet(
         if int(year) > first
     }
     assert_all_passed(compare_probes(excel, sut))
-
-
-@pytest.mark.parametrize("scenario_id", ("B3_Exports", "B5_FX"))
-def test_external_gap_matches_legacy_runner(
-    scenario_id: str, stress_context: StressContext
-) -> None:
-    """Port correctness: v2 residual equals legacy ``run_*_external`` residual."""
-    result = _run(stress_context, scenario_id)
-    if scenario_id == "B3_Exports":
-        legacy = run_b3_exports_external(
-            stress_context.macro,
-            stress_context.external,
-            stress_context.input6,
-            stress_context.residual,
-        )
-    else:
-        legacy = run_b5_fx_external(
-            stress_context.macro,
-            stress_context.external,
-            stress_context.input6,
-            stress_context.residual,
-        )
-    years = [y for y in result.path.years if y > result.path.first_projection_year]
-    for year in years:
-        assert float(result.external_gap.gap.loc[year]) == pytest.approx(
-            float(legacy.residual_borrowing.loc[year]), abs=1e-9, rel=1e-12
-        ), f"{scenario_id} gap {year}"
 
 
 def test_b1_gap_is_near_zero(stress_context: StressContext) -> None:
@@ -135,21 +101,3 @@ def test_exports_to_gdp_matches_r19(
         (scenario_id, 19, int(year)): float(series.loc[year]) for year in series.index
     }
     assert_all_passed(compare_probes(excel, sut))
-
-
-def test_b3_resfin_pv_matches_legacy_overlay(stress_context: StressContext) -> None:
-    """Convergence-loop PV matches legacy book (and Excel R89 after Phase 9)."""
-    result = _run(stress_context, "B3_Exports")
-    legacy = run_b3_exports_external(
-        stress_context.macro,
-        stress_context.external,
-        stress_context.input6,
-        stress_context.residual,
-    )
-    pv = result.external_gap.resfin_pv
-    assert pv is not None
-    years = [y for y in result.path.years if y > result.path.first_projection_year]
-    for year in years:
-        assert float(pv.loc[year]) == pytest.approx(
-            float(legacy.resfin_pv.loc[year]), abs=1e-9, rel=1e-12
-        ), f"ResFin PV {year}"

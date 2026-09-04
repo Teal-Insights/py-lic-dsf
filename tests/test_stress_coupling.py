@@ -1,4 +1,4 @@
-"""Phase 7 coupling, market access, FX revaluation, and combo add.int."""
+"""External/public coupling, market access, FX revaluation, and combo add.int."""
 
 from __future__ import annotations
 
@@ -23,11 +23,6 @@ from tests.parity import assert_all_passed, compare_probes, read_cached_output
 from tests.parity.catalogs.output_3 import output_31_probes
 
 WORKBOOK = WORKBOOK_XLSX
-
-
-@pytest.fixture(scope="module")
-def stress_context() -> StressContext:
-    return StressContext.from_workbook(WORKBOOK)
 
 
 def test_combo_market_cost_matches_workbook_loader(
@@ -105,7 +100,7 @@ def test_coupled_b2_absolute_and_wires_external_gap(
     assert result.public_ratios is not None
     assert result.external_ratios is not None
     assert result.resfin.fill is not None
-    # B2 PB shock leaves external residual at zero (legacy + Excel agree).
+    # B2 PB shock leaves the external residual at zero (matches Excel).
     assert float(result.external_gap.gap.abs().sum()) == pytest.approx(0.0, abs=1e-12)
     assert float(result.resfin.fill.external_mlt_usd.loc[2025]) >= 0.0
 
@@ -148,10 +143,8 @@ def test_market_access_addon_interest(
         assert addon.rates() == (0.0, 0.0)
 
 
-def test_output_31_b2_full_catalog_pv_at_1e6(
-    stress_context: StressContext,
-) -> None:
-    """Output 3-1 B2: all PV indicators × projection years at global tol."""
+def test_output_31_b2_matches_excel(stress_context: StressContext) -> None:
+    """Output 3-1 B2 (public B2 external ratios) matches Excel 2024–2034."""
     result = PublicScenarioRunner(context=stress_context).run(
         ScenarioRegistry.get("B2_PrimaryBalance")
     )
@@ -165,37 +158,9 @@ def test_output_31_b2_full_catalog_pv_at_1e6(
         for p in output_31_probes(WORKBOOK)
         if isinstance(p.sut_key, tuple)
         and p.sut_key[1] == label
-        and p.sut_key[0].startswith("PV of debt")
         and p.year is not None
         and 2024 <= int(p.year) <= 2034
     )
     excel = read_cached_output(WORKBOOK, probes)
     excel = excel[excel["excel_value"].map(lambda v: isinstance(v, (int, float)))]
-    sut = {k: v for k, v in rows.items() if k[0].startswith("PV of debt")}
-    assert_all_passed(compare_probes(excel, sut))
-
-
-def test_output_31_b2_ds_shock_window(
-    stress_context: StressContext,
-) -> None:
-    """Debt-service Output 3-1 B2 matches Excel in the shock window."""
-    result = PublicScenarioRunner(context=stress_context).run(
-        ScenarioRegistry.get("B2_PrimaryBalance")
-    )
-    assert result.public_ratios is not None
-    rows = to_output31_rows(
-        result.public_ratios, scenario_id="B2_PrimaryBalance"
-    )
-    label = EXT_SCENARIO_LABELS["B2_PrimaryBalance"]
-    probes = tuple(
-        p
-        for p in output_31_probes(WORKBOOK)
-        if isinstance(p.sut_key, tuple)
-        and p.sut_key[1] == label
-        and p.sut_key[0].startswith("Debt service")
-        and p.year in {2024, 2025, 2026}
-    )
-    excel = read_cached_output(WORKBOOK, probes)
-    excel = excel[excel["excel_value"].map(lambda v: isinstance(v, (int, float)))]
-    sut = {k: v for k, v in rows.items() if k[0].startswith("Debt service")}
-    assert_all_passed(compare_probes(excel, sut))
+    assert_all_passed(compare_probes(excel, rows))

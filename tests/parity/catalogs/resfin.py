@@ -2,20 +2,32 @@
 
 ``PV_ResFin_pub`` B1 fill: year row 2, first column 4.
 ``PV Stress`` B1 external MLT overlay: year row 3, first column 4.
-``PV_ResFin-add.int.cost - mkt`` B2 assumptions: year row 34, first column 2
-(Phase 7; layout is not a standard B-sheet).
+
+Both sheets carry amortization columns decades past the projection horizon;
+probes are clipped to the model years read from the external B1 sheet.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from tests.parity.catalogs.layout import probes_for_metric_rows
+from tests.parity.catalogs import bsheet_external
+from tests.parity.catalogs.layout import probes_for_metric_rows, year_cols
 from tests.parity.probes import Probe
 
 PV_RESFIN_PUB_SHEET = "PV_ResFin_pub"
 PV_STRESS_SHEET = "PV Stress"
-ADD_INT_SHEET = "PV_ResFin-add.int.cost - mkt"
+
+
+def model_last_year(workbook: str | Path) -> int:
+    """Last projection year of the model (external B1 sheet header)."""
+    years = year_cols(
+        workbook,
+        bsheet_external.EXTERNAL_SHEETS["B1_GDP"],
+        bsheet_external.YEAR_ROW,
+        bsheet_external.FIRST_COL,
+    )
+    return max(years)
 
 # B1 block on PV_ResFin_pub (starts at "Bounds Test 1" row 65).
 RESFIN_PUB_B1_ROWS: tuple[tuple[int, str], ...] = (
@@ -54,13 +66,6 @@ PV_STRESS_B3_ROWS: tuple[tuple[int, str], ...] = (
     (53, "amortization"),
 )
 
-# Phase 7 stub: B2 market-access assumption years in cols B–C.
-ADD_INT_B2_ROWS: tuple[tuple[int, str], ...] = (
-    (35, "pb_deviation_ppt"),
-    (39, "additional_domestic_interest_rate"),
-)
-
-
 def resfin_pub_b1_probes(workbook: str | Path) -> tuple[Probe, ...]:
     """B1 three-way fill on ``PV_ResFin_pub``."""
     return probes_for_metric_rows(
@@ -70,6 +75,7 @@ def resfin_pub_b1_probes(workbook: str | Path) -> tuple[Probe, ...]:
         first_col=4,
         scenario_id="B1_GDP",
         rows=RESFIN_PUB_B1_ROWS,
+        last_year=model_last_year(workbook),
     )
 
 
@@ -82,6 +88,7 @@ def resfin_pub_b6_probes(workbook: str | Path) -> tuple[Probe, ...]:
         first_col=4,
         scenario_id="B6_Combo",
         rows=RESFIN_PUB_B6_ROWS,
+        last_year=model_last_year(workbook),
     )
 
 
@@ -94,6 +101,7 @@ def pv_stress_b1_probes(workbook: str | Path) -> tuple[Probe, ...]:
         first_col=4,
         scenario_id="B1_GDP",
         rows=PV_STRESS_B1_ROWS,
+        last_year=model_last_year(workbook),
     )
 
 
@@ -106,26 +114,14 @@ def pv_stress_b3_probes(workbook: str | Path) -> tuple[Probe, ...]:
         first_col=4,
         scenario_id="B3_Exports",
         rows=PV_STRESS_B3_ROWS,
-    )
-
-
-def add_int_b2_probes(workbook: str | Path) -> tuple[Probe, ...]:
-    """B2 market add.int assumption rows (Phase 7)."""
-    return probes_for_metric_rows(
-        path=workbook,
-        sheet=ADD_INT_SHEET,
-        year_row=34,
-        first_col=2,
-        scenario_id="B2_PrimaryBalance",
-        rows=ADD_INT_B2_ROWS,
+        last_year=model_last_year(workbook),
     )
 
 
 def resfin_probes(workbook: str | Path) -> tuple[Probe, ...]:
-    """All ResFin probes (B1 fill + PV Stress B1/B3 + add.int stub)."""
+    """All ResFin probes (B1 fill + PV Stress B1/B3)."""
     return (
         *resfin_pub_b1_probes(workbook),
         *pv_stress_b1_probes(workbook),
         *pv_stress_b3_probes(workbook),
-        *add_int_b2_probes(workbook),
     )
