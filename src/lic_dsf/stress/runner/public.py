@@ -145,7 +145,7 @@ class PublicScenarioRunner:
         )
         external_gap = _zero_gap(path.years)
 
-        from lic_dsf.stress.public import _a1_public_gdp_lcu
+        from lic_dsf.stress.public_gfn import _a1_public_gdp_lcu
 
         historical = spec.shock_kind is ShockKind.HISTORICAL
         gdp_lcu = _a1_public_gdp_lcu(path.baseline) if historical else None

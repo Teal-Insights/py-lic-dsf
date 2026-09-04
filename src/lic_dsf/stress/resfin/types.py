@@ -1,4 +1,4 @@
-"""ResFin overlay / fill types (re-exported from legacy during migration)."""
+"""ResFin overlay / fill types (re-exported from residual_pv)."""
 
 from __future__ import annotations
 

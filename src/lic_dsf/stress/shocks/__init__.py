@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import ClassVar
 
-import lic_dsf.stress.macro_shocks as _legacy
+import lic_dsf.stress.macro_shocks as _macro_shocks
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
 from lic_dsf.stress.context import StressContext
@@ -54,7 +54,7 @@ class HistoricalShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_historical_averages_shock(ctx.macro.inputs)
+        inputs = _macro_shocks.apply_historical_averages_shock(ctx.macro.inputs)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -64,7 +64,7 @@ class GdpShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_real_gdp_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_real_gdp_shock(ctx.macro.inputs, ctx.input6)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -74,7 +74,7 @@ class PrimaryBalanceShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_primary_balance_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_primary_balance_shock(ctx.macro.inputs, ctx.input6)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -84,7 +84,7 @@ class ExportsShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_exports_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_exports_shock(ctx.macro.inputs, ctx.input6)
         return _path(
             ctx,
             inputs,
@@ -98,7 +98,7 @@ class OtherFlowsShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_other_flows_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_other_flows_shock(ctx.macro.inputs, ctx.input6)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -108,7 +108,7 @@ class FxShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_fx_depreciation_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_fx_depreciation_shock(ctx.macro.inputs, ctx.input6)
         return _path(
             ctx,
             inputs,
@@ -122,7 +122,7 @@ class ComboShock:
 
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
-        inputs = _legacy.apply_combo_shock(ctx.macro.inputs, ctx.input6)
+        inputs = _macro_shocks.apply_combo_shock(ctx.macro.inputs, ctx.input6)
         return _path(
             ctx,
             inputs,
@@ -163,15 +163,15 @@ class MacroShockFactory:
 
 
 # Re-export shock helpers used by tests and package __init__.
-apply_real_gdp_shock = _legacy.apply_real_gdp_shock
-apply_primary_balance_shock = _legacy.apply_primary_balance_shock
-apply_exports_shock = _legacy.apply_exports_shock
-apply_other_flows_shock = _legacy.apply_other_flows_shock
-apply_fx_depreciation_shock = _legacy.apply_fx_depreciation_shock
-apply_combo_shock = _legacy.apply_combo_shock
-apply_historical_averages_shock = _legacy.apply_historical_averages_shock
-real_depreciation_pct = _legacy.real_depreciation_pct
-depreciation_of_nc_pct = _legacy.depreciation_of_nc_pct
+apply_real_gdp_shock = _macro_shocks.apply_real_gdp_shock
+apply_primary_balance_shock = _macro_shocks.apply_primary_balance_shock
+apply_exports_shock = _macro_shocks.apply_exports_shock
+apply_other_flows_shock = _macro_shocks.apply_other_flows_shock
+apply_fx_depreciation_shock = _macro_shocks.apply_fx_depreciation_shock
+apply_combo_shock = _macro_shocks.apply_combo_shock
+apply_historical_averages_shock = _macro_shocks.apply_historical_averages_shock
+real_depreciation_pct = _macro_shocks.real_depreciation_pct
+depreciation_of_nc_pct = _macro_shocks.depreciation_of_nc_pct
 
 __all__ = [
     "ComboShock",

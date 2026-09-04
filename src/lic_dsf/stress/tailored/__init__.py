@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import lic_dsf.stress.tailored_params as _legacy
+import lic_dsf.stress.tailored_params as _params
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
 from lic_dsf.scenario.customized import apply_customized_deltas
@@ -97,7 +97,7 @@ class CombinedCLShock:
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
         params = _require_params(ctx)
-        inputs = _legacy.apply_combined_cl_shock(ctx.macro.inputs, params)
+        inputs = _params.apply_combined_cl_shock(ctx.macro.inputs, params)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -108,7 +108,7 @@ class NaturalDisasterShock:
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
         params = _require_params(ctx)
-        inputs = _legacy.apply_natural_disaster_shock(ctx.macro.inputs, params)
+        inputs = _params.apply_natural_disaster_shock(ctx.macro.inputs, params)
         return _path(ctx, inputs, _metadata(ctx))
 
 
@@ -119,10 +119,10 @@ class CommodityShock:
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
         params = _require_params(ctx)
-        inputs = _legacy.apply_commodity_price_shock(
+        inputs = _params.apply_commodity_price_shock(
             ctx.macro.inputs, params, ctx.input6
         )
-        deflator = _legacy.commodity_public_lcu_deflator_growth(ctx.macro, params)
+        deflator = _params.commodity_public_lcu_deflator_growth(ctx.macro, params)
         return _path(
             ctx,
             inputs,
@@ -141,7 +141,7 @@ class MarketFinancingShock:
     def apply(self, ctx: StressContext, spec: ScenarioSpec) -> ShockedMacroPath:
         del spec
         params = _require_params(ctx)
-        inputs = _legacy.apply_market_financing_shock(
+        inputs = _params.apply_market_financing_shock(
             ctx.macro.inputs, params, ctx.input6
         )
         return _path(

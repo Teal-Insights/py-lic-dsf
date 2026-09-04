@@ -7,6 +7,7 @@ the SUT never reads materialized B-sheet ratios.
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 import pandas as pd
 
@@ -16,9 +17,11 @@ from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.macro_shocks import apply_fx_depreciation_shock
-from lic_dsf.stress.public import StressPublicBook
 from lic_dsf.stress.scenario import StressExternalBook
 from lic_dsf.stress.types import Input6StandardParams
+
+if TYPE_CHECKING:
+    from lic_dsf.stress.public import StressPublicBook
 
 
 @dataclass(frozen=True, slots=True)

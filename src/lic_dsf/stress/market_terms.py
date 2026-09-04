@@ -53,8 +53,8 @@ def shorten_loan_terms(
         g = f - 1.0
     else:
         g = min(float(grace_factor) * f, c)
-    h = int(floor(f))
-    i = int(floor(g))
+    h = floor(f)
+    i = floor(g)
     if h <= i:
         h = i + 1
     return ShortenedLoanTerms(
@@ -127,11 +127,11 @@ def commercial_weighted_resfin_terms(
     if w_sum <= 0.0:
         cap = float(params.market_maturity_cap)
         gf = float(params.market_grace_factor)
-        return cap, cap * gf, int(floor(cap)), int(floor(cap * gf))
+        return cap, cap * gf, floor(cap), floor(cap * gf)
     mat = mat_acc / w_sum
     grace = grace_acc / w_sum
-    mat_r = int(floor(mat))
-    grace_r = int(floor(grace))
+    mat_r = floor(mat)
+    grace_r = floor(grace)
     if mat_r <= grace_r:
         mat_r = grace_r + 1
     return mat, grace, mat_r, grace_r

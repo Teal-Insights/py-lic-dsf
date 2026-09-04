@@ -93,7 +93,7 @@ class CoupledScenarioRunner:
             else 0.0
         )
 
-        from lic_dsf.stress.public import _a1_public_gdp_lcu
+        from lic_dsf.stress.public_gfn import _a1_public_gdp_lcu
 
         historical = spec.shock_kind is ShockKind.HISTORICAL
         gdp_lcu = _a1_public_gdp_lcu(path.baseline) if historical else None

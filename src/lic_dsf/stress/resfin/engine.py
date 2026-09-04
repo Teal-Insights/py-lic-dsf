@@ -18,7 +18,7 @@ import pandas as pd
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.stress.public import _inflation_elasticity
+from lic_dsf.stress.public_gfn import _inflation_elasticity
 from lic_dsf.stress.resfin.policy import ResidualPolicy, policy_from_kind
 from lic_dsf.stress.residual_pv import (
     PublicResFinOverlay,
