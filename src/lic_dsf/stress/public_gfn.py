@@ -8,6 +8,7 @@ import pandas as pd
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.public import (
     _a1_primary_deficit_lcu,
     _a1_public_gdp_lcu,
@@ -19,7 +20,6 @@ from lic_dsf.stress.public import (
 )
 from lic_dsf.stress.residual_pv import PublicResFinOverlay, public_residual_gap
 from lic_dsf.stress.types import Input6StandardParams
-from lic_dsf.stress.path import ShockedMacroPath
 
 
 @dataclass(slots=True)
@@ -27,7 +27,8 @@ class PublicGFNIdentity:
     """Excel public GFN block under a shocked macro path.
 
     Owns GDP LCU compounding, primary deficit, GFN, and residual gap. Does not
-    build ResFin instruments — callers feed overlays from Phase 4.
+    build ResFin instruments — callers feed overlays from
+    :class:`~lic_dsf.stress.resfin.ResidualFinancingEngine`.
     """
 
     path: ShockedMacroPath

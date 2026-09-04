@@ -1,7 +1,7 @@
 """Concrete ``MacroShock`` adapters.
 
-Logic is re-exported from ``lic_dsf.stress.macro_shocks`` to avoid redesign during
-migration. Phase 8 can move the implementations fully under ``stress``.
+Logic is re-exported from ``lic_dsf.stress.macro_shocks``; adapters wrap those
+helpers into the path / metadata objects used by scenario runners.
 """
 
 from __future__ import annotations
@@ -9,9 +9,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import ClassVar
 
+import lic_dsf.stress.macro_shocks as _legacy
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
-import lic_dsf.stress.macro_shocks as _legacy
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import (
     ShockedMacroPath,
@@ -150,10 +150,6 @@ class MacroShockFactory:
     @classmethod
     def from_spec(cls, spec: ScenarioSpec) -> object:
         """Return the concrete shock adapter for ``spec.shock_kind``."""
-        if not spec.implemented:
-            raise NotImplementedError(
-                f"macro shock for {spec.id!r} is not implemented"
-            )
         adapter = cls._BY_KIND.get(spec.shock_kind)
         if adapter is None:
             from lic_dsf.stress.tailored import TAILORED_SHOCKS
@@ -166,7 +162,7 @@ class MacroShockFactory:
         return adapter()
 
 
-# Re-export legacy helpers used by later phases / tests.
+# Re-export shock helpers used by tests and package __init__.
 apply_real_gdp_shock = _legacy.apply_real_gdp_shock
 apply_primary_balance_shock = _legacy.apply_primary_balance_shock
 apply_exports_shock = _legacy.apply_exports_shock

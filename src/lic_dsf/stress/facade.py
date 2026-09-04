@@ -9,8 +9,6 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
-from lic_dsf.stress.tailored_params import TailoredParams
-from lic_dsf.stress.types import Input6StandardParams, StressScenarioId
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.output_map import (
     result_as_legacy_external_book,
@@ -22,6 +20,8 @@ from lic_dsf.stress.runner.external import ExternalScenarioRunner
 from lic_dsf.stress.runner.public import PublicScenarioRunner
 from lic_dsf.stress.spec import ScenarioRegistry
 from lic_dsf.stress.suite import StressSuite
+from lic_dsf.stress.tailored_params import TailoredParams
+from lic_dsf.stress.types import Input6StandardParams, StressScenarioId
 
 
 def neutral_input6() -> Input6StandardParams:
@@ -136,7 +136,7 @@ def run_scenario(
     custom_spec: CustomizedScenarioSpec | None = None,
     public: bool = False,
 ) -> StressScenarioResult:
-    """Run one scenario through the v2 pipeline (raw result)."""
+    """Run one scenario through the stress pipeline (raw result)."""
     ctx = _ctx(
         macro,
         external,
@@ -162,7 +162,7 @@ def run_standard_external_stress(
     *,
     workbook_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Standard B1–B6 external books via v2 (``workbook_path`` ignored)."""
+    """Standard B1–B6 external books (``workbook_path`` ignored)."""
     del workbook_path
     ctx = _ctx(macro, external, input6, residual)
     suite = StressSuite(context=ctx)
@@ -186,7 +186,7 @@ def run_standard_public_stress(
     *,
     market_access: bool = False,
 ) -> dict[str, Any]:
-    """Standard A1 + B1–B6 public books via v2."""
+    """Standard A1 + B1–B6 public books."""
     ctx = _ctx(macro, external, input6, residual, market_access=market_access)
     results = StressSuite(context=ctx).run_public_standard()
     return {
@@ -203,7 +203,7 @@ def run_tailored_external_stress(
     *,
     custom_spec: CustomizedScenarioSpec | None = None,
 ) -> dict[str, Any]:
-    """A2 + C* external books via v2 (respects Input 6 applicability)."""
+    """A2 + C* external books (respects Input 6 applicability)."""
     ctx = _ctx(
         macro,
         external,
@@ -227,7 +227,7 @@ def run_tailored_public_stress(
     *,
     custom_spec: CustomizedScenarioSpec | None = None,
 ) -> dict[str, Any]:
-    """A2 + C* public books via v2 (respects Input 6 applicability)."""
+    """A2 + C* public books (respects Input 6 applicability)."""
     ctx = _ctx(
         macro,
         external,
@@ -247,7 +247,7 @@ def run_a1_historical_external(
     external: ExternalDebtBook,
     residual_params: ResidualFinancingParams,
 ) -> Any:
-    """A1 historical external via v2."""
+    """A1 historical external scenario."""
     return run_external_scenario(
         "A1_Historical", macro, external, _neutral_input6(), residual_params
     )
@@ -258,7 +258,7 @@ def run_a1_historical_public(
     external: ExternalDebtBook,
     residual_params: ResidualFinancingParams,
 ) -> Any:
-    """A1 historical public via v2."""
+    """A1 historical public scenario."""
     return run_public_scenario(
         "A1_Historical", macro, external, _neutral_input6(), residual_params
     )

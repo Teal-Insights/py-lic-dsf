@@ -1,4 +1,4 @@
-"""Batch stress suite: standard + tailored → Output 3-x tables (Phase 8)."""
+"""Batch stress suite: standard + tailored → Output 3-x tables."""
 
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ class StressSuite:
     def run_external_standard(self) -> dict[str, StressScenarioResult]:
         """Run all standard scenarios that feed Output 3-1 from external books.
 
-        Skips B2 (``public_external_methods``) and unimplemented stubs.
+        Skips B2 (``public_external_methods``).
         """
         runner = ExternalScenarioRunner(context=self.context)
         out: dict[str, StressScenarioResult] = {}
@@ -201,15 +201,8 @@ def build_output32_from_suite(
     )
 
 
-# Back-compat aliases.
-build_output31_from_v2_suite = build_output31_from_suite
-build_output32_from_v2_suite = build_output32_from_suite
-
-
 __all__ = [
     "StressSuite",
     "build_output31_from_suite",
-    "build_output31_from_v2_suite",
     "build_output32_from_suite",
-    "build_output32_from_v2_suite",
 ]

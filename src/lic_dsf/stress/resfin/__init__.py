@@ -19,8 +19,8 @@ from lic_dsf.stress.resfin.types import (
     DomMltOverlay,
     DomStOverlay,
     PublicResFinOverlay,
-    ResidualFill,
     ResFinOverlay,
+    ResidualFill,
 )
 
 __all__ = [
@@ -31,11 +31,11 @@ __all__ = [
     "DomMltOverlay",
     "DomStOverlay",
     "PublicResFinOverlay",
+    "ResFinOverlay",
     "ResidualFill",
     "ResidualFinancingEngine",
     "ResidualFinancingResult",
     "ResidualPolicy",
-    "ResFinOverlay",
     "policy_from_kind",
     "policy_from_spec",
 ]

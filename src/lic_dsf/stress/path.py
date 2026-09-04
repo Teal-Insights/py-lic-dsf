@@ -1,4 +1,4 @@
-"""Shocked macro path layer (Phase 2): Input 6 shocks only, no ResFin/ratios."""
+"""Shocked macro path layer: Input 6 shocks only, no ResFin/ratios."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from typing import Protocol
 import pandas as pd
 
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.stress.types import ThresholdRule
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.spec import ScenarioSpec
+from lic_dsf.stress.types import ThresholdRule
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,7 +54,7 @@ class ShockedMacroPath:
         return self.shocked.gdp_usd()
 
     def gdp_lcu(self) -> pd.Series:
-        """Baseline-style LCU GDP (``gdp_usd × fx_pa``). Public B1 R41 is Phase 6."""
+        """Baseline-style LCU GDP (``gdp_usd × fx_pa``). Public B1 R41 uses GFN GDP."""
         return self.shocked.gdp_lcu()
 
     def exports(self) -> pd.Series:

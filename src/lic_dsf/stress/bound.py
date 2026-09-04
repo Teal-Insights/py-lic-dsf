@@ -248,7 +248,7 @@ def external_residual_borrowing(
     is copied unscaled.
 
     Pass ``resfin_interest`` (PV Stress R99) to feed ResFin interest into R25;
-    ``scenario._converged_external_gap`` iterates until gap and overlay agree.
+    ``ExternalDebtDynamics.compute_gap_converged`` iterates until gap and overlay agree.
     ``additional_borrowing_interest`` adds B6 combo R112 (``PV_Base-add.cost.mkt``).
     """
     years = baseline_macro.inputs.years

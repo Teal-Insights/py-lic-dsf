@@ -1,14 +1,13 @@
-"""Tailored A2/C* shock adapters and applicability helpers (Phase 8)."""
+"""Tailored A2/C* shock adapters and applicability helpers."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+import lic_dsf.stress.tailored_params as _legacy
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
 from lic_dsf.scenario.customized import apply_customized_deltas
-from lic_dsf.stress.tailored_params import TailoredParams
-import lic_dsf.stress.tailored_params as _legacy
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import (
     ShockedMacroPath,
@@ -16,6 +15,7 @@ from lic_dsf.stress.path import (
     projection_shock_window,
 )
 from lic_dsf.stress.spec import ScenarioSpec, ShockKind
+from lic_dsf.stress.tailored_params import TailoredParams
 
 
 def _metadata(
@@ -165,12 +165,12 @@ TAILORED_SHOCKS: dict[ShockKind, type] = {
 }
 
 __all__ = [
+    "TAILORED_SHOCKS",
     "CombinedCLShock",
     "CommodityShock",
     "CustomScenarioShock",
     "MarketFinancingShock",
     "NaturalDisasterShock",
-    "TAILORED_SHOCKS",
     "TailoredParams",
     "applicable_tailored_ids",
 ]

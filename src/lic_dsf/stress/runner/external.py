@@ -29,8 +29,6 @@ class ExternalScenarioRunner:
 
     def run(self, spec: ScenarioSpec) -> StressScenarioResult:
         """Run one external-capable scenario end-to-end."""
-        if not spec.implemented:
-            raise NotImplementedError(f"scenario {spec.id!r} is not implemented")
         if (
             spec.couple_ext_r86
             and spec.output_binding.output_31_source == "public_external_methods"
@@ -87,7 +85,7 @@ class ExternalScenarioRunner:
                     commercial_weighted_interest_rate,
                     commercial_weighted_resfin_terms,
                 )
-                mat1, grace1, mat_r1, grace_r1 = commercial_weighted_resfin_terms(
+                _mat1, _grace1, mat_r1, grace_r1 = commercial_weighted_resfin_terms(
                     external,
                     tailored,
                     years=path.years,
@@ -196,7 +194,7 @@ class ExternalScenarioRunner:
         )
 
 
-# Phase 3–4 name: same pipeline, now including ratios.
+# Alias kept for existing imports.
 StressScenarioRunner = ExternalScenarioRunner
 
 __all__ = [

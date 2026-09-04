@@ -1,8 +1,8 @@
-"""External B-sheet debt dynamics (Phase 3): R12–R30 identity → R86 gap.
+"""External B-sheet debt dynamics: R12–R30 identity → R86 gap.
 
 Formulas delegate to ``lic_dsf.stress.bound`` on first pass so Excel semantics
 stay identical. ResFin PV interest feedback uses
-:class:`~lic_dsf.stress.resfin.ResidualFinancingEngine` (Phase 4).
+:class:`~lic_dsf.stress.resfin.ResidualFinancingEngine`.
 """
 
 from __future__ import annotations
@@ -11,10 +11,10 @@ from dataclasses import dataclass
 
 import pandas as pd
 
+import lic_dsf.stress.bound as _bound
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
-import lic_dsf.stress.bound as _bound
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.resfin import EXTERNAL_INTEREST_TOL, ResidualFinancingEngine
@@ -181,7 +181,7 @@ class ExternalDebtDynamics:
         )
 
     def compute_gap_converged(self, *, max_iter: int = 25) -> ExternalGapResult:
-        """Iterate R86 with ResFin interest feedback (legacy ``_converged_external_gap``)."""
+        """Iterate R86 with ResFin interest feedback."""
         years = self.path.years
         if self.ext_r86_zero:
             return self.compute_gap()

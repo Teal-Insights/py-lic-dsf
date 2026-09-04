@@ -1,8 +1,7 @@
 """Tailored (C1–C4) and customized A2 stress shocks as Python runners.
 
-These replace ``CachedStressExternalBook`` as the Output 3-x SUT. Parameters
-are read from Input 6 Tailored Tests / Customized Scenario-External; the
-SUT never reads materialized B-sheet ratios.
+Parameters are read from Input 6 Tailored Tests / Customized Scenario-External;
+the SUT never reads materialized B-sheet ratios.
 """
 
 from __future__ import annotations
@@ -15,10 +14,10 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
-from lic_dsf.scenario.customized import CustomizedScenarioSpec, apply_customized_deltas
-from lic_dsf.stress.public import StressPublicBook, _run_public_stress
-from lic_dsf.stress.scenario import StressExternalBook, _build_book, _converged_external_gap
+from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.macro_shocks import apply_fx_depreciation_shock
+from lic_dsf.stress.public import StressPublicBook
+from lic_dsf.stress.scenario import StressExternalBook
 from lic_dsf.stress.types import Input6StandardParams
 
 
@@ -132,7 +131,11 @@ def apply_commodity_price_shock(
         else:
             shocked_real.loc[year] = base_rg
 
-    from lic_dsf.stress.macro_shocks import _rebuild_levels_from_growth, _align, _hold_nongrant_revenue_to_gdp
+    from lic_dsf.stress.macro_shocks import (
+        _align,
+        _hold_nongrant_revenue_to_gdp,
+        _rebuild_levels_from_growth,
+    )
 
     gdp_constant = _rebuild_levels_from_growth(
         inputs.gdp_constant, tuple(years), first, shocked_real
@@ -352,127 +355,6 @@ def apply_market_financing_shock(
     return apply_fx_depreciation_shock(inputs, shocked)
 
 
-def _external_runner(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    shocked_inputs: MacroDebtInputs,
-    scenario_id,
-    *,
-    fx_depreciation_pct: float = 0.0,
-) -> StressExternalBook:
-    shocked_macro = MacroDebtBook(inputs=shocked_inputs, external=external)
-    gap = _converged_external_gap(macro, shocked_macro, external, residual_params)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked_macro,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id=scenario_id,
-        fx_depreciation_pct=fx_depreciation_pct,
-    )
-
-
-def run_c1_combined_cl_external(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    params: TailoredParams,
-) -> StressExternalBook:
-    """C1 combined contingent-liability external path."""
-    return _external_runner(
-        macro,
-        external,
-        residual_params,
-        apply_combined_cl_shock(macro.inputs, params),
-        "C1_CombinedCL",
-    )
-
-
-def run_c2_natural_disaster_external(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    params: TailoredParams,
-) -> StressExternalBook:
-    """C2 natural-disaster external path (caller must check applicability)."""
-    return _external_runner(
-        macro,
-        external,
-        residual_params,
-        apply_natural_disaster_shock(macro.inputs, params),
-        "C2_NaturalDisaster",
-    )
-
-
-def run_c3_commodity_external(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    params: TailoredParams,
-    input6: Input6StandardParams,
-) -> StressExternalBook:
-    """C3 commodity-price external path."""
-    return _external_runner(
-        macro,
-        external,
-        residual_params,
-        apply_commodity_price_shock(macro.inputs, params, input6),
-        "C3_Commodity",
-    )
-
-
-def run_c4_market_external(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    params: TailoredParams,
-    input6: Input6StandardParams,
-) -> StressExternalBook:
-    """C4 market-financing external path."""
-    return _external_runner(
-        macro,
-        external,
-        residual_params,
-        apply_market_financing_shock(macro.inputs, params, input6),
-        "C4_Market",
-        fx_depreciation_pct=params.market_fx_depreciation_pct,
-    )
-
-
-def run_a2_custom_external(
-    macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    spec: CustomizedScenarioSpec | None,
-) -> StressExternalBook:
-    """A2 customized scenario; baseline path when ``spec`` is None or off."""
-    if spec is None:
-        years = macro.inputs.years
-        gap = pd.Series(0.0, index=list(years), dtype=float)
-        return _build_book(
-            baseline_macro=macro,
-            shocked_macro=macro,
-            external=external,
-            residual_params=residual_params,
-            gap=gap,
-            scenario_id="A2_Custom",
-        )
-    shocked = MacroDebtBook(
-        inputs=apply_customized_deltas(macro.inputs, spec), external=external
-    )
-    gap = _converged_external_gap(macro, shocked, external, residual_params)
-    return _build_book(
-        baseline_macro=macro,
-        shocked_macro=shocked,
-        external=external,
-        residual_params=residual_params,
-        gap=gap,
-        scenario_id="A2_Custom",
-    )
-
-
 def run_tailored_external_stress(
     macro: MacroDebtBook,
     external: ExternalDebtBook,
@@ -482,10 +364,10 @@ def run_tailored_external_stress(
     *,
     custom_spec: CustomizedScenarioSpec | None = None,
 ) -> dict[str, StressExternalBook]:
-    """A2 + C1 always; C2–C4 only when Input 6 marks them applicable (v2)."""
-    from lic_dsf.stress.facade import run_tailored_external_stress as _v2
+    """A2 + C1 always; C2–C4 only when Input 6 marks them applicable."""
+    from lic_dsf.stress.facade import run_tailored_external_stress as _run
 
-    return _v2(
+    return _run(
         macro,
         external,
         residual_params,
@@ -501,9 +383,8 @@ def run_a2_custom_public(
     residual_params: ResidualFinancingParams,
     spec: CustomizedScenarioSpec | None,
 ) -> StressPublicBook:
-    """A2 customized public scenario via v2 facade."""
-    from lic_dsf.stress.facade import run_public_scenario
-    from lic_dsf.stress.facade import _neutral_input6
+    """Run the A2 customized public scenario."""
+    from lic_dsf.stress.facade import _neutral_input6, run_public_scenario
 
     return run_public_scenario(
         "A2_Custom",
@@ -521,7 +402,7 @@ def run_c1_combined_cl_public(
     residual_params: ResidualFinancingParams,
     params: TailoredParams,
 ) -> StressPublicBook:
-    """C1 combined CL public path via v2 facade."""
+    """Run the C1 combined CL public path."""
     from lic_dsf.stress.facade import _neutral_input6, run_public_scenario
 
     return run_public_scenario(
@@ -543,10 +424,10 @@ def run_tailored_public_stress(
     *,
     custom_spec: CustomizedScenarioSpec | None = None,
 ) -> dict[str, StressPublicBook]:
-    """A2 + C1 always; C2–C4 when Input 6 marks them applicable (v2)."""
-    from lic_dsf.stress.facade import run_tailored_public_stress as _v2
+    """A2 + C1 always; C2–C4 when Input 6 marks them applicable."""
+    from lic_dsf.stress.facade import run_tailored_public_stress as _run
 
-    return _v2(
+    return _run(
         macro,
         external,
         residual_params,

@@ -1,4 +1,4 @@
-"""Market-access and combo additional-interest overlays (Phase 7)."""
+"""Market-access and combo additional-interest overlays."""
 
 from __future__ import annotations
 
@@ -10,17 +10,17 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.creditor_groups import creditor_group_for_name
 from lic_dsf.pv.instrument import PresentValueInstrument
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.stress.context import StressContext
+from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.public import (
     _amortizing_stock_from_disbursements,
     _market_add_int_interest_lcu,
     _market_add_int_rates,
     _shock_window_years,
 )
+from lic_dsf.stress.ratios.public import StressPublicRatios
 from lic_dsf.stress.residual_pv import PublicResFinOverlay
 from lic_dsf.stress.tailored_params import TailoredParams
-from lic_dsf.stress.context import StressContext
-from lic_dsf.stress.path import ShockedMacroPath
-from lic_dsf.stress.ratios.public import StressPublicRatios
 
 
 @dataclass(frozen=True, slots=True)

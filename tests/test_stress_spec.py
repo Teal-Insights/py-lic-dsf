@@ -84,7 +84,7 @@ def test_b5_b6_fx_revalue_off_matches_excel_cache() -> None:
     assert ScenarioRegistry.get("C4_Market").ext_r86_zero is True
 
 
-def test_tailored_scenarios_are_implemented() -> None:
+def test_tailored_scenarios_are_registered() -> None:
     for sid in (
         "A2_Custom",
         "C1_CombinedCL",
@@ -93,7 +93,8 @@ def test_tailored_scenarios_are_implemented() -> None:
         "C4_Market",
     ):
         spec = ScenarioRegistry.get(sid)
-        assert spec.implemented is True
+        assert spec.id == sid
+        assert spec.shock_kind.value.startswith("tailored") or sid == "A2_Custom"
 
 
 def test_unknown_id_raises_key_error() -> None:

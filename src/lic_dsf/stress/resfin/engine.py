@@ -19,10 +19,11 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.stress.public import _inflation_elasticity
+from lic_dsf.stress.resfin.policy import ResidualPolicy, policy_from_kind
 from lic_dsf.stress.residual_pv import (
     PublicResFinOverlay,
-    ResidualFill,
     ResFinOverlay,
+    ResidualFill,
     build_public_resfin_overlay,
     external_dsa_residual_params,
     gdp_deflator_growth,
@@ -30,9 +31,8 @@ from lic_dsf.stress.residual_pv import (
     resfin_instrument,
     resfin_overlay_series,
 )
-from lic_dsf.stress.types import Input6StandardParams
-from lic_dsf.stress.resfin.policy import ResidualPolicy, policy_from_kind
 from lic_dsf.stress.spec import ResidualPolicyKind
+from lic_dsf.stress.types import Input6StandardParams
 
 ResFinMode = Literal["external_dsa", "public_dsa"]
 

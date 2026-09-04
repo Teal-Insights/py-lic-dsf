@@ -20,7 +20,7 @@ from lic_dsf.stress.result import StressScenarioResult
 from lic_dsf.stress.shocks import MacroShockFactory
 from lic_dsf.stress.spec import ScenarioRegistry, ScenarioSpec, ShockKind
 
-# Legacy `_run_public_stress` only passes inflation elasticity for these shocks.
+# Input 6 interactions: inflation elasticity applies only to these shocks.
 _INFLATION_SHOCKS = frozenset({ShockKind.GDP, ShockKind.FX, ShockKind.COMBO})
 _FX_PASSTHROUGH_SHOCKS = frozenset(
     {ShockKind.FX, ShockKind.COMBO, ShockKind.TAILORED_MARKET}
@@ -39,10 +39,6 @@ class CoupledScenarioRunner:
 
     def run(self, spec: ScenarioSpec) -> StressScenarioResult:
         """Run one coupled scenario end-to-end."""
-        if not spec.implemented:
-            raise NotImplementedError(
-                f"scenario {spec.id!r} is a tailored stub; fill in Phase 8"
-            )
         ctx = self.context
         shock = MacroShockFactory.from_spec(spec)
         path = shock.apply(ctx, spec)

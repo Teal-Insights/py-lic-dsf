@@ -1,7 +1,7 @@
 """Declarative scenario recipes and registry for stress.
 
 ``ResidualPolicyKind`` selects :class:`~lic_dsf.stress.resfin.CappedResidualPolicy`
-or :class:`~lic_dsf.stress.resfin.AbsoluteResidualPolicy` (Phase 4).
+or :class:`~lic_dsf.stress.resfin.AbsoluteResidualPolicy`.
 """
 
 from __future__ import annotations
@@ -65,7 +65,6 @@ class ScenarioSpec:
     fx_revalue_portfolio: bool
     ext_r86_zero: bool
     output_binding: OutputBinding
-    implemented: bool = True
 
 
 def _standard(
@@ -88,7 +87,6 @@ def _standard(
         fx_revalue_portfolio=fx_revalue_portfolio,
         ext_r86_zero=ext_r86_zero,
         output_binding=OutputBinding(output_31_source=output_31_source),
-        implemented=True,
     )
 
 
@@ -102,7 +100,7 @@ def _tailored(
     output_31_source: Output31Source = "external",
     residual_policy: ResidualPolicyKind = ResidualPolicyKind.CAPPED,
 ) -> ScenarioSpec:
-    """Tailored A2/C* recipe (Phase 8+13)."""
+    """Tailored A2/C* recipe."""
     return ScenarioSpec(
         id=scenario_id,
         shock_kind=shock_kind,
@@ -112,7 +110,6 @@ def _tailored(
         fx_revalue_portfolio=fx_revalue_portfolio,
         ext_r86_zero=ext_r86_zero,
         output_binding=OutputBinding(output_31_source=output_31_source),
-        implemented=True,
     )
 
 
@@ -144,7 +141,7 @@ class ScenarioRegistry:
             "B5_FX",
             ShockKind.FX,
             # Cached B5 sheet does not revalue LC-NR into R35; adjuster remains
-            # available for optional use after workbook recalc (Phase 9 W3).
+            # available for optional use after workbook recalc.
             fx_revalue_portfolio=False,
         ),
         "B6_Combo": _standard(

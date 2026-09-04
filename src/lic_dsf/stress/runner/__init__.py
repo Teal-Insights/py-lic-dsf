@@ -9,7 +9,6 @@ from lic_dsf.stress.runner.external import (
     StressScenarioRunner,
 )
 from lic_dsf.stress.runner.public import PublicScenarioRunner
-from lic_dsf.stress.suite import StressSuite
 
 __all__ = [
     "CoupledScenarioRunner",
@@ -18,5 +17,4 @@ __all__ = [
     "ScenarioRunResult",
     "StressScenarioResult",
     "StressScenarioRunner",
-    "StressSuite",
 ]

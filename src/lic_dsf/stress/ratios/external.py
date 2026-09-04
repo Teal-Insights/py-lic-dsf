@@ -8,8 +8,8 @@ import pandas as pd
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.stress.bound import bsheet_exports_to_gdp
-from lic_dsf.stress.residual_pv import ResFinOverlay
 from lic_dsf.stress.path import ShockedMacroPath
+from lic_dsf.stress.residual_pv import ResFinOverlay
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:

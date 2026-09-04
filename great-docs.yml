@@ -74,7 +74,6 @@ reference:
   - title: Stress tests
     desc: "Input 6 standard stresses and residual financing."
     contents:
-      - stress.CachedStressExternalBook
       - stress.DomMltOverlay
       - stress.DomStOverlay
       - stress.Input6StandardParams
@@ -100,7 +99,6 @@ reference:
       - stress.external_residual_gap
       - stress.flow_shortfall_gap
       - stress.historical_identity_pins
-      - stress.load_cached_external_stress
       - stress.public_dsa_residual_params
       - stress.public_residual_gap
       - stress.real_depreciation_pct

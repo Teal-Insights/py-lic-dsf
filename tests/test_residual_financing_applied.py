@@ -18,6 +18,8 @@ from lic_dsf.load import (
 from lic_dsf.output import stress_public_panel
 from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
 from lic_dsf.stress import (
+    ResidualFinancingEngine,
+    StressPublicBook,
     build_public_resfin_overlay,
     dom_mlt_resfin_series,
     dom_st_resfin_series,
@@ -29,6 +31,8 @@ from lic_dsf.stress import (
     split_residual_financing,
     stressed_external_stock_from_shortfall,
 )
+from lic_dsf.stress.macro_shocks import apply_real_gdp_shock
+from lic_dsf.stress.public import _inflation_elasticity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK = REPO_ROOT / "data" / "lic-dsf-template-2025-08-12.xlsx"
@@ -226,13 +230,48 @@ def test_pv_resfin_pub_b1_fill_parity_with_excel_gap() -> None:
     )
 
 
+def _b1_public_with_excel_gap(
+    macro: MacroDebtBook,
+    external: ExternalDebtBook,
+    input6,
+    params,
+    gap: pd.Series,
+) -> StressPublicBook:
+    """B1 GDP shock with Excel public gap via ResidualFinancingEngine."""
+    shocked_macro = MacroDebtBook(
+        inputs=apply_real_gdp_shock(macro.inputs, input6),
+        external=external,
+    )
+    inflation = _inflation_elasticity(input6)
+    years = shocked_macro.inputs.years
+    result = ResidualFinancingEngine.for_public(
+        params, years, external=external
+    ).solve_public_with_gfn_feedback(
+        macro,
+        shocked_macro,
+        public_gap=gap,
+        input6=input6,
+        inflation_elasticity=inflation,
+    )
+    assert result.public is not None
+    return StressPublicBook(
+        macro=shocked_macro,
+        external=external,
+        baseline_macro=macro,
+        resfin=result.public,
+        scenario_id="B1_GDP_pub",
+        inflation_elasticity=inflation,
+        input6=input6,
+    )
+
+
 def test_run_b1_gdp_public_with_excel_gap() -> None:
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
     params = load_input7_residual_params(WORKBOOK)
     years = [2024, 2025, 2026]
     gap = _sheet_row("PV_ResFin_pub", 2, 4, 67, years)
-    book = run_b1_gdp_public(macro, external, input6, params, public_gap=gap)
+    book = _b1_public_with_excel_gap(macro, external, input6, params, gap)
     assert book.scenario_id == "B1_GDP_pub"
     assert book.resfin.fill.external_mlt_usd.loc[2025] == pytest.approx(
         303.6535436541075, rel=1e-5
@@ -250,7 +289,7 @@ def test_b1_public_gfn_matches_excel_r90_given_excel_gap() -> None:
     params = load_input7_residual_params(WORKBOOK)
     years = list(range(2024, 2035))
     gap = _sheet_row("PV_ResFin_pub", 2, 4, 67, years)
-    book = run_b1_gdp_public(macro, external, input6, params, public_gap=gap)
+    book = _b1_public_with_excel_gap(macro, external, input6, params, gap)
     expected = _sheet_row("B1_GDP_pub", 7, 3, 90, years)
     expected_gdp = _sheet_row("B1_GDP_pub", 7, 3, 41, years)
     got = book.public_gfn()
@@ -274,7 +313,7 @@ def test_b1_public_pv_to_revenue_uses_bsheet_r18() -> None:
     macro, external = _workbook_books()
     input6 = load_input6_standard(WORKBOOK)
     params = load_input7_residual_params(WORKBOOK)
-    book = run_b1_gdp_public(macro, external, input6, params, iterations=4)
+    book = run_b1_gdp_public(macro, external, input6, params)
 
     expected_r95 = _sheet_row("B1_GDP_pub", 7, 3, 95, [2024, 2025, 2026])
     got = book.pv_public_debt_to_revenue_grants()

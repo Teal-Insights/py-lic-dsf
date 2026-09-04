@@ -1,4 +1,4 @@
-"""LC-NR FX portfolio revaluation for B5/B6 (Phase 7)."""
+"""LC-NR FX portfolio revaluation for B5/B6."""
 
 from __future__ import annotations
 

@@ -298,7 +298,7 @@ def split_residual_financing(
         gap_usd = g / fx_y
         if r86 > threshold:
             # Modality 1: ext = gap/FX when R86 exceeds it, else R86 (signed).
-            ext_u = gap_usd if r86 > gap_usd else r86
+            ext_u = min(r86, gap_usd)
         else:
             # Modality 2: share split.
             ext_u = g * j9 / fx_y

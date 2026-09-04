@@ -12,25 +12,7 @@ from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.portfolio import PVPortfolio
-from lic_dsf.stress.bound import (
-    bsheet_exports_to_gdp,
-    external_residual_borrowing,
-    historical_identity_pins,
-)
-from lic_dsf.stress.residual_pv import (
-    external_dsa_residual_params,
-    resfin_instrument,
-    resfin_overlay_series,
-)
-from lic_dsf.stress.macro_shocks import (
-    apply_combo_shock,
-    apply_exports_shock,
-    apply_fx_depreciation_shock,
-    apply_historical_averages_shock,
-    apply_other_flows_shock,
-    apply_primary_balance_shock,
-    apply_real_gdp_shock,
-)
+from lic_dsf.stress.bound import bsheet_exports_to_gdp
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId
 
 
@@ -47,14 +29,6 @@ def _clamp_nonnegative(series: pd.Series) -> pd.Series:
 def _pct(numer: pd.Series, denom: pd.Series) -> pd.Series:
     out = 100.0 * numer / denom.replace(0.0, pd.NA)
     return out.replace([float("inf"), float("-inf")], pd.NA).astype(float)
-
-
-def _discount_rate(external: ExternalDebtBook) -> float:
-    for instrument in external.portfolio.instruments:
-        rate = getattr(instrument, "discount_rate", None)
-        if rate is not None:
-            return float(rate)
-    return 0.05
 
 
 @dataclass(slots=True)
@@ -159,11 +133,6 @@ class StressExternalBook:
         return self.macro.external_gfn()
 
 
-def _zero_overlay(years: tuple[int, ...]) -> tuple[pd.Series, pd.Series, pd.Series]:
-    z = pd.Series(0.0, index=list(years), dtype=float)
-    return z.copy(), z.copy(), z.copy()
-
-
 def rebuild_external_with_fx(
     external: ExternalDebtBook,
     fx_pa: pd.Series,
@@ -191,92 +160,15 @@ def rebuild_external_with_fx(
     )
 
 
-def _converged_external_gap(
-    baseline_macro: MacroDebtBook,
-    shocked_macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    *,
-    max_iter: int = 25,
-    **borrow_kwargs: object,
-) -> pd.Series:
-    """Iterate residual gap with ResFin interest feedback (B-sheet R99 → R25)."""
-    years = shocked_macro.inputs.years
-    year_list = list(years)
-    params = external_dsa_residual_params(residual_params)
-    discount = params.discount_rate or _discount_rate(external)
-    resfin_interest = pd.Series(0.0, index=year_list, dtype=float)
-    gap = pd.Series(0.0, index=year_list, dtype=float)
-    for _ in range(max_iter):
-        gap = external_residual_borrowing(
-            baseline_macro,
-            shocked_macro,
-            resfin_interest=resfin_interest,
-            **borrow_kwargs,
-        )
-        if float(gap.fillna(0.0).abs().sum()) == 0.0:
-            break
-        instrument = resfin_instrument(
-            gap,
-            params,
-            discount_rate=discount,
-            years=years,
-        )
-        overlay = resfin_overlay_series(instrument, years)
-        new_interest = _align(overlay.interest, years).fillna(0.0)
-        if float((new_interest - resfin_interest).abs().max()) < 1e-9:
-            break
-        resfin_interest = new_interest
-    return gap.astype(float)
-
-
-def _build_book(
-    *,
-    baseline_macro: MacroDebtBook,
-    shocked_macro: MacroDebtBook,
-    external: ExternalDebtBook,
-    residual_params: ResidualFinancingParams,
-    gap: pd.Series,
-    scenario_id: StressScenarioId,
-    fx_depreciation_pct: float = 0.0,
-    additional_borrowing_interest: pd.Series | None = None,
-) -> StressExternalBook:
-    years = shocked_macro.inputs.years
-    params = external_dsa_residual_params(residual_params)
-    if float(gap.fillna(0.0).abs().sum()) == 0.0:
-        pv, interest, amort = _zero_overlay(years)
-    else:
-        instrument = resfin_instrument(
-            gap,
-            params,
-            discount_rate=params.discount_rate or _discount_rate(external),
-            years=years,
-        )
-        overlay = resfin_overlay_series(instrument, years)
-        pv, interest, amort = overlay.pv, overlay.interest, overlay.amortization
-    return StressExternalBook(
-        macro=shocked_macro,
-        external=external,
-        resfin_pv=pv,
-        resfin_interest=interest,
-        resfin_amortization=amort,
-        residual_borrowing=_align(gap, years).fillna(0.0).astype(float),
-        scenario_id=scenario_id,
-        baseline_macro=baseline_macro,
-        fx_depreciation_pct=fx_depreciation_pct,
-        additional_borrowing_interest=additional_borrowing_interest,
-    )
-
-
 def run_a1_historical_external(
     macro: MacroDebtBook,
     external: ExternalDebtBook,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the A1 historical-averages external scenario (v2 facade)."""
-    from lic_dsf.stress.facade import run_a1_historical_external as _v2
+    """Run the A1 historical-averages external scenario."""
+    from lic_dsf.stress.facade import run_a1_historical_external as _run
 
-    return _v2(macro, external, residual_params)
+    return _run(macro, external, residual_params)
 
 
 def run_b2_pb_external(
@@ -285,7 +177,7 @@ def run_b2_pb_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B2 primary-balance external stress test (v2 facade)."""
+    """Run the B2 primary-balance external stress test."""
     from lic_dsf.stress.facade import run_external_scenario
 
     return run_external_scenario(
@@ -299,7 +191,7 @@ def run_b1_gdp_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B1 real-GDP external stress test (v2 facade)."""
+    """Run the B1 real-GDP external stress test."""
     from lic_dsf.stress.facade import run_external_scenario
 
     return run_external_scenario("B1_GDP", macro, external, input6, residual_params)
@@ -311,7 +203,7 @@ def run_b3_exports_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B3 exports external stress test (v2 facade)."""
+    """Run the B3 exports external stress test."""
     from lic_dsf.stress.facade import run_external_scenario
 
     return run_external_scenario(
@@ -325,7 +217,7 @@ def run_b4_other_flows_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B4 other-flows external stress test (v2 facade)."""
+    """Run the B4 other-flows external stress test."""
     from lic_dsf.stress.facade import run_external_scenario
 
     return run_external_scenario(
@@ -339,7 +231,7 @@ def run_b5_fx_external(
     input6: Input6StandardParams,
     residual_params: ResidualFinancingParams,
 ) -> StressExternalBook:
-    """Run the B5 FX-depreciation external stress test (v2 facade)."""
+    """Run the B5 FX-depreciation external stress test."""
     from lic_dsf.stress.facade import run_external_scenario
 
     return run_external_scenario("B5_FX", macro, external, input6, residual_params)
@@ -353,7 +245,7 @@ def run_b6_combo_external(
     *,
     workbook_path: str | Path | None = None,
 ) -> StressExternalBook:
-    """Run the B6 combo external stress test (v2 facade; ``workbook_path`` unused)."""
+    """Run the B6 combo external stress test (``workbook_path`` unused)."""
     del workbook_path
     from lic_dsf.stress.facade import run_external_scenario
 
@@ -368,40 +260,9 @@ def run_standard_external_stress(
     *,
     workbook_path: str | Path | None = None,
 ) -> dict[str, StressExternalBook]:
-    """Run the standard external B-tests via the v2 facade."""
-    from lic_dsf.stress.facade import run_standard_external_stress as _v2
+    """Run the standard external B-tests."""
+    from lic_dsf.stress.facade import run_standard_external_stress as _run
 
-    return _v2(
+    return _run(
         macro, external, input6, residual_params, workbook_path=workbook_path
     )
-
-
-@dataclass(slots=True)
-class CachedStressExternalBook:
-    """External DSA ratios materialized from Excel stress sheets.
-
-    Used for A2 customized and tailored C* scenarios until full Python runners
-    exist. Exposes the same ratio methods as `StressExternalBook`.
-    """
-
-    scenario_id: StressScenarioId
-    _pv_ppg_external_to_gdp: pd.Series
-    _pv_ppg_external_to_exports: pd.Series
-    _ppg_debt_service_to_exports: pd.Series
-    _ppg_debt_service_to_revenue: pd.Series
-
-    def pv_ppg_external_to_gdp(self) -> pd.Series:
-        """Cached PV of PPG external debt-to-GDP ratio."""
-        return self._pv_ppg_external_to_gdp
-
-    def pv_ppg_external_to_exports(self) -> pd.Series:
-        """Cached PV of PPG external debt-to-exports ratio."""
-        return self._pv_ppg_external_to_exports
-
-    def ppg_debt_service_to_exports(self) -> pd.Series:
-        """Cached PPG debt service-to-exports ratio."""
-        return self._ppg_debt_service_to_exports
-
-    def ppg_debt_service_to_revenue(self) -> pd.Series:
-        """Cached PPG debt service-to-revenue ratio."""
-        return self._ppg_debt_service_to_revenue

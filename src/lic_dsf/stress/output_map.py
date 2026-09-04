@@ -1,4 +1,4 @@
-"""Map v2 stress results onto Output 3-1 / 3-2 Excel geometry."""
+"""Map stress results onto Output 3-1 / 3-2 Excel geometry."""
 
 from __future__ import annotations
 
@@ -182,7 +182,7 @@ def build_output31_external_table(
     thresholds: dict[str, float] | None = None,
     years: list[int] | None = None,
 ) -> pd.DataFrame:
-    """Build an Output 3-1 MultiIndex table from baseline + external v2 results.
+    """Build an Output 3-1 MultiIndex table from baseline + external results.
 
     When ``public_results`` includes B2 / C1, their public external-ratio
     methods fill Output 3-1 rows. Tailored A2/C3/C4 come from ``results``.
@@ -233,7 +233,7 @@ def build_output32_table(
     public_threshold: float | None = None,
     years: list[int] | None = None,
 ) -> pd.DataFrame:
-    """Build an Output 3-2 MultiIndex table from baseline + public v2 results.
+    """Build an Output 3-2 MultiIndex table from baseline + public results.
 
     B3/B4 use the Excel external-ResFin overlay on baseline public (no
     ``*_pub`` sheet); pass external scenario results for those ids.
@@ -267,7 +267,7 @@ def build_output32_table(
 
 
 def result_as_legacy_external_book(result: StressScenarioResult) -> Any:
-    """Adapt a v2 result to ``StressExternalBook`` for flag-delegated legacy APIs."""
+    """Adapt a scenario result to ``StressExternalBook`` for legacy APIs."""
     from lic_dsf.stress.scenario import StressExternalBook
 
     if result.resfin.external is None or result.external_ratios is None:
@@ -290,7 +290,7 @@ def result_as_legacy_external_book(result: StressScenarioResult) -> Any:
 
 
 def result_as_legacy_public_book(result: StressScenarioResult) -> Any:
-    """Adapt a v2 public result to ``StressPublicBook``."""
+    """Adapt a public scenario result to ``StressPublicBook``."""
     if result.public_ratios is None or result.resfin.public is None:
         raise ValueError("result missing public ratios / ResFin overlay")
     return result.public_ratios._book()

@@ -83,9 +83,8 @@ stress_public_panel(b1_pub)
 ```
 
 `output_31_table(ext_base, historical=…, external_stress=suite)` is the
-Excel-geometry SUT for Output 3-1. `load_cached_external_stress` remains a
-debug dump of B-sheet ratios, not an SUT input. C-tests that Input 6 marks
-Off are omitted (Excel `n.a.`).
+Excel-geometry SUT for Output 3-1. C-tests that Input 6 marks Off are
+omitted (Excel `n.a.`).
 
 ## Excel cues
 

@@ -7,7 +7,6 @@ overlays (external and public three-way fill) to produce B-sheet paths.
 
 from __future__ import annotations
 
-from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
 from lic_dsf.stress.bound import (
     bsheet_exports_to_gdp,
     external_residual_borrowing,
@@ -16,6 +15,11 @@ from lic_dsf.stress.bound import (
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.external_dynamics import ExternalDebtDynamics, ExternalGapResult
 from lic_dsf.stress.external_portfolio import ExternalPortfolioAdjuster
+from lic_dsf.stress.facade import (
+    run_external_scenario,
+    run_public_scenario,
+    run_scenario,
+)
 from lic_dsf.stress.macro_shocks import (
     apply_combo_shock,
     apply_exports_shock,
@@ -74,10 +78,8 @@ from lic_dsf.stress.runner import (
     ExternalScenarioRunner,
     PublicScenarioRunner,
     StressScenarioRunner,
-    StressSuite,
 )
 from lic_dsf.stress.scenario import (
-    CachedStressExternalBook,
     StressExternalBook,
     rebuild_external_with_fx,
     run_a1_historical_external,
@@ -98,6 +100,7 @@ from lic_dsf.stress.spec import (
     ShockKind,
 )
 from lic_dsf.stress.suite import (
+    StressSuite,
     build_output31_from_suite,
     build_output32_from_suite,
 )
@@ -106,22 +109,10 @@ from lic_dsf.stress.tailored_params import (
     run_tailored_external_stress,
     run_tailored_public_stress,
 )
-from lic_dsf.stress.workbook import load_cached_external_stress
-
-# Facade helpers used by advanced callers.
-from lic_dsf.stress.facade import (
-    run_external_scenario,
-    run_public_scenario,
-    run_scenario,
-)
-
-# Historical aliases kept for callers that still say ``*_from_v2_suite``.
-build_output31_from_v2_suite = build_output31_from_suite
-build_output32_from_v2_suite = build_output32_from_suite
+from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
 
 __all__ = [
     "AbsoluteResidualPolicy",
-    "CachedStressExternalBook",
     "CappedResidualPolicy",
     "ComboMarketCost",
     "CoupledScenarioRunner",
@@ -170,9 +161,7 @@ __all__ = [
     "apply_real_gdp_shock",
     "bsheet_exports_to_gdp",
     "build_output31_from_suite",
-    "build_output31_from_v2_suite",
     "build_output32_from_suite",
-    "build_output32_from_v2_suite",
     "build_public_resfin_overlay",
     "dom_mlt_resfin_series",
     "dom_st_resfin_series",
@@ -182,7 +171,6 @@ __all__ = [
     "external_residual_gap",
     "flow_shortfall_gap",
     "historical_identity_pins",
-    "load_cached_external_stress",
     "public_dsa_residual_params",
     "public_residual_gap",
     "real_depreciation_pct",
