@@ -8,42 +8,16 @@ import pandas as pd
 
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.dsa.baseline.public import BaselinePublicBook
+from lic_dsf.stress.output_map import (
+    EXT_INDICATORS as _EXT_INDICATORS,
+    EXT_SCENARIO_LABELS as _EXT_SCENARIO_LABELS,
+    PUB_INDICATORS as _PUB_INDICATORS,
+)
 from lic_dsf.stress.public import StressPublicBook
 from lic_dsf.stress.scenario import StressExternalBook
 
 OUTPUT31_SHEET = "Output 3-1 Stress-external"
 OUTPUT32_SHEET = "Output 3-2 Stress-public"
-
-_EXT_INDICATORS: tuple[tuple[str, str], ...] = (
-    ("PV of debt-to GDP ratio", "pv_ppg_external_to_gdp"),
-    ("PV of debt-to-exports ratio", "pv_ppg_external_to_exports"),
-    ("Debt service-to-exports ratio", "ppg_debt_service_to_exports"),
-    ("Debt service-to-revenue ratio", "ppg_debt_service_to_revenue"),
-)
-
-_PUB_INDICATORS: tuple[tuple[str, str], ...] = (
-    ("PV of Debt-to-GDP Ratio", "pv_public_debt_to_gdp"),
-    ("PV of Debt-to-Revenue Ratio", "pv_public_debt_to_revenue_grants"),
-    ("Debt Service-to-Revenue Ratio", "debt_service_to_revenue_grants"),
-    ("Debt Service-to-GDP Ratio", "debt_service_to_gdp"),
-)
-
-_EXT_SCENARIO_LABELS: dict[str, str] = {
-    "Baseline": "Baseline",
-    "A1_Historical": "A1 historical",
-    "A2_Custom": "A2 custom",
-    "B1_GDP": "B1. Real GDP growth",
-    "B2_PrimaryBalance": "B2. Primary balance",
-    "B3_Exports": "B3. Exports",
-    "B4_OtherFlows": "B4. Other flows",
-    "B5_FX": "B5. Depreciation",
-    "B6_Combo": "B6. Combination of B1-B5",
-    "C1_CombinedCL": "C1. Combined contingent liabilities",
-    "C2_NaturalDisaster": "C2. Natural disaster",
-    "C3_Commodity": "C3. Commodity price",
-    "C4_Market": "C4. Market Financing",
-    "Threshold": "Threshold",
-}
 
 
 def stress_external_panel(book: StressExternalBook) -> pd.DataFrame:

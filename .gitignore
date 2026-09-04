@@ -1,6 +1,7 @@
 .cache/
 data/differential/*.csv
 data/differential/*.txt
+data/parity/*.csv
 *.egg-info/
 *.pyc
 __pycache__/
