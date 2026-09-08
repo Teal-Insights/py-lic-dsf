@@ -288,10 +288,12 @@ def external_residual_borrowing(
         _align(baseline_macro.inputs.current_transfers_net, years), gdp_b
     )
     fdi_b = -_pct_of_gdp(_align(baseline_macro.inputs.fdi, years), gdp_b)
+    # Hoist once: per-year .external_interest() rebuilds the full Ext path.
+    ext_int_b = _align(baseline_macro.external_interest(), years)
+    ext_int_s = _align(shocked_macro.external_interest(), years)
     # Baseline R17 = −(CA + external interest) / GDP × 100.
     r17_b = -_pct_of_gdp(
-        _align(baseline_macro.inputs.current_account, years)
-        + _align(baseline_macro.external_interest(), years),
+        _align(baseline_macro.inputs.current_account, years) + ext_int_b,
         gdp_b,
     )
     r18_b = (imp_b - exp_b).astype(float)
@@ -317,7 +319,7 @@ def external_residual_borrowing(
             real_g=gg,
             deflator_g=dg,
             dep=dep,
-            interest_usd=float(baseline_macro.external_interest().loc[year]),
+            interest_usd=float(ext_int_b.loc[year]),
             lc_share=float(lc_share.loc[prev]),
         )
         r16 = (
@@ -346,11 +348,9 @@ def external_residual_borrowing(
         else:
             dep = float(dep_s.loc[year]) if pd.notna(dep_s.loc[year]) else 0.0
         if resfin_interest is not None:
-            interest = float(shocked_macro.external_interest().loc[year]) + float(
-                resfin_interest.loc[year]
-            )
+            interest = float(ext_int_s.loc[year]) + float(resfin_interest.loc[year])
         else:
-            interest = float(shocked_macro.external_interest().loc[year]) + (
+            interest = float(ext_int_s.loc[year]) + (
                 residual_interest_rate * float(extra.loc[prev])
             )
         if additional_borrowing_interest is not None:
