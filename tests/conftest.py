@@ -24,3 +24,11 @@ skip_without_excel = pytest.mark.skipif(
     not excel_available(),
     reason="live Excel not available (set LIC_DSF_EXCEL=1 on Windows with xlwings)",
 )
+
+
+@pytest.fixture(scope="session")
+def stress_context():
+    """Shared stress inputs loaded once from the bundled template."""
+    from lic_dsf.stress import StressContext
+
+    return StressContext.from_workbook(WORKBOOK_XLSX)

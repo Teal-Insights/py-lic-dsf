@@ -90,6 +90,10 @@ def test_place_in_histogram_matches_template_bin() -> None:
 def test_primary_deficit_and_realism4_parity() -> None:
     from fastpyxl import load_workbook
 
+    from lic_dsf.output import realism4_sheet_table
+    from lic_dsf.realism.compare_realism4 import build_realism4_comparison
+    from tests.parity.equality import ABS_TOL
+
     macro, external = _workbook_books()
     pub = BaselinePublicBook(macro=macro, external=external)
     pd_pct = pub.primary_deficit_to_gdp()
@@ -99,33 +103,35 @@ def test_primary_deficit_and_realism4_parity() -> None:
         base = wb["Baseline - public"]
         year_cols = {
             int(base.cell(7, c).value): c
-            for c in range(4, 30)
+            for c in range(4, 40)
             if isinstance(base.cell(7, c).value, (int, float))
         }
-        for year in (2021, 2022, 2023, 2024, 2025, 2026):
+        for year in range(2021, 2036):
             excel = float(base.cell(23, year_cols[year]).value)
-            assert float(pd_pct.loc[year]) == pytest.approx(excel, rel=1e-6)
+            assert float(pd_pct.loc[year]) == pytest.approx(excel, abs=ABS_TOL)
 
         r4 = wb["Realism 4 - Fiscal adjustment"]
         r4_years = {
             int(r4.cell(8, c).value): c
-            for c in range(6, 15)
+            for c in range(6, 25)
             if isinstance(r4.cell(8, c).value, (int, float))
         }
+        assert max(r4_years) == 2035
         adj = three_year_fiscal_adjustment(pd_pct)
         for year, col in r4_years.items():
             excel_adj = r4.cell(10, col).value
             if not isinstance(excel_adj, (int, float)):
                 continue
-            assert float(adj.loc[year]) == pytest.approx(float(excel_adj), rel=1e-6)
+            assert float(adj.loc[year]) == pytest.approx(float(excel_adj), abs=ABS_TOL)
 
         first_proj = macro.inputs.first_projection_year
         projected = projected_three_year_adjustment(pd_pct, first_proj)
-        assert projected == pytest.approx(float(r4.cell(14, 4).value), rel=1e-6)
+        assert projected == pytest.approx(float(r4.cell(14, 4).value), abs=ABS_TOL)
         placement = place_in_lic_histogram(projected)
         assert placement.category == int(r4.cell(14, 6).value)
+        assert placement.bin_edge == pytest.approx(float(r4.cell(14, 5).value), abs=ABS_TOL)
         assert placement.percent_of_sample == pytest.approx(
-            float(r4.cell(14, 7).value), rel=1e-6
+            float(r4.cell(14, 7).value), abs=ABS_TOL
         )
     finally:
         wb.close()
@@ -133,6 +139,15 @@ def test_primary_deficit_and_realism4_parity() -> None:
     panel = fiscal_adjustment_panel(pd_pct, first_proj)
     assert "percent_of_sample" in panel.columns
     assert panel.attrs["placement"].adjustment == pytest.approx(projected)
+
+    frame = build_realism4_comparison(WORKBOOK)
+    assert int(frame["missing_sut"].sum()) == 0
+    assert bool(frame["passed"].all())
+    table = realism4_sheet_table(WORKBOOK)
+    assert 2035 in table.columns
+    assert float(table.loc["3-yr Fiscal adjustment", 2035]) == pytest.approx(
+        float(adj.loc[2035]), abs=ABS_TOL
+    )
 
 
 def test_fiscal_multiplier_parity() -> None:

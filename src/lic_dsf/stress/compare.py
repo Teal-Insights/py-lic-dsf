@@ -21,7 +21,7 @@ from lic_dsf.load.input6 import load_input6_standard
 from lic_dsf.load.input7 import load_input7_residual_params
 from lic_dsf.load.rating import load_ci_summary
 from lic_dsf.load.tailored import load_customized_public_spec, load_tailored_params
-from lic_dsf.stress import (
+from lic_dsf.stress.facade import (
     run_a1_historical_external,
     run_standard_external_stress,
     run_standard_public_stress,
