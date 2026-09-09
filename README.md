@@ -102,7 +102,7 @@ public_dsa_panel(pub_base)  # Output 1-2
 | `docs/` | Economist-facing guides (Excel → Python) |
 | `demo/` | Runnable notebooks paired with `docs/` |
 | `data/` | Bundled LIC-DSF template (see `NOTICE.md`) |
-| `tests/` | Unit tests; `tests/parity/` golden-master helpers (not installed); `live_excel` is Windows + Excel only |
+| `tests/` | Unit tests; `tests/parity/` golden-master helpers + legacy `excel_compare/` CSV dumps (not installed); `live_excel` is Windows + Excel only |
 
 ## License
 
