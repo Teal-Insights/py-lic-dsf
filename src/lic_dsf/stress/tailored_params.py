@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
+from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.pv.macro_debt.types import MacroDebtInputs
 from lic_dsf.scenario.customized import CustomizedScenarioSpec

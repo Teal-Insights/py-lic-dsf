@@ -1,8 +1,8 @@
 """LIC-DSF stress tests (Input 6 → shocked Macro → ResFin → ratios).
 
-Sibling of ``lic_dsf.pv`` and ``lic_dsf.dsa``. Baseline ratios live in
-``lic_dsf.dsa``; this package applies Input 6 shocks and residual-financing PV
-overlays (external and public three-way fill) to produce B-sheet paths.
+Sibling of ``lic_dsf.pv``, ``lic_dsf.resfin``, and ``lic_dsf.dsa``. Baseline
+ratios live in ``lic_dsf.dsa``; this package applies Input 6 shocks and uses
+``lic_dsf.resfin`` for residual-financing overlays to produce B-sheet paths.
 """
 
 from __future__ import annotations

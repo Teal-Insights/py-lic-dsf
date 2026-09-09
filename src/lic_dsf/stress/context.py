@@ -8,7 +8,7 @@ from pathlib import Path
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.dsa.baseline.public import BaselinePublicBook
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
+from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.tailored_params import TailoredParams

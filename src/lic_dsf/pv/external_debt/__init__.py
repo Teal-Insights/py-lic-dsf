@@ -28,13 +28,6 @@ from lic_dsf.pv.external_debt.panels import (
     existing_service_totals,
     memorandum,
 )
-from lic_dsf.pv.external_debt.residual import (
-    ResidualFinancingOverrides,
-    ResidualFinancingParams,
-    calculate_residual_defaults,
-    public_dsa_residual_params,
-    resolve_residual_params,
-)
 from lic_dsf.pv.external_debt.types import ExternalDebtInputs
 
 __all__ = [
@@ -42,9 +35,6 @@ __all__ = [
     "INPUT4_ROW_TO_GROUP",
     "ExternalDebtBook",
     "ExternalDebtInputs",
-    "ResidualFinancingOverrides",
-    "ResidualFinancingParams",
-    "calculate_residual_defaults",
     "creditor_group_for_name",
     "debt_evolution",
     "existing_debt_service",
@@ -62,6 +52,4 @@ __all__ = [
     "new_interest_by_creditor",
     "new_pv_by_creditor",
     "new_stock_by_creditor",
-    "public_dsa_residual_params",
-    "resolve_residual_params",
 ]

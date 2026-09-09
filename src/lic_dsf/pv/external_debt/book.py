@@ -47,12 +47,6 @@ from lic_dsf.pv.external_debt.panels import (
 from lic_dsf.pv.external_debt.panels import (
     memorandum as _memorandum,
 )
-from lic_dsf.pv.external_debt.residual import (
-    ResidualFinancingOverrides,
-    ResidualFinancingParams,
-    calculate_residual_defaults,
-    resolve_residual_params,
-)
 
 if TYPE_CHECKING:
     from lic_dsf.pv.external_debt.types import ExternalDebtInputs
@@ -236,22 +230,6 @@ class ExternalDebtBook:
     def grant_element_value(self) -> pd.Series:
         """Grant-element dollar amount of new disbursements (Ext R409)."""
         return _grant_element_value(self)
-
-    def residual_defaults(self, *, average_years: int = 11) -> ResidualFinancingParams:
-        """Input 7 default shares/terms (Ext ``C126–C128``, ``C131–C133``)."""
-        return calculate_residual_defaults(self, average_years=average_years)
-
-    def residual_params(
-        self,
-        overrides: ResidualFinancingOverrides | None = None,
-        *,
-        average_years: int = 11,
-    ) -> ResidualFinancingParams:
-        """Defaults with optional Input 7-style per-field overrides."""
-        return resolve_residual_params(
-            self.residual_defaults(average_years=average_years),
-            overrides,
-        )
 
     def summary(self) -> pd.DataFrame:
         """Ext_Debt-shaped headline table (totals)."""

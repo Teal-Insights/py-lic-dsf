@@ -1,27 +1,24 @@
-"""Residual financing engine package."""
+"""Residual financing engine package (shim → ``lic_dsf.resfin``)."""
 
 from __future__ import annotations
 
-from lic_dsf.stress.resfin.engine import (
+from lic_dsf.resfin import (
     EXTERNAL_INTEREST_TOL,
     PUBLIC_GAP_TOL,
-    ResidualFinancingEngine,
-    ResidualFinancingResult,
-)
-from lic_dsf.stress.resfin.policy import (
     AbsoluteResidualPolicy,
     CappedResidualPolicy,
-    ResidualPolicy,
-    policy_from_kind,
-    policy_from_spec,
-)
-from lic_dsf.stress.resfin.types import (
     DomMltOverlay,
     DomStOverlay,
     PublicResFinOverlay,
     ResFinOverlay,
     ResidualFill,
+    ResidualFinancingEngine,
+    ResidualFinancingResult,
+    ResidualPolicy,
+    ResidualPolicyKind,
+    policy_from_kind,
 )
+from lic_dsf.stress.resfin.policy import policy_from_spec
 
 __all__ = [
     "EXTERNAL_INTEREST_TOL",
@@ -36,6 +33,7 @@ __all__ = [
     "ResidualFinancingEngine",
     "ResidualFinancingResult",
     "ResidualPolicy",
+    "ResidualPolicyKind",
     "policy_from_kind",
     "policy_from_spec",
 ]

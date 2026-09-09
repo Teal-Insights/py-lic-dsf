@@ -19,6 +19,8 @@ from lic_dsf.pv import (
     ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
+)
+from lic_dsf.resfin import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     calculate_residual_defaults,
@@ -145,12 +147,12 @@ def test_resolve_residual_params_partial_share_renormalizes_st() -> None:
     assert resolved.domestic_st_share == pytest.approx(0.3)
 
 
-def test_book_residual_params_delegates() -> None:
+def test_resolve_residual_params_with_book_defaults() -> None:
     book = _synthetic_book()
-    defaults = book.residual_defaults(average_years=2)
-    resolved = book.residual_params(
+    defaults = calculate_residual_defaults(book, average_years=2)
+    resolved = resolve_residual_params(
+        defaults,
         ResidualFinancingOverrides(avg_grace=3.0),
-        average_years=2,
     )
     assert resolved.avg_grace == pytest.approx(3.0)
     assert resolved.avg_grace_rounded == 3

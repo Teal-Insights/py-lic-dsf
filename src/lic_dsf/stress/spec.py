@@ -1,7 +1,7 @@
 """Declarative scenario recipes and registry for stress.
 
-``ResidualPolicyKind`` selects :class:`~lic_dsf.stress.resfin.CappedResidualPolicy`
-or :class:`~lic_dsf.stress.resfin.AbsoluteResidualPolicy`.
+``ResidualPolicyKind`` selects :class:`~lic_dsf.resfin.CappedResidualPolicy`
+or :class:`~lic_dsf.resfin.AbsoluteResidualPolicy`.
 """
 
 from __future__ import annotations
@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import ClassVar, Literal, get_args
 
+from lic_dsf.resfin import ResidualPolicyKind
 from lic_dsf.stress.types import StressScenarioId
 
 Output31Source = Literal["external", "public_external_methods"]
@@ -31,13 +32,6 @@ class ShockKind(str, Enum):
     TAILORED_NATURAL_DISASTER = "tailored_natural_disaster"
     TAILORED_COMMODITY = "tailored_commodity"
     TAILORED_MARKET = "tailored_market"
-
-
-class ResidualPolicyKind(str, Enum):
-    """ResFin split policy marker for :func:`lic_dsf.stress.resfin.policy_from_kind`."""
-
-    CAPPED = "capped"
-    ABSOLUTE = "absolute"
 
 
 @dataclass(frozen=True, slots=True)

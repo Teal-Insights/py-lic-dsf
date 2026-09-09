@@ -9,7 +9,7 @@ import pandas as pd
 
 from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.external_debt.creditor_groups import creditor_group_for_name
-from lic_dsf.pv.external_debt.residual import (
+from lic_dsf.resfin import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,
     resolve_residual_params,

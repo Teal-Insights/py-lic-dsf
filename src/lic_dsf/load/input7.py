@@ -8,7 +8,7 @@ from typing import Any
 from fastpyxl import load_workbook
 
 from lic_dsf.load._cells import _as_float
-from lic_dsf.pv.external_debt.residual import ResidualFinancingParams
+from lic_dsf.resfin import ResidualFinancingParams
 
 _INPUT7 = "Input 7 - Residual Financing"
 

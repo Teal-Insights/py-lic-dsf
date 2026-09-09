@@ -90,10 +90,11 @@ public_dsa_panel(pub_base)  # Output 1-2
 | Path | Contents |
 |---|---|
 | `src/lic_dsf/pv/` | Instruments, Ext/Dom/Macro books |
+| `src/lic_dsf/resfin/` | Input 7 residual financing (params, overlays, engine) |
 | `src/lic_dsf/load/` | Excel Input / CI / Realism sheet parsers |
 | `src/lic_dsf/dsa/` | Baseline sustainability ratios |
 | `src/lic_dsf/output/` | Output-sheet DataFrames (panels and Excel-geometry tables) |
-| `src/lic_dsf/stress/` | Input 6 stresses + residual financing |
+| `src/lic_dsf/stress/` | Input 6 stresses (uses `resfin`) |
 | `src/lic_dsf/realism/` | Realism 1–4 math |
 | `src/lic_dsf/rating/` | CI thresholds, Chart Data, mechanical ratings |
 | `src/lic_dsf/scenario/` | Customized Scenario / Probability math |

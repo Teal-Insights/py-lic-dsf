@@ -40,7 +40,7 @@ reference:
       - load.load_trigger_flags
 
   - title: Present Value
-    desc: "Instruments, Ext/Dom/Macro debt books, and residual-financing math."
+    desc: "Instruments and Ext/Dom/Macro debt books."
     contents:
       - pv.DomesticDebtBook
       - pv.DomesticDebtInputs
@@ -51,19 +51,29 @@ reference:
       - pv.MacroDebtInputs
       - pv.PVPortfolio
       - pv.PresentValueInstrument
-      - pv.ResidualFinancingOverrides
-      - pv.ResidualFinancingParams
-      - pv.calculate_residual_defaults
       - pv.creditor_group_for_name
       - pv.excel_npv
       - pv.grant_element_new_disbursements
       - pv.grant_element_value
       - pv.new_disbursements_net_of_ge
-      - pv.public_dsa_residual_params
-      - pv.resolve_residual_params
       - pv.CREDITOR_GROUPS
       - pv.DEFAULT_PEER_MEDIAN_DEBT_TO_GDP
       - pv.DEFAULT_PEER_MEDIAN_DS_TO_REVENUES
+
+  - title: Residual financing
+    desc: "Input 7 params, ResFin overlays, and fixed-point engine."
+    contents:
+      - resfin.ResidualFinancingOverrides
+      - resfin.ResidualFinancingParams
+      - resfin.ResidualFinancingEngine
+      - resfin.ResidualFinancingResult
+      - resfin.ResidualPolicyKind
+      - resfin.calculate_residual_defaults
+      - resfin.resolve_residual_params
+      - resfin.external_dsa_residual_params
+      - resfin.public_dsa_residual_params
+      - resfin.resfin_instrument
+      - resfin.build_public_resfin_overlay
 
   - title: Baseline DSA
     desc: "Baseline sustainability ratios (Output 1-1 / 1-2)."
@@ -72,7 +82,7 @@ reference:
       - dsa.BaselinePublicBook
 
   - title: Stress tests
-    desc: "Input 6 standard stresses and residual financing."
+    desc: "Input 6 standard stresses (uses lic_dsf.resfin)."
     contents:
       - stress.DomMltOverlay
       - stress.DomStOverlay

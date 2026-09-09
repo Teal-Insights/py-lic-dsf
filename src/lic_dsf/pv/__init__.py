@@ -9,6 +9,8 @@ Mirrors the standard ``PV_Base`` instrument template:
 
 Year indexing matches LIC-DSF: column ``t`` uses age ``t - 1`` for the
 grace/maturity amortization window on the unit loan.
+
+Residual financing (Input 7 / ResFin) lives in ``lic_dsf.resfin``.
 """
 
 from __future__ import annotations
@@ -23,15 +25,10 @@ from lic_dsf.pv.external_debt import (
     CREDITOR_GROUPS,
     ExternalDebtBook,
     ExternalDebtInputs,
-    ResidualFinancingOverrides,
-    ResidualFinancingParams,
-    calculate_residual_defaults,
     creditor_group_for_name,
     grant_element_new_disbursements,
     grant_element_value,
     new_disbursements_net_of_ge,
-    public_dsa_residual_params,
-    resolve_residual_params,
 )
 from lic_dsf.pv.instrument import PresentValueInstrument
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
@@ -52,14 +49,9 @@ __all__ = [
     "MacroDebtInputs",
     "PVPortfolio",
     "PresentValueInstrument",
-    "ResidualFinancingOverrides",
-    "ResidualFinancingParams",
-    "calculate_residual_defaults",
     "creditor_group_for_name",
     "excel_npv",
     "grant_element_new_disbursements",
     "grant_element_value",
     "new_disbursements_net_of_ge",
-    "public_dsa_residual_params",
-    "resolve_residual_params",
 ]

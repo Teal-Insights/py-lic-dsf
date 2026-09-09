@@ -1,8 +1,8 @@
-"""ResFin overlay / fill types (re-exported from residual_pv)."""
+"""Compatibility shim — import from ``lic_dsf.resfin`` instead."""
 
 from __future__ import annotations
 
-from lic_dsf.stress.residual_pv import (
+from lic_dsf.resfin import (
     DomMltOverlay,
     DomStOverlay,
     PublicResFinOverlay,

@@ -22,8 +22,8 @@ from lic_dsf.pv import (
     MacroDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
-    ResidualFinancingParams,
 )
+from lic_dsf.resfin import ResidualFinancingParams, calculate_residual_defaults
 from lic_dsf.stress import (
     Input6StandardParams,
     StressExternalBook,
@@ -325,7 +325,7 @@ def test_a1_growth_gdp_parity() -> None:
 def test_a1_pv_gdp_parity() -> None:
     years = [2024, 2025, 2026, 2027]
     macro, external, _params = _workbook_bundle()
-    residual = external.residual_params()
+    residual = calculate_residual_defaults(external)
     book = run_a1_historical_external(macro, external, residual)
     got = book.pv_ppg_external_to_gdp().reindex(years)
     expected = _sheet_cached("A1_historical_ext", 8, 3, 35, years)
@@ -434,7 +434,7 @@ def test_run_b1_and_panel_synthetic() -> None:
 def test_b1_gdp_external_parity(method: str, row: int) -> None:
     years = [2024, 2025, 2026, 2027]
     macro, external, params = _workbook_bundle()
-    residual = external.residual_params()
+    residual = calculate_residual_defaults(external)
     book = run_b1_gdp_external(macro, external, params, residual)
     got = getattr(book, method)().reindex(years)
     expected = _sheet_cached("B1_GDP_ext", 8, 3, row, years)
@@ -446,7 +446,7 @@ def test_b1_gdp_external_parity(method: str, row: int) -> None:
 
 def test_run_standard_external_stress_registry() -> None:
     macro, external, params = _workbook_bundle()
-    residual = external.residual_params()
+    residual = calculate_residual_defaults(external)
     results = run_standard_external_stress(macro, external, params, residual)
     assert set(results) >= {
         "B1_GDP",
@@ -483,7 +483,7 @@ def test_standard_external_ratio_parity(
 ) -> None:
     years = [2024, 2025, 2026, 2027, 2028]
     macro, external, params = _workbook_bundle()
-    residual = external.residual_params()
+    residual = calculate_residual_defaults(external)
     book = run_standard_external_stress(macro, external, params, residual)[scenario_id]
     got = getattr(book, method)().reindex(years)
     expected = _sheet_cached(sheet, 8, 3, row, years)
@@ -516,7 +516,7 @@ def test_real_depreciation_pct_matches_b5_b6_e43() -> None:
 def test_b5_fx_gdp_and_baseline_year_parity() -> None:
     years = [2024, 2025]
     macro, external, params = _workbook_bundle()
-    residual = external.residual_params()
+    residual = calculate_residual_defaults(external)
     book = run_standard_external_stress(macro, external, params, residual)["B5_FX"]
     expected_gdp = _sheet_cached("B5_depreciation_ext", 8, 3, 46, years)
     for year in years:
