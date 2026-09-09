@@ -82,6 +82,10 @@ def test_b5_b6_fx_revalue_off_matches_excel_cache() -> None:
     assert ScenarioRegistry.get("B3_Exports").fx_revalue_portfolio is False
     assert ScenarioRegistry.get("C4_Market").fx_revalue_portfolio is False
     assert ScenarioRegistry.get("C4_Market").ext_r86_zero is True
+    c2 = ScenarioRegistry.get("C2_NaturalDisaster")
+    assert c2.ext_r86_zero is True
+    assert c2.couple_ext_r86 is False
+    assert c2.output_binding.output_31_source == "public_external_methods"
 
 
 def test_tailored_scenarios_are_registered() -> None:

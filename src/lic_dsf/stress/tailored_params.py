@@ -48,6 +48,13 @@ class TailoredParams:
     # C3 real-GDP / revenue ppt shocks (Input 6 L26 / L27).
     commodity_gdp_shock_ppt: float = 0.0
     commodity_revenue_drop_ppt: float = 0.0
+    # C3 export-factor components (Input 6 → C3 AA70/AA71/AA73/AA74).
+    # Excel E111 uses share × (fuel_p×fuel_s + nonfuel_p×nonfuel_s), not
+    # share² × avg; avg (H46 / AA76) drives deflator interaction only.
+    commodity_fuel_price_shock: float = 0.0
+    commodity_fuel_share: float = 0.0
+    commodity_nonfuel_price_shock: float = 0.0
+    commodity_nonfuel_share: float = 0.0
     # C2 associated real-GDP / exports growth ppt (Input 6 L21 / L22).
     disaster_gdp_shock_ppt: float = 0.0
     disaster_exports_shock_ppt: float = 0.0
@@ -194,8 +201,11 @@ def apply_commodity_price_shock(
 
     * R111 / exports: full shock in projection year 2 only; later years fade
       the **exports/GDP gap** vs baseline over ``commodity_close_years``.
+      Shock factor matches Excel E111:
+      ``1 + share × (fuel_p×fuel_s + nonfuel_p×nonfuel_s)``.
     * R50 real GDP: subtract ``commodity_gdp_shock_ppt`` for years 2–4, then
       fade that ppt through the close window (not B3 export-growth ε).
+    * Deflator interaction uses ``commodity_avg_price_shock`` (AA76 / H46).
     """
     years = list(inputs.years)
     first = inputs.first_projection_year
@@ -203,7 +213,14 @@ def apply_commodity_price_shock(
     exports_b = inputs.exports.reindex(years).astype(float)
     gdp_b = inputs.gdp_usd.reindex(years).astype(float)
     share = float(params.commodity_adj_share)
-    factor = 1.0 + share * share * float(params.commodity_avg_price_shock)
+    # Excel C3_Commodity prices_ext!E111:
+    # 1 + (AA68×AA73×AA74 + AA68×AA70×AA71)
+    factor = 1.0 + share * (
+        float(params.commodity_fuel_price_shock)
+        * float(params.commodity_fuel_share)
+        + float(params.commodity_nonfuel_price_shock)
+        * float(params.commodity_nonfuel_share)
+    )
     close = max(int(params.commodity_close_years), 1)
     gdp_ppt = float(params.commodity_gdp_shock_ppt)
     rev_ppt = float(params.commodity_revenue_drop_ppt)

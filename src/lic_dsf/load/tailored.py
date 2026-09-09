@@ -60,6 +60,18 @@ def load_tailored_params(path: str | Path) -> TailoredParams:
             ),
             commodity_adj_share=adj_share,
             commodity_avg_price_shock=avg_shock,
+            commodity_fuel_price_shock=_safe_prefer(
+                ws.cell(32, 7).value, ws.cell(32, 8).value
+            ),
+            commodity_fuel_share=_safe_prefer(
+                ws.cell(34, 7).value, ws.cell(34, 8).value
+            ),
+            commodity_nonfuel_price_shock=_safe_prefer(
+                ws.cell(36, 7).value, ws.cell(36, 8).value
+            ),
+            commodity_nonfuel_share=_safe_prefer(
+                ws.cell(44, 7).value, ws.cell(44, 8).value
+            ),
             market_cost_bps=_safe_prefer(ws.cell(52, 7).value, ws.cell(52, 8).value),
             market_fx_depreciation_pct=_safe_prefer(
                 ws.cell(58, 7).value, ws.cell(58, 8).value
@@ -73,11 +85,18 @@ def load_tailored_params(path: str | Path) -> TailoredParams:
                 ws.cell(55, 7).value, ws.cell(55, 8).value
             ),
             market_grace_factor=_safe_prefer(ws.cell(56, 7).value, ws.cell(56, 8).value),
-            commodity_gdp_shock_ppt=_safe_prefer(
-                ws.cell(26, 11).value, ws.cell(26, 12).value
+            # Excel K26=G46*0.5/-10%, K27=G46*0.75/-10% when C3 On. Prefer
+            # deriving from avg so G46/H46 overlays are not masked by stale
+            # K/L caches under data_only=True.
+            commodity_gdp_shock_ppt=(
+                avg_shock * 0.5 / -0.10
+                if flags["C3_Commodity"]
+                else 0.0
             ),
-            commodity_revenue_drop_ppt=_safe_prefer(
-                ws.cell(27, 11).value, ws.cell(27, 12).value
+            commodity_revenue_drop_ppt=(
+                avg_shock * 0.75 / -0.10
+                if flags["C3_Commodity"]
+                else 0.0
             ),
             cl_shock_pct_gdp=cl_pct,
         )

@@ -19,8 +19,8 @@
     ]
   },
   "oracle": {
-    "minted_at": null,
-    "template_sha": null,
-    "excel_build": null
+    "minted_at": "2026-09-09T13:25:19Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "grapher"
   }
 }

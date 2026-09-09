@@ -301,8 +301,13 @@ class StressPublicRatios:
         new_borrowing = [
             float(disb.loc[y]) if y in shock_years else 0.0 for y in proj
         ]
+        # Use the same residual external terms as the scenario's public ResFin
+        # instrument (Input 7 E16/E17 overlays), not fixed template 9/4.
+        ext_inst = self.resfin.ext.instrument
+        grace = int(getattr(ext_inst, "grace", 4))
+        maturity = int(getattr(ext_inst, "maturity", 9))
         stock_proj = _amortizing_stock_from_disbursements(
-            new_borrowing, grace=4, maturity=9
+            new_borrowing, grace=grace, maturity=maturity
         )
         out = pd.Series(0.0, index=years, dtype=float)
         for year, value in zip(proj, stock_proj, strict=True):

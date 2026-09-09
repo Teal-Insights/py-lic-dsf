@@ -1,10 +1,10 @@
 {
-  "id": "overlay-inflation-elast-output31",
+  "id": "overlay-market-grace-factor-output31",
   "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
-  "description": "Input 6 inflation elasticity 1.0 (was 0.6); Output 3-1.",
+  "description": "Tailored C4 market grace factor 0.5 (was 2/3); Output 3-1.",
   "inputs": {
     "presets": [
-      "higher_inflation_elasticity"
+      "lower_market_grace_factor"
     ],
     "overlays": []
   },
@@ -19,7 +19,7 @@
     ]
   },
   "oracle": {
-    "minted_at": "2026-09-09T13:18:45Z",
+    "minted_at": "2026-09-09T14:58:06Z",
     "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
     "excel_build": "grapher"
   }

@@ -1,10 +1,10 @@
 {
-  "id": "overlay-inflation-elast-output31",
+  "id": "overlay-commodity-fuel-price-severe-output31",
   "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
-  "description": "Input 6 inflation elasticity 1.0 (was 0.6); Output 3-1.",
+  "description": "Tailored fuel price -0.50 (was ~-0.31) with derived avg/GDP ppt; Output 3-1 C3.",
   "inputs": {
     "presets": [
-      "higher_inflation_elasticity"
+      "more_severe_fuel_price"
     ],
     "overlays": []
   },
@@ -19,7 +19,7 @@
     ]
   },
   "oracle": {
-    "minted_at": "2026-09-09T13:18:45Z",
+    "minted_at": "2026-09-09T14:59:05Z",
     "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
     "excel_build": "grapher"
   }

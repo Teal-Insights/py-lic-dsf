@@ -23,8 +23,9 @@ def _require_float(value: Any, cell: str) -> float:
 def load_input7_residual_params(path: str | Path) -> ResidualFinancingParams:
     """Load Input 7 **value-used** residual financing terms.
 
-    Reads public shares ``J9–J11``, external terms ``E14–E17`` (interest stored
-    as decimal → converted to percent), and domestic public terms ``J19–J23``.
+    Reads public shares ``J9–J11``, external interest / discount / maturity /
+    grace from ``D*``/``C*``/``E*`` (prefers overlaid D/C over stale E cache;
+    interest decimal → percent), and domestic public terms ``J19–J23``.
 
     Args:
         path: Path to a LIC-DSF workbook.
@@ -47,11 +48,30 @@ def load_input7_residual_params(path: str | Path) -> ResidualFinancingParams:
         )
         dom_st_share = max(0.0, 1.0 - ext_share - dom_mlt_share)
 
-        # External terms: E14 decimal → percent; E15 discount; E16/E17 ints.
-        interest_decimal = _require_float(ws.cell(14, 5).value, "E14")
-        discount = _require_float(ws.cell(15, 5).value, "E15")
-        maturity = int(_require_float(ws.cell(16, 5).value, "E16"))
-        grace = int(_require_float(ws.cell(17, 5).value, "E17"))
+        # External interest: Excel E14 = IF(ISNUMBER(D14), D14, C14). Prefer
+        # D14/C14 so surgical overlays are not masked by a stale E14 cache
+        # under data_only=True; fall back to E14 for unmodified workbooks.
+        interest_decimal = _require_float(
+            ws.cell(14, 4).value or ws.cell(14, 3).value or ws.cell(14, 5).value,
+            "D14",
+        )
+        # Same IF(ISNUMBER(D),D,C) pattern for discount / maturity / grace.
+        discount = _require_float(
+            ws.cell(15, 4).value or ws.cell(15, 3).value or ws.cell(15, 5).value,
+            "D15",
+        )
+        maturity = int(
+            _require_float(
+                ws.cell(16, 4).value or ws.cell(16, 3).value or ws.cell(16, 5).value,
+                "D16",
+            )
+        )
+        grace = int(
+            _require_float(
+                ws.cell(17, 4).value or ws.cell(17, 3).value or ws.cell(17, 5).value,
+                "D17",
+            )
+        )
 
         dom_mlt_rate = _require_float(ws.cell(19, 10).value, "J19")
         dom_mlt_mat = int(_require_float(ws.cell(20, 10).value, "J20"))

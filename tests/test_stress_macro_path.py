@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from lic_dsf.stress import ScenarioRegistry, StressContext, StressScenarioRunner
+from lic_dsf.stress.macro_shocks import apply_combo_shock
 from lic_dsf.stress.path import ShockedMacroPath, projection_shock_window
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output
@@ -108,6 +111,42 @@ def test_b2_macro_path_builds_without_bsheet_gdp(stress_context: StressContext) 
     assert float(path.shocked.inputs.primary_expenditure.loc[y0]) > float(
         path.baseline.inputs.primary_expenditure.loc[y0]
     )
+
+
+def test_b6_combo_r50_min_binds_on_large_exports_sd(
+    stress_context: StressContext,
+) -> None:
+    """Excel E50 MIN: template keeps GDP arm; large exports SD binds export arm."""
+    baseline = stress_context.macro.inputs
+    years = baseline.years
+    first = baseline.first_projection_year
+    y2, y3 = projection_shock_window(years, first)
+    assert y2 is not None and y3 is not None
+
+    template = apply_combo_shock(baseline, stress_context.input6)
+    g_template = 100.0 * (
+        template.gdp_constant / template.gdp_constant.shift(1) - 1.0
+    )
+    large = apply_combo_shock(
+        baseline,
+        replace(stress_context.input6, combo_exports_shock_sd=2.0),
+    )
+    g_large = 100.0 * (large.gdp_constant / large.gdp_constant.shift(1) - 1.0)
+
+    # GDP-shock-only path (combo SD 0.5) matches template year-2 growth.
+    gdp_only = apply_combo_shock(
+        baseline,
+        replace(stress_context.input6, combo_exports_shock_sd=0.5),
+    )
+    g_gdp = 100.0 * (
+        gdp_only.gdp_constant / gdp_only.gdp_constant.shift(1) - 1.0
+    )
+    assert float(g_template.loc[y2]) == pytest.approx(float(g_gdp.loc[y2]), abs=1e-9)
+    # With exports SD 2.0 the export-interaction arm binds → lower year-2 growth.
+    assert float(g_large.loc[y2]) < float(g_gdp.loc[y2]) - 1.0
+    assert float(g_large.loc[y2]) == pytest.approx(-3.059, abs=0.05)
+    # Year 3 leaves the hist path when year 2 did not use it.
+    assert float(g_large.loc[y3]) != pytest.approx(float(g_large.loc[y2]), abs=1e-6)
 
 
 def test_shocked_macro_path_has_no_ratio_methods() -> None:

@@ -196,6 +196,11 @@ def test_load_input7_residual_params_workbook() -> None:
     assert params.external_mlt_share == pytest.approx(0.4343925896763784)
     assert params.domestic_mlt_share == pytest.approx(0.2275655436226405)
     assert params.domestic_st_share == pytest.approx(0.33804186670098113, rel=1e-6)
+    assert (
+        params.external_mlt_share
+        + params.domestic_mlt_share
+        + params.domestic_st_share
+    ) == pytest.approx(1.0)
     assert params.avg_interest_rate == pytest.approx(7.982399291786421)
     assert params.discount_rate == pytest.approx(0.05)
     assert params.avg_maturity_rounded == 9
@@ -204,6 +209,26 @@ def test_load_input7_residual_params_workbook() -> None:
     assert params.domestic_mlt_maturity == 3
     assert params.domestic_mlt_grace == 2
     assert params.domestic_st_real_rate == pytest.approx(0.03472169156537851)
+
+
+@pytest.mark.skipif(not WORKBOOK.is_file(), reason="template workbook missing")
+def test_load_input7_residualizes_st_after_ext_share_overlay() -> None:
+    """Surgical J9=0.7 overlays leave a stale J11; loader matches Excel I11."""
+    from tests.parity.overlays import materialize_workbook
+    from tests.parity.presets import expand_presets
+
+    overlays = expand_presets(("higher_resfin_external_share",))
+    wb = materialize_workbook(WORKBOOK, overlays)
+    params = load_input7_residual_params(wb)
+    assert params.external_mlt_share == pytest.approx(0.7)
+    assert params.domestic_mlt_share == pytest.approx(0.2275655436226405)
+    expected_st = 1.0 - 0.7 - 0.2275655436226405
+    assert params.domestic_st_share == pytest.approx(expected_st)
+    assert (
+        params.external_mlt_share
+        + params.domestic_mlt_share
+        + params.domestic_st_share
+    ) == pytest.approx(1.0)
 
 
 def test_resolve_overrides_domestic_fields() -> None:

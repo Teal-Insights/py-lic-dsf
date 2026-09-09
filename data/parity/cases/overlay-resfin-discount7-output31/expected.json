@@ -1,0 +1,3649 @@
+{
+  "oracle": {
+    "minted_at": "2026-09-09T15:07:41Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "grapher"
+  },
+  "probes": [
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C11",
+      "row": 11,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Baseline"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D11",
+      "row": 11,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Baseline"
+      ],
+      "excel_value": 43.151384667261354
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E11",
+      "row": 11,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Baseline"
+      ],
+      "excel_value": 41.226496964495894
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F11",
+      "row": 11,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Baseline"
+      ],
+      "excel_value": 40.194059559244764
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G11",
+      "row": 11,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Baseline"
+      ],
+      "excel_value": 38.60430829244829
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C14",
+      "row": 14,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A1 historical"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D14",
+      "row": 14,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A1 historical"
+      ],
+      "excel_value": 46.60834929758097
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E14",
+      "row": 14,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A1 historical"
+      ],
+      "excel_value": 47.200798057692936
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F14",
+      "row": 14,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A1 historical"
+      ],
+      "excel_value": 48.150803040270446
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G14",
+      "row": 14,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A1 historical"
+      ],
+      "excel_value": 48.38490248805368
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C15",
+      "row": 15,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A2 custom"
+      ],
+      "excel_value": 44.88462374681341
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D15",
+      "row": 15,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A2 custom"
+      ],
+      "excel_value": 43.151384667261375
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E15",
+      "row": 15,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A2 custom"
+      ],
+      "excel_value": 41.226496964495915
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F15",
+      "row": 15,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A2 custom"
+      ],
+      "excel_value": 40.19405955924477
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G15",
+      "row": 15,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "A2 custom"
+      ],
+      "excel_value": 38.6043082924483
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C18",
+      "row": 18,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D18",
+      "row": 18,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 46.954641080177645
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E18",
+      "row": 18,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 46.64683327640617
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F18",
+      "row": 18,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 45.478654094154756
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G18",
+      "row": 18,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 43.679887093478605
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C19",
+      "row": 19,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D19",
+      "row": 19,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 46.6750246790929
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E19",
+      "row": 19,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 51.314400341205534
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F19",
+      "row": 19,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 51.71507225536911
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G19",
+      "row": 19,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 51.10320606014365
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C20",
+      "row": 20,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D20",
+      "row": 20,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 48.09711895626308
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E20",
+      "row": 20,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 55.7747523812172
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F20",
+      "row": 20,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 54.674559547029254
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G20",
+      "row": 20,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 52.98497629244851
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C21",
+      "row": 21,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D21",
+      "row": 21,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 46.752147313980934
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E21",
+      "row": 21,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 48.38377030142729
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F21",
+      "row": 21,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 47.32819222705592
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G21",
+      "row": 21,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 45.705176373678356
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C22",
+      "row": 22,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D22",
+      "row": 22,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 51.79657823688281
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E22",
+      "row": 22,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 46.35375822086355
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F22",
+      "row": 22,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 45.064095496256776
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G22",
+      "row": 22,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 43.07631383063696
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C23",
+      "row": 23,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D23",
+      "row": 23,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 50.96284174488562
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E23",
+      "row": 23,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 50.994707049051534
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F23",
+      "row": 23,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 49.890811048918174
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G23",
+      "row": 23,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 48.166808357525916
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C26",
+      "row": 26,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D26",
+      "row": 26,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 47.22402374811576
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E26",
+      "row": 26,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 46.587977679102956
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F26",
+      "row": 26,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 46.01943972673806
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G26",
+      "row": 26,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 45.229633872499555
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C28",
+      "row": 28,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D28",
+      "row": 28,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 46.14453404905948
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E28",
+      "row": 28,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 47.29200298628325
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F28",
+      "row": 28,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 46.58333578391406
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G28",
+      "row": 28,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 45.11291696842336
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C29",
+      "row": 29,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 44.88462374681342
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D29",
+      "row": 29,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 48.244375795576964
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E29",
+      "row": 29,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 46.1175622761318
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F29",
+      "row": 29,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 45.00638908054818
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G29",
+      "row": 29,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 43.30951176533537
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C31",
+      "row": 31,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Threshold"
+      ],
+      "excel_value": 40
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D31",
+      "row": 31,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Threshold"
+      ],
+      "excel_value": 40
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E31",
+      "row": 31,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Threshold"
+      ],
+      "excel_value": 40
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F31",
+      "row": 31,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Threshold"
+      ],
+      "excel_value": 40
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G31",
+      "row": 31,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to GDP ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to GDP ratio",
+        "Threshold"
+      ],
+      "excel_value": 40
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C35",
+      "row": 35,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D35",
+      "row": 35,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 103.46892335626711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E35",
+      "row": 35,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 99.55623134304108
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F35",
+      "row": 35,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 98.41918906804638
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G35",
+      "row": 35,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 95.29727410995628
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C38",
+      "row": 38,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D38",
+      "row": 38,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 111.75807586291293
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E38",
+      "row": 38,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 113.98333394793931
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F38",
+      "row": 38,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 117.9020740916592
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G38",
+      "row": 38,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 119.4413141729454
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C39",
+      "row": 39,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 109.06466686131708
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D39",
+      "row": 39,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 103.46892335626718
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E39",
+      "row": 39,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 99.55623134304112
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F39",
+      "row": 39,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 98.41918906804638
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G39",
+      "row": 39,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 95.29727410995628
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C42",
+      "row": 42,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D42",
+      "row": 42,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 103.46892335626711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E42",
+      "row": 42,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 99.556231343041
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F42",
+      "row": 42,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 98.4191890680463
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G42",
+      "row": 42,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 95.29727410995618
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C43",
+      "row": 43,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 109.06466686131708
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D43",
+      "row": 43,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 111.91795091657816
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E43",
+      "row": 43,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 123.91710884381102
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F43",
+      "row": 43,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 126.62954500693601
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G43",
+      "row": 43,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 126.15162532943887
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C44",
+      "row": 44,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D44",
+      "row": 44,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 128.6923573762478
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E44",
+      "row": 44,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 166.91981785264224
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F44",
+      "row": 44,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 165.9133914610266
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G44",
+      "row": 44,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 162.09726399880728
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C45",
+      "row": 45,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D45",
+      "row": 45,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 112.10287652348036
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E45",
+      "row": 45,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 116.84004667012469
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F45",
+      "row": 45,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 115.88782895088545
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G45",
+      "row": 45,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 112.82623400814444
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C46",
+      "row": 46,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D46",
+      "row": 46,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 97.97607229435384
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E46",
+      "row": 46,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 88.30407104252032
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F46",
+      "row": 46,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 87.04670374151272
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G46",
+      "row": 46,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 83.88551906957797
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C47",
+      "row": 47,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D47",
+      "row": 47,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 119.92427946650012
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E47",
+      "row": 47,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 112.74945035228478
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F47",
+      "row": 47,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 125.49990170134313
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G47",
+      "row": 47,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 122.15112858509205
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C50",
+      "row": 50,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 109.06466686131708
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D50",
+      "row": 50,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 113.2343476680012
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E50",
+      "row": 50,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 112.50345833698994
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F50",
+      "row": 50,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 112.68321709568814
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G50",
+      "row": 50,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 111.65232606651105
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C52",
+      "row": 52,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D52",
+      "row": 52,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 116.501446110743
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E52",
+      "row": 52,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 119.23309442220864
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F52",
+      "row": 52,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 118.10520794012777
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G52",
+      "row": 52,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 114.32196150005336
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C53",
+      "row": 53,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 109.06466686131711
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D53",
+      "row": 53,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 103.46892335626714
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E53",
+      "row": 53,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 99.61079389708783
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F53",
+      "row": 53,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 98.56894889502877
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G53",
+      "row": 53,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 95.62601003706135
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C55",
+      "row": 55,
+      "col": 3,
+      "year": 2024,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 180
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D55",
+      "row": 55,
+      "col": 4,
+      "year": 2025,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 180
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E55",
+      "row": 55,
+      "col": 5,
+      "year": 2026,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 180
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F55",
+      "row": 55,
+      "col": 6,
+      "year": 2027,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 180
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G55",
+      "row": 55,
+      "col": 7,
+      "year": 2028,
+      "section": "PV of debt-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of debt-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 180
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C59",
+      "row": 59,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D59",
+      "row": 59,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 16.507447382610895
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E59",
+      "row": 59,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 15.170490840774168
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F59",
+      "row": 59,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 16.275584555339673
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G59",
+      "row": 59,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Baseline"
+      ],
+      "excel_value": 18.560766082285152
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C62",
+      "row": 62,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D62",
+      "row": 62,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 16.45802570570023
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E62",
+      "row": 62,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 15.592800739322154
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F62",
+      "row": 62,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 16.947827914481778
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G62",
+      "row": 62,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A1 historical"
+      ],
+      "excel_value": 19.412765233948146
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C63",
+      "row": 63,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 17.16811742810344
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D63",
+      "row": 63,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E63",
+      "row": 63,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 15.170490840774175
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F63",
+      "row": 63,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 16.275584555339677
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G63",
+      "row": 63,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "A2 custom"
+      ],
+      "excel_value": 18.560766082285156
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C66",
+      "row": 66,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D66",
+      "row": 66,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E66",
+      "row": 66,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 15.170490840774164
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F66",
+      "row": 66,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 16.27558455533967
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G66",
+      "row": 66,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 18.56076608228515
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C67",
+      "row": 67,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 17.16811742810344
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D67",
+      "row": 67,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E67",
+      "row": 67,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 16.11993762406415
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F67",
+      "row": 67,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 18.540692814866098
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G67",
+      "row": 67,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 21.084841596710884
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C68",
+      "row": 68,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D68",
+      "row": 68,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 18.553826274411147
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E68",
+      "row": 68,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 20.280918357442935
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F68",
+      "row": 68,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 23.721730216967433
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G68",
+      "row": 68,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 26.62166511909995
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C69",
+      "row": 69,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D69",
+      "row": 69,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E69",
+      "row": 69,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 15.816834138561203
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F69",
+      "row": 69,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 17.586445963158365
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G69",
+      "row": 69,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 19.87274905442646
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C70",
+      "row": 70,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D70",
+      "row": 70,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E70",
+      "row": 70,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 14.759292470705176
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F70",
+      "row": 70,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 15.422183705272213
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G70",
+      "row": 70,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 17.706635068112906
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C71",
+      "row": 71,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D71",
+      "row": 71,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 17.470917569453718
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E71",
+      "row": 71,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 17.909773080482612
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F71",
+      "row": 71,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 19.494423986772507
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G71",
+      "row": 71,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 22.06107893942852
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C74",
+      "row": 74,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 17.16811742810344
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D74",
+      "row": 74,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E74",
+      "row": 74,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 15.901536797556112
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F74",
+      "row": 74,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 17.257544839192104
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G74",
+      "row": 74,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 19.632066539099593
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C76",
+      "row": 76,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D76",
+      "row": 76,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 17.564776826751597
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E76",
+      "row": 76,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 16.66146823358219
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F76",
+      "row": 76,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 18.398840690639524
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G76",
+      "row": 76,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 20.80759741596226
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C77",
+      "row": 77,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 17.16811742810344
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D77",
+      "row": 77,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E77",
+      "row": 77,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 15.225053394820923
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F77",
+      "row": 77,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 16.378619375592734
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G77",
+      "row": 77,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 18.762502525204162
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C79",
+      "row": 79,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 15
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D79",
+      "row": 79,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 15
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E79",
+      "row": 79,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 15
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F79",
+      "row": 79,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 15
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G79",
+      "row": 79,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-exports ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-exports ratio",
+        "Threshold"
+      ],
+      "excel_value": 15
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C83",
+      "row": 83,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Baseline"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D83",
+      "row": 83,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Baseline"
+      ],
+      "excel_value": 37.86856750701343
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E83",
+      "row": 83,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Baseline"
+      ],
+      "excel_value": 33.70220801442353
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F83",
+      "row": 83,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Baseline"
+      ],
+      "excel_value": 35.350030838398325
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G83",
+      "row": 83,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Baseline"
+      ],
+      "excel_value": 40.20873459715121
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C86",
+      "row": 86,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A1 historical"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D86",
+      "row": 86,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A1 historical"
+      ],
+      "excel_value": 37.75519273349316
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E86",
+      "row": 86,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A1 historical"
+      ],
+      "excel_value": 34.64039625083579
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F86",
+      "row": 86,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A1 historical"
+      ],
+      "excel_value": 36.810121159319266
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G86",
+      "row": 86,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A1 historical"
+      ],
+      "excel_value": 42.0544454699859
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C87",
+      "row": 87,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A2 custom"
+      ],
+      "excel_value": 39.00150259737198
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D87",
+      "row": 87,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A2 custom"
+      ],
+      "excel_value": 37.868567507013424
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E87",
+      "row": 87,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A2 custom"
+      ],
+      "excel_value": 33.70220801442355
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F87",
+      "row": 87,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A2 custom"
+      ],
+      "excel_value": 35.35003083839833
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G87",
+      "row": 87,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "A2 custom"
+      ],
+      "excel_value": 40.20873459715123
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C90",
+      "row": 90,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D90",
+      "row": 90,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 41.20620946982795
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E90",
+      "row": 90,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 38.13327335692535
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F90",
+      "row": 90,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 39.99774698914312
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G90",
+      "row": 90,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 45.49525856208075
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C91",
+      "row": 91,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 39.00150259737197
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D91",
+      "row": 91,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 37.86856750701343
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E91",
+      "row": 91,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 35.811464288654385
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F91",
+      "row": 91,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 40.26977098993101
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G91",
+      "row": 91,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 45.67671377499218
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C92",
+      "row": 92,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D92",
+      "row": 92,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 38.14292038108527
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E92",
+      "row": 92,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 36.35533088997971
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F92",
+      "row": 92,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 41.573953557303795
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G92",
+      "row": 92,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 46.53518953277403
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C93",
+      "row": 93,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D93",
+      "row": 93,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 37.86856750701343
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E93",
+      "row": 93,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 35.13810066281432
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F93",
+      "row": 93,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 38.197178419100986
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G93",
+      "row": 93,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 43.05092197718402
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C94",
+      "row": 94,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D94",
+      "row": 94,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 48.003744555822855
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E94",
+      "row": 94,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 41.5643028096031
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F94",
+      "row": 94,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 42.461498086806515
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G94",
+      "row": 94,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 48.624683107445286
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C95",
+      "row": 95,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D95",
+      "row": 95,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 40.83912069883295
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E95",
+      "row": 95,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 38.72967873874608
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F95",
+      "row": 95,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 41.215322052195994
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G95",
+      "row": 95,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 46.52071124416364
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C98",
+      "row": 98,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 39.00150259737197
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D98",
+      "row": 98,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 37.86856750701343
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E98",
+      "row": 98,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 35.326272994400895
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F98",
+      "row": 98,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 37.48281606637205
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G98",
+      "row": 98,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 42.529524350704065
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C100",
+      "row": 100,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D100",
+      "row": 100,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 42.34661975145579
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E100",
+      "row": 100,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 39.12787137369978
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F100",
+      "row": 100,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 42.55636720025446
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G100",
+      "row": 100,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 47.225753814288076
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C101",
+      "row": 101,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 39.00150259737197
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D101",
+      "row": 101,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 37.86856750701343
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E101",
+      "row": 101,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 33.82342219039071
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F101",
+      "row": 101,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 35.57381905694065
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G101",
+      "row": 101,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 40.64576219913396
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "C103",
+      "row": 103,
+      "col": 3,
+      "year": 2024,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Threshold"
+      ],
+      "excel_value": 18
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "D103",
+      "row": 103,
+      "col": 4,
+      "year": 2025,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Threshold"
+      ],
+      "excel_value": 18
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "E103",
+      "row": 103,
+      "col": 5,
+      "year": 2026,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Threshold"
+      ],
+      "excel_value": 18
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "F103",
+      "row": 103,
+      "col": 6,
+      "year": 2027,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Threshold"
+      ],
+      "excel_value": 18
+    },
+    {
+      "sheet": "Output 3-1 Stress-external",
+      "cell": "G103",
+      "row": 103,
+      "col": 7,
+      "year": 2028,
+      "section": "Debt service-to-revenue ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "Debt service-to-revenue ratio",
+        "Threshold"
+      ],
+      "excel_value": 18
+    }
+  ]
+}

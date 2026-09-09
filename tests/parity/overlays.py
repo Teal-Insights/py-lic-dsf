@@ -106,8 +106,67 @@ def _cell_xml(ref: str, value: object) -> ET.Element:
     return cell
 
 
+def _freeze_shared_formula_slaves(root: ET.Element, ref: str) -> None:
+    """If ``ref`` is a shared-formula master, freeze siblings to cached values.
+
+    Excel stores one master ``<f t="shared" si="N">formula</f>`` and slave
+    stubs ``<f t="shared" si="N"/>`` with empty text. Replacing the master with
+    a constant leaves slaves as empty ``=`` formulas that excel-grapher cannot
+    parse. Convert each other cell in the same ``si`` group to its cached
+    ``<v>`` (or drop the formula) before the master is overwritten.
+    """
+    sheet_data = root.find("m:sheetData", _NS)
+    if sheet_data is None:
+        return
+    master_f: ET.Element | None = None
+    master_si: str | None = None
+    for row_el in sheet_data.findall("m:row", _NS):
+        for cell in row_el.findall("m:c", _NS):
+            if cell.attrib.get("r") != ref:
+                continue
+            formula = cell.find("m:f", _NS)
+            if formula is None:
+                return
+            if formula.attrib.get("t") != "shared":
+                return
+            # Master cells carry formula text and/or a ref= range attribute.
+            if not (formula.text or formula.attrib.get("ref")):
+                return
+            master_f = formula
+            master_si = formula.attrib.get("si")
+            break
+        if master_si is not None:
+            break
+    if master_si is None:
+        return
+
+    for row_el in sheet_data.findall("m:row", _NS):
+        for cell in list(row_el.findall("m:c", _NS)):
+            cell_ref = cell.attrib.get("r")
+            if cell_ref == ref:
+                continue
+            formula = cell.find("m:f", _NS)
+            if formula is None or formula.attrib.get("t") != "shared":
+                continue
+            if formula.attrib.get("si") != master_si:
+                continue
+            cached = cell.find("m:v", _NS)
+            if cached is not None and cached.text not in (None, ""):
+                text = cached.text.strip()
+                try:
+                    value: object = float(text) if ("." in text or "e" in text.lower()) else int(text)
+                except ValueError:
+                    value = text
+                row_el.remove(cell)
+                row_el.append(_cell_xml(cell_ref or ref, value))
+            else:
+                # No cache: drop the empty shared stub to avoid '=' parse errors.
+                row_el.remove(formula)
+
+
 def _set_cell(root: ET.Element, ref: str, value: object) -> None:
     """Insert or replace cell ``ref`` under ``sheetData``."""
+    _freeze_shared_formula_slaves(root, ref)
     row_num = int(re.search(r"(\d+)$", ref).group(1))  # type: ignore[union-attr]
     sheet_data = root.find("m:sheetData", _NS)
     if sheet_data is None:

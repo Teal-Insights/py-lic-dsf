@@ -1,15 +1,15 @@
 {
-  "id": "overlay-inflation-elast-output31",
+  "id": "overlay-resfin-dom-mlt-rate6-output32",
   "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
-  "description": "Input 6 inflation elasticity 1.0 (was 0.6); Output 3-1.",
+  "description": "Input 7 domestic MLT real rate 6% (was ~2.9%); Output 3-2 public residual.",
   "inputs": {
     "presets": [
-      "higher_inflation_elasticity"
+      "higher_resfin_domestic_mlt_rate"
     ],
     "overlays": []
   },
   "probes": {
-    "catalog": "output_31",
+    "catalog": "output_32",
     "years": [
       2024,
       2025,
@@ -19,7 +19,7 @@
     ]
   },
   "oracle": {
-    "minted_at": "2026-09-09T13:18:45Z",
+    "minted_at": "2026-09-09T15:08:41Z",
     "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
     "excel_build": "grapher"
   }
