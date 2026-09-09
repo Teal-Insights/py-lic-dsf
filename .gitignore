@@ -17,3 +17,6 @@ build/
 
 # Great Docs build output
 great-docs/
+
+# Local package-boundary plans (not published)
+plans/
