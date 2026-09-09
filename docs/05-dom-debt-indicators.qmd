@@ -24,7 +24,7 @@ or presentation panels directly.
 from pathlib import Path
 
 from lic_dsf.load import load_domestic_debt_inputs
-from lic_dsf.pv import DomesticDebtBook
+from lic_dsf.books import DomesticDebtBook
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
 dom = DomesticDebtBook(inputs=load_domestic_debt_inputs(workbook))

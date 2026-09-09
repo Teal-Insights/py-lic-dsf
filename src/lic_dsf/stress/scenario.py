@@ -7,10 +7,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.pv.portfolio import PVPortfolio
 from lic_dsf.stress.bound import bsheet_exports_to_gdp
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId

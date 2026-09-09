@@ -49,9 +49,9 @@ flowchart LR
 | Input 4 / `PV_Base` | `PresentValueInstrument`, `lic_dsf.load.load_instruments_from_workbook` | [`pv`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/pv.ipynb) |
 | Input 5 / `PV_LC_NR*` | `LocalCurrencyNonResidentInstrument`, `lic_dsf.load.load_lc_nr_instruments_from_workbook` | [`lc_nr`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/lc_nr.ipynb) |
 | Combined new MLT | `PVPortfolio` | [`portfolio`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/portfolio.ipynb) |
-| `Ext_Debt_Data` | `ExternalDebtBook`, `lic_dsf.load.load_external_debt_inputs` | [`ext_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/ext_debt.ipynb) |
-| `Dom_Debt_Data` / indicators | `DomesticDebtBook`, `lic_dsf.load.load_domestic_debt_inputs` | [`dom_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/dom_debt.ipynb) |
-| `Macro-Debt_Data` | `MacroDebtBook`, `lic_dsf.load.load_macro_debt_inputs` | [`macro_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/macro_debt.ipynb) |
+| `Ext_Debt_Data` | `lic_dsf.books.ExternalDebtBook`, `lic_dsf.load.load_external_debt_inputs` | [`ext_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/ext_debt.ipynb) |
+| `Dom_Debt_Data` / indicators | `lic_dsf.books.DomesticDebtBook`, `lic_dsf.load.load_domestic_debt_inputs` | [`dom_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/dom_debt.ipynb) |
+| `Macro-Debt_Data` | `lic_dsf.books.MacroDebtBook`, `lic_dsf.load.load_macro_debt_inputs` | [`macro_debt`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/macro_debt.ipynb) |
 | Input 7 residual terms | `lic_dsf.load.load_input7_residual_params`, `lic_dsf.resfin` | used in stress demos |
 | Baseline – external / public | `BaselineExternalBook`, `BaselinePublicBook` | [`baseline_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb) |
 | Output 1-1 / 1-2 | `lic_dsf.output.external_dsa_panel`, `public_dsa_panel` | [`baseline_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb) |
@@ -67,7 +67,8 @@ flowchart LR
 
 | Package | Owns | Does not own |
 |---------|------|--------------|
-| `lic_dsf.pv` | Instruments, Ext/Dom/Macro books | ResFin, baseline ratio panels, ratings, Excel parsers |
+| `lic_dsf.pv` | Instruments, portfolios, LC-NR, NPV helpers | Ext/Dom/Macro books, ResFin, ratings |
+| `lic_dsf.books` | Ext / Dom / Macro debt books | Instrument templates, ResFin fill, Output frames |
 | `lic_dsf.resfin` | Input 7 params, ResFin overlays, split policies, fixed-point engine | Macro shocks, baseline books, Output frames |
 | `lic_dsf.load` | Input / CI / Realism sheet parsers | Ratio math, shocks, Output frames |
 | `lic_dsf.dsa` | Baseline external/public sustainability ratios | Stress shocks, CI thresholds, Output DataFrames |
@@ -75,7 +76,7 @@ flowchart LR
 | `lic_dsf.stress` | Input 6 shocks, B/B1 paths (uses `resfin`) | Baseline-only math, ResFin implementation, final rating |
 | `lic_dsf.realism` | Realism 1–4 math | Chart Data, risk ratings, Output 4 frames |
 | `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings | DSA ratio numerators |
-| `lic_dsf.scenario` | Customized paths, probability math | Input 8 SDR (lives in Ext via `pv`); Output 6 frames |
+| `lic_dsf.scenario` | Customized paths, probability math | Input 8 SDR (lives in Ext via books); Output 6 frames |
 
 ---
 

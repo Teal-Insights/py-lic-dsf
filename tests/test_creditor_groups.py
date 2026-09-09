@@ -14,12 +14,14 @@ from lic_dsf.load import (
     load_lc_nr_instruments_from_workbook,
 )
 from lic_dsf.pv import (
-    ExternalDebtBook,
-    ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
 )
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books import (
+    ExternalDebtBook,
+    ExternalDebtInputs,
+)
+from lic_dsf.books.external.creditor_groups import (
     CREDITOR_GROUPS,
     creditor_group_for_name,
     group_instrument_panel,

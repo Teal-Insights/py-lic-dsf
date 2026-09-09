@@ -6,8 +6,8 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.residual_pv import PublicResFinOverlay, public_residual_gap
 from lic_dsf.stress.types import Input6StandardParams

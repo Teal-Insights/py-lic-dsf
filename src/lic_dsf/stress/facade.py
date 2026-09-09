@@ -5,9 +5,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.output_map import (

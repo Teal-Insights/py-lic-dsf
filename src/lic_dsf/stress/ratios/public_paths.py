@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.macro_shocks import apply_real_gdp_shock
 from lic_dsf.stress.market_access import (
     _domestic_add_int_bps,

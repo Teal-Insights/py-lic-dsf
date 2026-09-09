@@ -13,9 +13,9 @@ from lic_dsf.load.instruments import (
     load_lc_nr_instruments_from_workbook,
 )
 from lic_dsf.load.macro import load_macro_debt_inputs
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.pv.instrument import PresentValueInstrument
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.pv.portfolio import PVPortfolio
 
 

@@ -40,25 +40,29 @@ reference:
       - load.load_trigger_flags
 
   - title: Present Value
-    desc: "Instruments and Ext/Dom/Macro debt books."
+    desc: "Instrument templates, portfolios, and NPV helpers."
     contents:
-      - pv.DomesticDebtBook
-      - pv.DomesticDebtInputs
-      - pv.ExternalDebtBook
-      - pv.ExternalDebtInputs
       - pv.LocalCurrencyNonResidentInstrument
-      - pv.MacroDebtBook
-      - pv.MacroDebtInputs
       - pv.PVPortfolio
       - pv.PresentValueInstrument
-      - pv.creditor_group_for_name
       - pv.excel_npv
-      - pv.grant_element_new_disbursements
-      - pv.grant_element_value
-      - pv.new_disbursements_net_of_ge
-      - pv.CREDITOR_GROUPS
-      - pv.DEFAULT_PEER_MEDIAN_DEBT_TO_GDP
-      - pv.DEFAULT_PEER_MEDIAN_DS_TO_REVENUES
+
+  - title: Debt books
+    desc: "Ext / Dom / Macro sheet engines."
+    contents:
+      - books.DomesticDebtBook
+      - books.DomesticDebtInputs
+      - books.ExternalDebtBook
+      - books.ExternalDebtInputs
+      - books.MacroDebtBook
+      - books.MacroDebtInputs
+      - books.creditor_group_for_name
+      - books.grant_element_new_disbursements
+      - books.grant_element_value
+      - books.new_disbursements_net_of_ge
+      - books.CREDITOR_GROUPS
+      - books.DEFAULT_PEER_MEDIAN_DEBT_TO_GDP
+      - books.DEFAULT_PEER_MEDIAN_DS_TO_REVENUES
 
   - title: Residual financing
     desc: "Input 7 params, ResFin overlays, and fixed-point engine."

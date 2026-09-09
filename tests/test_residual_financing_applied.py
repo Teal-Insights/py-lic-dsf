@@ -16,7 +16,11 @@ from lic_dsf.load import (
     load_macro_debt_inputs,
 )
 from lic_dsf.output import stress_public_panel
-from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
+from lic_dsf.pv import PVPortfolio
+from lic_dsf.books import (
+    ExternalDebtBook,
+    MacroDebtBook,
+)
 from lic_dsf.stress import (
     ResidualFinancingEngine,
     StressPublicBook,

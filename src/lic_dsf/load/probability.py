@@ -9,7 +9,7 @@ from fastpyxl import load_workbook
 
 from lic_dsf.load._cells import _as_float, _as_int
 from lic_dsf.load.macro import load_macro_debt_inputs
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.scenario.probability import DistressCovariates
 
 _IMPORTED = "Imported data"

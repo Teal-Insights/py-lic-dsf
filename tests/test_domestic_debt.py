@@ -8,7 +8,10 @@ import pandas as pd
 import pytest
 
 from lic_dsf.load import load_domestic_debt_inputs
-from lic_dsf.pv import DomesticDebtBook, DomesticDebtInputs
+from lic_dsf.books import (
+    DomesticDebtBook,
+    DomesticDebtInputs,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK = REPO_ROOT / "data" / "lic-dsf-template-2025-08-12.xlsx"

@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import lic_dsf.stress.tailored_params as _params
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+from lic_dsf.books.macro.book import MacroDebtBook
+from lic_dsf.books.macro.types import MacroDebtInputs
 from lic_dsf.scenario.customized import apply_customized_deltas
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import (

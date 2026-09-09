@@ -7,11 +7,11 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from lic_dsf.pv.macro_debt import stocks as _stocks
+from lic_dsf.books.macro import stocks as _stocks
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
-    from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+    from lic_dsf.books.external.book import ExternalDebtBook
+    from lic_dsf.books.macro.types import MacroDebtInputs
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:

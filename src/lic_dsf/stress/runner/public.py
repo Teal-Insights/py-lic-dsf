@@ -49,7 +49,7 @@ def _external_dsa_gap_for_public_split(
     """
     if spec.ext_r86_zero:
         return None
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
     from lic_dsf.stress.path import ShockedMacroPath
 
     assert isinstance(path, ShockedMacroPath)

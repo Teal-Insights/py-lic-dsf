@@ -61,10 +61,10 @@ from lic_dsf.load import (
     load_macro_debt_inputs,
 )
 from lic_dsf.output import external_dsa_panel, public_dsa_panel
-from lic_dsf.pv import (
+from lic_dsf.pv import PVPortfolio
+from lic_dsf.books import (
     ExternalDebtBook,
     MacroDebtBook,
-    PVPortfolio,
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
@@ -89,7 +89,8 @@ public_dsa_panel(pub_base)  # Output 1-2
 
 | Path | Contents |
 |---|---|
-| `src/lic_dsf/pv/` | Instruments, Ext/Dom/Macro books |
+| `src/lic_dsf/pv/` | Instruments, portfolios, LC-NR, NPV helpers |
+| `src/lic_dsf/books/` | Ext / Dom / Macro debt books |
 | `src/lic_dsf/resfin/` | Input 7 residual financing (params, overlays, engine) |
 | `src/lic_dsf/load/` | Excel Input / CI / Realism sheet parsers |
 | `src/lic_dsf/dsa/` | Baseline sustainability ratios |

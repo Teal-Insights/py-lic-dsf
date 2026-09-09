@@ -17,8 +17,8 @@ from lic_dsf.load.input7 import load_input7_residual_params
 from lic_dsf.load.probability import load_distress_covariates
 from lic_dsf.load.rating import load_ci_summary, load_input1_market, load_trigger_flags
 from lic_dsf.output.scenario import probability_panel
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.rating.chart_data import (
     ChartDataRegistry,
     MechanicalRatingResult,

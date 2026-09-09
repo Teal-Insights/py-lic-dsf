@@ -16,12 +16,14 @@ from lic_dsf.load import (
 )
 from lic_dsf.output import stress_external_panel
 from lic_dsf.pv import (
+    PresentValueInstrument,
+    PVPortfolio,
+)
+from lic_dsf.books import (
     ExternalDebtBook,
     ExternalDebtInputs,
     MacroDebtBook,
     MacroDebtInputs,
-    PresentValueInstrument,
-    PVPortfolio,
 )
 from lic_dsf.resfin import ResidualFinancingParams, calculate_residual_defaults
 from lic_dsf.stress import (

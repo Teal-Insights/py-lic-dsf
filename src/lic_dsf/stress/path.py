@@ -7,7 +7,7 @@ from typing import Protocol
 
 import pandas as pd
 
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.spec import ScenarioSpec
 from lic_dsf.stress.types import ThresholdRule

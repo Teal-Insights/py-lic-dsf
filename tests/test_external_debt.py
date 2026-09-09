@@ -13,14 +13,16 @@ from lic_dsf.load import (
     load_lc_nr_instruments_from_workbook,
 )
 from lic_dsf.pv import (
-    ExternalDebtBook,
-    ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
     excel_npv,
 )
-from lic_dsf.pv.external_debt.existing_debt import existing_mlt_pv
-from lic_dsf.pv.external_debt.fxutil import lc_to_usd
+from lic_dsf.books import (
+    ExternalDebtBook,
+    ExternalDebtInputs,
+)
+from lic_dsf.books.external.existing_debt import existing_mlt_pv
+from lic_dsf.books.external.fxutil import lc_to_usd
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WORKBOOK = REPO_ROOT / "data" / "lic-dsf-template-2025-08-12.xlsx"

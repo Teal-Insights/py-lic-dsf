@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.pv.domestic_debt.types import (
+from lic_dsf.books.domestic.types import (
     DEFAULT_PEER_MEDIAN_DEBT_TO_GDP,
     DEFAULT_PEER_MEDIAN_DS_TO_REVENUES,
     DomesticDebtInputs,
@@ -17,7 +17,7 @@ from lic_dsf.pv.domestic_debt.types import (
 if TYPE_CHECKING:
     from lic_dsf.dsa.baseline.external import BaselineExternalBook
     from lic_dsf.dsa.baseline.public import BaselinePublicBook
-    from lic_dsf.pv.macro_debt.book import MacroDebtBook
+    from lic_dsf.books.macro.book import MacroDebtBook
 
 _INPUT1 = "Input 1 - Basics"
 _INPUT7 = "Input 7 - Residual Financing"

@@ -8,7 +8,7 @@ from typing import Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+from lic_dsf.books.macro.types import MacroDebtInputs
 
 _INPUT1 = "Input 1 - Basics"
 _INPUT3 = "Input 3 - Macro-Debt data(DMX)"

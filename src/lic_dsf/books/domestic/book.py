@@ -6,9 +6,9 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-from lic_dsf.pv.domestic_debt import indicators as _indicators
-from lic_dsf.pv.domestic_debt import presentation as _presentation
-from lic_dsf.pv.domestic_debt.types import DomesticDebtInputs
+from lic_dsf.books.domestic import indicators as _indicators
+from lic_dsf.books.domestic import presentation as _presentation
+from lic_dsf.books.domestic.types import DomesticDebtInputs
 
 
 @dataclass(slots=True)

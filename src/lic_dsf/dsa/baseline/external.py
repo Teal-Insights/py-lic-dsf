@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
-    from lic_dsf.pv.macro_debt.book import MacroDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
+    from lic_dsf.books.macro.book import MacroDebtBook
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:
@@ -34,7 +34,7 @@ def _lc_share_of_total_external(macro: MacroDebtBook) -> pd.Series:
     stock plus LC-NR instrument stocks over total external (Macro R6).
     """
     from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
-    from lic_dsf.pv.macro_debt import stocks as _stocks
+    from lic_dsf.books.macro import stocks as _stocks
 
     years = macro.inputs.years
     total = _stocks.total_external(macro.inputs, macro.external)

@@ -19,8 +19,8 @@ from typing import Any, Literal
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.resfin.overlay import (
     build_public_resfin_overlay,
     gdp_deflator_growth,

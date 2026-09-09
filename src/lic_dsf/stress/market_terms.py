@@ -7,8 +7,8 @@ from math import floor
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.external_debt.creditor_groups import creditor_group_for_name
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.external.creditor_groups import creditor_group_for_name
 from lic_dsf.resfin import (
     ResidualFinancingOverrides,
     ResidualFinancingParams,

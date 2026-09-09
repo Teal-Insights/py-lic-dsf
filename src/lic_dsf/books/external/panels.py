@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
 
 
 def existing_debt_service(book: ExternalDebtBook) -> pd.DataFrame:

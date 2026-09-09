@@ -14,10 +14,12 @@ from lic_dsf.load import (
     load_lc_nr_instruments_from_workbook,
 )
 from lic_dsf.pv import (
-    ExternalDebtBook,
-    ExternalDebtInputs,
     PresentValueInstrument,
     PVPortfolio,
+)
+from lic_dsf.books import (
+    ExternalDebtBook,
+    ExternalDebtInputs,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

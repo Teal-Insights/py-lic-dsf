@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
     from lic_dsf.pv.portfolio import PVPortfolio
 
 # Ext top-level new-debt groups (disb R71/82/86/99/105/115; interest R143…).

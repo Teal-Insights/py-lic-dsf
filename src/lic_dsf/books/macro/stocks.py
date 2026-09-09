@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
-    from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+    from lic_dsf.books.external.book import ExternalDebtBook
+    from lic_dsf.books.macro.types import MacroDebtInputs
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:
@@ -263,7 +263,7 @@ def concessional_loans(
     """Macro R54: Input 3 R32 hist; Ext R417 (GE≥threshold disb) in projection."""
     if external is None:
         return _align(inputs.concessional_loans, inputs.years)
-    from lic_dsf.pv.external_debt.grant_element import concessional_new_disbursements
+    from lic_dsf.books.external.grant_element import concessional_new_disbursements
 
     proj = concessional_new_disbursements(external)
     return hist_proj(

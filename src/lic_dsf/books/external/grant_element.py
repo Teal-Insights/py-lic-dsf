@@ -9,7 +9,7 @@ import pandas as pd
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
 
 
 def _unit_grant_element_percent(instrument: Any) -> float:

@@ -24,7 +24,11 @@ from lic_dsf.output import (
     forecast_error_panel,
     invest_growth_panel,
 )
-from lic_dsf.pv import ExternalDebtBook, MacroDebtBook, PVPortfolio
+from lic_dsf.pv import PVPortfolio
+from lic_dsf.books import (
+    ExternalDebtBook,
+    MacroDebtBook,
+)
 from lic_dsf.realism import (
     CapitalAssumptions,
     MultiplierAssumptions,

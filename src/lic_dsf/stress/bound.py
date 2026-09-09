@@ -5,8 +5,8 @@ from __future__ import annotations
 import pandas as pd
 
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
-from lic_dsf.pv.macro_debt import stocks as _stocks
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro import stocks as _stocks
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.macro_shocks import depreciation_of_nc_pct, real_depreciation_pct
 
 

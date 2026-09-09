@@ -1,6 +1,7 @@
 """Python implementation of the IMF/World Bank LIC-DSF Excel template.
 
-``lic_dsf.pv`` covers present-value instruments, Ext/Dom/Macro debt books.
+``lic_dsf.pv`` covers present-value instruments / portfolios.
+``lic_dsf.books`` covers Ext / Dom / Macro debt books.
 ``lic_dsf.resfin`` covers Input 7 residual financing (params, overlays, engine).
 ``lic_dsf.load`` parses LIC-DSF Input / CI / Realism sheets into those types.
 ``lic_dsf.dsa`` covers Baseline DSA sustainability ratios.
@@ -13,11 +14,23 @@ Probability math.
 
 from __future__ import annotations
 
-from lic_dsf import dsa, load, output, pv, rating, realism, resfin, scenario, stress
+from lic_dsf import (
+    books,
+    dsa,
+    load,
+    output,
+    pv,
+    rating,
+    realism,
+    resfin,
+    scenario,
+    stress,
+)
 
 __version__ = "0.1.0"
 
 __all__ = [
+    "books",
     "dsa",
     "load",
     "output",

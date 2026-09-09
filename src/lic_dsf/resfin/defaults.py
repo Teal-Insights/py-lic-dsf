@@ -9,7 +9,7 @@ from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.resfin.params import ResidualFinancingParams
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.book import ExternalDebtBook
+    from lic_dsf.books.external.book import ExternalDebtBook
 
 
 def _projection_years(book: ExternalDebtBook, average_years: int) -> list[int]:

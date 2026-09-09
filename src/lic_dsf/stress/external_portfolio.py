@@ -6,7 +6,7 @@ from dataclasses import dataclass, replace
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.pv.lc_nr import LocalCurrencyNonResidentInstrument
 from lic_dsf.pv.portfolio import PVPortfolio
 from lic_dsf.stress.path import ShockedMacroPath

@@ -1,7 +1,7 @@
 """Ext_Debt_Data: existing debt + ExternalDebtBook headlines."""
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.external.creditor_groups import (
     CREDITOR_GROUPS,
     INPUT4_ROW_TO_GROUP,
     creditor_group_for_name,
@@ -12,23 +12,23 @@ from lic_dsf.pv.external_debt.creditor_groups import (
     new_pv_by_creditor,
     new_stock_by_creditor,
 )
-from lic_dsf.pv.external_debt.existing_debt import (
+from lic_dsf.books.external.existing_debt import (
     existing_mlt_nominal,
     existing_mlt_pv,
 )
-from lic_dsf.pv.external_debt.fxutil import lc_to_usd
-from lic_dsf.pv.external_debt.grant_element import (
+from lic_dsf.books.external.fxutil import lc_to_usd
+from lic_dsf.books.external.grant_element import (
     grant_element_new_disbursements,
     grant_element_value,
     new_disbursements_net_of_ge,
 )
-from lic_dsf.pv.external_debt.panels import (
+from lic_dsf.books.external.panels import (
     debt_evolution,
     existing_debt_service,
     existing_service_totals,
     memorandum,
 )
-from lic_dsf.pv.external_debt.types import ExternalDebtInputs
+from lic_dsf.books.external.types import ExternalDebtInputs
 
 __all__ = [
     "CREDITOR_GROUPS",

@@ -7,49 +7,49 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.creditor_groups import (
     new_amortization_by_creditor as _new_amortization_by_creditor,
 )
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.creditor_groups import (
     new_disbursements_by_creditor as _new_disbursements_by_creditor,
 )
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.creditor_groups import (
     new_interest_by_creditor as _new_interest_by_creditor,
 )
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.creditor_groups import (
     new_pv_by_creditor as _new_pv_by_creditor,
 )
-from lic_dsf.pv.external_debt.creditor_groups import (
+from lic_dsf.books.external.creditor_groups import (
     new_stock_by_creditor as _new_stock_by_creditor,
 )
-from lic_dsf.pv.external_debt.existing_debt import (
+from lic_dsf.books.external.existing_debt import (
     existing_mlt_nominal,
     existing_mlt_pv,
 )
-from lic_dsf.pv.external_debt.grant_element import (
+from lic_dsf.books.external.grant_element import (
     grant_element_new_disbursements as _grant_element_new_disbursements,
 )
-from lic_dsf.pv.external_debt.grant_element import (
+from lic_dsf.books.external.grant_element import (
     grant_element_value as _grant_element_value,
 )
-from lic_dsf.pv.external_debt.grant_element import (
+from lic_dsf.books.external.grant_element import (
     new_disbursements_net_of_ge as _new_disbursements_net_of_ge,
 )
-from lic_dsf.pv.external_debt.panels import (
+from lic_dsf.books.external.panels import (
     debt_evolution as _debt_evolution,
 )
-from lic_dsf.pv.external_debt.panels import (
+from lic_dsf.books.external.panels import (
     existing_debt_service as _existing_debt_service,
 )
-from lic_dsf.pv.external_debt.panels import (
+from lic_dsf.books.external.panels import (
     existing_service_totals as _existing_service_totals,
 )
-from lic_dsf.pv.external_debt.panels import (
+from lic_dsf.books.external.panels import (
     memorandum as _memorandum,
 )
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.external_debt.types import ExternalDebtInputs
+    from lic_dsf.books.external.types import ExternalDebtInputs
     from lic_dsf.pv.portfolio import PVPortfolio
 
 

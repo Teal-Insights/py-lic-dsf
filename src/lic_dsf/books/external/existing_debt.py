@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.types import ExternalDebtInputs
+from lic_dsf.books.external.types import ExternalDebtInputs
 from lic_dsf.pv.mathutil import excel_npv
 
 

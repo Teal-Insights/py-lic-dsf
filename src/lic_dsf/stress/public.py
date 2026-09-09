@@ -6,9 +6,9 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.market_access import (
     _amortizing_stock_from_disbursements,
     _market_add_int_interest_lcu,

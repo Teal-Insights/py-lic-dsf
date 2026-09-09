@@ -10,8 +10,8 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 import lic_dsf.stress.macro_shocks as _macro_shocks
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+from lic_dsf.books.macro.book import MacroDebtBook
+from lic_dsf.books.macro.types import MacroDebtInputs
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import (
     ShockedMacroPath,

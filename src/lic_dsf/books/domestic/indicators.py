@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from lic_dsf.pv.domestic_debt.types import DomesticDebtInputs
+from lic_dsf.books.domestic.types import DomesticDebtInputs
 
 
 def _align(series: pd.Series, years: tuple[int, ...]) -> pd.Series:

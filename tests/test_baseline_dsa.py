@@ -11,12 +11,14 @@ from lic_dsf.dsa import BaselineExternalBook, BaselinePublicBook
 from lic_dsf.load import load_core, load_domestic_debt_inputs
 from lic_dsf.output import external_dsa_panel, public_dsa_panel
 from lic_dsf.pv import (
+    PresentValueInstrument,
+    PVPortfolio,
+)
+from lic_dsf.books import (
     ExternalDebtBook,
     ExternalDebtInputs,
     MacroDebtBook,
     MacroDebtInputs,
-    PresentValueInstrument,
-    PVPortfolio,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

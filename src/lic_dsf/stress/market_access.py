@@ -7,10 +7,10 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
-from lic_dsf.pv.external_debt.creditor_groups import creditor_group_for_name
+from lic_dsf.books.external.book import ExternalDebtBook
+from lic_dsf.books.external.creditor_groups import creditor_group_for_name
 from lic_dsf.pv.instrument import PresentValueInstrument
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
+from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.public_gfn import _align
 from lic_dsf.stress.residual_pv import PublicResFinOverlay

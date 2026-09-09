@@ -10,7 +10,7 @@ import pandas as pd
 from lic_dsf.rating.chart_data import ChartDataRegistry
 
 if TYPE_CHECKING:
-    from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+    from lic_dsf.books.macro.types import MacroDebtInputs
 
 
 @dataclass(frozen=True, slots=True)

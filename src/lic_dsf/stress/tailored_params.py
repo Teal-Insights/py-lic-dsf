@@ -11,10 +11,10 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from lic_dsf.pv.external_debt.book import ExternalDebtBook
+from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
-from lic_dsf.pv.macro_debt.book import MacroDebtBook
-from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+from lic_dsf.books.macro.book import MacroDebtBook
+from lic_dsf.books.macro.types import MacroDebtInputs
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.macro_shocks import apply_fx_depreciation_shock
 from lic_dsf.stress.scenario import StressExternalBook

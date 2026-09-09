@@ -7,7 +7,7 @@ from dataclasses import replace
 import numpy as np
 import pandas as pd
 
-from lic_dsf.pv.macro_debt.types import MacroDebtInputs
+from lic_dsf.books.macro.types import MacroDebtInputs
 from lic_dsf.stress.types import Input6StandardParams, ThresholdRule
 
 

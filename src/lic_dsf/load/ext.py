@@ -8,8 +8,8 @@ from typing import Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.pv.external_debt.fxutil import lc_to_usd, sum_rows_lc
-from lic_dsf.pv.external_debt.types import ExternalDebtInputs
+from lic_dsf.books.external.fxutil import lc_to_usd, sum_rows_lc
+from lic_dsf.books.external.types import ExternalDebtInputs
 
 _INPUT1 = "Input 1 - Basics"
 _INPUT3 = "Input 3 - Macro-Debt data(DMX)"
