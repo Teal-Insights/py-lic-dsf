@@ -29,6 +29,20 @@ uv run pytest                          # skips live_excel (Linux CI)
 LIC_DSF_EXCEL=1 uv run pytest -m live_excel   # Windows + Microsoft Excel
 ```
 
+### Excel-oracle parity cases
+
+JSON cases under [`data/parity/cases/`](data/parity/cases/) compare Python to oracle-minted goldens (`expected.json`). Equality uses abs ≤ `1e-6` or relative ≤ `1e-12` (`tests.parity.equality`).
+
+```bash
+uv run pytest tests/test_parity_cases.py
+uv run python -m tests.parity.mint --all --source cached              # template cache
+uv run python -m tests.parity.mint --case … --source grapher          # excel-grapher proxy
+LIC_DSF_EXCEL=1 uv run python -m tests.parity.mint --all --source live  # Windows remint
+uv run python -m tests.parity.report                                  # corpus pass-rate summary
+```
+
+Install the grapher extra for `--source grapher`: `uv sync --extra grapher`. See [`data/parity/README.md`](data/parity/README.md).
+
 ## Quick Start
 
 Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map](01-excel-map.qmd) to understand how the library maps to sheets.

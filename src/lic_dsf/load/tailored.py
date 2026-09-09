@@ -49,6 +49,12 @@ def load_tailored_params(path: str | Path) -> TailoredParams:
             disaster_shock_pct_gdp=_safe_prefer(
                 ws.cell(21, 7).value, ws.cell(21, 8).value
             ),
+            disaster_gdp_shock_ppt=_safe_prefer(
+                ws.cell(21, 11).value, ws.cell(21, 12).value
+            ),
+            disaster_exports_shock_ppt=_safe_prefer(
+                ws.cell(22, 11).value, ws.cell(22, 12).value
+            ),
             commodity_close_years=_safe_prefer(
                 ws.cell(26, 7).value, ws.cell(26, 8).value
             ),
@@ -57,6 +63,10 @@ def load_tailored_params(path: str | Path) -> TailoredParams:
             market_cost_bps=_safe_prefer(ws.cell(52, 7).value, ws.cell(52, 8).value),
             market_fx_depreciation_pct=_safe_prefer(
                 ws.cell(58, 7).value, ws.cell(58, 8).value
+            ),
+            # C4!AB23 ← Tailored L58 (K58 default); not Input 6 G36/H36.
+            market_fx_passthrough=_safe_prefer(
+                ws.cell(58, 11).value, ws.cell(58, 12).value
             ),
             market_maturity_cap=_safe_prefer(ws.cell(54, 7).value, ws.cell(54, 8).value),
             market_maturity_factor=_safe_prefer(

@@ -52,11 +52,14 @@ Typical flow: load workbook → build Ext + Macro books → baseline / stress pa
 
 ## Verifying parity with Excel
 
-To verify that the library produces the same outputs as the official Excel template, we have shipped a "differential test" suite that runs realistic user scenarios against the library and the Excel template and compares the results.
+To verify that the library produces the same outputs as the official Excel template, we ship:
 
-However, the oracle is live Microsoft Excel automated by the `xlwings` library, so **you must be on a Windows system with a licensed Microsoft Excel installation** to run the differential test suite. Default `uv run pytest` stays Excel-free.
+1. **JSON parity cases** under `data/parity/cases/` — Excel-minted goldens compared on every CI run (`uv run pytest tests/test_parity_cases.py`). Remint with `uv run python -m tests.parity.mint` (see `data/parity/README.md`).
+2. **Live Excel probes** (optional) — the oracle for minting/refreshing goldens. Requires Windows + Microsoft Excel + `xlwings`.
 
-To run differential tests, make sure to install the `xlwings` extra dependency:
+Default `uv run pytest` stays Excel-free and uses committed goldens.
+
+To drive live Excel (mint or `live_excel` tests), install the `xlwings` extra:
 
 ```bash
 uv sync --extra excel

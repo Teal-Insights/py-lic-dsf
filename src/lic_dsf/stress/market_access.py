@@ -14,6 +14,7 @@ from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.public_gfn import _align
 from lic_dsf.stress.residual_pv import PublicResFinOverlay
+from lic_dsf.stress.types import Input6StandardParams
 
 if TYPE_CHECKING:
     from lic_dsf.stress.context import StressContext
@@ -70,23 +71,25 @@ def _market_add_int_rates(
     shocked_macro: MacroDebtBook,
     *,
     stressed_primary_deficit_pct: pd.Series | None = None,
+    domestic_bps: float = 25.0,
+    cap_bps: float = 400.0,
+    bps_per_ppt: float = 100.0,
 ) -> tuple[float, float]:
     """Return (external, domestic) add.int interest rates (decimals).
 
     Matches ``PV_ResFin-add.int.cost - mkt`` B37–B40: external is
-    ``min(400 bps, 100 bps × PB-deviation)`` averaged over the shock window;
-    domestic is ``25 bps × PB-deviation`` averaged the same way.
+    ``min(cap_rate, deviation_ppt)`` (historical B2 binding path); domestic is
+    ``domestic_bps × PB-deviation / 10000`` (0 when interactions are Off).
 
-    PB deviation is ``stressed_primary_deficit% − baseline_primary_deficit%``
-    (Excel B6 block: ``B6!R17 − Baseline!R23``). When
-    ``stressed_primary_deficit_pct`` is omitted, the shocked macro's primary
-    balance is converted to a deficit %.
+    Combo B6 commercial uplift uses :meth:`ComboMarketCost.uplift_rate` with
+    explicit ``bps_per_ppt × deviation`` scaling and tailored H52 as the cap.
     """
+    del bps_per_ppt  # ComboMarketCost owns bps×ppt scaling; keep kw for API symmetry.
     years = shocked_macro.inputs.years
     first = shocked_macro.inputs.first_projection_year
     shock_years = sorted(_shock_window_years(years, first))
     if not shock_years:
-        return 0.04, 0.0
+        return float(cap_bps) / 10_000.0, 0.0
     gdp = _align(baseline_macro.gdp_lcu(), years).replace(0.0, pd.NA)
     base_pb = (
         100.0
@@ -123,12 +126,22 @@ def _market_add_int_rates(
             else 0.0
             for y in shock_years
         ]
-    ext_rates = [min(0.04, d) for d in deviations]
-    dom_rates = [25.0 / 10000.0 * d for d in deviations]
+    cap_rate = float(cap_bps) / 10_000.0
+    ext_rates = [min(cap_rate, d) for d in deviations]
+    dom_rates = [float(domestic_bps) / 10000.0 * d for d in deviations]
     return (
         float(sum(ext_rates) / len(ext_rates)),
         float(sum(dom_rates) / len(dom_rates)),
     )
+
+
+def _domestic_add_int_bps(input6: Input6StandardParams | None) -> float:
+    """Input 6 domestic borrowing-cost bps; 0 when interactions are Off."""
+    if input6 is None:
+        return 25.0
+    if not input6.interactions_on:
+        return 0.0
+    return float(input6.domestic_borrowing_cost_bps)
 
 
 def _market_add_int_interest_parts(
@@ -138,6 +151,7 @@ def _market_add_int_interest_parts(
     *,
     stressed_primary_deficit_pct: pd.Series | None = None,
     external_dsa_borrowing_usd: pd.Series | None = None,
+    domestic_bps: float = 25.0,
 ) -> tuple[pd.Series, pd.Series, pd.Series]:
     """Market-access add.int interest split (ext USD, dom MLT LCU, dom ST LCU).
 
@@ -157,6 +171,7 @@ def _market_add_int_interest_parts(
             baseline_macro,
             shocked_macro,
             stressed_primary_deficit_pct=stressed_primary_deficit_pct,
+            domestic_bps=domestic_bps,
         )
     else:
         ext_rate, dom_rate = 0.04, 0.0203
@@ -207,6 +222,7 @@ def _market_add_int_interest_lcu(
     baseline_macro: MacroDebtBook | None = None,
     *,
     include_external: bool = True,
+    domestic_bps: float = 25.0,
 ) -> pd.Series:
     """Market-access add.int interest in LCU (ext × FX + domestic).
 
@@ -217,7 +233,7 @@ def _market_add_int_interest_lcu(
     years = shocked_macro.inputs.years
     fx = _align(shocked_macro.fx_pa(), years).fillna(1.0)
     ext_usd, dom_mlt, dom_st = _market_add_int_interest_parts(
-        resfin, shocked_macro, baseline_macro
+        resfin, shocked_macro, baseline_macro, domestic_bps=domestic_bps
     )
     if not include_external:
         ext_usd = ext_usd * 0.0
@@ -358,8 +374,8 @@ class ComboMarketCost:
     """B6 combo additional external interest (``PV_Base-add.cost.mkt`` R13).
 
     Only shock-window commercial new borrowing is re-priced at the average
-    PB-driven cost uplift (capped at 400 bps). Interest is prior commercial
-    stock × uplift rate.
+    PB-driven cost uplift (capped at tailored H52 / sheet D6 bps). Interest is
+    prior commercial stock × uplift rate.
     """
 
     bps_per_ppt: float = 100.0
@@ -369,12 +385,64 @@ class ComboMarketCost:
         self,
         baseline: MacroDebtBook,
         shocked: MacroDebtBook,
+        *,
+        input6: Input6StandardParams | None = None,
     ) -> float:
-        """Average external cost increase as a decimal interest rate."""
-        # Reuse market-access rate math (min(400 bps, 100×PB deviation)).
-        ext_rate, _dom = _market_add_int_rates(baseline, shocked)
-        # _market_add_int_rates already encodes 100 bps/ppt and 400 bps cap.
-        return float(ext_rate)
+        """Average external cost increase as a decimal interest rate.
+
+        Excel ``PV_Base-add.cost.mkt`` D10: ``MIN(100bps × PB-dev, D6)`` with
+        D6 = tailored H52 (default 400 bps).
+
+        PB deviation follows Excel ``B6_combo_mkt_pub`` F17/G17 threshold
+        arms (combo primary-balance SD on the *baseline* fiscal path), not the
+        FX-compressed realized macro PB on ``shocked`` — otherwise a large FX
+        overlay shrinks uplift while Excel stays at the PB-threshold cap.
+        """
+        years = baseline.inputs.years
+        first = baseline.inputs.first_projection_year
+        shock_years = sorted(_shock_window_years(years, first))
+        if not shock_years:
+            return 0.0
+
+        if input6 is not None:
+            from lic_dsf.stress.macro_shocks import apply_primary_balance_shock
+
+            pb_inputs = apply_primary_balance_shock(
+                baseline.inputs,
+                input6,
+                shock_sd=input6.combo_primary_balance_shock_sd,
+            )
+        else:
+            pb_inputs = shocked.inputs
+            del shocked  # FX-compressed path only when Input 6 unavailable
+
+        gdp = _align(baseline.gdp_lcu(), years).replace(0.0, pd.NA)
+        base_pb = (
+            100.0
+            * (
+                _align(baseline.inputs.revenues_incl_grants, years)
+                - _align(baseline.inputs.primary_expenditure, years)
+            )
+            / gdp
+        )
+        shock_pb = (
+            100.0
+            * (
+                _align(pb_inputs.revenues_incl_grants, years)
+                - _align(pb_inputs.primary_expenditure, years)
+            )
+            / gdp
+        )
+        deviations = [
+            float((-shock_pb.loc[y]) - (-base_pb.loc[y]))
+            if pd.notna(shock_pb.loc[y]) and pd.notna(base_pb.loc[y])
+            else 0.0
+            for y in shock_years
+        ]
+        cap_rate = float(self.cap_bps) / 10_000.0
+        per_ppt = float(self.bps_per_ppt) / 10_000.0
+        rates = [min(cap_rate, per_ppt * d) for d in deviations]
+        return float(sum(rates) / len(rates)) if rates else 0.0
 
     def compute(
         self,
@@ -383,6 +451,7 @@ class ComboMarketCost:
         external: ExternalDebtBook,
         *,
         shock_years: set[int] | None = None,
+        input6: Input6StandardParams | None = None,
     ) -> pd.Series:
         """Additional nominal interest on commercial external debt (USD)."""
         years = shocked.inputs.years
@@ -390,7 +459,7 @@ class ComboMarketCost:
         first = shocked.inputs.first_projection_year
         if shock_years is None:
             shock_years = _shock_window_years(years, first)
-        rate = self.uplift_rate(baseline, shocked)
+        rate = self.uplift_rate(baseline, shocked, input6=input6)
         if rate <= 0.0 or not shock_years:
             return pd.Series(0.0, index=year_list, dtype=float)
 
@@ -430,13 +499,18 @@ class ComboMarketCost:
         *,
         external: ExternalDebtBook | None = None,
     ) -> pd.Series:
-        """Convenience wrapper using a shocked path and optional FX-adjusted Ext."""
+        """Convenience wrapper; cap from tailored H52 when present (Excel D6)."""
+        cap = float(self.cap_bps)
+        tailored = ctx.tailored
+        if tailored is not None and float(tailored.market_cost_bps) > 0.0:
+            cap = float(tailored.market_cost_bps)
         start, end = path.metadata.shock_window_years
-        return self.compute(
+        return ComboMarketCost(bps_per_ppt=self.bps_per_ppt, cap_bps=cap).compute(
             path.baseline,
             path.shocked,
             external if external is not None else ctx.external,
             shock_years=set(range(int(start), int(end) + 1)),
+            input6=ctx.input6,
         )
 
 
@@ -445,6 +519,7 @@ __all__ = [
     "MarketAccessAddon",
     "MarketFinancingCost",
     "_amortizing_stock_from_disbursements",
+    "_domestic_add_int_bps",
     "_market_add_int_interest_lcu",
     "_market_add_int_interest_parts",
     "_market_add_int_rates",

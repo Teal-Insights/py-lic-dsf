@@ -1,0 +1,5707 @@
+{
+  "oracle": {
+    "minted_at": "2026-09-08T17:00:31Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  },
+  "probes": [
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D12",
+      "row": 12,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 67.16672649784864
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E12",
+      "row": 12,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 62.48005135291107
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F12",
+      "row": 12,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 58.64753275306902
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G12",
+      "row": 12,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 55.95023704693711
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H12",
+      "row": 12,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 53.69936472247668
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I12",
+      "row": 12,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 51.41361618155978
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J12",
+      "row": 12,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 49.35872988237864
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K12",
+      "row": 12,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 47.942094505811596
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L12",
+      "row": 12,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 46.99331188579096
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M12",
+      "row": 12,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 46.172427204376326
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N12",
+      "row": 12,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Baseline"
+      ],
+      "excel_value": 45.345522135635356
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D15",
+      "row": 15,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E15",
+      "row": 15,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 65.42257492773047
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F15",
+      "row": 15,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 62.78065266789133
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G15",
+      "row": 15,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 59.733454249786
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H15",
+      "row": 15,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 56.698419930550145
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I15",
+      "row": 15,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 54.01579740779743
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J15",
+      "row": 15,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 51.96320950865714
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K15",
+      "row": 15,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 49.99904426993711
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L15",
+      "row": 15,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 48.29572173670545
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M15",
+      "row": 15,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 46.82454744902725
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N15",
+      "row": 15,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 45.49271181593836
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D16",
+      "row": 16,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 67.21815163198974
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E16",
+      "row": 16,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 62.12751348509712
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F16",
+      "row": 16,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 57.92293003026573
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G16",
+      "row": 16,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 54.673544371666814
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H16",
+      "row": 16,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 51.843547536104055
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I16",
+      "row": 16,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 49.174429601832706
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J16",
+      "row": 16,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 47.23962781489892
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K16",
+      "row": 16,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 45.66164176379273
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L16",
+      "row": 16,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 44.61213562969162
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M16",
+      "row": 16,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 43.73190393982605
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N16",
+      "row": 16,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 42.92293683635117
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D19",
+      "row": 19,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E19",
+      "row": 19,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 68.88515444883866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F19",
+      "row": 19,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 69.15925478791213
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G19",
+      "row": 19,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 67.8590120814712
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H19",
+      "row": 19,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 67.00218907651421
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I19",
+      "row": 19,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 66.29456686099257
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J19",
+      "row": 19,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 66.38443015452339
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K19",
+      "row": 19,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 66.90914801035528
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L19",
+      "row": 19,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 68.04799976813597
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M19",
+      "row": 19,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 69.36696073958845
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N19",
+      "row": 19,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 70.77117552268574
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D20",
+      "row": 20,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E20",
+      "row": 20,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 70.19607384144284
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F20",
+      "row": 20,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 76.12810767783242
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G20",
+      "row": 20,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 72.8771701544699
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H20",
+      "row": 20,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 69.99496837608862
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I20",
+      "row": 20,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 67.25272173761365
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J20",
+      "row": 20,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 65.25057136111549
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K20",
+      "row": 20,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 63.70452437291293
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L20",
+      "row": 20,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 62.72932469635717
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M20",
+      "row": 20,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 61.92096209801286
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N20",
+      "row": 20,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 61.18902870823734
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D21",
+      "row": 21,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E21",
+      "row": 21,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 67.2707334032171
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F21",
+      "row": 21,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 72.3758159475761
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G21",
+      "row": 21,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 69.51777579752945
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H21",
+      "row": 21,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 67.14230939212432
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I21",
+      "row": 21,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 64.73120478570294
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J21",
+      "row": 21,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 61.897046151341726
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K21",
+      "row": 21,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 58.510383194675086
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L21",
+      "row": 21,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 55.630170480457544
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M21",
+      "row": 21,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 52.87899472965428
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N21",
+      "row": 21,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 50.11733869256091
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D22",
+      "row": 22,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E22",
+      "row": 22,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 66.23025174933846
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F22",
+      "row": 22,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 66.03971945336899
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G22",
+      "row": 22,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 63.25586864609164
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H22",
+      "row": 22,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 60.937906890633464
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I22",
+      "row": 22,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 58.58465861744161
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J22",
+      "row": 22,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 55.94945020188038
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K22",
+      "row": 22,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 53.471080666429806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L22",
+      "row": 22,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 51.481069215501996
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M22",
+      "row": 22,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 49.619598832579655
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N22",
+      "row": 22,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 47.749655499609894
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D23",
+      "row": 23,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E23",
+      "row": 23,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 69.96962338784799
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F23",
+      "row": 23,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 64.41193030557045
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G23",
+      "row": 23,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 59.99023460479046
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H23",
+      "row": 23,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 56.18948079775854
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I23",
+      "row": 23,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 52.689857156119565
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J23",
+      "row": 23,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 50.05993149785344
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K23",
+      "row": 23,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 47.91930701389543
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L23",
+      "row": 23,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 46.365830510019755
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M23",
+      "row": 23,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 45.06567344396632
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N23",
+      "row": 23,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 43.928003960312815
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D24",
+      "row": 24,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E24",
+      "row": 24,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 68.81374363437564
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F24",
+      "row": 24,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 72.40079262235359
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G24",
+      "row": 24,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 69.43230670865972
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H24",
+      "row": 24,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 66.82647621493436
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I24",
+      "row": 24,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 64.34600171276372
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J24",
+      "row": 24,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 62.58866891762873
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K24",
+      "row": 24,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 61.22958918816944
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L24",
+      "row": 24,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 60.39140118097816
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M24",
+      "row": 24,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 59.682312548693496
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N24",
+      "row": 24,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 59.01682636593838
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D27",
+      "row": 27,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E27",
+      "row": 27,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 71.45990541240005
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F27",
+      "row": 27,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 67.12335944924716
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G27",
+      "row": 27,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 63.835129928397315
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H27",
+      "row": 27,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 60.9694366753018
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I27",
+      "row": 27,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 58.27531405217737
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J27",
+      "row": 27,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 56.32949791809466
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K27",
+      "row": 27,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 54.779516141761405
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L27",
+      "row": 27,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 53.77577167348675
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M27",
+      "row": 27,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 52.936537856944476
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N27",
+      "row": 27,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 52.168336054026746
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D29",
+      "row": 29,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E29",
+      "row": 29,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 66.2002678352216
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F29",
+      "row": 29,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 66.53405096513922
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G29",
+      "row": 29,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 67.88388256744356
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H29",
+      "row": 29,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 69.00769207963774
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I29",
+      "row": 29,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 69.6324700249148
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J29",
+      "row": 29,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 70.38076588061884
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K29",
+      "row": 29,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 70.97427127980768
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L29",
+      "row": 29,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 72.18919749139265
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M29",
+      "row": 29,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 73.57591788765029
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N29",
+      "row": 29,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 75.05360567552931
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D30",
+      "row": 30,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 67.16672649784866
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E30",
+      "row": 30,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 62.48005135291107
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F30",
+      "row": 30,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 58.670868838228806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G30",
+      "row": 30,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 56.012868718986255
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H30",
+      "row": 30,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 53.8351154392539
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I30",
+      "row": 30,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 51.611535921014315
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J30",
+      "row": 30,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 49.58346541790225
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K30",
+      "row": 30,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 48.144465116209126
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L30",
+      "row": 30,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 47.13482102992599
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M30",
+      "row": 30,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 46.23148856135911
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N30",
+      "row": 30,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 45.3019388337192
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D32",
+      "row": 32,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E32",
+      "row": 32,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F32",
+      "row": 32,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G32",
+      "row": 32,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H32",
+      "row": 32,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I32",
+      "row": 32,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J32",
+      "row": 32,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K32",
+      "row": 32,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L32",
+      "row": 32,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M32",
+      "row": 32,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N32",
+      "row": 32,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-GDP Ratio",
+      "label": "Threshold",
+      "sut_key": [
+        "PV of Debt-to-GDP Ratio",
+        "Threshold"
+      ],
+      "excel_value": 55.0
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D36",
+      "row": 36,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 356.2547232053229
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E36",
+      "row": 36,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 335.3505800092028
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F36",
+      "row": 36,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 309.14175824219575
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G36",
+      "row": 36,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 293.6842096760963
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H36",
+      "row": 36,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 284.35297336512406
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I36",
+      "row": 36,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 274.2624944204217
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J36",
+      "row": 36,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 266.70394203585516
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K36",
+      "row": 36,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 262.41107373861786
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L36",
+      "row": 36,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 260.0835010774868
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M36",
+      "row": 36,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 257.80256933107324
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N36",
+      "row": 36,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 254.9090995293425
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D39",
+      "row": 39,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E39",
+      "row": 39,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 351.5007386867953
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F39",
+      "row": 39,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 331.5673022229724
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G39",
+      "row": 39,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 314.3345490281384
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H39",
+      "row": 39,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 301.04739423077245
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I39",
+      "row": 39,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 288.88305772335667
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J39",
+      "row": 39,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 281.42146646754435
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K39",
+      "row": 39,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 274.21486227832304
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L39",
+      "row": 39,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 267.7414585621282
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M39",
+      "row": 39,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 261.80683198413385
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N39",
+      "row": 39,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 256.0248628375135
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D40",
+      "row": 40,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 356.52748395881633
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E40",
+      "row": 40,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 333.45839560975594
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F40",
+      "row": 40,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 305.3222461631856
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G40",
+      "row": 40,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 286.9828175261136
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H40",
+      "row": 40,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 274.52590860012367
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I40",
+      "row": 40,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 262.31770347904956
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J40",
+      "row": 40,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 255.25362967328076
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K40",
+      "row": 40,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 249.92901472947707
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L40",
+      "row": 40,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 246.9049309253339
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M40",
+      "row": 40,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 244.17596994680508
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N40",
+      "row": 40,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 241.29057650679573
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D43",
+      "row": 43,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E43",
+      "row": 43,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 368.9710623393009
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F43",
+      "row": 43,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 363.74688961042017
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G43",
+      "row": 43,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 355.6068892808612
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H43",
+      "row": 43,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 354.3546976304821
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I43",
+      "row": 43,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 353.31545978852114
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J43",
+      "row": 43,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 358.4496004399208
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K43",
+      "row": 43,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 366.0338616765663
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L43",
+      "row": 43,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 376.45988553299316
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M43",
+      "row": 43,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 387.19199909783447
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N43",
+      "row": 43,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 397.7486927649598
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D44",
+      "row": 44,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E44",
+      "row": 44,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 376.7649604532519
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F44",
+      "row": 44,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 401.28503202796304
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G44",
+      "row": 44,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 382.5341097713463
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H44",
+      "row": 44,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 370.6426971939169
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I44",
+      "row": 44,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 358.7551429019296
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J44",
+      "row": 44,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 352.5735901951197
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K44",
+      "row": 44,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 348.6867400146151
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L44",
+      "row": 44,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 347.1741346280393
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M44",
+      "row": 44,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 345.73411212843223
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N44",
+      "row": 44,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 343.97310857810726
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D47",
+      "row": 47,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E47",
+      "row": 47,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 361.0637151526961
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F47",
+      "row": 47,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 381.5060232875078
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G47",
+      "row": 47,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 364.9005638065504
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H47",
+      "row": 47,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 355.53707968281327
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I47",
+      "row": 47,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 345.304279486443
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J47",
+      "row": 47,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 334.4532213101297
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K47",
+      "row": 47,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 320.2566061670808
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L47",
+      "row": 47,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 307.88401420308475
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M47",
+      "row": 47,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 295.24851800853673
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N47",
+      "row": 47,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 281.7337870476982
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D48",
+      "row": 48,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E48",
+      "row": 48,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 355.47911465122934
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F48",
+      "row": 48,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 348.10731206024144
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G48",
+      "row": 48,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 332.031654756311
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H48",
+      "row": 48,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 322.6830541581037
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I48",
+      "row": 48,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 312.5159403386073
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J48",
+      "row": 48,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 302.3161041448818
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K48",
+      "row": 48,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 292.6739817331342
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L48",
+      "row": 48,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 284.92090009150087
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M48",
+      "row": 48,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 277.0497641718887
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N48",
+      "row": 48,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 268.4238953040193
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D49",
+      "row": 49,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E49",
+      "row": 49,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 376.2413677175928
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F49",
+      "row": 49,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 339.9768552162676
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G49",
+      "row": 49,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 315.2016367383221
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H49",
+      "row": 49,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 297.76037752271145
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I49",
+      "row": 49,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 281.22704113298823
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J49",
+      "row": 49,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 270.60608870820136
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K49",
+      "row": 49,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 262.36933373942935
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L49",
+      "row": 49,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 256.67208644786206
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M49",
+      "row": 49,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 251.6684325016608
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N49",
+      "row": 49,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 246.97411058935455
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D50",
+      "row": 50,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E50",
+      "row": 50,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 369.3929644431713
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F50",
+      "row": 50,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 381.62111640604803
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G50",
+      "row": 50,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 364.4401267531228
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H50",
+      "row": 50,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 353.8560205436456
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I50",
+      "row": 50,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 343.24317383276195
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J50",
+      "row": 50,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 338.18567803558034
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K50",
+      "row": 50,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 335.1367046432979
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L50",
+      "row": 50,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 334.2323249717181
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M50",
+      "row": 50,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 333.2326981467731
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N50",
+      "row": 50,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 331.7606303868046
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D53",
+      "row": 53,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E53",
+      "row": 53,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 383.5483519706581
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F53",
+      "row": 53,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 353.81937457850336
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G53",
+      "row": 53,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 335.07221188115733
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H53",
+      "row": 53,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 322.8500130796168
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I53",
+      "row": 53,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 310.8657624595574
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J53",
+      "row": 53,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 304.36964612859197
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K53",
+      "row": 53,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 299.83570383849286
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L53",
+      "row": 53,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 297.62088281785657
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M53",
+      "row": 53,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 295.5698085917043
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N53",
+      "row": 53,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 293.2634346496044
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D55",
+      "row": 55,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E55",
+      "row": 55,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 392.0069500454795
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F55",
+      "row": 55,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 386.1700803961379
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G55",
+      "row": 55,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 392.1672209979742
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H55",
+      "row": 55,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 392.5261847775742
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I55",
+      "row": 55,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 389.4866099126557
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J55",
+      "row": 55,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 389.383689460991
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K55",
+      "row": 55,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 388.38848623364345
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L55",
+      "row": 55,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 399.46024152631605
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M55",
+      "row": 55,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 410.75545352712777
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N55",
+      "row": 55,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 421.87095810802344
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D56",
+      "row": 56,
+      "col": 4,
+      "year": 2024,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 356.254723205323
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E56",
+      "row": 56,
+      "col": 5,
+      "year": 2025,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 335.3505800092028
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F56",
+      "row": 56,
+      "col": 6,
+      "year": 2026,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 309.26476697006774
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G56",
+      "row": 56,
+      "col": 7,
+      "year": 2027,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 294.0129649071245
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H56",
+      "row": 56,
+      "col": 8,
+      "year": 2028,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 285.071810918446
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I56",
+      "row": 56,
+      "col": 9,
+      "year": 2029,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 275.3182840238247
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J56",
+      "row": 56,
+      "col": 10,
+      "year": 2030,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 267.9182733888401
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K56",
+      "row": 56,
+      "col": 11,
+      "year": 2031,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 263.5187493567767
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L56",
+      "row": 56,
+      "col": 12,
+      "year": 2032,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 260.8666804739627
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M56",
+      "row": 56,
+      "col": 13,
+      "year": 2033,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 258.13233691099583
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N56",
+      "row": 56,
+      "col": 14,
+      "year": 2034,
+      "section": "PV of Debt-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "PV of Debt-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 254.66409672150775
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D60",
+      "row": 60,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 126.38394360695806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E60",
+      "row": 60,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F60",
+      "row": 60,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 85.39444251908009
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G60",
+      "row": 60,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 82.53947255954209
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H60",
+      "row": 60,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 87.62619273067693
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I60",
+      "row": 60,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 79.17162242405304
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J60",
+      "row": 60,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 80.13631973521879
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K60",
+      "row": 60,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 82.30788171036556
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L60",
+      "row": 60,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 84.49858668302484
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M60",
+      "row": 60,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 86.58691279244056
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N60",
+      "row": 60,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "Baseline",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "Baseline"
+      ],
+      "excel_value": 78.93400527990259
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D63",
+      "row": 63,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E63",
+      "row": 63,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 88.70582682724475
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F63",
+      "row": 63,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 84.9829888695609
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G63",
+      "row": 63,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 81.97042628554806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H63",
+      "row": 63,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 84.39066541309943
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I63",
+      "row": 63,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 76.79240833105105
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J63",
+      "row": 63,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 76.37145103844337
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K63",
+      "row": 63,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 76.25922745388435
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L63",
+      "row": 63,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 75.60473320495741
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M63",
+      "row": 63,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 74.75956597719507
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N63",
+      "row": 63,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A1 historical",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A1 historical"
+      ],
+      "excel_value": 70.37341733540525
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D64",
+      "row": 64,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 126.38394360695808
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E64",
+      "row": 64,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F64",
+      "row": 64,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 85.39444251908014
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G64",
+      "row": 64,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 82.53947255954209
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H64",
+      "row": 64,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 87.62619273067695
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I64",
+      "row": 64,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 79.17162242405308
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J64",
+      "row": 64,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 80.13631973521882
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K64",
+      "row": 64,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 82.30788171036559
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L64",
+      "row": 64,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 84.49858668302488
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M64",
+      "row": 64,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 86.58691279244059
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N64",
+      "row": 64,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "A2 custom",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "A2 custom"
+      ],
+      "excel_value": 78.93400527990262
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D67",
+      "row": 67,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E67",
+      "row": 67,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 100.11860640768876
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F67",
+      "row": 67,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 99.24520772970439
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G67",
+      "row": 67,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 99.26558435716608
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H67",
+      "row": 67,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 108.33377146636057
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I67",
+      "row": 67,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 102.04889762532666
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J67",
+      "row": 67,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 106.30946037336885
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K67",
+      "row": 67,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 112.40852204164146
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L67",
+      "row": 67,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 118.80779080556164
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M67",
+      "row": 67,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 125.21949648362161
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N67",
+      "row": 67,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B1. Real GDP growth",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B1. Real GDP growth"
+      ],
+      "excel_value": 120.90362711965234
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D68",
+      "row": 68,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E68",
+      "row": 68,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F68",
+      "row": 68,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 102.98478479900594
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G68",
+      "row": 68,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 110.25479251089499
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H68",
+      "row": 68,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 111.61018955601288
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I68",
+      "row": 68,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 104.98919343731004
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J68",
+      "row": 68,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 103.83013077682777
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K68",
+      "row": 68,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 108.52948262860487
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L68",
+      "row": 68,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 113.19912423115794
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M68",
+      "row": 68,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 116.65013769267188
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N68",
+      "row": 68,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B2. Primary balance",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B2. Primary balance"
+      ],
+      "excel_value": 110.85203554834776
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D69",
+      "row": 69,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 126.38394360695806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E69",
+      "row": 69,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F69",
+      "row": 69,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 87.19672157106415
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G69",
+      "row": 69,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 87.75815457831659
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H69",
+      "row": 69,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 92.85274651386568
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I69",
+      "row": 69,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 84.3836256864247
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J69",
+      "row": 69,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 88.8562893953771
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K69",
+      "row": 69,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 97.54106363590286
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L69",
+      "row": 69,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 99.0533231126886
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M69",
+      "row": 69,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 100.45014508459886
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N69",
+      "row": 69,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B3. Exports",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B3. Exports"
+      ],
+      "excel_value": 92.0872199808652
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D70",
+      "row": 70,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 126.38394360695806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E70",
+      "row": 70,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F70",
+      "row": 70,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 86.80528705942933
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G70",
+      "row": 70,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 85.34954511309452
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H70",
+      "row": 70,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 90.44050394622273
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I70",
+      "row": 70,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 81.97809870751429
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J70",
+      "row": 70,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 85.68389385794471
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K70",
+      "row": 70,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 90.44615891500113
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L70",
+      "row": 70,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 92.27029689034396
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M70",
+      "row": 70,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 93.98517289909418
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N70",
+      "row": 70,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B4. Other flows",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B4. Other flows"
+      ],
+      "excel_value": 85.94894879751702
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D71",
+      "row": 71,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E71",
+      "row": 71,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 91.23565522833722
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F71",
+      "row": 71,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 87.96241417245842
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G71",
+      "row": 71,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 86.99049391452276
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H71",
+      "row": 71,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 93.58770621641648
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I71",
+      "row": 71,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 85.5530914325266
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J71",
+      "row": 71,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 89.06773817138239
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K71",
+      "row": 71,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 92.59408782272604
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L71",
+      "row": 71,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 93.91452171117948
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M71",
+      "row": 71,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 95.81839694199756
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N71",
+      "row": 71,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B5. Depreciation",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B5. Depreciation"
+      ],
+      "excel_value": 88.4925694809879
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D72",
+      "row": 72,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E72",
+      "row": 72,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 92.0098106310291
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F72",
+      "row": 72,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 98.12921008590953
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G72",
+      "row": 72,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 105.57838560059983
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H72",
+      "row": 72,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 106.57065057346982
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I72",
+      "row": 72,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 100.51442621921117
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J72",
+      "row": 72,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 100.98919084357192
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K72",
+      "row": 72,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 105.41587910684412
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L72",
+      "row": 72,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 109.892091064382
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M72",
+      "row": 72,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 113.35632033998681
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N72",
+      "row": 72,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "B6. Combination of B1-B5",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "B6. Combination of B1-B5"
+      ],
+      "excel_value": 107.33611975374882
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D75",
+      "row": 75,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E75",
+      "row": 75,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F75",
+      "row": 75,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 104.43407345146301
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G75",
+      "row": 75,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 92.22401591215696
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H75",
+      "row": 75,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 102.11596267424459
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I75",
+      "row": 75,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 90.44650238447164
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J75",
+      "row": 75,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 92.06384623686485
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K75",
+      "row": 75,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 96.38799185992995
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L75",
+      "row": 75,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 99.18650883969875
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M75",
+      "row": 75,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 102.28641672862429
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N75",
+      "row": 75,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C1. Combined contingent liabilities",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C1. Combined contingent liabilities"
+      ],
+      "excel_value": 95.76900837430159
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D77",
+      "row": 77,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 126.38394360695807
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E77",
+      "row": 77,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 103.58761782995242
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F77",
+      "row": 77,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 99.905171403173
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G77",
+      "row": 77,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 102.89958184979376
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H77",
+      "row": 77,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 114.01274766718831
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I77",
+      "row": 77,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 107.27848844929538
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J77",
+      "row": 77,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 112.53081457350505
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K77",
+      "row": 77,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 117.60801300584782
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L77",
+      "row": 77,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 124.10782506070338
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M77",
+      "row": 77,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 131.20004810010192
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N77",
+      "row": 77,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C3. Commodity price",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C3. Commodity price"
+      ],
+      "excel_value": 128.08454695498645
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "D78",
+      "row": 78,
+      "col": 4,
+      "year": 2024,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 126.38394360695806
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "E78",
+      "row": 78,
+      "col": 5,
+      "year": 2025,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 92.48778814940654
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "F78",
+      "row": 78,
+      "col": 6,
+      "year": 2026,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 85.51354220147479
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "G78",
+      "row": 78,
+      "col": 7,
+      "year": 2027,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 82.76034664945455
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "H78",
+      "row": 78,
+      "col": 8,
+      "year": 2028,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 88.05893396737504
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "I78",
+      "row": 78,
+      "col": 9,
+      "year": 2029,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 80.55747827349748
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "J78",
+      "row": 78,
+      "col": 10,
+      "year": 2030,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 82.28913397141665
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "K78",
+      "row": 78,
+      "col": 11,
+      "year": 2031,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 85.1773856772678
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "L78",
+      "row": 78,
+      "col": 12,
+      "year": 2032,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 86.16717318659965
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "M78",
+      "row": 78,
+      "col": 13,
+      "year": 2033,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 86.15667842912282
+    },
+    {
+      "sheet": "Output 3-2 Stress-public",
+      "cell": "N78",
+      "row": 78,
+      "col": 14,
+      "year": 2034,
+      "section": "Debt Service-to-Revenue Ratio",
+      "label": "C4. Market Financing",
+      "sut_key": [
+        "Debt Service-to-Revenue Ratio",
+        "C4. Market Financing"
+      ],
+      "excel_value": 78.67833522563579
+    }
+  ]
+}

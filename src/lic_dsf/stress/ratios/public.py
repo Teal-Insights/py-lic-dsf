@@ -10,6 +10,7 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.stress.market_access import (
     _amortizing_stock_from_disbursements,
+    _domestic_add_int_bps,
     _market_add_int_interest_parts,
     _market_add_int_rates,
     _shock_window_years,
@@ -56,6 +57,8 @@ class StressPublicRatios:
     inflation_elasticity: float = 0.0
     fx_passthrough: float = 0.0
     market_access: bool = False
+    # Excel non-mkt B2 keeps domestic add.int but zeros the external rate.
+    include_external_add_int: bool = True
     resfin_external_ds: PublicResFinOverlay | None = None
     gfn: PublicGFNIdentity | None = None
     scenario_id: str = "B1_GDP_pub"
@@ -79,6 +82,7 @@ class StressPublicRatios:
         inflation_elasticity: float = 0.0,
         fx_passthrough: float = 0.0,
         market_access: bool = False,
+        include_external_add_int: bool = True,
         resfin_external_ds: PublicResFinOverlay | None = None,
         gfn: PublicGFNIdentity | None = None,
         scenario_id: str = "B1_GDP_pub",
@@ -91,6 +95,7 @@ class StressPublicRatios:
             inflation_elasticity=float(inflation_elasticity),
             fx_passthrough=float(fx_passthrough),
             market_access=bool(market_access),
+            include_external_add_int=bool(include_external_add_int),
             resfin_external_ds=resfin_external_ds,
             gfn=gfn,
             scenario_id=scenario_id,
@@ -278,7 +283,11 @@ class StressPublicRatios:
         if not self.market_access:
             return pd.Series(0.0, index=list(self.years), dtype=float)
         stock = self._market_add_int_stock_usd()
-        ext_rate, _dom = _market_add_int_rates(self.baseline_macro, self.macro)
+        ext_rate, _dom = _market_add_int_rates(
+            self.baseline_macro,
+            self.macro,
+            domestic_bps=_domestic_add_int_bps(self.input6),
+        )
         prior = stock.shift(1).fillna(0.0)
         return (prior * ext_rate).astype(float)
 
@@ -314,7 +323,11 @@ class StressPublicRatios:
         proj = [y for y in years if y >= first]
         first_add_year = proj[2] if len(proj) >= 3 else (proj[-1] if proj else None)
         discount = 0.05
-        ext_rate, _dom = _market_add_int_rates(self.baseline_macro, self.macro)
+        ext_rate, _dom = _market_add_int_rates(
+            self.baseline_macro,
+            self.macro,
+            domestic_bps=_domestic_add_int_bps(self.input6),
+        )
         out = pd.Series(0.0, index=years, dtype=float)
         for i, year in enumerate(years):
             if first_add_year is None or year < first_add_year:
@@ -376,7 +389,7 @@ class StressPublicRatios:
     def pv_ppg_external_to_exports(self) -> pd.Series:
         """Output 3-1 B2 path: public-sheet external PV / exports (R102)."""
         return _clamp_nonnegative(
-            _pct(self._external_pv_usd(), self.baseline_macro.exports())
+            _pct(self._external_pv_usd(), self.macro.exports())
         )
 
     def ppg_debt_service_to_exports(self) -> pd.Series:
@@ -384,7 +397,7 @@ class StressPublicRatios:
         return _clamp_nonnegative(
             _pct(
                 self._external_ppg_debt_service_usd(),
-                self.baseline_macro.exports(),
+                self.macro.exports(),
             )
         )
 
@@ -393,7 +406,7 @@ class StressPublicRatios:
         return _clamp_nonnegative(
             _pct(
                 self._external_ppg_debt_service_usd(),
-                self.baseline_macro.revenues_excl_grants(),
+                self.macro.revenues_excl_grants(),
             )
         )
 
@@ -430,7 +443,8 @@ class StressPublicRatios:
             )
             if self.market_access and not self.combo_primary:
                 fx_eop = _align(self.macro.fx_eop(), self.years).fillna(1.0)
-                base = (base + self._market_add_int_pv_usd() * fx_eop).astype(float)
+                if self.include_external_add_int:
+                    base = (base + self._market_add_int_pv_usd() * fx_eop).astype(float)
             self._external_pv_cache = base
         return self._external_pv_cache
 
@@ -484,7 +498,10 @@ class StressPublicRatios:
         out = (dom_i + self._resfin_dom_interest_lcu()).astype(float)
         if self.market_access and not self.combo_primary:
             _ext, mkt_mlt, mkt_st = _market_add_int_interest_parts(
-                self.resfin, self.macro, self.baseline_macro
+                self.resfin,
+                self.macro,
+                self.baseline_macro,
+                domestic_bps=_domestic_add_int_bps(self.input6),
             )
             out = (out + mkt_mlt + mkt_st).astype(float)
         return out
@@ -499,9 +516,16 @@ class StressPublicRatios:
         if self._resfin_in_debt_service_parts():
             return ppg_i.astype(float)
         out = (ppg_i + self._resfin_ext_interest_lcu()).astype(float)
-        if self.market_access and not self.combo_primary:
+        if (
+            self.market_access
+            and self.include_external_add_int
+            and not self.combo_primary
+        ):
             mkt_ext_usd, _mlt, _st = _market_add_int_interest_parts(
-                self.resfin, self.macro, self.baseline_macro
+                self.resfin,
+                self.macro,
+                self.baseline_macro,
+                domestic_bps=_domestic_add_int_bps(self.input6),
             )
             fx = _align(self.macro.fx_pa(), self.years).fillna(1.0)
             out = (out + mkt_ext_usd * fx).astype(float)

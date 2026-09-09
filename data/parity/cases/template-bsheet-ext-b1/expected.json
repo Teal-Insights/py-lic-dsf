@@ -1,0 +1,1329 @@
+{
+  "oracle": {
+    "minted_at": "2026-09-08T17:00:04Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  },
+  "probes": [
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D46",
+      "row": 46,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2024
+      ],
+      "excel_value": 45464.086073205704
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E46",
+      "row": 46,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2025
+      ],
+      "excel_value": 45239.05521556533
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F46",
+      "row": 46,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2026
+      ],
+      "excel_value": 46720.58699461124
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G46",
+      "row": 46,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2027
+      ],
+      "excel_value": 49859.793403264375
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H46",
+      "row": 46,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2028
+      ],
+      "excel_value": 53424.640512461716
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I46",
+      "row": 46,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2029
+      ],
+      "excel_value": 57559.02053781271
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J46",
+      "row": 46,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2030
+      ],
+      "excel_value": 62009.55193160496
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K46",
+      "row": 46,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2031
+      ],
+      "excel_value": 66511.55697359379
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L46",
+      "row": 46,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2032
+      ],
+      "excel_value": 71176.20063683338
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M46",
+      "row": 46,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2033
+      ],
+      "excel_value": 76144.79996028681
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N46",
+      "row": 46,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "gdp_usd",
+      "sut_key": [
+        "B1_GDP",
+        46,
+        2034
+      ],
+      "excel_value": 81396.2309148638
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D50",
+      "row": 50,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2024
+      ],
+      "excel_value": 5.890694461231871
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E50",
+      "row": 50,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2025
+      ],
+      "excel_value": 3.429651461256367
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F50",
+      "row": 50,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2026
+      ],
+      "excel_value": 3.429651461256367
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G50",
+      "row": 50,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2027
+      ],
+      "excel_value": 5.111368229237456
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H50",
+      "row": 50,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2028
+      ],
+      "excel_value": 5.22043221380426
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I50",
+      "row": 50,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2029
+      ],
+      "excel_value": 5.363735287630789
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J50",
+      "row": 50,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2030
+      ],
+      "excel_value": 5.337618585397963
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K50",
+      "row": 50,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2031
+      ],
+      "excel_value": 4.684474482800871
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L50",
+      "row": 50,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2032
+      ],
+      "excel_value": 4.397263448242006
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M50",
+      "row": 50,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2033
+      ],
+      "excel_value": 4.483388648570363
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N50",
+      "row": 50,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "real_gdp_growth",
+      "sut_key": [
+        "B1_GDP",
+        50,
+        2034
+      ],
+      "excel_value": 4.47567495914889
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D19",
+      "row": 19,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2024
+      ],
+      "excel_value": 41.15413821773019
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E19",
+      "row": 19,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2025
+      ],
+      "excel_value": 45.38042878681756
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F19",
+      "row": 19,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2026
+      ],
+      "excel_value": 46.854760015648964
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G19",
+      "row": 19,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2027
+      ],
+      "excel_value": 46.209133122110096
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H19",
+      "row": 19,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2028
+      ],
+      "excel_value": 45.83540033168183
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I19",
+      "row": 19,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2029
+      ],
+      "excel_value": 45.514372594127074
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J19",
+      "row": 19,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2030
+      ],
+      "excel_value": 44.80034398887113
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K19",
+      "row": 19,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2031
+      ],
+      "excel_value": 43.93701698899757
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L19",
+      "row": 19,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2032
+      ],
+      "excel_value": 43.10914540589954
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M19",
+      "row": 19,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2033
+      ],
+      "excel_value": 42.55518343717801
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N19",
+      "row": 19,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "exports_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        19,
+        2034
+      ],
+      "excel_value": 42.210761126557856
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D86",
+      "row": 86,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2024
+      ],
+      "excel_value": 0.0
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E86",
+      "row": 86,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2025
+      ],
+      "excel_value": -3.637978807091713e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F86",
+      "row": 86,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2026
+      ],
+      "excel_value": -7.275957614183426e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G86",
+      "row": 86,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2027
+      ],
+      "excel_value": 3.637978807091713e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H86",
+      "row": 86,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2028
+      ],
+      "excel_value": -7.275957614183426e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I86",
+      "row": 86,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2029
+      ],
+      "excel_value": 3.637978807091713e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J86",
+      "row": 86,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2030
+      ],
+      "excel_value": 0.0
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K86",
+      "row": 86,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2031
+      ],
+      "excel_value": -3.637978807091713e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L86",
+      "row": 86,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2032
+      ],
+      "excel_value": 3.637978807091713e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M86",
+      "row": 86,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2033
+      ],
+      "excel_value": 1.0913936421275139e-11
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N86",
+      "row": 86,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "residual_gross_borrowing",
+      "sut_key": [
+        "B1_GDP",
+        86,
+        2034
+      ],
+      "excel_value": -7.275957614183426e-12
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D35",
+      "row": 35,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2024
+      ],
+      "excel_value": 44.8846237468134
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E35",
+      "row": 35,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2025
+      ],
+      "excel_value": 46.954641080177645
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F35",
+      "row": 35,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2026
+      ],
+      "excel_value": 46.64683327640616
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G35",
+      "row": 35,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2027
+      ],
+      "excel_value": 45.478654094154756
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H35",
+      "row": 35,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2028
+      ],
+      "excel_value": 43.67988709347861
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I35",
+      "row": 35,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2029
+      ],
+      "excel_value": 42.65120427427361
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J35",
+      "row": 35,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2030
+      ],
+      "excel_value": 40.08082083168283
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K35",
+      "row": 35,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2031
+      ],
+      "excel_value": 37.32711725387852
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L35",
+      "row": 35,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2032
+      ],
+      "excel_value": 36.15730283482107
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M35",
+      "row": 35,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2033
+      ],
+      "excel_value": 35.54548527466482
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N35",
+      "row": 35,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_gdp",
+      "sut_key": [
+        "B1_GDP",
+        35,
+        2034
+      ],
+      "excel_value": 35.310883718244014
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D36",
+      "row": 36,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2024
+      ],
+      "excel_value": 109.06466686131706
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E36",
+      "row": 36,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2025
+      ],
+      "excel_value": 103.46892335626711
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F36",
+      "row": 36,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2026
+      ],
+      "excel_value": 99.55623134304102
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G36",
+      "row": 36,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2027
+      ],
+      "excel_value": 98.41918906804634
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H36",
+      "row": 36,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2028
+      ],
+      "excel_value": 95.2972741099562
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I36",
+      "row": 36,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2029
+      ],
+      "excel_value": 93.70930948475184
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J36",
+      "row": 36,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2030
+      ],
+      "excel_value": 89.46543098338559
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K36",
+      "row": 36,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2031
+      ],
+      "excel_value": 84.95596608942691
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L36",
+      "row": 36,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2032
+      ],
+      "excel_value": 83.87385668256113
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M36",
+      "row": 36,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2033
+      ],
+      "excel_value": 83.52798038607627
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N36",
+      "row": 36,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "pv_ppg_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        36,
+        2034
+      ],
+      "excel_value": 83.65374794444863
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D39",
+      "row": 39,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2024
+      ],
+      "excel_value": 17.168117428103436
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E39",
+      "row": 39,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2025
+      ],
+      "excel_value": 16.50744738261089
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F39",
+      "row": 39,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2026
+      ],
+      "excel_value": 15.170490840774164
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G39",
+      "row": 39,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2027
+      ],
+      "excel_value": 16.27558455533967
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H39",
+      "row": 39,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2028
+      ],
+      "excel_value": 18.56076608228515
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I39",
+      "row": 39,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2029
+      ],
+      "excel_value": 15.89219349923706
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J39",
+      "row": 39,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2030
+      ],
+      "excel_value": 19.6644054955996
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K39",
+      "row": 39,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2031
+      ],
+      "excel_value": 19.460462395418613
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L39",
+      "row": 39,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2032
+      ],
+      "excel_value": 16.571874391944302
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M39",
+      "row": 39,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2033
+      ],
+      "excel_value": 15.079952334507574
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N39",
+      "row": 39,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_exports",
+      "sut_key": [
+        "B1_GDP",
+        39,
+        2034
+      ],
+      "excel_value": 13.319447314092878
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "D40",
+      "row": 40,
+      "col": 4,
+      "year": 2024,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2024
+      ],
+      "excel_value": 39.00150259737196
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "E40",
+      "row": 40,
+      "col": 5,
+      "year": 2025,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2025
+      ],
+      "excel_value": 41.20620946982794
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "F40",
+      "row": 40,
+      "col": 6,
+      "year": 2026,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2026
+      ],
+      "excel_value": 38.13327335692534
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "G40",
+      "row": 40,
+      "col": 7,
+      "year": 2027,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2027
+      ],
+      "excel_value": 39.99774698914311
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "H40",
+      "row": 40,
+      "col": 8,
+      "year": 2028,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2028
+      ],
+      "excel_value": 45.495258562080735
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "I40",
+      "row": 40,
+      "col": 9,
+      "year": 2029,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2029
+      ],
+      "excel_value": 38.870371396879335
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "J40",
+      "row": 40,
+      "col": 10,
+      "year": 2030,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2030
+      ],
+      "excel_value": 47.866416489204674
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "K40",
+      "row": 40,
+      "col": 11,
+      "year": 2031,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2031
+      ],
+      "excel_value": 46.996271193069376
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "L40",
+      "row": 40,
+      "col": 12,
+      "year": 2032,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2032
+      ],
+      "excel_value": 39.663286098472504
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "M40",
+      "row": 40,
+      "col": 13,
+      "year": 2033,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2033
+      ],
+      "excel_value": 35.9162346798486
+    },
+    {
+      "sheet": "B1_GDP_ext",
+      "cell": "N40",
+      "row": 40,
+      "col": 14,
+      "year": 2034,
+      "section": "B1_GDP",
+      "label": "ppg_ds_to_revenue",
+      "sut_key": [
+        "B1_GDP",
+        40,
+        2034
+      ],
+      "excel_value": 31.662052243423933
+    }
+  ]
+}

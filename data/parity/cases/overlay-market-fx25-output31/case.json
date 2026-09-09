@@ -1,0 +1,26 @@
+{
+  "id": "overlay-market-fx25-output31",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Tailored market FX depreciation 25% (was 15%); Output 3-1.",
+  "inputs": {
+    "presets": [
+      "higher_market_fx"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_31",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": "2026-09-09T02:53:39Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "grapher"
+  }
+}

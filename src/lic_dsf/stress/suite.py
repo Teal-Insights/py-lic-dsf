@@ -138,11 +138,12 @@ class StressSuite:
             ScenarioRegistry.get("B2_PrimaryBalance")
         )
         public_for_o31["B2_PrimaryBalance"] = b2
-        # C1 runs via tailored → CoupledScenarioRunner; prefer its public ratios.
-        c1 = tailored.get("C1_CombinedCL")
-        if c1 is not None and c1.public_ratios is not None:
-            public_for_o31["C1_CombinedCL"] = c1
-            external.pop("C1_CombinedCL", None)
+        # C1/C2 Output 3-1 use public-sheet external-ratio methods.
+        for sid in ("C1_CombinedCL", "C2_NaturalDisaster"):
+            result = tailored.get(sid)
+            if result is not None and result.public_ratios is not None:
+                public_for_o31[sid] = result
+                external.pop(sid, None)
         return build_output31_external_table(
             self.context.ext_base,
             external,

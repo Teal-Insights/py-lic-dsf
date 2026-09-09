@@ -83,13 +83,19 @@ class ExternalDebtDynamics:
         historical = spec.shock_kind is ShockKind.HISTORICAL
         if historical:
             hist_ca, hist_fdi = _bound.historical_identity_pins(path.baseline)
+        # C4 uses Tailored L58 passthrough (not Input 6 G36) and keeps it
+        # even when Input 6 interactions are Off.
+        if spec.shock_kind is ShockKind.TAILORED_MARKET:
+            fx_passthrough = float(ctx.tailored.market_fx_passthrough)
+        else:
+            fx_passthrough = float(input6.fx_passthrough) if interactions else 0.0
         return cls(
             path=path,
             external=ctx.external,
             ext_base=ctx.ext_base,
             residual=residual if residual is not None else ctx.residual,
             fx_depreciation_pct=fx_pct,
-            fx_passthrough=float(input6.fx_passthrough) if interactions else 0.0,
+            fx_passthrough=fx_passthrough,
             inflation_elasticity=(
                 float(input6.inflation_elasticity) if interactions else 0.0
             ),

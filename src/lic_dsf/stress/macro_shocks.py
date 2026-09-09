@@ -357,6 +357,48 @@ def _shock_ratio_to_gdp(
     return (_align(gdp, years) * shocked_ratio / 100.0).astype(float)
 
 
+def _shock_ratio_to_gdp_b6_year3_lock(
+    series: pd.Series,
+    gdp: pd.Series,
+    years: tuple[int, ...],
+    first: int,
+    shock_sd: float,
+    rule: ThresholdRule,
+    *,
+    year3_sd: float | None = None,
+) -> pd.Series:
+    """B6 E21/F21-style ratio shock with Excel year-3 lock.
+
+    Year 2 uses ``shock_sd``. Year 3 follows Excel ``F21``/``F24``: if year 2
+    matched the historical arm, continue that hist level; otherwise
+    ``baseline_y3 − year3_sd × σ``. ``year3_sd`` defaults to ``shock_sd``.
+
+    Excel ``B6_Combo_mkt_ext!F24`` (FDI) incorrectly references ``AA82``
+    (combo transfers SD) in the lock/else branch — pass
+    ``year3_sd=combo_transfers_shock_sd`` for FDI to match.
+    """
+    y3_sd = float(shock_sd if year3_sd is None else year3_sd)
+    ratio = 100.0 * _align(series, years) / _align(gdp, years).replace(0.0, pd.NA)
+    hist_avg, hist_sd = _hist_mean_sd(ratio, years, first)
+    shocked_ratio = ratio.copy()
+    window = _projection_shock_years(years, first)
+    if window is None:
+        return (_align(gdp, years) * shocked_ratio / 100.0).astype(float)
+    y2, y3 = window
+    base2 = float(ratio.loc[y2]) if pd.notna(ratio.loc[y2]) else 0.0
+    e2 = _shocked_growth(base2, hist_avg, hist_sd, shock_sd, rule)
+    shocked_ratio.loc[y2] = e2
+    hist_path_y2 = hist_avg - float(shock_sd) * hist_sd
+    # Excel F21: IF(E21=-(D68-AA82*F68), hist, baseline_y3+AA82*σ) in signed
+    # space ≡ positive-ratio hist lock vs baseline_y3 − year3_sd×σ.
+    if abs(e2 - hist_path_y2) <= 1e-9:
+        shocked_ratio.loc[y3] = hist_avg - y3_sd * hist_sd
+    else:
+        base3 = float(ratio.loc[y3]) if pd.notna(ratio.loc[y3]) else 0.0
+        shocked_ratio.loc[y3] = base3 - y3_sd * hist_sd
+    return (_align(gdp, years) * shocked_ratio / 100.0).astype(float)
+
+
 def apply_other_flows_shock(
     inputs: MacroDebtInputs,
     params: Input6StandardParams,
@@ -403,6 +445,7 @@ def apply_fx_depreciation_shock(
     params: Input6StandardParams,
     *,
     depreciation_pct: float | None = None,
+    fx_passthrough: float | None = None,
 ) -> MacroDebtInputs:
     """One-time FX depreciation (B5 deflator pass-through).
 
@@ -410,11 +453,19 @@ def apply_fx_depreciation_shock(
     GDP deflator in the **second** projection year (column E), leaving the
     first projection year on the baseline GDP path. ``fx_eop`` / ``fx_pa``
     scale from that shock year onward.
+
+    Args:
+        fx_passthrough: Override Input 6 passthrough. When omitted, uses
+            ``params.fx_passthrough`` only if interactions are on (B5). C4
+            passes the configured passthrough even when interactions are off.
     """
     years = inputs.years
     first = inputs.first_projection_year
     dep = params.fx_depreciation_pct if depreciation_pct is None else depreciation_pct
-    passthrough = params.fx_passthrough if params.interactions_on else 0.0
+    if fx_passthrough is not None:
+        passthrough = float(fx_passthrough)
+    else:
+        passthrough = params.fx_passthrough if params.interactions_on else 0.0
     proj = [y for y in years if y >= first]
     shock_year = proj[1] if len(proj) >= 2 else (proj[0] if proj else None)
 
@@ -681,16 +732,81 @@ def apply_historical_averages_shock(inputs: MacroDebtInputs) -> MacroDebtInputs:
     )
 
 
+def _b6_combo_r50_real_growth(
+    baseline: MacroDebtInputs,
+    shocked_exports: pd.Series,
+    params: Input6StandardParams,
+) -> tuple[pd.Series, float | None, float | None]:
+    """Excel ``B6_Combo_mkt_ext`` E50/F50 real GDP growth (three-way MIN).
+
+    Year-2 (E50)::
+
+        MIN(
+          hist_avg − GDP_SD × hist_sd,
+          baseline_y2 − GDP_SD × hist_sd,
+          baseline_y2 + exports_SD × E53 × (exports/GDP)_{y2−1} / 100,
+        )
+
+    Year-3 (F50): if E50 equals the hist arm, keep it; else
+    ``baseline_y3 − GDP_SD × hist_sd``.
+
+    Returns:
+        Full real-growth series, plus ``(e50, f50)`` when a shock window exists.
+    """
+    years = baseline.years
+    first = baseline.first_projection_year
+    real_b = _growth_pct(baseline.gdp_constant, years)
+    shocked_real = real_b.copy()
+    window = _projection_shock_years(years, first)
+    if window is None:
+        return shocked_real, None, None
+
+    y2, y3 = window
+    sd_g = float(params.combo_gdp_shock_sd)
+    sd_x = float(params.combo_exports_shock_sd)
+    hist_avg, hist_sd = _hist_mean_sd(real_b, years, first)
+    arm1 = hist_avg - sd_g * hist_sd
+    base2 = float(real_b.loc[y2]) if pd.notna(real_b.loc[y2]) else 0.0
+    base3 = float(real_b.loc[y3]) if pd.notna(real_b.loc[y3]) else 0.0
+    arm2 = base2 - sd_g * hist_sd
+    exp_g = _growth_pct(shocked_exports, years)
+    e53 = float(exp_g.loc[y2]) if pd.notna(exp_g.loc[y2]) else 0.0
+    prior = y2 - 1
+    gdp_prior = float(_align(baseline.gdp_usd, years).loc[prior])
+    exp_prior = float(_align(baseline.exports, years).loc[prior])
+    d19 = 100.0 * exp_prior / gdp_prior if gdp_prior else 0.0
+    arm3 = base2 + sd_x * e53 * d19 / 100.0
+    gdp_only = _shocked_growth(base2, hist_avg, hist_sd, sd_g, params.threshold_rule)
+    # ``whichever_lower`` is MIN(arm1, arm2, arm3); other rules MIN(GDP path, arm3).
+    if params.threshold_rule == "whichever_lower":
+        e50 = min(arm1, arm2, arm3)
+    else:
+        e50 = min(gdp_only, arm3)
+    if abs(e50 - arm1) < 1e-12:
+        f50 = arm1
+    else:
+        f50 = base3 - sd_g * hist_sd
+    shocked_real.loc[y2] = e50
+    shocked_real.loc[y3] = f50
+    return shocked_real, e50, f50
+
+
 def apply_combo_shock(
     inputs: MacroDebtInputs, params: Input6StandardParams
 ) -> MacroDebtInputs:
     """Apply B6 half-size combination of GDP, PB, exports, other flows, and FX.
 
     GDP / primary balance / exports / transfers / FDI use half-size Input 6
-    magnitudes. FX levels are scaled from the second projection year by the
-    half-size depreciation, and the GDP deflator picks up
-    ``passthrough × (baseline NC depreciation − shock size)`` in that year
-    (B6 ``E51`` FX term) without the full B5 ``(1 − passthrough) × dep`` rewrite.
+    magnitudes. Year-2 real GDP follows Excel ``B6_Combo_mkt_ext`` E50::
+
+        MIN(hist−SD, baseline−SD, baseline + exports_SD × E53 × exports/GDP / 100)
+
+    so a large combo exports SD can bind the export-interaction arm (template
+    sizes keep the GDP-shock arm). Year 3 follows F50. FX levels are scaled
+    from the second projection year by the half-size depreciation, and the GDP
+    deflator picks up ``passthrough × (baseline NC depreciation − shock size)``
+    in that year (B6 ``E51`` FX term) without the full B5
+    ``(1 − passthrough) × dep`` rewrite.
     """
     out = apply_real_gdp_shock(
         inputs,
@@ -707,29 +823,110 @@ def apply_combo_shock(
         out,
         params,
         shock_sd=params.combo_exports_shock_sd,
-        # B6 R50 takes MIN(gdp shock, baseline−SD, baseline+ε·Δexport); the
-        # template keeps the GDP-shock path, not B3's export→real-GDP rewrite.
+        # Export→GDP ε is handled by the R50 MIN below, not B3's rewrite.
         gdp_elasticity=0.0,
     )
     # Excel combo applies the other-flows thresholds on the baseline flow/GDP
     # path (then combines with the GDP/export/FX shocks), rather than on the
-    # already GDP-shocked intermediate path.
-    other_flows = apply_other_flows_shock(
-        inputs,
-        params,
-        transfers_sd=params.combo_transfers_shock_sd,
-        fdi_sd=params.combo_fdi_shock_sd,
+    # already GDP-shocked intermediate path. Preserve the export-driven CA
+    # shortfall already on ``out``. Year-3 ratios follow Excel F21/F24 lock;
+    # B6!F24 (FDI) mistakenly uses AA82 (transfers SD) — match that quirk.
+    t_sd = float(params.combo_transfers_shock_sd)
+    f_sd = float(params.combo_fdi_shock_sd)
+    transfers = _shock_ratio_to_gdp_b6_year3_lock(
+        inputs.current_transfers_net,
+        inputs.gdp_usd,
+        inputs.years,
+        inputs.first_projection_year,
+        t_sd,
+        params.threshold_rule,
     )
+    fdi = _shock_ratio_to_gdp_b6_year3_lock(
+        inputs.fdi,
+        inputs.gdp_usd,
+        inputs.years,
+        inputs.first_projection_year,
+        f_sd,
+        params.threshold_rule,
+        year3_sd=t_sd,
+    )
+    official_share = (
+        _align(inputs.current_transfers_official, inputs.years)
+        / _align(inputs.current_transfers_net, inputs.years).replace(0.0, pd.NA)
+    ).fillna(0.0)
+    official = (transfers * official_share).astype(float)
+    years = out.years
+    tr_short = _align(inputs.current_transfers_net, years) - transfers
     out = replace(
         out,
-        current_transfers_net=other_flows.current_transfers_net,
-        current_transfers_official=other_flows.current_transfers_official,
-        fdi=other_flows.fdi,
-        current_account=other_flows.current_account,
+        current_transfers_net=transfers.astype(float),
+        current_transfers_official=official,
+        fdi=fdi.astype(float),
+        current_account=(_align(out.current_account, years) - tr_short).astype(float),
     )
 
-    years = out.years
     first = out.first_projection_year
+    shocked_real, e50, f50 = _b6_combo_r50_real_growth(inputs, out.exports, params)
+    window = _projection_shock_years(years, first)
+    if window is not None and e50 is not None and f50 is not None:
+        y2, y3 = window
+        # Skip rebuild when the MIN equals the GDP-shock path already applied
+        # by ``apply_real_gdp_shock`` (template combo sizes).
+        current_real = _growth_pct(out.gdp_constant, years)
+        cur2 = float(current_real.loc[y2]) if pd.notna(current_real.loc[y2]) else 0.0
+        cur3 = float(current_real.loc[y3]) if pd.notna(current_real.loc[y3]) else 0.0
+        if abs(cur2 - e50) > 1e-12 or abs(cur3 - f50) > 1e-12:
+            real_b = _growth_pct(inputs.gdp_constant, years)
+            base2 = float(real_b.loc[y2]) if pd.notna(real_b.loc[y2]) else 0.0
+            base3 = float(real_b.loc[y3]) if pd.notna(real_b.loc[y3]) else 0.0
+            elasticity = (
+                float(params.inflation_elasticity) if params.interactions_on else 0.0
+            )
+            deflator_g = _usd_deflator_growth(inputs, years)
+            shocked_deflator = deflator_g.copy()
+            shocked_deflator.loc[y2] = (
+                float(deflator_g.loc[y2]) - (base2 - e50) * elasticity
+            )
+            shocked_deflator.loc[y3] = (
+                float(deflator_g.loc[y3]) - (base3 - f50) * elasticity
+            )
+            gdp_constant = _rebuild_levels_from_growth(
+                inputs.gdp_constant, years, first, shocked_real
+            )
+            gdp_usd = _align(inputs.gdp_usd, years).copy()
+            for year in years:
+                if year < first:
+                    continue
+                rg = (
+                    float(shocked_real.loc[year])
+                    if pd.notna(shocked_real.loc[year])
+                    else 0.0
+                )
+                dg = (
+                    float(shocked_deflator.loc[year])
+                    if pd.notna(shocked_deflator.loc[year])
+                    else 0.0
+                )
+                gdp_usd.loc[year] = (
+                    float(gdp_usd.loc[year - 1])
+                    * (1.0 + rg / 100.0)
+                    * (1.0 + dg / 100.0)
+                )
+            # Rescale from the GDP path revenues already sit on (post B1),
+            # not baseline — otherwise non-grant revenue is double-held.
+            revenues = _hold_nongrant_revenue_to_gdp(
+                out,
+                old_gdp_usd=out.gdp_usd,
+                new_gdp_usd=gdp_usd,
+                from_year=first,
+            )
+            out = replace(
+                out,
+                gdp_constant=gdp_constant.astype(float),
+                gdp_usd=gdp_usd.astype(float),
+                revenues_incl_grants=revenues,
+            )
+
     dep = params.combo_fx_depreciation_pct
     passthrough = params.fx_passthrough if params.interactions_on else 0.0
     proj = [y for y in years if y >= first]

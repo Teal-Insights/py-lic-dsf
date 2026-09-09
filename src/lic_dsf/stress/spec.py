@@ -163,7 +163,13 @@ class ScenarioRegistry:
             output_31_source="public_external_methods",
         ),
         "C2_NaturalDisaster": _tailored(
-            "C2_NaturalDisaster", ShockKind.TAILORED_NATURAL_DISASTER
+            "C2_NaturalDisaster",
+            ShockKind.TAILORED_NATURAL_DISASTER,
+            # Excel C2 is a public DSA sheet: other-debt flows → public GFN /
+            # three-way ResFin; Output 3-1 reads C2!R101–R104. Dedicated
+            # PV_ResFin_pub C2 block ignores external R86 modality.
+            ext_r86_zero=True,
+            output_31_source="public_external_methods",
         ),
         "C3_Commodity": _tailored(
             "C3_Commodity", ShockKind.TAILORED_COMMODITY

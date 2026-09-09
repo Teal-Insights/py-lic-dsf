@@ -1,0 +1,26 @@
+{
+  "id": "overlay-market-access-off-output32",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Input 1 market access No (was Yes); Output 3-2.",
+  "inputs": {
+    "presets": [
+      "market_access_off"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_32",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": "2026-09-08T17:32:59Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  }
+}

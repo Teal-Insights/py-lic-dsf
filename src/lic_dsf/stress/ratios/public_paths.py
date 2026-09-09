@@ -8,6 +8,7 @@ from lic_dsf.pv.external_debt.book import ExternalDebtBook
 from lic_dsf.pv.macro_debt.book import MacroDebtBook
 from lic_dsf.stress.macro_shocks import apply_real_gdp_shock
 from lic_dsf.stress.market_access import (
+    _domestic_add_int_bps,
     _market_add_int_interest_parts,
     _shock_window_years,
 )
@@ -184,6 +185,7 @@ def _combo_public_debt_service_parts_lcu(
     market_access: bool,
     stressed_primary_deficit_pct: pd.Series | None = None,
     external_dsa_borrowing_usd: pd.Series | None = None,
+    input6: Input6StandardParams | None = None,
 ) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series]:
     """B6 ``B6_combo_mkt_pub`` R84–R87 debt-service split (LCU).
 
@@ -211,14 +213,18 @@ def _combo_public_debt_service_parts_lcu(
         rf_dom_mlt_a = _align(resfin.dom_mlt.amortization, years).fillna(0.0)
 
     mkt_ext_usd = mkt_dom_mlt = mkt_dom_st = zero
-    if market_access and resfin is not None:
+    if resfin is not None:
+        # Excel non-mkt keeps domestic add.int; only external uplift is gated.
         mkt_ext_usd, mkt_dom_mlt, mkt_dom_st = _market_add_int_interest_parts(
             resfin,
             shocked_macro,
             baseline_macro,
             stressed_primary_deficit_pct=stressed_primary_deficit_pct,
             external_dsa_borrowing_usd=external_dsa_borrowing_usd,
+            domestic_bps=_domestic_add_int_bps(input6),
         )
+        if not market_access:
+            mkt_ext_usd = mkt_ext_usd * 0.0
 
     dom_interest = (
         dom_i_usd * fx_s + rf_dom_mlt_i + rf_dom_st_i + mkt_dom_mlt + mkt_dom_st
@@ -412,11 +418,11 @@ def _public_existing_debt_service_lcu(
     years = shocked_macro.inputs.years
     if combo_primary:
         # B6 add.int uses half-PB R17 (primary deficit % GDP), not the full
-        # combo shocked-macro primary balance.
+        # combo shocked-macro primary balance. Domestic uplift applies on
+        # non-mkt sheets too; only external add.int is market-gated.
         r17: pd.Series | None = None
         if (
-            market_access
-            and input6 is not None
+            input6 is not None
             and external is not None
             and gdp_lcu is not None
         ):
@@ -436,6 +442,7 @@ def _public_existing_debt_service_lcu(
             market_access=market_access,
             stressed_primary_deficit_pct=r17,
             external_dsa_borrowing_usd=external_dsa_borrowing_usd,
+            input6=input6,
         )
         return (dom_i + ext_i).astype(float), (ext_a + dom_a).astype(float)
 
@@ -477,8 +484,7 @@ def _public_existing_debt_service_parts_lcu(
     if combo_primary:
         r17: pd.Series | None = None
         if (
-            market_access
-            and input6 is not None
+            input6 is not None
             and external is not None
             and gdp_lcu is not None
         ):
@@ -498,6 +504,7 @@ def _public_existing_debt_service_parts_lcu(
             market_access=market_access,
             stressed_primary_deficit_pct=r17,
             external_dsa_borrowing_usd=external_dsa_borrowing_usd,
+            input6=input6,
         )
 
     if fx_passthrough and fx_depreciation_pct:

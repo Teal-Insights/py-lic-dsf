@@ -1,0 +1,30 @@
+{
+  "id": "template-bsheet-ext-b1",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Default template external B1_GDP sheet metric probes (projection years).",
+  "inputs": {
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "bsheet_ext",
+    "scenario_id": "B1_GDP",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028,
+      2029,
+      2030,
+      2031,
+      2032,
+      2033,
+      2034
+    ]
+  },
+  "oracle": {
+    "minted_at": "2026-09-08T17:00:04Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  }
+}

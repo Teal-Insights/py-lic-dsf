@@ -39,14 +39,13 @@ def load_input7_residual_params(path: str | Path) -> ResidualFinancingParams:
         ws = workbook[_INPUT7]
 
         # Public shares (J = col 10). Fall back to Ext decade defaults in H if
-        # J is blank.
+        # J is blank. Excel ``I11 = 1 − I9 − I10``; surgical overlays that only
+        # rewrite J9 leave a stale J11 cache, so always residualize ST.
         ext_share = _require_float(ws.cell(9, 10).value or ws.cell(9, 8).value, "J9")
         dom_mlt_share = _require_float(
             ws.cell(10, 10).value or ws.cell(10, 8).value, "J10"
         )
-        dom_st_share = _require_float(
-            ws.cell(11, 10).value or ws.cell(11, 8).value, "J11"
-        )
+        dom_st_share = max(0.0, 1.0 - ext_share - dom_mlt_share)
 
         # External terms: E14 decimal → percent; E15 discount; E16/E17 ints.
         interest_decimal = _require_float(ws.cell(14, 5).value, "E14")

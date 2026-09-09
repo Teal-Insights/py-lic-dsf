@@ -1,0 +1,26 @@
+{
+  "id": "overlay-exports-gdp-elast-output31",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Input 6 exports\u2013GDP elasticity 1.2 (was 0.8); Output 3-1.",
+  "inputs": {
+    "presets": [
+      "higher_exports_gdp_elasticity"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_31",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": null,
+    "template_sha": null,
+    "excel_build": null
+  }
+}

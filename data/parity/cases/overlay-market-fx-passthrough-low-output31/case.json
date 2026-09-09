@@ -1,0 +1,26 @@
+{
+  "id": "overlay-market-fx-passthrough-low-output31",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Tailored C4 FX passthrough 0.1 (was 0.3, K58/L58); Output 3-1.",
+  "inputs": {
+    "presets": [
+      "weaker_market_fx_passthrough"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_31",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": null,
+    "template_sha": null,
+    "excel_build": null
+  }
+}

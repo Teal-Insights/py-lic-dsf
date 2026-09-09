@@ -37,7 +37,10 @@ class TailoredParams:
     commodity_avg_price_shock: float
     market_cost_bps: float
     market_fx_depreciation_pct: float
-    cl_shock_pct_gdp: float = 10.0  # Excel AA60 / Input 2 F25; loader overrides
+    cl_shock_pct_gdp: float = 10.0  # Excel C1 via Input 2 F25 / F21:F24
+    # C4 FX deflator passthrough (Input 6 Tailored K58/L58 → C4!AB23).
+    # Distinct from Input 6 standard G36/H36 used by B5/B6.
+    market_fx_passthrough: float = 0.3
     # C4 maturity/grace shorten (Input 6 H54–H56).
     market_maturity_cap: float = 5.0
     market_maturity_factor: float = 2.0 / 3.0
@@ -45,6 +48,9 @@ class TailoredParams:
     # C3 real-GDP / revenue ppt shocks (Input 6 L26 / L27).
     commodity_gdp_shock_ppt: float = 0.0
     commodity_revenue_drop_ppt: float = 0.0
+    # C2 associated real-GDP / exports growth ppt (Input 6 L21 / L22).
+    disaster_gdp_shock_ppt: float = 0.0
+    disaster_exports_shock_ppt: float = 0.0
 
 
 def _one_off_flow(
@@ -77,13 +83,104 @@ def apply_combined_cl_shock(inputs: MacroDebtInputs, params: TailoredParams) -> 
 def apply_natural_disaster_shock(
     inputs: MacroDebtInputs, params: TailoredParams
 ) -> MacroDebtInputs:
-    """C2: one-off external PPG/GDP shock in the second projection year."""
-    return _one_off_flow(
+    """C2: other-debt flow + associated GDP/exports growth shocks in year 2.
+
+    Excel ``C2_Natural disaster``:
+
+    * R31 / ResFin ``PV_ResFin_pub`` E313: ``disaster_shock_pct_gdp`` of GDP as
+      other debt-creating flows (fed into public GFN → three-way ResFin).
+    * R42: baseline real GDP growth − ``disaster_gdp_shock_ppt`` (Input 6 L21)
+      in the second projection year only.
+    * R109: baseline export growth − ``disaster_exports_shock_ppt`` (L22) in
+      that same year; export levels compound from the prior year.
+    """
+    years = list(inputs.years)
+    first = inputs.first_projection_year
+    proj = [y for y in years if y >= first]
+    out = _one_off_flow(
         inputs,
         params.disaster_shock_pct_gdp,
         year_offset=1,
         field="other_debt_creating_flows",
     )
+    if len(proj) < 2:
+        return out
+    shock_y = proj[1]
+    gdp_ppt = float(params.disaster_gdp_shock_ppt)
+    exp_ppt = float(params.disaster_exports_shock_ppt)
+    if gdp_ppt == 0.0 and exp_ppt == 0.0:
+        return out
+
+    from lic_dsf.stress.macro_shocks import (
+        _align,
+        _hold_nongrant_revenue_to_gdp,
+        _rebuild_levels_from_growth,
+    )
+
+    replacements: dict[str, pd.Series] = {}
+    if gdp_ppt != 0.0:
+        real_g = _growth_pct_local(out.gdp_constant, years)
+        shocked_real = real_g.copy()
+        base_rg = float(real_g.loc[shock_y]) if pd.notna(real_g.loc[shock_y]) else 0.0
+        shocked_real.loc[shock_y] = base_rg - gdp_ppt
+        gdp_constant = _rebuild_levels_from_growth(
+            out.gdp_constant, tuple(years), first, shocked_real
+        )
+        deflator_g = _growth_pct_local(
+            out.gdp_usd / out.gdp_constant.replace(0.0, pd.NA), years
+        )
+        usd_g = _growth_pct_local(out.gdp_usd, years)
+        for year in years:
+            if year == years[0]:
+                continue
+            if pd.isna(deflator_g.loc[year]) and pd.notna(usd_g.loc[year]):
+                rg = float(real_g.loc[year]) if pd.notna(real_g.loc[year]) else 0.0
+                deflator_g.loc[year] = 100.0 * (
+                    (1.0 + float(usd_g.loc[year]) / 100.0) / (1.0 + rg / 100.0) - 1.0
+                )
+        gdp_usd = _align(out.gdp_usd, tuple(years)).copy()
+        for year in years:
+            if year < first:
+                continue
+            prior = year - 1
+            rg = float(shocked_real.loc[year]) if pd.notna(shocked_real.loc[year]) else 0.0
+            dg = float(deflator_g.loc[year]) if pd.notna(deflator_g.loc[year]) else 0.0
+            gdp_usd.loc[year] = (
+                float(gdp_usd.loc[prior]) * (1.0 + rg / 100.0) * (1.0 + dg / 100.0)
+            )
+        revenues = _hold_nongrant_revenue_to_gdp(
+            out,
+            old_gdp_usd=out.gdp_usd,
+            new_gdp_usd=gdp_usd,
+            from_year=first,
+        )
+        replacements.update(
+            gdp_constant=gdp_constant,
+            gdp_usd=gdp_usd,
+            revenues_incl_grants=revenues,
+        )
+        # Keep other_debt_creating_flows as % of *pre-GDP-shock* GDP (Excel AA62
+        # × F41 uses the C2 sheet GDP after the GDP ppt shock). Rebuild bump.
+        out = replace(out, **replacements)
+        fx = out.fx_pa.reindex(years).astype(float)
+        other = (
+            inputs.other_debt_creating_flows.reindex(years).fillna(0.0).astype(float)
+        )
+        bump = float(gdp_usd.loc[shock_y]) * float(fx.loc[shock_y]) * float(
+            params.disaster_shock_pct_gdp
+        ) / 100.0
+        other.loc[shock_y] = float(other.loc[shock_y]) + bump
+        out = replace(out, other_debt_creating_flows=other)
+    if exp_ppt != 0.0:
+        exp_g = _growth_pct_local(out.exports, years)
+        shocked_exp = exp_g.copy()
+        base_eg = float(exp_g.loc[shock_y]) if pd.notna(exp_g.loc[shock_y]) else 0.0
+        shocked_exp.loc[shock_y] = base_eg - exp_ppt
+        exports = _rebuild_levels_from_growth(
+            out.exports, tuple(years), first, shocked_exp
+        )
+        out = replace(out, exports=exports)
+    return out
 
 
 def apply_commodity_price_shock(
@@ -355,7 +452,13 @@ def apply_market_financing_shock(
         input6,
         fx_depreciation_pct=params.market_fx_depreciation_pct,
     )
-    return apply_fx_depreciation_shock(inputs, shocked)
+    # Excel C4!E15 uses Tailored L58 (AB23), not Input 6 standard G36/H36.
+    # C4 keeps this passthrough even when Input 6 interactions are Off.
+    return apply_fx_depreciation_shock(
+        inputs,
+        shocked,
+        fx_passthrough=float(params.market_fx_passthrough),
+    )
 
 
 def run_tailored_external_stress(

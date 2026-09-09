@@ -1,0 +1,27 @@
+{
+  "id": "overlay-gdp2-bsheet-b1",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Input 6 GDP shock 2 SD (was 1); external B1_GDP sheet.",
+  "inputs": {
+    "presets": [
+      "larger_gdp_shock"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "bsheet_ext",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ],
+    "scenario_id": "B1_GDP"
+  },
+  "oracle": {
+    "minted_at": "2026-09-08T17:32:26Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  }
+}

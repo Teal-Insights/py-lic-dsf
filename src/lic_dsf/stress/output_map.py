@@ -184,7 +184,7 @@ def build_output31_external_table(
 ) -> pd.DataFrame:
     """Build an Output 3-1 MultiIndex table from baseline + external results.
 
-    When ``public_results`` includes B2 / C1, their public external-ratio
+    When ``public_results`` includes B2 / C1 / C2, their public external-ratio
     methods fill Output 3-1 rows. Tailored A2/C3/C4 come from ``results``.
     """
     year_list = years or [int(y) for y in ext_base.years]

@@ -80,6 +80,14 @@ class CoupledScenarioRunner:
         market = ScenarioRegistry.resolve_market_access(
             spec, context_market_access=ctx.market_access
         )
+        # Live Excel Output 3-2 B2 is invariant to Input 1 C27 (market-access-off
+        # golden ≡ template). Keep full add.int so public ratios match Chart Data.
+        if spec.shock_kind is ShockKind.PRIMARY_BALANCE:
+            add_int_on = True
+            include_external = True
+        else:
+            add_int_on = bool(market)
+            include_external = True
         input6 = ctx.input6
         interactions = bool(input6.interactions_on)
         inflation = (
@@ -92,6 +100,9 @@ class CoupledScenarioRunner:
             if interactions and spec.shock_kind in _FX_PASSTHROUGH_SHOCKS
             else 0.0
         )
+        # Excel C4!AB23 ← Tailored L58; independent of Input 6 G36 / interactions.
+        if spec.shock_kind is ShockKind.TAILORED_MARKET and ctx.tailored is not None:
+            fx_passthrough = float(ctx.tailored.market_fx_passthrough)
 
         from lic_dsf.stress.public_gfn import _a1_public_gdp_lcu
 
@@ -102,7 +113,8 @@ class CoupledScenarioRunner:
             input6=input6,
             inflation_elasticity=inflation,
             fx_passthrough=fx_passthrough,
-            market_access=market,
+            market_access=add_int_on,
+            include_external_add_int=include_external,
             gdp_lcu=gdp_lcu,
             historical=historical,
         )
@@ -119,11 +131,12 @@ class CoupledScenarioRunner:
             gfn=gfn,
             external_gap=external_gap_series,
             inflation_elasticity=inflation,
-            market_access=market,
+            market_access=add_int_on,
+            include_external_add_int=include_external,
         )
 
         resfin_external_ds = None
-        if market and pub.public is not None:
+        if add_int_on and include_external and pub.public is not None:
             pub_ds = pub_engine.solve_public_with_gfn_feedback(
                 path.baseline,
                 path.shocked,
@@ -148,7 +161,7 @@ class CoupledScenarioRunner:
         assert pub.public is not None
         # MarketAccessAddon documents the B2 add.int surface; ratios already
         # consume market_access + resfin_external_ds via StressPublicBook.
-        _addon = MarketAccessAddon.from_path(path, pub.public, enabled=market)
+        _addon = MarketAccessAddon.from_path(path, pub.public, enabled=add_int_on)
 
         resfin = ResidualFinancingResult(
             external=external_overlay,
@@ -165,6 +178,7 @@ class CoupledScenarioRunner:
             inflation_elasticity=inflation,
             fx_passthrough=fx_passthrough,
             market_access=_addon.enabled,
+            include_external_add_int=include_external,
             resfin_external_ds=resfin_external_ds,
             gfn=gfn,
             scenario_id=f"{spec.id}_pub",

@@ -29,13 +29,14 @@ class ExternalScenarioRunner:
 
     def run(self, spec: ScenarioSpec) -> StressScenarioResult:
         """Run one external-capable scenario end-to-end."""
-        if (
-            spec.couple_ext_r86
-            and spec.output_binding.output_31_source == "public_external_methods"
-        ):
-            from lic_dsf.stress.runner.coupled import CoupledScenarioRunner
+        if spec.output_binding.output_31_source == "public_external_methods":
+            if spec.couple_ext_r86:
+                from lic_dsf.stress.runner.coupled import CoupledScenarioRunner
 
-            return CoupledScenarioRunner(context=self.context).run(spec)
+                return CoupledScenarioRunner(context=self.context).run(spec)
+            from lic_dsf.stress.runner.public import PublicScenarioRunner
+
+            return PublicScenarioRunner(context=self.context).run(spec)
 
         shock = MacroShockFactory.from_spec(spec)
         path = shock.apply(self.context, spec)

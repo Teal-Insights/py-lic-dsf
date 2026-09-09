@@ -451,11 +451,14 @@ def estimate_b1_public_gfn(
                     prior_resfin_st.reindex([year]).fillna(0.0).loc[year]
                 )
     if market_access and not combo_primary:
+        from lic_dsf.stress.market_access import _domestic_add_int_bps
+
         extra = extra + _market_add_int_interest_lcu(
             resfin,
             shocked_macro,
             baseline_macro,
             include_external=include_external_add_int,
+            domestic_bps=_domestic_add_int_bps(input6),
         )
     return (gfn + extra).astype(float)
 

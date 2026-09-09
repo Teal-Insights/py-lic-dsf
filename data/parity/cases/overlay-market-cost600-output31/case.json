@@ -1,0 +1,26 @@
+{
+  "id": "overlay-market-cost600-output31",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Tailored market financing cost 600 bps (was 400); Output 3-1.",
+  "inputs": {
+    "presets": [
+      "higher_market_cost"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_31",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": "2026-09-08T17:33:10Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "live"
+  }
+}

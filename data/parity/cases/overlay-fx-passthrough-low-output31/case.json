@@ -1,0 +1,26 @@
+{
+  "id": "overlay-fx-passthrough-low-output31",
+  "workbook": "data/lic-dsf-template-2025-08-12.xlsx",
+  "description": "Input 6 FX passthrough 0.1 (was 0.3); Output 3-1.",
+  "inputs": {
+    "presets": [
+      "weaker_fx_passthrough"
+    ],
+    "overlays": []
+  },
+  "probes": {
+    "catalog": "output_31",
+    "years": [
+      2024,
+      2025,
+      2026,
+      2027,
+      2028
+    ]
+  },
+  "oracle": {
+    "minted_at": "2026-09-09T02:52:35Z",
+    "template_sha": "afb423dbfd38665aff48ab44ce1dda6ba606a38249e490d51c720259dbc893e3",
+    "excel_build": "grapher"
+  }
+}

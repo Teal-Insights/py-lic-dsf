@@ -94,18 +94,26 @@ def _safe_quit(app: object) -> None:
         _kill_excel_processes()
 
 
-def read_live_output(workbook: str | Path, probes: Sequence[Probe]) -> pd.DataFrame:
+def read_live_output(
+    workbook: str | Path,
+    probes: Sequence[Probe],
+    overlays: Sequence[object] = (),
+) -> pd.DataFrame:
     """Open a temp copy of ``workbook`` in Excel, calculate, and read probes.
 
     Args:
         workbook: Path to the LIC-DSF ``.xlsm`` (never mutated).
         probes: Cells to read after a full calculate.
+        overlays: Optional Excel-native cell writes applied before calculate
+            (``CellOverlay``-like objects with ``sheet``, ``cell``, ``value``).
+            When non-empty the book is opened writable so values stick.
 
     Returns:
         DataFrame with probe metadata and ``excel_value``.
 
     Raises:
         ExcelComCrashed: When Excel/COM dies mid-session (RPC errors).
+        KeyError: When an overlay sheet name is missing (adapter gap).
     """
     _require_excel()
     import xlwings as xw
@@ -135,9 +143,19 @@ def read_live_output(workbook: str | Path, probes: Sequence[Probe]) -> pd.DataFr
         book = app.books.open(
             str(tmp_path),
             update_links=False,
-            read_only=True,
+            read_only=not bool(overlays),
             ignore_read_only_recommended=True,
         )
+        if overlays:
+            sheet_names = {s.name for s in book.sheets}
+            for overlay in overlays:
+                sheet_name = str(overlay.sheet)  # type: ignore[attr-defined]
+                if sheet_name not in sheet_names:
+                    raise KeyError(
+                        f"overlay sheet {sheet_name!r} not in workbook; "
+                        "adapter gap — fix the case overlay, not the SUT"
+                    )
+                book.sheets[sheet_name].range(str(overlay.cell)).value = overlay.value  # type: ignore[attr-defined]
         try:
             book.app.calculate()
         except Exception as exc:
