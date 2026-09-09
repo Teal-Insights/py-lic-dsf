@@ -7,8 +7,9 @@ from pathlib import Path
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.dsa.compare import write_comparison_csv
-from lic_dsf.realism.compare import _a1, _as_year, _books, _year_int
+from tests.parity.excel_compare.books import books as _books
+from tests.parity.excel_compare.cells import a1 as _a1, as_year as _as_year, year_int as _year_int
+from tests.parity.excel_compare.csv import write_comparison_csv
 from lic_dsf.output.realism import invest_growth_panel
 from lic_dsf.load.realism import load_capital_assumptions
 

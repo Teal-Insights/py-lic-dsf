@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from lic_dsf.rating.compare import (
+from tests.parity.excel_compare.rating import (
     build_output6_comparison,
     build_output7_comparison,
     build_output51_comparison,

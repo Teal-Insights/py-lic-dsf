@@ -16,24 +16,16 @@ from fastpyxl import load_workbook
 
 from lic_dsf.load.core import load_core
 from lic_dsf.output.baseline import external_dsa_panel, public_dsa_panel
-from lic_dsf.realism.compare import _a1, _as_year, _year_int
+from tests.parity.excel_compare.cells import year_cols
+from tests.parity.excel_compare.csv import (
+    is_number as _is_number,
+    pair_frame,
+    record_cell,
+    write_comparison_csv,
+)
 
 OUTPUT11_SHEET = "Output 1-1 - External DSA"
 OUTPUT12_SHEET = "Output 1-2 - Public DSA"
-
-_CSV_COLS = [
-    "sheet",
-    "cell",
-    "row",
-    "col",
-    "year",
-    "section",
-    "series_code",
-    "label",
-    "excel_value",
-    "computed_value",
-    "abs_diff",
-]
 
 _OUTPUT11_ROWS: tuple[tuple[int, str], ...] = (
     (30, "PV of PPG external debt / GDP"),
@@ -56,118 +48,6 @@ _OUTPUT12_ROWS: tuple[tuple[int, str], ...] = (
 _YEAR_ROW = 6
 _FIRST_YEAR_COL = 3
 _SECTION = "Sustainability indicators"
-
-
-def _is_number(value: object) -> bool:
-    return isinstance(value, (int, float)) and not isinstance(value, bool)
-
-
-def _abs_diff(excel: object, computed: object) -> float | None:
-    if excel is None or computed is None:
-        return None
-    if isinstance(excel, float) and pd.isna(excel):
-        return None
-    if isinstance(computed, float) and pd.isna(computed):
-        return None
-    if (
-        isinstance(excel, (int, float))
-        and not isinstance(excel, bool)
-        and isinstance(computed, (int, float))
-        and not isinstance(computed, bool)
-    ):
-        return abs(float(excel) - float(computed))
-    return None
-
-
-def _lookup(
-    computed: dict[tuple[str, str], pd.Series],
-    section: object,
-    match_key: object,
-    year: object,
-) -> object | None:
-    series = computed.get((str(section), str(match_key)))
-    if series is None:
-        return None
-    if year is None or (isinstance(year, float) and pd.isna(year)):
-        raw = series.iloc[0] if len(series) else None
-    else:
-        year_i = _year_int(year)
-        raw = series.loc[year_i] if year_i in series.index else None
-    if raw is None:
-        return None
-    if not isinstance(raw, str) and pd.isna(raw):
-        return None
-    return raw
-
-
-def pair_frame(
-    excel: pd.DataFrame,
-    computed: dict[tuple[str, str], pd.Series],
-) -> pd.DataFrame:
-    """Attach Python values to Excel rows."""
-    computed_values: list[object] = []
-    diffs: list[float | None] = []
-    for section, match_key, year, excel_value in zip(
-        excel["section"].tolist(),
-        excel["match_key"].tolist(),
-        excel["year"].tolist(),
-        excel["excel_value"].tolist(),
-        strict=True,
-    ):
-        value = _lookup(computed, section, match_key, year)
-        computed_values.append(value if value is not None else pd.NA)
-        diffs.append(_abs_diff(excel_value, value))
-    excel = excel.copy()
-    excel["computed_value"] = computed_values
-    excel["abs_diff"] = diffs
-    return excel.sort_values(
-        ["row", "col", "section", "year"], na_position="last"
-    ).reset_index(drop=True)
-
-
-def write_comparison_csv(frame: pd.DataFrame, output: str | Path) -> Path:
-    """Write `frame` comparison columns to `output`."""
-    output = Path(output)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    frame.loc[:, _CSV_COLS].to_csv(output, index=False)
-    return output
-
-
-def record_cell(
-    *,
-    sheet: str,
-    row: int,
-    col: int,
-    year: int | None,
-    section: str,
-    series_code: str,
-    label: str,
-    match_key: str,
-    value: object,
-) -> dict[str, Any]:
-    """Build one Excel-side comparison row."""
-    return {
-        "sheet": sheet,
-        "cell": _a1(row, col),
-        "row": row,
-        "col": col,
-        "year": year,
-        "section": section,
-        "series_code": series_code,
-        "label": label,
-        "match_key": match_key,
-        "excel_value": value,
-    }
-
-
-def year_cols(ws: Any, year_row: int, first_col: int) -> dict[int, int]:
-    """Map calendar year to column index from a header row."""
-    cols: dict[int, int] = {}
-    for col in range(first_col, (ws.max_column or first_col) + 1):
-        year = _as_year(ws.cell(year_row, col).value)
-        if year is not None:
-            cols[year] = col
-    return cols
 
 
 @lru_cache(maxsize=4)

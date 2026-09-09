@@ -95,7 +95,7 @@ def test_primary_deficit_and_realism4_parity() -> None:
     from fastpyxl import load_workbook
 
     from lic_dsf.output import realism4_sheet_table
-    from lic_dsf.realism.compare_realism4 import build_realism4_comparison
+    from tests.parity.excel_compare.realism4 import build_realism4_comparison
     from tests.parity.equality import ABS_TOL
 
     macro, external = _workbook_books()

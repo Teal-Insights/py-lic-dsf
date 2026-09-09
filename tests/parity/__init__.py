@@ -2,7 +2,8 @@
 
 Not part of the installed library. Equality, probe catalogs, live-Excel
 reading, JSON cases (``case_schema`` / ``mint`` / ``run_case``), and
-side-by-side comparison live here. Output *tables* are public and live in
+side-by-side comparison live here. Legacy Excel CSV dumps live under
+``tests.parity.excel_compare``. Output *tables* are public and live in
 ``lic_dsf.output``.
 """
 

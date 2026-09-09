@@ -10,11 +10,11 @@ from typing import Any
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.dsa.compare import (
+from tests.parity.excel_compare.cells import year_cols
+from tests.parity.excel_compare.csv import (
     pair_frame,
     record_cell,
     write_comparison_csv,
-    year_cols,
 )
 from lic_dsf.load.core import load_core
 from lic_dsf.load.input6 import load_input6_standard

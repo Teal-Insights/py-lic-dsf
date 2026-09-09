@@ -8,7 +8,8 @@ from typing import Hashable
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.realism.compare import _a1, _as_year, _books
+from tests.parity.excel_compare.books import books as _books
+from tests.parity.excel_compare.cells import a1 as _a1, as_year as _as_year
 from lic_dsf.realism.fiscal_adjustment import (
     DEFAULT_LIC_PROGRAM_DISTRIBUTION,
     place_in_lic_histogram,

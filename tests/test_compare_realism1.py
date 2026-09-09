@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from lic_dsf.realism.compare import (
+from tests.parity.excel_compare.realism1 import (
     REALISM1_SHEET,
     build_realism1_comparison,
     write_realism1_comparison_csv,

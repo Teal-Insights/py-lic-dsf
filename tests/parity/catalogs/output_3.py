@@ -44,7 +44,7 @@ def _scenario_row_map(
     sections: tuple[str, ...],
 ) -> dict[tuple[str, str], int]:
     """Map ``(indicator, scenario-label)`` to Excel row from Output 3-x."""
-    from lic_dsf.stress.compare import (
+    from tests.parity.excel_compare.stress import (
         _EXT_SECTIONS,
         _PUB_SECTIONS,
         _norm,

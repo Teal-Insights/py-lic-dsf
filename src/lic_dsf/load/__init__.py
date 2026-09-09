@@ -1,7 +1,7 @@
 """Excel Input-sheet parsers. Types and books stay in computation packages.
 
-Import leaf modules (``lic_dsf.load.core``, ``lic_dsf.load.input6``, …) from
-in-src compare helpers to avoid circular package-init imports.
+Import leaf modules (``lic_dsf.load.core``, ``lic_dsf.load.input6``, …)
+from heavy callers to avoid circular package-init imports.
 """
 
 from lic_dsf.load.core import load_core

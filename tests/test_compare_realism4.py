@@ -8,7 +8,7 @@ import pandas as pd
 import pytest
 
 from lic_dsf.output import realism4_sheet_table
-from lic_dsf.realism.compare_realism4 import (
+from tests.parity.excel_compare.realism4 import (
     REALISM4_SHEET,
     build_realism4_comparison,
     write_realism4_comparison_csv,

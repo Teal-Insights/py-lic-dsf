@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
 from fastpyxl import load_workbook
 
-from lic_dsf.load.core import load_core
 from lic_dsf.load.realism import load_imported_data
 from lic_dsf.output.realism import forecast_error_panel
 from lic_dsf.realism.forecast_error import (
@@ -23,6 +21,8 @@ from lic_dsf.realism.forecast_error import (
     total_external_to_gdp,
 )
 from lic_dsf.realism.imported import ImportedDataCatalog
+from tests.parity.excel_compare.books import books as _books
+from tests.parity.excel_compare.cells import a1 as _a1, as_year as _as_year, year_int as _year_int
 
 REALISM1_SHEET = "Realism 1 - Forecast Error"
 _YEAR_HEADER_ROW = 11
@@ -45,32 +45,7 @@ def _norm_header(value: object) -> str:
     return str(value or "").strip().lower()
 
 
-def _a1(row: int, col: int) -> str:
-    letters = ""
-    n = col
-    while n:
-        n, rem = divmod(n - 1, 26)
-        letters = chr(65 + rem) + letters
-    return f"{letters}{row}"
 
-
-def _year_int(value: object) -> int:
-    if isinstance(value, bool):
-        raise TypeError(value)
-    if isinstance(value, int):
-        return value
-    if isinstance(value, float):
-        return int(value)
-    return int(str(value))
-
-
-def _as_year(value: object) -> int | None:
-    if isinstance(value, bool) or not isinstance(value, (int, float)):
-        return None
-    year = int(value)
-    if 1990 <= year <= 2100:
-        return year
-    return None
 
 
 def _year_cols(ws) -> dict[int, int]:
@@ -143,11 +118,6 @@ def _read_realism1_rows(path: Path) -> pd.DataFrame:
         return pd.DataFrame.from_records(records)
     finally:
         wb.close()
-
-
-@lru_cache(maxsize=4)
-def _books(path: str):
-    return load_core(path)
 
 
 def _series_map(catalog: ImportedDataCatalog, vintage: str) -> dict[str, pd.Series]:

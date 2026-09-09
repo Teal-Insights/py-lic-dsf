@@ -250,7 +250,13 @@ def realism4_sheet_table(path: str | Path) -> pd.DataFrame:
     """
     from fastpyxl import load_workbook
 
-    from lic_dsf.realism.compare import _as_year
+    def _as_year(value: object) -> int | None:
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            return None
+        year = int(value)
+        if 1990 <= year <= 2100:
+            return year
+        return None
 
     path = Path(path)
     _macro, _ext, _eb, pub = load_core(path)

@@ -1,7 +1,7 @@
 """Excel Output-sheet DataFrames assembled from DSA / stress / realism books.
 
-Import leaf modules (``lic_dsf.output.baseline``, …) from computation-package
-compare helpers to avoid circular package-init imports.
+Import leaf modules (``lic_dsf.output.baseline``, …) rather than package
+``__init__`` from heavy callers to avoid circular package-init imports.
 """
 
 from lic_dsf.output.baseline import (

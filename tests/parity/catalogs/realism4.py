@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from lic_dsf.realism.compare_realism4 import (
+from tests.parity.excel_compare.realism4 import (
     REALISM4_SHEET,
     year_cols as _year_cols,
 )

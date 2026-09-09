@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from lic_dsf.rating.compare import (
+from lic_dsf.rating.sut_outputs import (
     compute_output6_outputs,
     compute_output7_outputs,
     compute_output51_outputs,
