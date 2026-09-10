@@ -1,4 +1,4 @@
-"""Cell-keyed Output 5 / 6 / 7 SUT tables."""
+"""Cell-keyed Output 5 / 6 / 7 SUT tables and Output 7 summary panel."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from lic_dsf.rating.summary import RiskRatingSummary
 from lic_dsf.rating.sut_outputs import (
     compute_output6_outputs,
     compute_output7_outputs,
@@ -58,6 +59,40 @@ def _scalar_frame(
             continue
         rows[cell] = series.iloc[0] if len(series) else pd.NA
     return pd.Series(rows, name="value").to_frame()
+
+
+def risk_summary_panel(summary: RiskRatingSummary) -> pd.DataFrame:
+    """Output 7 shaped summary table (canonical panel builder).
+
+    Args:
+        summary: Mechanical ratings plus optional judgement overrides.
+
+    Returns:
+        One-column DataFrame named ``Output 7``.
+    """
+    mech = summary.mechanical
+    rows = {
+        "Mechanical external": mech.external.label,
+        "Final external": summary.final_external.label
+        if summary.final_external
+        else mech.external.label,
+        "Mechanical fiscal": mech.fiscal.label,
+        "Mechanical overall": mech.overall.label,
+        "Final overall": summary.final_overall.label
+        if summary.final_overall
+        else mech.overall.label,
+        "Judgement applied": "Yes" if summary.judgement_applied else "No",
+        "Debt carrying capacity": summary.dcc.value,
+        "CI score": summary.ci_score,
+        "Threshold PV/GDP": summary.thresholds.pv_debt_to_gdp,
+        "Threshold PV/exports": summary.thresholds.pv_debt_to_exports,
+        "Threshold DS/exports": summary.thresholds.debt_service_to_exports,
+        "Threshold DS/revenue": summary.thresholds.debt_service_to_revenue,
+        "Threshold public PV/GDP": summary.thresholds.public_pv_debt_to_gdp,
+        "Moderate granularity": summary.moderate_granularity,
+        "Judgement note": summary.judgement_note or None,
+    }
+    return pd.Series(rows, name="Output 7").to_frame()
 
 
 def output_51_table(path: str | Path) -> pd.DataFrame:

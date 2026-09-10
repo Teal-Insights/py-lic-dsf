@@ -7,9 +7,20 @@ Excel analogues: **Input 6** standard stress parameters, **B** (external) and
 **B1** (public) shock sheets, residual financing from **Input 7**, and Output
 **2-x / 3-x** stressed ratio paths.
 
-Package: `lic_dsf.stress`. Baseline ratios stay in `lic_dsf.dsa`; this layer
-shocks Macro and calls `lic_dsf.resfin` for residual financing. Output
+Package: `lic_dsf.stress`. Baseline ratios stay in `lic_dsf.dsa`; residual
+financing lives in `lic_dsf.resfin`. This layer owns Input 6 / tailored
+**shocks**, **runners** (orchestration), and stressed **ratios**. Output 3
 DataFrames live in `lic_dsf.output`.
+
+## Package map
+
+| Subpackage | Role |
+|------------|------|
+| `stress.shocks` | Input 6 + tailored macro path construction (`MacroShockFactory`) |
+| `stress.runner` | Wire shocks → ResFin → ratios |
+| `stress.ratios` | Stressed Ext / public sustainability ratios |
+| `stress.facade` / `suite` | Thin public `run_*` and Output 3 builders |
+| `lic_dsf.resfin` | Residual financing (not under `stress/`) |
 
 ## What you get
 

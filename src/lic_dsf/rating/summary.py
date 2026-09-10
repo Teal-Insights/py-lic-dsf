@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 
-import pandas as pd
-
 from lic_dsf.rating.chart_data import MechanicalRatingResult, RiskRating
 from lic_dsf.rating.classification import (
     ApplicableThresholds,
@@ -77,28 +75,8 @@ class RiskRatingSummary:
         )
 
 
-def risk_summary_panel(summary: RiskRatingSummary) -> pd.DataFrame:
-    """Output 7 shaped summary table (no i18n chrome)."""
-    mech = summary.mechanical
-    rows = {
-        "Mechanical external": mech.external.label,
-        "Final external": summary.final_external.label
-        if summary.final_external
-        else mech.external.label,
-        "Mechanical fiscal": mech.fiscal.label,
-        "Mechanical overall": mech.overall.label,
-        "Final overall": summary.final_overall.label
-        if summary.final_overall
-        else mech.overall.label,
-        "Judgement applied": "Yes" if summary.judgement_applied else "No",
-        "Debt carrying capacity": summary.dcc.value,
-        "CI score": summary.ci_score,
-        "Threshold PV/GDP": summary.thresholds.pv_debt_to_gdp,
-        "Threshold PV/exports": summary.thresholds.pv_debt_to_exports,
-        "Threshold DS/exports": summary.thresholds.debt_service_to_exports,
-        "Threshold DS/revenue": summary.thresholds.debt_service_to_revenue,
-        "Threshold public PV/GDP": summary.thresholds.public_pv_debt_to_gdp,
-        "Moderate granularity": summary.moderate_granularity,
-        "Judgement note": summary.judgement_note or None,
-    }
-    return pd.Series(rows, name="Output 7").to_frame()
+def risk_summary_panel(summary: RiskRatingSummary):
+    """Output 7 shaped summary table (re-export of ``lic_dsf.output`` builder)."""
+    from lic_dsf.output.rating import risk_summary_panel as _panel
+
+    return _panel(summary)

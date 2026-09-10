@@ -59,8 +59,9 @@ flowchart LR
 | Output 2 / 3 (B / B1 paths) | `lic_dsf.output.stress_external_panel`, `stress_public_panel` | [`stress_dsa`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb) |
 | Realism 1–4 / Output 4 | `lic_dsf.load` capital/multiplier/imported parsers, `lic_dsf.realism` math, `lic_dsf.output` panels | [`realism`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/realism.ipynb) |
 | CI Summary / Classification | `lic_dsf.load.load_ci_summary`, `DebtCarryingCapacity`, thresholds | [`risk_rating`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) |
-| Chart Data / Output 5 / 7 | `ChartDataRegistry`, `compute_mechanical_ratings`, `risk_summary_panel` | [`output_7`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb), [`risk_rating`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) |
-| Customized Scenario / Probability / Output 6 | `CustomizedScenarioSpec`, `lic_dsf.output.probability_panel` | [`output_6`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb) |
+| Chart Data / Output 5 / 7 | `ChartDataRegistry`, `compute_mechanical_ratings`, `lic_dsf.output.risk_summary_panel` | [`output_7`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb), [`risk_rating`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/risk_rating.ipynb) |
+| Customized Scenario | `scenario.customized` (`CustomizedScenarioSpec`, …) | [`output_6`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb) |
+| Probability approach / Output 6 | `scenario.probability`, `lic_dsf.output.probability_panel` | [`output_6`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb) |
 | Full Outputs tour | all of the above | [`all_outputs`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/all_outputs.ipynb) |
 
 ## Package roles (one line each)
@@ -72,11 +73,11 @@ flowchart LR
 | `lic_dsf.resfin` | Input 7 params, ResFin overlays, split policies, fixed-point engine | Macro shocks, baseline books, Output frames |
 | `lic_dsf.load` | Input / CI / Realism sheet parsers | Ratio math, shocks, Output frames |
 | `lic_dsf.dsa` | Baseline external/public sustainability ratios | Stress shocks, CI thresholds, Output DataFrames |
-| `lic_dsf.output` | Output-sheet panels and Excel-geometry tables | Ratio math, shocks, ratings |
-| `lic_dsf.stress` | Input 6 shocks, B/B1 paths (uses `resfin`) | Baseline-only math, ResFin implementation, final rating |
+| `lic_dsf.output` | Output-sheet panels and Excel-geometry tables (incl. Output 3 / 7) | Ratio math, shocks, ratings |
+| `lic_dsf.stress` | Input 6 shocks, runners, stressed ratios (calls `resfin`) | Baseline-only math, ResFin implementation, Output 3 geometry, final rating |
 | `lic_dsf.realism` | Realism 1–4 math | Chart Data, risk ratings, Output 4 frames |
-| `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings | DSA ratio numerators |
-| `lic_dsf.scenario` | Customized paths, probability math | Input 8 SDR (lives in Ext via books); Output 6 frames |
+| `lic_dsf.rating` | CI thresholds, breaches, mechanical ratings | DSA ratio numerators, Output DataFrame chrome |
+| `lic_dsf.scenario` | Namespace: customized paths **and** probability math (separate tools) | Input 8 SDR (lives in Ext via books); Output 6 frames |
 
 ---
 

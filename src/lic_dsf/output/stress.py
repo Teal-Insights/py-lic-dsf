@@ -8,7 +8,7 @@ import pandas as pd
 
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.dsa.baseline.public import BaselinePublicBook
-from lic_dsf.stress.output_map import (
+from lic_dsf.output.stress_geometry import (
     EXT_INDICATORS as _EXT_INDICATORS,
     EXT_SCENARIO_LABELS as _EXT_SCENARIO_LABELS,
     PUB_INDICATORS as _PUB_INDICATORS,

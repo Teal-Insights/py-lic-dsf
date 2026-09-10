@@ -12,7 +12,7 @@ from lic_dsf.stress import (
     ScenarioRegistry,
     StressContext,
 )
-from lic_dsf.stress.output_map import EXT_SCENARIO_LABELS, build_output32_table
+from lic_dsf.output.stress_geometry import EXT_SCENARIO_LABELS, build_output32_table
 from lic_dsf.stress.spec import policy_from_spec
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output

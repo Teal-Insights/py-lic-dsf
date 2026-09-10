@@ -9,7 +9,7 @@ import pandas as pd
 
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.context import StressContext
-from lic_dsf.stress.output_map import (
+from lic_dsf.output.stress_geometry import (
     build_output31_external_table,
     build_output32_table,
 )

@@ -12,7 +12,7 @@ from lic_dsf.stress import (
     ScenarioRegistry,
     StressContext,
 )
-from lic_dsf.stress.output_map import (
+from lic_dsf.output.stress_geometry import (
     build_output31_external_table,
     build_output32_table,
 )

@@ -3,20 +3,39 @@ title: "Customized scenario & probability"
 guide-section: "DSA & analysis"
 ---
 
-Excel analogues: **Customized Scenario** and the **Probability** approach on
-**Output 6**. Custom ratio paths can be registered into Chart Data for rating;
-probability tools map path-vs-threshold gaps into breach probabilities.
+`lic_dsf.scenario` is a **namespace for two Excel tools**, not one engine:
 
-Package: `lic_dsf.scenario`. Input 8 SDR remains in Ext via `lic_dsf.pv`.
-Output 6 panels live in `lic_dsf.output`.
+| Tool | Excel | Module |
+|------|-------|--------|
+| **Customized Scenario** | Customized Scenario – public/external | `scenario.customized` |
+| **Probability approach** | Probability approach / **Output 6** | `scenario.probability` |
 
-## What you get
+They share almost no code. Stress tailored A2 may consume
+`CustomizedScenarioSpec`; that does not fold probability into stress.
+Output 6 DataFrames live in `lic_dsf.output`. Input 8 SDR remains in Ext
+via books / `pv`.
+
+## Customized Scenario
 
 | Piece | Role |
 |-------|------|
 | `CustomizedScenarioSpec` | Named custom path deltas / levels |
 | `apply_customized_deltas` | Apply deltas to a baseline series |
 | `register_custom_path` | Push a path into `ChartDataRegistry` |
+
+```python
+from lic_dsf.rating import ChartDataRegistry
+from lic_dsf.scenario import CustomizedScenarioSpec, register_custom_path
+
+registry = ChartDataRegistry()
+# Build or load a custom PV/GDP (etc.) path, then:
+# register_custom_path(registry, ...)
+```
+
+## Probability approach (Output 6)
+
+| Piece | Role |
+|-------|------|
 | `ProbabilityAssumptions` | Borderline bandwidth (and simple Φ helper) |
 | `DistressCovariates` / `distress_probability` | Excel `NORMDIST` regression (CPIA, growth, …) |
 | `load_distress_covariates` (`lic_dsf.load`) | Input 3 + Imported data `H77:H81` averages |
@@ -24,20 +43,11 @@ Output 6 panels live in `lic_dsf.output`.
 | `probability_panel` (`lic_dsf.output`) | Output 6-shaped probability summary |
 | `borderline_bands` | Near-threshold bands |
 
-## Typical use
-
 ```python
 from lic_dsf.load import load_distress_covariates
 from lic_dsf.output import probability_panel
-from lic_dsf.rating import ChartDataRegistry
-from lic_dsf.scenario import (
-    CustomizedScenarioSpec,
-    register_custom_path,
-)
+from lic_dsf.scenario import ProbabilityAssumptions
 
-registry = ChartDataRegistry()
-# Build or load a custom PV/GDP (etc.) path, then:
-# register_custom_path(registry, ...)
 # probability_panel(..., covariates=load_distress_covariates(workbook))
 ```
 

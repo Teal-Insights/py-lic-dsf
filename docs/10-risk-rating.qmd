@@ -18,7 +18,8 @@ not recompute DSA numerators.
 | `DebtCarryingCapacity` / `classify_ci` / `thresholds_from_ci` | Weak / Medium / Strong |
 | `ChartDataRegistry` / `RatioPath` | Register baseline + stress paths |
 | `compute_mechanical_ratings` | Breach → mechanical rating |
-| `risk_summary_panel` / `RiskRatingSummary` | Output 7-style summary |
+| `RiskRatingSummary` | Mechanical + judgement API |
+| `risk_summary_panel` (`lic_dsf.output`) | Output 7-shaped summary DataFrame |
 | `assess_market_financing` / `market_panel` | Market-access / GFN checks |
 | `moderate_panel` | Moderate “space” / headroom |
 | `load_trigger_flags` (`lic_dsf.load`) | Template trigger flags |
@@ -41,11 +42,11 @@ from lic_dsf.books import (
     ExternalDebtBook,
     MacroDebtBook,
 )
+from lic_dsf.output import risk_summary_panel
 from lic_dsf.rating import (
     ChartDataRegistry,
     RiskRatingSummary,
     compute_mechanical_ratings,
-    risk_summary_panel,
 )
 
 workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")

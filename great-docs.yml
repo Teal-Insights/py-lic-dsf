@@ -207,7 +207,7 @@ reference:
       - rating.CI_WEAK_CUTOFF
 
   - title: Scenario
-    desc: "Customized Scenario and Probability / Output 6."
+    desc: "Two tools: Customized Scenario paths, and Probability / Output 6."
     contents:
       - scenario.CustomizedScenarioSpec
       - scenario.DistressCoefficients
@@ -249,6 +249,7 @@ reference:
       - output.probabilities_table
       - output.probability_panel
       - output.public_dsa_panel
+      - output.risk_summary_panel
       - output.stress_external_panel
       - output.stress_public_panel
 

@@ -11,7 +11,7 @@ from lic_dsf.stress import (
     StressExternalRatios,
     StressSuite,
 )
-from lic_dsf.stress.output_map import build_output31_external_table
+from lic_dsf.output.stress_geometry import build_output31_external_table
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output
 from tests.parity.catalogs.bsheet_external import (

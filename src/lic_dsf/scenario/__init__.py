@@ -1,7 +1,15 @@
-"""Optional scenario modules: Customized Scenario and Probability approach.
+"""Optional Excel scenario tools (two unrelated products).
 
-Registers custom paths into ``lic_dsf.rating`` Chart Data; Output 6 panels.
-Input 8 SDR remains in ``lic_dsf.pv`` (already loaded into Ext).
+This package is a **namespace**, not a single engine:
+
+1. **Customized Scenario** (``scenario.customized``) — user path deltas /
+   levels registered into Chart Data for rating.
+2. **Probability approach** (``scenario.probability``) — Output 6 / probit
+   helpers (Φ, distress covariates, borderline bands).
+
+Stress tailored A2 also consumes :class:`CustomizedScenarioSpec`; that does
+not make this package part of ``lic_dsf.stress``. Output 6 frames live in
+``lic_dsf.output``. Input 8 SDR remains in Ext via ``lic_dsf.books`` / ``pv``.
 """
 
 from lic_dsf.scenario.customized import (
@@ -24,18 +32,20 @@ from lic_dsf.scenario.probability import (
 )
 
 __all__ = [
+    # --- Customized Scenario ---
+    "CustomizedScenarioSpec",
+    "apply_customized_deltas",
+    "register_custom_path",
+    # --- Probability approach (Output 6) ---
     "EXCEL_DISTRESS_COEFFICIENTS",
     "EXCEL_PROBABILITY_THRESHOLDS",
-    "CustomizedScenarioSpec",
     "DistressCoefficients",
     "DistressCovariates",
     "ProbabilityAssumptions",
-    "apply_customized_deltas",
     "borderline_bands",
     "breach_probability",
     "distress_probability",
     "max_path_probability",
     "path_breach_probabilities",
     "path_distress_probabilities",
-    "register_custom_path",
 ]

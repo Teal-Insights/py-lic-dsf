@@ -2,8 +2,8 @@
 
 Thin facade: build :class:`~lic_dsf.stress.context.StressContext` →
 :class:`~lic_dsf.stress.runner` / :class:`~lic_dsf.stress.suite.StressSuite` →
-legacy books via ``output_map``. Prefer these ``run_*`` entrypoints over calling
-runners directly.
+legacy books via ``lic_dsf.output.stress_geometry``. Prefer these ``run_*``
+entrypoints over calling runners directly.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
 from lic_dsf.stress.context import StressContext
-from lic_dsf.stress.output_map import (
+from lic_dsf.output.stress_geometry import (
     result_as_legacy_external_book,
     result_as_legacy_public_book,
 )
