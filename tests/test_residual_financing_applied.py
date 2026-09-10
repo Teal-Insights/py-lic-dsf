@@ -35,7 +35,7 @@ from lic_dsf.stress import (
     split_residual_financing,
     stressed_external_stock_from_shortfall,
 )
-from lic_dsf.stress.macro_shocks import apply_real_gdp_shock
+from lic_dsf.stress.shocks.macro import apply_real_gdp_shock
 from lic_dsf.stress.public_gfn import _inflation_elasticity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

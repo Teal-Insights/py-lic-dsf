@@ -9,7 +9,7 @@ from fastpyxl import load_workbook
 
 from lic_dsf.load._cells import _prefer_user, _tailored_applicability
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
-from lic_dsf.stress.tailored_params import TailoredParams
+from lic_dsf.stress.shocks.tailored_params import TailoredParams
 
 _TAILORED_SHEET = "Input 6 - Tailored Tests"
 _CUSTOMIZED_EXTERNAL_SHEET = "Customized Scenario-External"

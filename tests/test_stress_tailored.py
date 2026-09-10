@@ -16,8 +16,8 @@ from lic_dsf.stress.output_map import (
     build_output31_external_table,
     build_output32_table,
 )
-from lic_dsf.stress.tailored import applicable_tailored_ids
-from lic_dsf.stress.tailored_params import apply_natural_disaster_shock
+from lic_dsf.stress.shocks.tailored import applicable_tailored_ids
+from lic_dsf.stress.shocks.tailored_params import apply_natural_disaster_shock
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output
 from tests.parity.catalogs.output_3 import output_31_probes, output_32_probes

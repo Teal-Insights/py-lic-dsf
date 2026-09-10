@@ -267,7 +267,7 @@ def test_loaded_lc_nr_pv_matches_ext_through_macro_end() -> None:
 
     from lic_dsf.load import load_external_debt_inputs, load_instruments_from_workbook
     from lic_dsf.pv import PVPortfolio
-from lic_dsf.books import ExternalDebtBook
+    from lic_dsf.books import ExternalDebtBook
 
     workbook = load_workbook(WORKBOOK, data_only=True, read_only=True)
     try:

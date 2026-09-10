@@ -3,14 +3,41 @@
 Sibling of ``lic_dsf.pv``, ``lic_dsf.resfin``, and ``lic_dsf.dsa``. Baseline
 ratios live in ``lic_dsf.dsa``; this package applies Input 6 shocks and uses
 ``lic_dsf.resfin`` for residual-financing overlays to produce B-sheet paths.
+
+Internal layout:
+
+* ``stress.shocks`` — Input 6 / tailored shock construction
+* ``stress.runner`` — orchestration (macro → ResFin → ratios)
+* ``stress.ratios`` — stressed sustainability ratios
+* ``stress.facade`` / ``stress.suite`` — thin public ``run_*`` / Output 3 builders
+* ``stress.scenario`` / ``stress.public`` — legacy book wrappers over runners
 """
 
 from __future__ import annotations
 
-from lic_dsf.stress.bound import (
-    bsheet_exports_to_gdp,
-    external_residual_borrowing,
-    historical_identity_pins,
+from lic_dsf.resfin import (
+    AbsoluteResidualPolicy,
+    CappedResidualPolicy,
+    DomMltOverlay,
+    DomStOverlay,
+    PublicResFinOverlay,
+    ResFinOverlay,
+    ResidualFill,
+    ResidualFinancingEngine,
+    ResidualFinancingResult,
+    ResidualPolicy,
+    build_public_resfin_overlay,
+    dom_mlt_resfin_series,
+    dom_st_resfin_series,
+    external_dsa_residual_params,
+    external_residual_gap,
+    flow_shortfall_gap,
+    public_dsa_residual_params,
+    public_residual_gap,
+    resfin_instrument,
+    resfin_overlay_series,
+    split_residual_financing,
+    stressed_external_stock_from_shortfall,
 )
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.external_dynamics import ExternalDebtDynamics, ExternalGapResult
@@ -20,17 +47,6 @@ from lic_dsf.stress.facade import (
     run_public_scenario,
     run_scenario,
 )
-from lic_dsf.stress.macro_shocks import (
-    apply_combo_shock,
-    apply_exports_shock,
-    apply_fx_depreciation_shock,
-    apply_historical_averages_shock,
-    apply_other_flows_shock,
-    apply_primary_balance_shock,
-    apply_real_gdp_shock,
-    real_depreciation_pct,
-)
-from lic_dsf.stress.market_access import ComboMarketCost, MarketAccessAddon
 from lic_dsf.stress.path import ShockedMacroPath, ShockMetadata
 from lic_dsf.stress.public import (
     StressPublicBook,
@@ -46,32 +62,6 @@ from lic_dsf.stress.public import (
 )
 from lic_dsf.stress.public_gfn import PublicGFNIdentity
 from lic_dsf.stress.ratios import StressExternalRatios, StressPublicRatios
-from lic_dsf.stress.resfin import (
-    AbsoluteResidualPolicy,
-    CappedResidualPolicy,
-    ResidualFinancingEngine,
-    ResidualFinancingResult,
-    ResidualPolicy,
-)
-from lic_dsf.stress.residual_pv import (
-    DomMltOverlay,
-    DomStOverlay,
-    PublicResFinOverlay,
-    ResFinOverlay,
-    ResidualFill,
-    build_public_resfin_overlay,
-    dom_mlt_resfin_series,
-    dom_st_resfin_series,
-    external_dsa_residual_params,
-    external_residual_gap,
-    flow_shortfall_gap,
-    public_dsa_residual_params,
-    public_residual_gap,
-    resfin_instrument,
-    resfin_overlay_series,
-    split_residual_financing,
-    stressed_external_stock_from_shortfall,
-)
 from lic_dsf.stress.result import ScenarioRunResult, StressScenarioResult
 from lic_dsf.stress.runner import (
     CoupledScenarioRunner,
@@ -92,22 +82,39 @@ from lic_dsf.stress.scenario import (
     run_standard_external_stress,
 )
 from lic_dsf.stress.shocks import MacroShockFactory
+from lic_dsf.stress.shocks.bound import (
+    bsheet_exports_to_gdp,
+    external_residual_borrowing,
+    historical_identity_pins,
+)
+from lic_dsf.stress.shocks.macro import (
+    apply_combo_shock,
+    apply_exports_shock,
+    apply_fx_depreciation_shock,
+    apply_historical_averages_shock,
+    apply_other_flows_shock,
+    apply_primary_balance_shock,
+    apply_real_gdp_shock,
+    real_depreciation_pct,
+)
+from lic_dsf.stress.shocks.market_access import ComboMarketCost, MarketAccessAddon
+from lic_dsf.stress.shocks.tailored_params import (
+    TailoredParams,
+    run_tailored_external_stress,
+    run_tailored_public_stress,
+)
 from lic_dsf.stress.spec import (
     OutputBinding,
     ResidualPolicyKind,
     ScenarioRegistry,
     ScenarioSpec,
     ShockKind,
+    policy_from_spec,
 )
 from lic_dsf.stress.suite import (
     StressSuite,
     build_output31_from_suite,
     build_output32_from_suite,
-)
-from lic_dsf.stress.tailored_params import (
-    TailoredParams,
-    run_tailored_external_stress,
-    run_tailored_public_stress,
 )
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId, ThresholdRule
 
@@ -171,6 +178,7 @@ __all__ = [
     "external_residual_gap",
     "flow_shortfall_gap",
     "historical_identity_pins",
+    "policy_from_spec",
     "public_dsa_residual_params",
     "public_residual_gap",
     "real_depreciation_pct",

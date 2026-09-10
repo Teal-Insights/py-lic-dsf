@@ -1,4 +1,9 @@
-"""Public stress DSA facade: legacy ``StressPublicBook`` + run_* re-exports."""
+"""Legacy public stress book + ``run_*`` wrappers.
+
+Prefer :mod:`lic_dsf.stress.facade` for new code. ``StressPublicBook`` wraps
+:class:`~lic_dsf.stress.ratios.public.StressPublicRatios`; named ``run_*``
+helpers delegate to the facade / runners.
+"""
 
 from __future__ import annotations
 
@@ -9,7 +14,7 @@ import pandas as pd
 from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.books.macro.book import MacroDebtBook
-from lic_dsf.stress.market_access import (
+from lic_dsf.stress.shocks.market_access import (
     _amortizing_stock_from_disbursements,
     _market_add_int_interest_lcu,
     _market_add_int_interest_parts,
@@ -51,7 +56,7 @@ from lic_dsf.stress.ratios.public_paths import (
     _public_external_face_lcu_path,
     _public_external_pv_lcu_path,
 )
-from lic_dsf.stress.residual_pv import PublicResFinOverlay
+from lic_dsf.resfin import PublicResFinOverlay
 from lic_dsf.stress.types import Input6StandardParams
 
 

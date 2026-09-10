@@ -15,7 +15,7 @@ from lic_dsf.stress import (
     StressScenarioRunner,
     split_residual_financing,
 )
-from lic_dsf.stress.resfin import policy_from_spec
+from lic_dsf.stress.spec import policy_from_spec
 from lic_dsf.stress.runner.public import PublicScenarioRunner
 from lic_dsf.stress.spec import ResidualPolicyKind
 from tests.conftest import WORKBOOK_XLSX

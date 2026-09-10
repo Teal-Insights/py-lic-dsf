@@ -9,7 +9,7 @@ import pandas as pd
 from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.stress.path import ShockedMacroPath
-from lic_dsf.stress.residual_pv import PublicResFinOverlay, public_residual_gap
+from lic_dsf.resfin import PublicResFinOverlay, public_residual_gap
 from lic_dsf.stress.types import Input6StandardParams
 
 
@@ -141,7 +141,7 @@ def _a1_public_gdp_lcu(baseline_macro: MacroDebtBook) -> pd.Series:
     projection year (``R42`` / ``R54``), not the USD-deflator path used on
     the external A1 Macro shock.
     """
-    from lic_dsf.stress.macro_shocks import _hist_mean_sd
+    from lic_dsf.stress.shocks.macro import _hist_mean_sd
 
     years = baseline_macro.inputs.years
     first = baseline_macro.inputs.first_projection_year
@@ -179,7 +179,7 @@ def _public_real_and_lcu_deflator(
     years = shocked_macro.inputs.years
     first = shocked_macro.inputs.first_projection_year
     if historical:
-        from lic_dsf.stress.macro_shocks import _hist_mean_sd
+        from lic_dsf.stress.shocks.macro import _hist_mean_sd
 
         proj = [y for y in years if y >= first]
         start = proj[1] if len(proj) >= 2 else (proj[0] if proj else first)
@@ -276,7 +276,7 @@ def _a1_primary_deficit_lcu(
     flat thereafter; ``R88 = R17/100 × R41``.
     """
     from lic_dsf.dsa.baseline.public import BaselinePublicBook
-    from lic_dsf.stress.macro_shocks import _hist_mean_sd
+    from lic_dsf.stress.shocks.macro import _hist_mean_sd
 
     years = baseline_macro.inputs.years
     first = baseline_macro.inputs.first_projection_year
@@ -335,7 +335,7 @@ def estimate_b1_public_gfn(
     adds ``PV_ResFin-add.int.cost - mkt`` interest into the GFN identity.
     """
 
-    from lic_dsf.stress.market_access import _market_add_int_interest_lcu
+    from lic_dsf.stress.shocks.market_access import _market_add_int_interest_lcu
     from lic_dsf.stress.ratios.public_paths import (
         _combo_primary_deficit_lcu,
         _public_existing_debt_service_lcu,
@@ -451,7 +451,7 @@ def estimate_b1_public_gfn(
                     prior_resfin_st.reindex([year]).fillna(0.0).loc[year]
                 )
     if market_access and not combo_primary:
-        from lic_dsf.stress.market_access import _domestic_add_int_bps
+        from lic_dsf.stress.shocks.market_access import _domestic_add_int_bps
 
         extra = extra + _market_add_int_interest_lcu(
             resfin,
@@ -469,7 +469,7 @@ class PublicGFNIdentity:
 
     Owns GDP LCU compounding, primary deficit, GFN, and residual gap. Does not
     build ResFin instruments — callers feed overlays from
-    :class:`~lic_dsf.stress.resfin.ResidualFinancingEngine`.
+    :class:`~lic_dsf.resfin.ResidualFinancingEngine`.
     """
 
     path: ShockedMacroPath

@@ -9,17 +9,16 @@ import pandas as pd
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.external_dynamics import ExternalDebtDynamics, ExternalGapResult
 from lic_dsf.stress.external_portfolio import ExternalPortfolioAdjuster
-from lic_dsf.stress.market_access import ComboMarketCost, MarketAccessAddon
+from lic_dsf.stress.shocks.market_access import ComboMarketCost, MarketAccessAddon
 from lic_dsf.stress.public_gfn import PublicGFNIdentity
 from lic_dsf.stress.ratios.public import StressPublicRatios
-from lic_dsf.stress.resfin import (
+from lic_dsf.resfin import (
     ResidualFinancingEngine,
     ResidualFinancingResult,
-    policy_from_spec,
 )
 from lic_dsf.stress.result import StressScenarioResult
 from lic_dsf.stress.shocks import MacroShockFactory
-from lic_dsf.stress.spec import ScenarioRegistry, ScenarioSpec, ShockKind
+from lic_dsf.stress.spec import ScenarioRegistry, ScenarioSpec, ShockKind, policy_from_spec
 
 # Input 6 interactions: inflation elasticity applies only to these shocks.
 _INFLATION_SHOCKS = frozenset({ShockKind.GDP, ShockKind.FX, ShockKind.COMBO})

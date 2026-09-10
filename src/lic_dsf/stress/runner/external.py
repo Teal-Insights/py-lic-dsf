@@ -7,16 +7,15 @@ from dataclasses import dataclass
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.external_dynamics import ExternalDebtDynamics
 from lic_dsf.stress.external_portfolio import ExternalPortfolioAdjuster
-from lic_dsf.stress.market_access import ComboMarketCost, MarketFinancingCost
+from lic_dsf.stress.shocks.market_access import ComboMarketCost, MarketFinancingCost
 from lic_dsf.stress.ratios.external import StressExternalRatios
-from lic_dsf.stress.resfin import (
+from lic_dsf.resfin import (
     ResidualFinancingEngine,
     ResidualFinancingResult,
-    policy_from_spec,
 )
 from lic_dsf.stress.result import StressScenarioResult
 from lic_dsf.stress.shocks import MacroShockFactory
-from lic_dsf.stress.spec import ScenarioSpec, ShockKind
+from lic_dsf.stress.spec import ScenarioSpec, ShockKind, policy_from_spec
 
 _PUBLIC_RESFIN_SHOCKS = frozenset({ShockKind.GDP, ShockKind.PRIMARY_BALANCE})
 
@@ -58,7 +57,7 @@ class ExternalScenarioRunner:
         elif spec.shock_kind is ShockKind.TAILORED_MARKET:
             tailored = self.context.tailored
             if tailored is not None:
-                from lic_dsf.stress.market_terms import (
+                from lic_dsf.stress.shocks.market_terms import (
                     apply_c4_residual_overrides,
                     commercial_pv_delta_usd,
                     compute_c4_pv_stress_usd,
@@ -82,7 +81,7 @@ class ExternalScenarioRunner:
                 self.context, path, external=external
             )
             if tailored is not None and add_int is not None and commercial_ds_delta is not None:
-                from lic_dsf.stress.market_terms import (
+                from lic_dsf.stress.shocks.market_terms import (
                     commercial_weighted_interest_rate,
                     commercial_weighted_resfin_terms,
                 )

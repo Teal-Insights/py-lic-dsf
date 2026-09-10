@@ -14,9 +14,9 @@ from lic_dsf.stress import (
     StressContext,
 )
 from lic_dsf.stress.external_portfolio import ExternalPortfolioAdjuster
-from lic_dsf.stress.market_access import ComboMarketCost, MarketAccessAddon
+from lic_dsf.stress.shocks.market_access import ComboMarketCost, MarketAccessAddon
 from lic_dsf.stress.output_map import EXT_SCENARIO_LABELS, to_output31_rows
-from lic_dsf.stress.resfin import policy_from_spec
+from lic_dsf.stress.spec import policy_from_spec
 from lic_dsf.stress.shocks import MacroShockFactory
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output

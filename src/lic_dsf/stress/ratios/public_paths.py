@@ -6,8 +6,8 @@ import pandas as pd
 
 from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.books.macro.book import MacroDebtBook
-from lic_dsf.stress.macro_shocks import apply_real_gdp_shock
-from lic_dsf.stress.market_access import (
+from lic_dsf.stress.shocks.macro import apply_real_gdp_shock
+from lic_dsf.stress.shocks.market_access import (
     _domestic_add_int_bps,
     _market_add_int_interest_parts,
     _shock_window_years,
@@ -18,7 +18,7 @@ from lic_dsf.stress.public_gfn import (
     _b1_public_gdp_lcu,
     _fx_shock_projection_year,
 )
-from lic_dsf.stress.residual_pv import PublicResFinOverlay
+from lic_dsf.resfin import PublicResFinOverlay
 from lic_dsf.stress.types import Input6StandardParams
 
 
@@ -338,7 +338,7 @@ def _combo_primary_deficit_lcu(
     window R17 reverts to the baseline primary-deficit ratio applied to
     shocked R41.
     """
-    from lic_dsf.stress.macro_shocks import apply_primary_balance_shock
+    from lic_dsf.stress.shocks.macro import apply_primary_balance_shock
 
     years = baseline_macro.inputs.years
     first = baseline_macro.inputs.first_projection_year

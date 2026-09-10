@@ -7,7 +7,7 @@ from dataclasses import replace
 import pytest
 
 from lic_dsf.stress import ScenarioRegistry, StressContext, StressScenarioRunner
-from lic_dsf.stress.macro_shocks import apply_combo_shock
+from lic_dsf.stress.shocks.macro import apply_combo_shock
 from lic_dsf.stress.path import ShockedMacroPath, projection_shock_window
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output

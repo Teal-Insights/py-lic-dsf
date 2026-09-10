@@ -212,3 +212,10 @@ def assert_registry_covers_all_ids() -> None:
     extra = known - expected
     if missing or extra:
         raise AssertionError(f"registry mismatch: missing={missing!r} extra={extra!r}")
+
+
+def policy_from_spec(spec: ScenarioSpec):
+    """Return the ResFin split policy declared on ``spec``."""
+    from lic_dsf.resfin import policy_from_kind
+
+    return policy_from_kind(spec.residual_policy)

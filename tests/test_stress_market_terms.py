@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from lic_dsf.stress.market_terms import shorten_loan_terms
+from lic_dsf.stress.shocks.market_terms import shorten_loan_terms
 
 
 def test_shorten_maturity_above_cap_becomes_cap() -> None:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pytest
 
+from lic_dsf.resfin import AbsoluteResidualPolicy
 from lic_dsf.stress import (
     ExternalScenarioRunner,
     PublicGFNIdentity,
@@ -12,7 +13,7 @@ from lic_dsf.stress import (
     StressContext,
 )
 from lic_dsf.stress.output_map import EXT_SCENARIO_LABELS, build_output32_table
-from lic_dsf.stress.resfin import AbsoluteResidualPolicy, policy_from_spec
+from lic_dsf.stress.spec import policy_from_spec
 from tests.conftest import WORKBOOK_XLSX
 from tests.parity import assert_all_passed, compare_probes, read_cached_output
 from tests.parity.catalogs.bsheet_public import PUBLIC_SHEETS, bsheet_public_probes

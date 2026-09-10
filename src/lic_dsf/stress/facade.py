@@ -1,4 +1,10 @@
-"""Stable public runners over the stress package."""
+"""Stable public runners over the stress package.
+
+Thin facade: build :class:`~lic_dsf.stress.context.StressContext` →
+:class:`~lic_dsf.stress.runner` / :class:`~lic_dsf.stress.suite.StressSuite` →
+legacy books via ``output_map``. Prefer these ``run_*`` entrypoints over calling
+runners directly.
+"""
 
 from __future__ import annotations
 
@@ -20,7 +26,7 @@ from lic_dsf.stress.runner.external import ExternalScenarioRunner
 from lic_dsf.stress.runner.public import PublicScenarioRunner
 from lic_dsf.stress.spec import ScenarioRegistry
 from lic_dsf.stress.suite import StressSuite
-from lic_dsf.stress.tailored_params import TailoredParams
+from lic_dsf.stress.shocks.tailored_params import TailoredParams
 from lic_dsf.stress.types import Input6StandardParams, StressScenarioId
 
 

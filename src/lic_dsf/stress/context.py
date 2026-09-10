@@ -11,7 +11,7 @@ from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.books.macro.book import MacroDebtBook
 from lic_dsf.scenario.customized import CustomizedScenarioSpec
-from lic_dsf.stress.tailored_params import TailoredParams
+from lic_dsf.stress.shocks.tailored_params import TailoredParams
 from lic_dsf.stress.types import Input6StandardParams
 
 

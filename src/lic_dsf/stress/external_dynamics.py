@@ -1,8 +1,8 @@
 """External B-sheet debt dynamics: R12–R30 identity → R86 gap.
 
-Formulas delegate to ``lic_dsf.stress.bound`` on first pass so Excel semantics
+Formulas delegate to ``lic_dsf.stress.shocks.bound`` on first pass so Excel semantics
 stay identical. ResFin PV interest feedback uses
-:class:`~lic_dsf.stress.resfin.ResidualFinancingEngine`.
+:class:`~lic_dsf.resfin.ResidualFinancingEngine`.
 """
 
 from __future__ import annotations
@@ -11,13 +11,13 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-import lic_dsf.stress.bound as _bound
+import lic_dsf.stress.shocks.bound as _bound
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
 from lic_dsf.books.external.book import ExternalDebtBook
 from lic_dsf.resfin import ResidualFinancingParams
 from lic_dsf.stress.context import StressContext
 from lic_dsf.stress.path import ShockedMacroPath
-from lic_dsf.stress.resfin import EXTERNAL_INTEREST_TOL, ResidualFinancingEngine
+from lic_dsf.resfin import EXTERNAL_INTEREST_TOL, ResidualFinancingEngine
 from lic_dsf.stress.spec import ScenarioSpec, ShockKind
 
 

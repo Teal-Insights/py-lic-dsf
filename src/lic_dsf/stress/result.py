@@ -8,7 +8,7 @@ from lic_dsf.stress.external_dynamics import ExternalGapResult
 from lic_dsf.stress.path import ShockedMacroPath
 from lic_dsf.stress.ratios.external import StressExternalRatios
 from lic_dsf.stress.ratios.public import StressPublicRatios
-from lic_dsf.stress.resfin import ResidualFinancingResult
+from lic_dsf.resfin import ResidualFinancingResult
 from lic_dsf.stress.types import StressScenarioId
 
 
