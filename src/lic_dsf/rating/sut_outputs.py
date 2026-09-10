@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 from lic_dsf.dsa.baseline.external import BaselineExternalBook
@@ -28,13 +29,10 @@ from lic_dsf.rating.summary import RiskRatingSummary, risk_summary_panel
 from lic_dsf.rating.workbook import CiSummarySnapshot, TriggerFlags
 from lic_dsf.load.core import load_core
 from lic_dsf.scenario.probability import ProbabilityAssumptions, borderline_bands
-from lic_dsf.stress import (
-    StressExternalBook,
-    StressPublicBook,
-    run_a1_historical_external,
-    run_b1_gdp_public,
-    run_standard_external_stress,
-)
+
+if TYPE_CHECKING:
+    from lic_dsf.stress.public import StressPublicBook
+    from lic_dsf.stress.scenario import StressExternalBook
 
 
 def _books(path: str):
@@ -165,6 +163,13 @@ def _register_paths(
 
 @lru_cache(maxsize=4)
 def _stress_bundle(path: str) -> _StressBundle:
+    # Lazy: avoid stress → facade → output import cycle at module load.
+    from lic_dsf.stress.public import run_b1_gdp_public
+    from lic_dsf.stress.scenario import (
+        run_a1_historical_external,
+        run_standard_external_stress,
+    )
+
     core = _core_bundle(path)
     input6 = load_input6_standard(path)
     residual = load_input7_residual_params(path)

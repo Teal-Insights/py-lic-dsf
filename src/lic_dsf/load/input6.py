@@ -9,13 +9,15 @@ import pandas as pd
 from fastpyxl import load_workbook
 
 from lic_dsf.load._cells import _prefer_user
-from lic_dsf.stress.types import Input6StandardParams, ThresholdRule
+
+# Imported lazily in loaders so ``lic_dsf.stress`` package init is not pulled
+# when docs / output panels import ``load.input6`` leaf helpers.
 
 _SHEET = "Input 6(optional)-Standard Test"
 _ADD_COST_SHEET = "PV_Base-add.cost.mkt"
 
 
-def _parse_threshold(value: Any) -> ThresholdRule:
+def _parse_threshold(value: Any) -> str:
     text = str(value or "").strip().lower()
     if "historical" in text and "baseline" not in text:
         return "historical_average"
@@ -24,7 +26,7 @@ def _parse_threshold(value: Any) -> ThresholdRule:
     return "whichever_lower"
 
 
-def load_input6_standard(path: str | Path) -> Input6StandardParams:
+def load_input6_standard(path: str | Path):
     """Load standard stress-test sizes from ``Input 6(optional)-Standard Test``.
 
     Args:
@@ -33,6 +35,8 @@ def load_input6_standard(path: str | Path) -> Input6StandardParams:
     Returns:
         Resolved shock sizes, threshold rule, and interaction elasticities.
     """
+    from lic_dsf.stress.types import Input6StandardParams
+
     workbook = load_workbook(path, data_only=True, read_only=True)
     try:
         if _SHEET not in workbook.sheetnames:
