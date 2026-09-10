@@ -16,6 +16,7 @@ DataFrames live in `lic_dsf.output`.
 |-------|------------|
 | `BaselineExternalBook` | External sustainability ratios |
 | `BaselinePublicBook` | Public sustainability / Dom feeder ratios |
+| `public_automatic_debt_dynamics` | Shared DUCIR / DUCGDPR / DUCER identities (also used by Realism 1) |
 | `external_dsa_panel` (`lic_dsf.output`) | Output 1-1 headline six-row DataFrame (economist labels) |
 | `public_dsa_panel` (`lic_dsf.output`) | Output 1-2 headline DataFrame (economist labels) |
 | `output_11_table` (`lic_dsf.output`) | Full Output 1-1 geometry (index = Excel row) |

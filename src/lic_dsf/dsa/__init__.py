@@ -6,8 +6,10 @@ in ``lic_dsf.load``. Output DataFrames live in ``lic_dsf.output``.
 """
 
 from lic_dsf.dsa.baseline import BaselineExternalBook, BaselinePublicBook
+from lic_dsf.dsa.dynamics import public_automatic_debt_dynamics
 
 __all__ = [
     "BaselineExternalBook",
     "BaselinePublicBook",
+    "public_automatic_debt_dynamics",
 ]

@@ -84,6 +84,7 @@ reference:
     contents:
       - dsa.BaselineExternalBook
       - dsa.BaselinePublicBook
+      - dsa.public_automatic_debt_dynamics
 
   - title: Stress tests
     desc: "Input 6 standard stresses (uses lic_dsf.resfin)."

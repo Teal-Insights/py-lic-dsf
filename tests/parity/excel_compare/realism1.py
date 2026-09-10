@@ -9,6 +9,7 @@ from fastpyxl import load_workbook
 
 from lic_dsf.load.realism import load_imported_data
 from lic_dsf.output.realism import forecast_error_panel
+from lic_dsf.dsa.dynamics import public_automatic_debt_dynamics
 from lic_dsf.realism.forecast_error import (
     GdpRebaseMode,
     debt_creating_flow_panel,
@@ -16,7 +17,6 @@ from lic_dsf.realism.forecast_error import (
     forecast_error,
     gdp_rebase_scale,
     other_identified_flows_to_gdp,
-    public_automatic_debt_dynamics,
     rebase_ratio_to_outturn_gdp,
     total_external_to_gdp,
 )

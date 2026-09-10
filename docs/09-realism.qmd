@@ -8,7 +8,9 @@ checks, fiscal-adjustment placement, investment–growth, and fiscal-multiplier
 views. Uses Baseline public / Macro series and Imported-data vintages.
 
 Package: `lic_dsf.realism`. Does not own Chart Data or risk ratings. Output
-4 panels live in `lic_dsf.output`.
+4 panels live in `lic_dsf.output`. Public automatic debt dynamics
+(`DUCIR` / `DUCGDPR` / `DUCER`) are shared DSA math in
+`lic_dsf.dsa.dynamics` (re-exported from `lic_dsf.realism` for convenience).
 
 ## What you get
 

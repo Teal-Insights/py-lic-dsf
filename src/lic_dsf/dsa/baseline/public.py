@@ -146,7 +146,7 @@ class BaselinePublicBook:
 
     def automatic_debt_dynamics(self) -> pd.DataFrame:
         """Output 1-2 R17–R21 via ``public_automatic_debt_dynamics``."""
-        from lic_dsf.realism.forecast_error import public_automatic_debt_dynamics
+        from lic_dsf.dsa.dynamics import public_automatic_debt_dynamics
 
         fc = _pct(
             self.macro.fc_public_debt_usd() * self.macro.fx_eop(),
