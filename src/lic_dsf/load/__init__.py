@@ -19,6 +19,7 @@ from lic_dsf.load.rating import load_ci_summary, load_input1_market, load_trigge
 from lic_dsf.load.realism import (
     load_capital_assumptions,
     load_imported_data,
+    load_invest_growth_series,
     load_lic_program_distribution,
     load_multiplier_grid,
 )
@@ -36,6 +37,7 @@ __all__ = [
     "load_input6_standard",
     "load_input7_residual_params",
     "load_instruments_from_workbook",
+    "load_invest_growth_series",
     "load_lc_nr_instruments_from_workbook",
     "load_lic_program_distribution",
     "load_macro_debt_inputs",

@@ -9,7 +9,8 @@
 ``lic_dsf.realism`` covers Realism 1–4 math. ``lic_dsf.output`` assembles Output
 sheet DataFrames. ``lic_dsf.rating`` covers CI thresholds, Chart Data breaches,
 and Output 5/7 ratings. ``lic_dsf.scenario`` covers Customized Scenario and
-Probability math.
+Probability math. ``lic_dsf.run`` orchestrates Output panels; ``lic_dsf.export``
+writes them to a new workbook.
 """
 
 from __future__ import annotations
@@ -17,12 +18,14 @@ from __future__ import annotations
 from lic_dsf import (
     books,
     dsa,
+    export,
     load,
     output,
     pv,
     rating,
     realism,
     resfin,
+    run,
     scenario,
     stress,
 )
@@ -32,12 +35,14 @@ __version__ = "0.1.0"
 __all__ = [
     "books",
     "dsa",
+    "export",
     "load",
     "output",
     "pv",
     "rating",
     "realism",
     "resfin",
+    "run",
     "scenario",
     "stress",
 ]
