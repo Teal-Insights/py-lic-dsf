@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 from fastpyxl import load_workbook
@@ -13,6 +14,9 @@ from lic_dsf.realism.types import (
     LicProgramDistribution,
     MultiplierAssumptions,
 )
+
+if TYPE_CHECKING:
+    from lic_dsf.realism.imported import ImportedDataCatalog
 
 
 def load_multiplier_grid(
@@ -64,6 +68,36 @@ def load_capital_assumptions(path: str | Path) -> CapitalAssumptions:
             beta=beta,
             initial_capital_to_gdp=initial_gy,
         )
+    finally:
+        wb.close()
+
+
+def load_invest_growth_series(path: str | Path) -> pd.Series:
+    """Load Realism 3 government investment / GDP (``Ig/Y``) path.
+
+    Reads year headers on row 19 and current-vintage ``Ig/Y`` on row 21
+    (FAD / prior-vintage feed until Macro owns investment).
+
+    Args:
+        path: Path to the LIC-DSF Excel workbook.
+
+    Returns:
+        Series of investment / GDP (%) indexed by calendar year.
+    """
+    wb = load_workbook(path, data_only=True, read_only=True)
+    try:
+        ws = wb["Realism 3 - Invest-Growth"]
+        years: dict[int, int] = {}
+        for col in range(3, 20):
+            value = ws.cell(19, col).value
+            if isinstance(value, (int, float)):
+                years[int(value)] = col
+        values: dict[int, float] = {}
+        for year, col in years.items():
+            cell = ws.cell(21, col).value
+            if isinstance(cell, (int, float)):
+                values[year] = float(cell)
+        return pd.Series(values, dtype=float)
     finally:
         wb.close()
 

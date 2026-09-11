@@ -42,6 +42,7 @@ dev = [
 addopts = "-v -m 'not live_excel'"
 markers = [
     "live_excel: tests that drive live Microsoft Excel (Windows + xlwings)",
+    "slow: full-pipeline export / stress orchestration (optional locally)",
 ]
 testpaths = ["tests"]
 

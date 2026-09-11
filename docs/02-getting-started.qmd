@@ -73,6 +73,25 @@ out_1_2 = public_dsa_panel(pub_base)  # Output 1-2 shape
 
 `include_zero_disbursement=True` keeps empty Input 4/5 slots so creditor grouping matches Excel row structure.
 
+## Export panels to a spreadsheet
+
+To write Output 1–7 (plus Summary / Database) panels into a **new** sidecar
+workbook — without overwriting the official template:
+
+```python
+from pathlib import Path
+from lic_dsf.export import to_workbook_from_path
+
+to_workbook_from_path(
+    Path("data/lic-dsf-template-2025-08-12.xlsx"),
+    Path("outputs/panels.xlsx"),
+)
+```
+
+`lic_dsf.run.compute_outputs` builds the DataFrames; `lic_dsf.export.to_workbook`
+writes them. Pass `include={...}` to compute a subset of sheet titles (see
+`lic_dsf.run.OUTPUT_SHEET_ORDER`).
+
 ## Next steps
 
 | Goal | Doc | Demo |
@@ -102,8 +121,9 @@ stress_external_panel(stressed)
   stress GFN / ResFin feedback).
 - **Your workbook.** Loaders expect the official sheet structure. Renamed sheets
   or older template vintages may fail or misalign years.
-- **Not a replacement UI.** Panels are DataFrames — chart chrome, i18n labels,
-  and VBA macros are out of scope.
+- **Not a replacement UI.** Official chart chrome, i18n labels, and VBA macros
+  are out of scope. Use `lic_dsf.export.to_workbook` for a panel-style sidecar
+  `.xlsx` of Outputs 1–7.
 - **License.** MIT for code; do not redistribute the template beyond the terms
   in `NOTICE.md`.
 
