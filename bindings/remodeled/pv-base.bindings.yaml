@@ -1,0 +1,4542 @@
+schema_version: 1.13.0
+workbook: workbook.xlsm
+concept_scheme:
+  id: lic_dsf_2025_08_12
+  concepts:
+  - id: OBS_VALUE
+    name: "Observation value"
+    dtype: number
+  - id: TIME_PERIOD
+    name: "Time period"
+    dtype: int
+  - id: INDICATOR
+    name: Indicator
+    dtype: string
+  - id: PARAMETER
+    name: Parameter
+    dtype: string
+  - id: TABLE
+    name: Table
+    dtype: string
+  - id: REF_AREA
+    name: "Reference area"
+    dtype: string
+    sdmx_concept: REF_AREA
+  - id: SCENARIO
+    name: Scenario
+    dtype: string
+  - id: INSTRUMENT
+    name: "Financing instrument"
+    dtype: string
+  - id: COMMODITY
+    name: Commodity
+    dtype: string
+  - id: VARIANT
+    name: Variant
+    dtype: string
+  - id: DSA_SECTION
+    name: "DSA statement section"
+    dtype: string
+  - id: HOLDER
+    name: "Debt holder residency"
+    dtype: string
+series:
+- id: pv_base_multilaterals
+  sheet: PV_Base
+  data_range: "'PV_Base'!D6:BD6"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    INDICATOR: Multilaterals
+  notes: "Multilaterals."
+- id: pv_base_multilaterals_by_year
+  sheet: PV_Base
+  data_range: "'PV_Base'!D7:BD7"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    INDICATOR: Multilaterals
+  notes: "Multilaterals."
+- id: pv_base_block_labels
+  sheet: PV_Base
+  data_range: "'PV_Base'!B9:B728"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "13:49"
+    - "54:75"
+    - "80:100"
+    - "105:124"
+    - "129:148"
+    - "153:172"
+    - "177:196"
+    - "201:230"
+    - "235:256"
+    - "261:282"
+    - "287:308"
+    - "313:334"
+    - "339:360"
+    - "365:386"
+    - "391:412"
+    - "417:438"
+    - "443:464"
+    - "469:490"
+    - "495:516"
+    - "521:542"
+    - "547:568"
+    - "573:594"
+    - "599:620"
+    - "625:646"
+    - "651:672"
+    - "677:698"
+    - "703:724"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: "9:12"
+            "IDA - regular": "50:53"
+            "IDA - 50Y loans": "76:79"
+            "IDA - SML": "101:104"
+            "IDA NEW 40-year credits": "125:128"
+            "IDA NEW Regular": "149:152"
+            "IDA NEW Blend floating": "173:176"
+            "IDA NEW 60-year credits": "197:200"
+            MULTI1: "231:234"
+            MULTI2: "257:260"
+            OTH_MULTI1: "283:286"
+            OTH_MULTI2: "309:312"
+            OTH_MULTI3: "335:338"
+            "Export Credit Agencies": "361:364"
+            PC2: "387:390"
+            PC3: "413:416"
+            PC4: "439:442"
+            PC5: "465:468"
+            "Export Import Bank of NPC": "491:494"
+            NPC2: "517:520"
+            NPC3: "543:546"
+            NPC4: "569:572"
+            NPC5: "595:598"
+            Eurobond: "621:624"
+            "Commecial Bank": "647:650"
+            COM3: "673:676"
+            COM4: "699:702"
+            COM5: "725:728"
+          read: string
+      - id: INDICATOR
+        concept: INDICATOR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: A
+          read: string
+  key:
+    - INSTRUMENT
+    - INDICATOR
+  series_context:
+    TABLE: "pv_base.block_labels"
+    INDICATOR: block_labels
+  notes: "Lifted from 28 internal series on grace_labels: Grace IMF. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_opening_percent_of_face
+  sheet: PV_Base
+  data_range: "'PV_Base'!D9:D726"
+  layout: scalar
+  constant: {}
+  exclude_rows:
+    - "10:50"
+    - "52:76"
+    - "78:101"
+    - "103:125"
+    - "127:149"
+    - "151:173"
+    - "175:197"
+    - "199:231"
+    - "233:257"
+    - "259:283"
+    - "285:309"
+    - "311:335"
+    - "337:361"
+    - "363:387"
+    - "389:413"
+    - "415:439"
+    - "441:465"
+    - "467:491"
+    - "493:517"
+    - "519:543"
+    - "545:569"
+    - "571:595"
+    - "597:621"
+    - "623:647"
+    - "649:673"
+    - "675:699"
+    - "701:725"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 9
+            "IDA - regular": 51
+            "IDA - 50Y loans": 77
+            "IDA - SML": 102
+            "IDA NEW 40-year credits": 126
+            "IDA NEW Regular": 150
+            "IDA NEW Blend floating": 174
+            "IDA NEW 60-year credits": 198
+            MULTI1: 232
+            MULTI2: 258
+            OTH_MULTI1: 284
+            OTH_MULTI2: 310
+            OTH_MULTI3: 336
+            "Export Credit Agencies": 362
+            PC2: 388
+            PC3: 414
+            PC4: 440
+            PC5: 466
+            "Export Import Bank of NPC": 492
+            NPC2: 518
+            NPC3: 544
+            NPC4: 570
+            NPC5: 596
+            Eurobond: 622
+            "Commecial Bank": 648
+            COM3: 674
+            COM4: 700
+            COM5: 726
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.opening_stock"
+    INDICATOR: percent_of_face
+  notes: "Lifted from 28 constant series on pv_base.opening_stock: percent_of_face. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_discount_debt_stock
+  sheet: PV_Base
+  data_range: "'PV_Base'!D10:BK727"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "11:51"
+    - "53:77"
+    - "79:102"
+    - "104:126"
+    - "128:150"
+    - "152:174"
+    - "176:198"
+    - "200:232"
+    - "234:258"
+    - "260:284"
+    - "286:310"
+    - "312:336"
+    - "338:362"
+    - "364:388"
+    - "390:414"
+    - "416:440"
+    - "442:466"
+    - "468:492"
+    - "494:518"
+    - "520:544"
+    - "546:570"
+    - "572:596"
+    - "598:622"
+    - "624:648"
+    - "650:674"
+    - "676:700"
+    - "702:726"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 10
+            "IDA - regular": 52
+            "IDA - 50Y loans": 78
+            "IDA - SML": 103
+            "IDA NEW 40-year credits": 127
+            "IDA NEW Regular": 151
+            "IDA NEW Blend floating": 175
+            "IDA NEW 60-year credits": 199
+            MULTI1: 233
+            MULTI2: 259
+            OTH_MULTI1: 285
+            OTH_MULTI2: 311
+            OTH_MULTI3: 337
+            "Export Credit Agencies": 363
+            PC2: 389
+            PC3: 415
+            PC4: 441
+            PC5: 467
+            "Export Import Bank of NPC": 493
+            NPC2: 519
+            NPC3: 545
+            NPC4: 571
+            NPC5: 597
+            Eurobond: 623
+            "Commecial Bank": 649
+            COM3: 675
+            COM4: 701
+            COM5: 727
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Debt stock"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: Debt stock. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 470 cells not in the original per-member ranges (470 on member rows: ragged year widths)."
+- id: pv_base_discount_amortization
+  sheet: PV_Base
+  data_range: "'PV_Base'!D11:BL728"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "12:52"
+    - "54:78"
+    - "80:103"
+    - "105:127"
+    - "129:151"
+    - "153:175"
+    - "177:199"
+    - "201:233"
+    - "235:259"
+    - "261:285"
+    - "287:311"
+    - "313:337"
+    - "339:363"
+    - "365:389"
+    - "391:415"
+    - "417:441"
+    - "443:467"
+    - "469:493"
+    - "495:519"
+    - "521:545"
+    - "547:571"
+    - "573:597"
+    - "599:623"
+    - "625:649"
+    - "651:675"
+    - "677:701"
+    - "703:727"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 11
+            "IDA - regular": 53
+            "IDA - 50Y loans": 79
+            "IDA - SML": 104
+            "IDA NEW 40-year credits": 128
+            "IDA NEW Regular": 152
+            "IDA NEW Blend floating": 176
+            "IDA NEW 60-year credits": 200
+            MULTI1: 234
+            MULTI2: 260
+            OTH_MULTI1: 286
+            OTH_MULTI2: 312
+            OTH_MULTI3: 338
+            "Export Credit Agencies": 364
+            PC2: 390
+            PC3: 416
+            PC4: 442
+            PC5: 468
+            "Export Import Bank of NPC": 494
+            NPC2: 520
+            NPC3: 546
+            NPC4: 572
+            NPC5: 598
+            Eurobond: 624
+            "Commecial Bank": 650
+            COM3: 676
+            COM4: 702
+            COM5: 728
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: Amortization
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: Amortization. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 470 cells not in the original per-member ranges (470 on member rows: ragged year widths)."
+- id: pv_base_discount_interest
+  sheet: PV_Base
+  data_range: "'PV_Base'!E12:BL729"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "13:53"
+    - "55:79"
+    - "81:104"
+    - "106:128"
+    - "130:152"
+    - "154:176"
+    - "178:200"
+    - "202:234"
+    - "236:260"
+    - "262:286"
+    - "288:312"
+    - "314:338"
+    - "340:364"
+    - "366:390"
+    - "392:416"
+    - "418:442"
+    - "444:468"
+    - "470:494"
+    - "496:520"
+    - "522:546"
+    - "548:572"
+    - "574:598"
+    - "600:624"
+    - "626:650"
+    - "652:676"
+    - "678:702"
+    - "704:728"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 12
+            "IDA - regular": 54
+            "IDA - 50Y loans": 80
+            "IDA - SML": 105
+            "IDA NEW 40-year credits": 129
+            "IDA NEW Regular": 153
+            "IDA NEW Blend floating": 177
+            "IDA NEW 60-year credits": 201
+            MULTI1: 235
+            MULTI2: 261
+            OTH_MULTI1: 287
+            OTH_MULTI2: 313
+            OTH_MULTI3: 339
+            "Export Credit Agencies": 365
+            PC2: 391
+            PC3: 417
+            PC4: 443
+            PC5: 469
+            "Export Import Bank of NPC": 495
+            NPC2: 521
+            NPC3: 547
+            NPC4: 573
+            NPC5: 599
+            Eurobond: 625
+            "Commecial Bank": 651
+            COM3: 677
+            COM4: 703
+            COM5: 729
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: Interest
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: Interest. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 470 cells not in the original per-member ranges (470 on member rows: ragged year widths)."
+- id: pv_base_discount_total_debt_service
+  sheet: PV_Base
+  data_range: "'PV_Base'!E13:BL730"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "14:54"
+    - "56:80"
+    - "82:105"
+    - "107:129"
+    - "131:153"
+    - "155:177"
+    - "179:201"
+    - "203:235"
+    - "237:261"
+    - "263:287"
+    - "289:313"
+    - "315:339"
+    - "341:365"
+    - "367:391"
+    - "393:417"
+    - "419:443"
+    - "445:469"
+    - "471:495"
+    - "497:521"
+    - "523:547"
+    - "549:573"
+    - "575:599"
+    - "601:625"
+    - "627:651"
+    - "653:677"
+    - "679:703"
+    - "705:729"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 13
+            "IDA - regular": 55
+            "IDA - 50Y loans": 81
+            "IDA - SML": 106
+            "IDA NEW 40-year credits": 130
+            "IDA NEW Regular": 154
+            "IDA NEW Blend floating": 178
+            "IDA NEW 60-year credits": 202
+            MULTI1: 236
+            MULTI2: 262
+            OTH_MULTI1: 288
+            OTH_MULTI2: 314
+            OTH_MULTI3: 340
+            "Export Credit Agencies": 366
+            PC2: 392
+            PC3: 418
+            PC4: 444
+            PC5: 470
+            "Export Import Bank of NPC": 496
+            NPC2: 522
+            NPC3: 548
+            NPC4: 574
+            NPC5: 600
+            Eurobond: 626
+            "Commecial Bank": 652
+            COM3: 678
+            COM4: 704
+            COM5: 730
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Total debt service"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: Total debt service. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 470 cells not in the original per-member ranges (470 on member rows: ragged year widths)."
+- id: pv_base_discount_pv_of_debt
+  sheet: PV_Base
+  data_range: "'PV_Base'!D14:D731"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "15:55"
+    - "57:81"
+    - "83:106"
+    - "108:130"
+    - "132:154"
+    - "156:178"
+    - "180:202"
+    - "204:236"
+    - "238:262"
+    - "264:288"
+    - "290:314"
+    - "316:340"
+    - "342:366"
+    - "368:392"
+    - "394:418"
+    - "420:444"
+    - "446:470"
+    - "472:496"
+    - "498:522"
+    - "524:548"
+    - "550:574"
+    - "576:600"
+    - "602:626"
+    - "628:652"
+    - "654:678"
+    - "680:704"
+    - "706:730"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 14
+            "IDA - regular": 56
+            "IDA - 50Y loans": 82
+            "IDA - SML": 107
+            "IDA NEW 40-year credits": 131
+            "IDA NEW Regular": 155
+            "IDA NEW Blend floating": 179
+            "IDA NEW 60-year credits": 203
+            MULTI1: 237
+            MULTI2: 263
+            OTH_MULTI1: 289
+            OTH_MULTI2: 315
+            OTH_MULTI3: 341
+            "Export Credit Agencies": 367
+            PC2: 393
+            PC3: 419
+            PC4: 445
+            PC5: 471
+            "Export Import Bank of NPC": 497
+            NPC2: 523
+            NPC3: 549
+            NPC4: 575
+            NPC5: 601
+            Eurobond: 627
+            "Commecial Bank": 653
+            COM3: 679
+            COM4: 705
+            COM5: 731
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "PV of debt"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: PV of debt. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_discount_t_g_0
+  sheet: PV_Base
+  data_range: "'PV_Base'!D16:X733"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "17:57"
+    - "59:83"
+    - "85:108"
+    - "110:132"
+    - "134:156"
+    - "158:180"
+    - "182:204"
+    - "206:238"
+    - "240:264"
+    - "266:290"
+    - "292:316"
+    - "318:342"
+    - "344:368"
+    - "370:394"
+    - "396:420"
+    - "422:446"
+    - "448:472"
+    - "474:498"
+    - "500:524"
+    - "526:550"
+    - "552:576"
+    - "578:602"
+    - "604:628"
+    - "630:654"
+    - "656:680"
+    - "682:706"
+    - "708:732"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 16
+            "IDA - regular": 58
+            "IDA - 50Y loans": 84
+            "IDA - SML": 109
+            "IDA NEW 40-year credits": 133
+            "IDA NEW Regular": 157
+            "IDA NEW Blend floating": 181
+            "IDA NEW 60-year credits": 205
+            MULTI1: 239
+            MULTI2: 265
+            OTH_MULTI1: 291
+            OTH_MULTI2: 317
+            OTH_MULTI3: 343
+            "Export Credit Agencies": 369
+            PC2: 395
+            PC3: 421
+            PC4: 447
+            PC5: 473
+            "Export Import Bank of NPC": 499
+            NPC2: 525
+            NPC3: 551
+            NPC4: 577
+            NPC5: 603
+            Eurobond: 629
+            "Commecial Bank": 655
+            COM3: 681
+            COM4: 707
+            COM5: 733
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "t-g>0"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: t-g>0. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_discount_post_grace_cumulative
+  sheet: PV_Base
+  data_range: "'PV_Base'!D17:X734"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "18:58"
+    - "60:84"
+    - "86:109"
+    - "111:133"
+    - "135:157"
+    - "159:181"
+    - "183:205"
+    - "207:239"
+    - "241:265"
+    - "267:291"
+    - "293:317"
+    - "319:343"
+    - "345:369"
+    - "371:395"
+    - "397:421"
+    - "423:447"
+    - "449:473"
+    - "475:499"
+    - "501:525"
+    - "527:551"
+    - "553:577"
+    - "579:603"
+    - "605:629"
+    - "631:655"
+    - "657:681"
+    - "683:707"
+    - "709:733"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 17
+            "IDA - regular": 59
+            "IDA - 50Y loans": 85
+            "IDA - SML": 110
+            "IDA NEW 40-year credits": 134
+            "IDA NEW Regular": 158
+            "IDA NEW Blend floating": 182
+            "IDA NEW 60-year credits": 206
+            MULTI1: 240
+            MULTI2: 266
+            OTH_MULTI1: 292
+            OTH_MULTI2: 318
+            OTH_MULTI3: 344
+            "Export Credit Agencies": 370
+            PC2: 396
+            PC3: 422
+            PC4: 448
+            PC5: 474
+            "Export Import Bank of NPC": 500
+            NPC2: 526
+            NPC3: 552
+            NPC4: 578
+            NPC5: 604
+            Eurobond: 630
+            "Commecial Bank": 656
+            COM3: 682
+            COM4: 708
+            COM5: 734
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "post-grace cumulative"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: post-grace cumulative. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_discount_t_m_condition
+  sheet: PV_Base
+  data_range: "'PV_Base'!D18:X735"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "19:59"
+    - "61:85"
+    - "87:110"
+    - "112:134"
+    - "136:158"
+    - "160:182"
+    - "184:206"
+    - "208:240"
+    - "242:266"
+    - "268:292"
+    - "294:318"
+    - "320:344"
+    - "346:370"
+    - "372:396"
+    - "398:422"
+    - "424:448"
+    - "450:474"
+    - "476:500"
+    - "502:526"
+    - "528:552"
+    - "554:578"
+    - "580:604"
+    - "606:630"
+    - "632:656"
+    - "658:682"
+    - "684:708"
+    - "710:734"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 18
+            "IDA - regular": 60
+            "IDA - 50Y loans": 86
+            "IDA - SML": 111
+            "IDA NEW 40-year credits": 135
+            "IDA NEW Regular": 159
+            "IDA NEW Blend floating": 183
+            "IDA NEW 60-year credits": 207
+            MULTI1: 241
+            MULTI2: 267
+            OTH_MULTI1: 293
+            OTH_MULTI2: 319
+            OTH_MULTI3: 345
+            "Export Credit Agencies": 371
+            PC2: 397
+            PC3: 423
+            PC4: 449
+            PC5: 475
+            "Export Import Bank of NPC": 501
+            NPC2: 527
+            NPC3: 553
+            NPC4: 579
+            NPC5: 605
+            Eurobond: 631
+            "Commecial Bank": 657
+            COM3: 683
+            COM4: 709
+            COM5: 735
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "t-m condition"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: t-m condition. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_discount_post_maturity_cumulative
+  sheet: PV_Base
+  data_range: "'PV_Base'!D19:X736"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "20:60"
+    - "62:86"
+    - "88:111"
+    - "113:135"
+    - "137:159"
+    - "161:183"
+    - "185:207"
+    - "209:241"
+    - "243:267"
+    - "269:293"
+    - "295:319"
+    - "321:345"
+    - "347:371"
+    - "373:397"
+    - "399:423"
+    - "425:449"
+    - "451:475"
+    - "477:501"
+    - "503:527"
+    - "529:553"
+    - "555:579"
+    - "581:605"
+    - "607:631"
+    - "633:657"
+    - "659:683"
+    - "685:709"
+    - "711:735"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 19
+            "IDA - regular": 61
+            "IDA - 50Y loans": 87
+            "IDA - SML": 112
+            "IDA NEW 40-year credits": 136
+            "IDA NEW Regular": 160
+            "IDA NEW Blend floating": 184
+            "IDA NEW 60-year credits": 208
+            MULTI1: 242
+            MULTI2: 268
+            OTH_MULTI1: 294
+            OTH_MULTI2: 320
+            OTH_MULTI3: 346
+            "Export Credit Agencies": 372
+            PC2: 398
+            PC3: 424
+            PC4: 450
+            PC5: 476
+            "Export Import Bank of NPC": 502
+            NPC2: 528
+            NPC3: 554
+            NPC4: 580
+            NPC5: 606
+            Eurobond: 632
+            "Commecial Bank": 658
+            COM3: 684
+            COM4: 710
+            COM5: 736
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "post-maturity cumulative"
+    VARIANT: discount
+  notes: "Lifted from 28 internal series on pv_base.discount_schedule: post-maturity cumulative. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5."
+- id: pv_base_output_new_forex_borrowing_gross_usd
+  sheet: PV_Base
+  data_range: "'PV_Base'!D22:BL739"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "23:63"
+    - "65:89"
+    - "91:114"
+    - "116:138"
+    - "140:162"
+    - "164:186"
+    - "188:210"
+    - "212:244"
+    - "246:270"
+    - "272:296"
+    - "298:322"
+    - "324:348"
+    - "350:374"
+    - "376:400"
+    - "402:426"
+    - "428:452"
+    - "454:478"
+    - "480:504"
+    - "506:530"
+    - "532:556"
+    - "558:582"
+    - "584:608"
+    - "610:634"
+    - "636:660"
+    - "662:686"
+    - "688:712"
+    - "714:738"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 22
+            "IDA - regular": 64
+            "IDA - 50Y loans": 90
+            "IDA - SML": 115
+            "IDA NEW 40-year credits": 139
+            "IDA NEW Regular": 163
+            "IDA NEW Blend floating": 187
+            "IDA NEW 60-year credits": 211
+            MULTI1: 245
+            MULTI2: 271
+            OTH_MULTI1: 297
+            OTH_MULTI2: 323
+            OTH_MULTI3: 349
+            "Export Credit Agencies": 375
+            PC2: 401
+            PC3: 427
+            PC4: 453
+            PC5: 479
+            "Export Import Bank of NPC": 505
+            NPC2: 531
+            NPC3: 557
+            NPC4: 583
+            NPC5: 609
+            Eurobond: 635
+            "Commecial Bank": 661
+            COM3: 687
+            COM4: 713
+            COM5: 739
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "New forex borrowing (gross, USD)"
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: New forex borrowing (gross, USD). Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 839 cells not in the original per-member ranges (839 on member rows: ragged year widths). TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_cumulative
+  sheet: PV_Base
+  data_range: "'PV_Base'!D23:BL740"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "24:64"
+    - "66:90"
+    - "92:115"
+    - "117:139"
+    - "141:163"
+    - "165:187"
+    - "189:211"
+    - "213:245"
+    - "247:271"
+    - "273:297"
+    - "299:323"
+    - "325:349"
+    - "351:375"
+    - "377:401"
+    - "403:427"
+    - "429:453"
+    - "455:479"
+    - "481:505"
+    - "507:531"
+    - "533:557"
+    - "559:583"
+    - "585:609"
+    - "611:635"
+    - "637:661"
+    - "663:687"
+    - "689:713"
+    - "715:739"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 23
+            "IDA - regular": 65
+            "IDA - 50Y loans": 91
+            "IDA - SML": 116
+            "IDA NEW 40-year credits": 140
+            "IDA NEW Regular": 164
+            "IDA NEW Blend floating": 188
+            "IDA NEW 60-year credits": 212
+            MULTI1: 246
+            MULTI2: 272
+            OTH_MULTI1: 298
+            OTH_MULTI2: 324
+            OTH_MULTI3: 350
+            "Export Credit Agencies": 376
+            PC2: 402
+            PC3: 428
+            PC4: 454
+            PC5: 480
+            "Export Import Bank of NPC": 506
+            NPC2: 532
+            NPC3: 558
+            NPC4: 584
+            NPC5: 610
+            Eurobond: 636
+            "Commecial Bank": 662
+            COM3: 688
+            COM4: 714
+            COM5: 740
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: cumulative
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: cumulative. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 839 cells not in the original per-member ranges (839 on member rows: ragged year widths). TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_stock_of_new_forex_debt_in_usd
+  sheet: PV_Base
+  data_range: "'PV_Base'!D24:X741"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "25:65"
+    - "67:91"
+    - "93:116"
+    - "118:140"
+    - "142:164"
+    - "166:188"
+    - "190:212"
+    - "214:246"
+    - "248:272"
+    - "274:298"
+    - "300:324"
+    - "326:350"
+    - "352:376"
+    - "378:402"
+    - "404:428"
+    - "430:454"
+    - "456:480"
+    - "482:506"
+    - "508:532"
+    - "534:558"
+    - "560:584"
+    - "586:610"
+    - "612:636"
+    - "638:662"
+    - "664:688"
+    - "690:714"
+    - "716:740"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 24
+            "IDA - regular": 66
+            "IDA - 50Y loans": 92
+            "IDA - SML": 117
+            "IDA NEW 40-year credits": 141
+            "IDA NEW Regular": 165
+            "IDA NEW Blend floating": 189
+            "IDA NEW 60-year credits": 213
+            MULTI1: 247
+            MULTI2: 273
+            OTH_MULTI1: 299
+            OTH_MULTI2: 325
+            OTH_MULTI3: 351
+            "Export Credit Agencies": 377
+            PC2: 403
+            PC3: 429
+            PC4: 455
+            PC5: 481
+            "Export Import Bank of NPC": 507
+            NPC2: 533
+            NPC3: 559
+            NPC4: 585
+            NPC5: 611
+            Eurobond: 637
+            "Commecial Bank": 663
+            COM3: 689
+            COM4: 715
+            COM5: 741
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "Stock of new forex debt (in USD)"
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: Stock of new forex debt (in USD). Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_pv_of_debt
+  sheet: PV_Base
+  data_range: "'PV_Base'!D25:X742"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "26:66"
+    - "68:92"
+    - "94:117"
+    - "119:141"
+    - "143:165"
+    - "167:189"
+    - "191:213"
+    - "215:247"
+    - "249:273"
+    - "275:299"
+    - "301:325"
+    - "327:351"
+    - "353:377"
+    - "379:403"
+    - "405:429"
+    - "431:455"
+    - "457:481"
+    - "483:507"
+    - "509:533"
+    - "535:559"
+    - "561:585"
+    - "587:611"
+    - "613:637"
+    - "639:663"
+    - "665:689"
+    - "691:715"
+    - "717:741"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 25
+            "IDA - regular": 67
+            "IDA - 50Y loans": 93
+            "IDA - SML": 118
+            "IDA NEW 40-year credits": 142
+            "IDA NEW Regular": 166
+            "IDA NEW Blend floating": 190
+            "IDA NEW 60-year credits": 214
+            MULTI1: 248
+            MULTI2: 274
+            OTH_MULTI1: 300
+            OTH_MULTI2: 326
+            OTH_MULTI3: 352
+            "Export Credit Agencies": 378
+            PC2: 404
+            PC3: 430
+            PC4: 456
+            PC5: 482
+            "Export Import Bank of NPC": 508
+            NPC2: 534
+            NPC3: 560
+            NPC4: 586
+            NPC5: 612
+            Eurobond: 638
+            "Commecial Bank": 664
+            COM3: 690
+            COM4: 716
+            COM5: 742
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "PV of debt"
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: PV of debt. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_total_debt_service_in_usd
+  sheet: PV_Base
+  data_range: "'PV_Base'!E26:X743"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "27:67"
+    - "69:93"
+    - "95:118"
+    - "120:142"
+    - "144:166"
+    - "168:190"
+    - "192:214"
+    - "216:248"
+    - "250:274"
+    - "276:300"
+    - "302:326"
+    - "328:352"
+    - "354:378"
+    - "380:404"
+    - "406:430"
+    - "432:456"
+    - "458:482"
+    - "484:508"
+    - "510:534"
+    - "536:560"
+    - "562:586"
+    - "588:612"
+    - "614:638"
+    - "640:664"
+    - "666:690"
+    - "692:716"
+    - "718:742"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 26
+            "IDA - regular": 68
+            "IDA - 50Y loans": 94
+            "IDA - SML": 119
+            "IDA NEW 40-year credits": 143
+            "IDA NEW Regular": 167
+            "IDA NEW Blend floating": 191
+            "IDA NEW 60-year credits": 215
+            MULTI1: 249
+            MULTI2: 275
+            OTH_MULTI1: 301
+            OTH_MULTI2: 327
+            OTH_MULTI3: 353
+            "Export Credit Agencies": 379
+            PC2: 405
+            PC3: 431
+            PC4: 457
+            PC5: 483
+            "Export Import Bank of NPC": 509
+            NPC2: 535
+            NPC3: 561
+            NPC4: 587
+            NPC5: 613
+            Eurobond: 639
+            "Commecial Bank": 665
+            COM3: 691
+            COM4: 717
+            COM5: 743
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "Total debt service (in USD)"
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: Total debt service (in USD). Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_constant_output_interest
+  sheet: PV_Base
+  data_range: "'PV_Base'!D27:D744"
+  layout: series
+  constant: {}
+  exclude_rows:
+    - "28:68"
+    - "70:94"
+    - "96:119"
+    - "121:143"
+    - "145:167"
+    - "169:191"
+    - "193:215"
+    - "217:249"
+    - "251:275"
+    - "277:301"
+    - "303:327"
+    - "329:353"
+    - "355:379"
+    - "381:405"
+    - "407:431"
+    - "433:457"
+    - "459:483"
+    - "485:509"
+    - "511:535"
+    - "537:561"
+    - "563:587"
+    - "589:613"
+    - "615:639"
+    - "641:665"
+    - "667:691"
+    - "693:717"
+    - "719:743"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 27
+            "IDA - regular": 69
+            "IDA - 50Y loans": 95
+            "IDA - SML": 120
+            "IDA NEW 40-year credits": 144
+            "IDA NEW Regular": 168
+            "IDA NEW Blend floating": 192
+            "IDA NEW 60-year credits": 216
+            MULTI1: 250
+            MULTI2: 276
+            OTH_MULTI1: 302
+            OTH_MULTI2: 328
+            OTH_MULTI3: 354
+            "Export Credit Agencies": 380
+            PC2: 406
+            PC3: 432
+            PC4: 458
+            PC5: 484
+            "Export Import Bank of NPC": 510
+            NPC2: 536
+            NPC3: 562
+            NPC4: 588
+            NPC5: 614
+            Eurobond: 640
+            "Commecial Bank": 666
+            COM3: 692
+            COM4: 718
+            COM5: 744
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Interest
+    VARIANT: output
+  notes: "Lifted from 28 constant series on pv_base.new_loan_output: Interest. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_interest
+  sheet: PV_Base
+  data_range: "'PV_Base'!E27:X744"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "28:68"
+    - "70:94"
+    - "96:119"
+    - "121:143"
+    - "145:167"
+    - "169:191"
+    - "193:215"
+    - "217:249"
+    - "251:275"
+    - "277:301"
+    - "303:327"
+    - "329:353"
+    - "355:379"
+    - "381:405"
+    - "407:431"
+    - "433:457"
+    - "459:483"
+    - "485:509"
+    - "511:535"
+    - "537:561"
+    - "563:587"
+    - "589:613"
+    - "615:639"
+    - "641:665"
+    - "667:691"
+    - "693:717"
+    - "719:743"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 27
+            "IDA - regular": 69
+            "IDA - 50Y loans": 95
+            "IDA - SML": 120
+            "IDA NEW 40-year credits": 144
+            "IDA NEW Regular": 168
+            "IDA NEW Blend floating": 192
+            "IDA NEW 60-year credits": 216
+            MULTI1: 250
+            MULTI2: 276
+            OTH_MULTI1: 302
+            OTH_MULTI2: 328
+            OTH_MULTI3: 354
+            "Export Credit Agencies": 380
+            PC2: 406
+            PC3: 432
+            PC4: 458
+            PC5: 484
+            "Export Import Bank of NPC": 510
+            NPC2: 536
+            NPC3: 562
+            NPC4: 588
+            NPC5: 614
+            Eurobond: 640
+            "Commecial Bank": 666
+            COM3: 692
+            COM4: 718
+            COM5: 744
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Interest
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: Interest. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_output_amortization
+  sheet: PV_Base
+  data_range: "'PV_Base'!D28:X745"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "29:69"
+    - "71:95"
+    - "97:120"
+    - "122:144"
+    - "146:168"
+    - "170:192"
+    - "194:216"
+    - "218:250"
+    - "252:276"
+    - "278:302"
+    - "304:328"
+    - "330:354"
+    - "356:380"
+    - "382:406"
+    - "408:432"
+    - "434:458"
+    - "460:484"
+    - "486:510"
+    - "512:536"
+    - "538:562"
+    - "564:588"
+    - "590:614"
+    - "616:640"
+    - "642:666"
+    - "668:692"
+    - "694:718"
+    - "720:744"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            IMF: 28
+            "IDA - regular": 70
+            "IDA - 50Y loans": 96
+            "IDA - SML": 121
+            "IDA NEW 40-year credits": 145
+            "IDA NEW Regular": 169
+            "IDA NEW Blend floating": 193
+            "IDA NEW 60-year credits": 217
+            MULTI1: 251
+            MULTI2: 277
+            OTH_MULTI1: 303
+            OTH_MULTI2: 329
+            OTH_MULTI3: 355
+            "Export Credit Agencies": 381
+            PC2: 407
+            PC3: 433
+            PC4: 459
+            PC5: 485
+            "Export Import Bank of NPC": 511
+            NPC2: 537
+            NPC3: 563
+            NPC4: 589
+            NPC5: 615
+            Eurobond: 641
+            "Commecial Bank": 667
+            COM3: 693
+            COM4: 719
+            COM5: 745
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Amortization
+    VARIANT: output
+  notes: "Lifted from 28 internal series on pv_base.new_loan_output: Amortization. Instruments (28): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, IMF, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. TIME_PERIOD header_row unified [21, 63, 89, 114, 138, 162, 186, 210, 244, 270, 296, 322, 348, 374, 400, 426, 452, 478, 504, 530, 556, 582, 608, 634, 660, 686, 712, 738] → 21."
+- id: pv_base_ida_scale_name
+  sheet: PV_Base
+  data_range: "'PV_Base'!B35:B44"
+  layout: scalar
+  constant: {}
+  exclude_rows:
+    - 40
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - small economy": 35
+            "IDA - regular": 36
+            "IDA - blend": 37
+            "IDA - SML": 38
+            "IDA - 50Y loans": 39
+            "IDA NEW 40-year credits": 41
+            "IDA NEW Regular": 42
+            "IDA NEW Blend (also enter) -->": 43
+            "IDA NEW 60-year credits": 44
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.ida_scale"
+    INDICATOR: scale_name
+  notes: "Lifted from 9 constant series on pv_base.ida_scale: scale_name. Instruments (9): IDA - 50Y loans, IDA - SML, IDA - blend, IDA - regular, IDA - small economy, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend (also enter) -->, IDA NEW Regular."
+- id: pv_base_ida_scale_short_name
+  sheet: PV_Base
+  data_range: "'PV_Base'!C35:C39"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - small economy": 35
+            "IDA - regular": 36
+            "IDA - blend": 37
+            "IDA - SML": 38
+            "IDA - 50Y loans": 39
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.ida_scale"
+    INDICATOR: short_name
+  notes: "Lifted from 5 constant series on pv_base.ida_scale: short_name. Instruments (5): IDA - 50Y loans, IDA - SML, IDA - blend, IDA - regular, IDA - small economy."
+- id: pv_base_ida_terms_repayment_schedule
+  sheet: PV_Base
+  data_range: "'PV_Base'!D35:BL44"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - 40
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - small economy": 35
+            "IDA - regular": 36
+            "IDA - blend": 37
+            "IDA - SML": 38
+            "IDA - 50Y loans": 39
+            "IDA NEW 40-year credits": 41
+            "IDA NEW Regular": 42
+            "IDA NEW Blend (also enter) -->": 43
+            "IDA NEW 60-year credits": 44
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 34
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.ida_terms"
+    INDICATOR: "Repayment schedule"
+  notes: "Lifted from 9 internal series on pv_base.ida_terms: Repayment schedule. Instruments (9): IDA - 50Y loans, IDA - SML, IDA - blend, IDA - regular, IDA - small economy, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend (also enter) -->, IDA NEW Regular. Bounding rectangle adds 40 cells not in the original per-member ranges (40 on member rows: ragged year widths)."
+- id: pv_base_ida_scale_new_product_count
+  sheet: PV_Base
+  data_range: "'PV_Base'!D40"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "pv_base.ida_scale"
+    INDICATOR: new_ida_product_count
+  notes: "Count of new-IDA product rows in the PV_Base scale map."
+- id: pv_base_ida_terms_schedule_column_index
+  sheet: PV_Base
+  data_range: "'PV_Base'!E40:BL40"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 34
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.ida_terms"
+    INDICATOR: "Schedule column index"
+  notes: "Schedule column index on PV_Base, keyed by projection years."
+- id: pv_base_discount_repayment_schedule
+  sheet: PV_Base
+  data_range: "'PV_Base'!D48:BL195"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "49:73"
+    - "75:122"
+    - "124:146"
+    - "148:194"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 48
+            "IDA - 50Y loans": 74
+            "IDA NEW 40-year credits": 123
+            "IDA NEW Regular": 147
+            "IDA NEW 60-year credits": 195
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Repayment schedule"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base.discount_schedule: Repayment schedule. Instruments (5): IDA - 50Y loans, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Regular. Bounding rectangle adds 67 cells not in the original per-member ranges (67 on member rows: ragged year widths)."
+- id: pv_base_instrument_title
+  sheet: PV_Base
+  data_range: "'PV_Base'!A48:A195"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "49:73"
+    - "75:122"
+    - "124:146"
+    - "148:194"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 48
+            "IDA - 50Y loans": 74
+            "IDA NEW 40-year credits": 123
+            "IDA NEW Regular": 147
+            "IDA NEW 60-year credits": 195
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.instrument_title"
+    INDICATOR: instrument_name
+  notes: "Lifted from 5 internal series on instrument_title: IDA - regular. Instruments (5): IDA - 50Y loans, IDA - regular, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Regular."
+- id: pv_base_constant_discount_schedule_period
+  sheet: PV_Base
+  data_range: "'PV_Base'!D49"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 49
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Schedule period"
+    VARIANT: discount
+  notes: "Lifted from 1 constant series on pv_base.discount_schedule: Schedule period. Instruments (1): IDA - regular."
+- id: pv_base_discount_schedule_period
+  sheet: PV_Base
+  data_range: "'PV_Base'!E49:BL49"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 49
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Schedule period"
+    VARIANT: discount
+  notes: "Lifted from 1 internal series on pv_base.discount_schedule: Schedule period. Instruments (1): IDA - regular."
+- id: pv_base_discount_selected_instrument
+  sheet: PV_Base
+  data_range: "'PV_Base'!A49:A75"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "50:74"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 49
+            "IDA - 50Y loans": 75
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Selected instrument"
+    VARIANT: discount
+  notes: "Lifted from 2 internal series on pv_base.discount_schedule: Selected instrument. Instruments (2): IDA - 50Y loans, IDA - regular."
+- id: pv_base_grace_ida_regular_by_year
+  sheet: PV_Base
+  data_range: "'PV_Base'!E50:BD50"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    INDICATOR: "Grace IDA - regular"
+  notes: "Grace IDA - regular."
+- id: pv_base_output_projection_year
+  sheet: PV_Base
+  data_range: "'PV_Base'!D63:BD63"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - regular": 63
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "Projection year"
+    VARIANT: output
+  notes: "Lifted from 1 internal series on pv_base.new_loan_output: Projection year. Instruments (1): IDA - regular."
+- id: pv_base_block_index
+  sheet: PV_Base
+  data_range: "'PV_Base'!D75:BL724"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "76:99"
+    - "101:123"
+    - "125:147"
+    - "149:171"
+    - "173:195"
+    - "197:229"
+    - "231:255"
+    - "257:281"
+    - "283:307"
+    - "309:333"
+    - "335:359"
+    - "361:385"
+    - "387:411"
+    - "413:437"
+    - "439:463"
+    - "465:489"
+    - "491:515"
+    - "517:541"
+    - "543:567"
+    - "569:593"
+    - "595:619"
+    - "621:645"
+    - "647:671"
+    - "673:697"
+    - "699:723"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - 50Y loans": 75
+            "IDA - SML": 100
+            "IDA NEW 40-year credits": 124
+            "IDA NEW Regular": 148
+            "IDA NEW Blend floating": 172
+            "IDA NEW 60-year credits": 196
+            MULTI1: 230
+            MULTI2: 256
+            OTH_MULTI1: 282
+            OTH_MULTI2: 308
+            OTH_MULTI3: 334
+            "Export Credit Agencies": 360
+            PC2: 386
+            PC3: 412
+            PC4: 438
+            PC5: 464
+            "Export Import Bank of NPC": 490
+            NPC2: 516
+            NPC3: 542
+            NPC4: 568
+            NPC5: 594
+            Eurobond: 620
+            "Commecial Bank": 646
+            COM3: 672
+            COM4: 698
+            COM5: 724
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.block_index"
+    INDICATOR: schedule_index
+  notes: "Lifted from 26 internal series on block_index: IDA - 50Y loans. Instruments (26): COM3, COM4, COM5, Commecial Bank, Eurobond, Export Credit Agencies, Export Import Bank of NPC, IDA - 50Y loans, IDA - SML, IDA NEW 40-year credits, IDA NEW 60-year credits, IDA NEW Blend floating, IDA NEW Regular, MULTI1, MULTI2, NPC2, NPC3, NPC4, NPC5, OTH_MULTI1, OTH_MULTI2, OTH_MULTI3, PC2, PC3, PC4, PC5. Bounding rectangle adds 456 cells not in the original per-member ranges (456 on member rows: ragged year widths)."
+- id: pv_base_input_output_cumulative
+  sheet: PV_Base
+  data_range: "'PV_Base'!BC91:BK91"
+  layout: series
+  input:
+    setter:
+      name: set_pv_base_input_output_cumulative
+      record_contract: records
+      strict: true
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "IDA - 50Y loans": 91
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: cumulative
+    VARIANT: output
+  notes: "Lifted from 1 input series on pv_base.new_loan_output: cumulative. Instruments (1): IDA - 50Y loans."
+- id: pv_base_block_index_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D750:AQ880"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "751:775"
+    - "777:801"
+    - "803:827"
+    - "829:853"
+    - "855:879"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 750
+              - 828
+            "Bonds (4 to 7 years)-FX":
+              - 776
+              - 854
+            "Bonds (beyond 7 years)-FX":
+              - 802
+              - 880
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 750
+              - 776
+              - 802
+            residents:
+              - 828
+              - 854
+              - 880
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.block_index"
+    INDICATOR: schedule_index
+  notes: "Lifted from 6 internal series on block_index: Bonds (1 to 3 years)-FX. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_block_labels_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!B751:B884"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "755:776"
+    - "781:802"
+    - "807:828"
+    - "833:854"
+    - "859:880"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - "751:754"
+              - "829:832"
+            "Bonds (4 to 7 years)-FX":
+              - "777:780"
+              - "855:858"
+            "Bonds (beyond 7 years)-FX":
+              - "803:806"
+              - "881:884"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - "751:754"
+              - "777:780"
+              - "803:806"
+            residents:
+              - "829:832"
+              - "855:858"
+              - "881:884"
+          read: string
+      - id: INDICATOR
+        concept: INDICATOR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: A
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - INDICATOR
+  series_context:
+    TABLE: "pv_base.block_labels"
+    INDICATOR: block_labels
+  notes: "Lifted from 6 internal series on grace_labels: Grace Bonds (1 to 3 years)-FX. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_opening_percent_of_face_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D752:D882"
+  layout: scalar
+  constant: {}
+  exclude_rows:
+    - "753:777"
+    - "779:803"
+    - "805:829"
+    - "831:855"
+    - "857:881"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 752
+              - 830
+            "Bonds (4 to 7 years)-FX":
+              - 778
+              - 856
+            "Bonds (beyond 7 years)-FX":
+              - 804
+              - 882
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            non_residents:
+              - 752
+              - 778
+              - 804
+            residents:
+              - 830
+              - 856
+              - 882
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: "pv_base.opening_stock"
+    INDICATOR: percent_of_face
+  notes: "Lifted from 6 constant series on pv_base.opening_stock: percent_of_face. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non_residents, residents."
+- id: pv_base_discount_debt_stock_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D753:AP883"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "754:778"
+    - "780:804"
+    - "806:830"
+    - "832:856"
+    - "858:882"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 753
+              - 831
+            "Bonds (4 to 7 years)-FX":
+              - 779
+              - 857
+            "Bonds (beyond 7 years)-FX":
+              - 805
+              - 883
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 753
+              - 779
+              - 805
+            residents:
+              - 831
+              - 857
+              - 883
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Debt stock"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: Debt stock. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_amortization_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D754:AQ884"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "755:779"
+    - "781:805"
+    - "807:831"
+    - "833:857"
+    - "859:883"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 754
+              - 832
+            "Bonds (4 to 7 years)-FX":
+              - 780
+              - 858
+            "Bonds (beyond 7 years)-FX":
+              - 806
+              - 884
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 754
+              - 780
+              - 806
+            residents:
+              - 832
+              - 858
+              - 884
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: Amortization
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: Amortization. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_interest_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!E755:AQ885"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "756:780"
+    - "782:806"
+    - "808:832"
+    - "834:858"
+    - "860:884"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 755
+              - 833
+            "Bonds (4 to 7 years)-FX":
+              - 781
+              - 859
+            "Bonds (beyond 7 years)-FX":
+              - 807
+              - 885
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 755
+              - 781
+              - 807
+            residents:
+              - 833
+              - 859
+              - 885
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: Interest
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: Interest. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_total_debt_service_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!E756:AQ886"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "757:781"
+    - "783:807"
+    - "809:833"
+    - "835:859"
+    - "861:885"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 756
+              - 834
+            "Bonds (4 to 7 years)-FX":
+              - 782
+              - 860
+            "Bonds (beyond 7 years)-FX":
+              - 808
+              - 886
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 756
+              - 782
+              - 808
+            residents:
+              - 834
+              - 860
+              - 886
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "Total debt service"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: Total debt service. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_pv_of_debt_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D757:D887"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "758:782"
+    - "784:808"
+    - "810:834"
+    - "836:860"
+    - "862:886"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 757
+              - 835
+            "Bonds (4 to 7 years)-FX":
+              - 783
+              - 861
+            "Bonds (beyond 7 years)-FX":
+              - 809
+              - 887
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 757
+              - 783
+              - 809
+            residents:
+              - 835
+              - 861
+              - 887
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "PV of debt"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: PV of debt. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_t_g_0_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D759:X889"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "760:784"
+    - "786:810"
+    - "812:836"
+    - "838:862"
+    - "864:888"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 759
+              - 837
+            "Bonds (4 to 7 years)-FX":
+              - 785
+              - 863
+            "Bonds (beyond 7 years)-FX":
+              - 811
+              - 889
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 759
+              - 785
+              - 811
+            residents:
+              - 837
+              - 863
+              - 889
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "t-g>0"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: t-g>0. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_post_grace_cumulative_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D760:X890"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "761:785"
+    - "787:811"
+    - "813:837"
+    - "839:863"
+    - "865:889"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 760
+              - 838
+            "Bonds (4 to 7 years)-FX":
+              - 786
+              - 864
+            "Bonds (beyond 7 years)-FX":
+              - 812
+              - 890
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 760
+              - 786
+              - 812
+            residents:
+              - 838
+              - 864
+              - 890
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "post-grace cumulative"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: post-grace cumulative. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_t_m_condition_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D761:X891"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "762:786"
+    - "788:812"
+    - "814:838"
+    - "840:864"
+    - "866:890"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 761
+              - 839
+            "Bonds (4 to 7 years)-FX":
+              - 787
+              - 865
+            "Bonds (beyond 7 years)-FX":
+              - 813
+              - 891
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 761
+              - 787
+              - 813
+            residents:
+              - 839
+              - 865
+              - 891
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "t-m condition"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: t-m condition. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_discount_post_maturity_cumulative_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D762:X892"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "763:787"
+    - "789:813"
+    - "815:839"
+    - "841:865"
+    - "867:891"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 762
+              - 840
+            "Bonds (4 to 7 years)-FX":
+              - 788
+              - 866
+            "Bonds (beyond 7 years)-FX":
+              - 814
+              - 892
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 762
+              - 788
+              - 814
+            residents:
+              - 840
+              - 866
+              - 892
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 7
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.discount_schedule"
+    INDICATOR: "post-maturity cumulative"
+    VARIANT: discount
+  notes: "Lifted from 6 internal series on pv_base.discount_schedule: post-maturity cumulative. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents."
+- id: pv_base_output_new_forex_borrowing_gross_usd_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D765:AE895"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "766:790"
+    - "792:816"
+    - "818:842"
+    - "844:868"
+    - "870:894"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 765
+              - 843
+            "Bonds (4 to 7 years)-FX":
+              - 791
+              - 869
+            "Bonds (beyond 7 years)-FX":
+              - 817
+              - 895
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 765
+              - 791
+              - 817
+            residents:
+              - 843
+              - 869
+              - 895
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "New forex borrowing (gross, USD)"
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: New forex borrowing (gross, USD). Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_cumulative_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D766:AE896"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "767:791"
+    - "793:817"
+    - "819:843"
+    - "845:869"
+    - "871:895"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 766
+              - 844
+            "Bonds (4 to 7 years)-FX":
+              - 792
+              - 870
+            "Bonds (beyond 7 years)-FX":
+              - 818
+              - 896
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 766
+              - 792
+              - 818
+            residents:
+              - 844
+              - 870
+              - 896
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: cumulative
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: cumulative. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_stock_of_new_forex_debt_in_usd_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D767:X897"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "768:792"
+    - "794:818"
+    - "820:844"
+    - "846:870"
+    - "872:896"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 767
+              - 845
+            "Bonds (4 to 7 years)-FX":
+              - 793
+              - 871
+            "Bonds (beyond 7 years)-FX":
+              - 819
+              - 897
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 767
+              - 793
+              - 819
+            residents:
+              - 845
+              - 871
+              - 897
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "Stock of new forex debt (in USD)"
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: Stock of new forex debt (in USD). Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_pv_of_debt_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D768:X898"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "769:793"
+    - "795:819"
+    - "821:845"
+    - "847:871"
+    - "873:897"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 768
+              - 846
+            "Bonds (4 to 7 years)-FX":
+              - 794
+              - 872
+            "Bonds (beyond 7 years)-FX":
+              - 820
+              - 898
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 768
+              - 794
+              - 820
+            residents:
+              - 846
+              - 872
+              - 898
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "PV of debt"
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: PV of debt. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_total_debt_service_in_usd_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!E769:X899"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "770:794"
+    - "796:820"
+    - "822:846"
+    - "848:872"
+    - "874:898"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 769
+              - 847
+            "Bonds (4 to 7 years)-FX":
+              - 795
+              - 873
+            "Bonds (beyond 7 years)-FX":
+              - 821
+              - 899
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 769
+              - 795
+              - 821
+            residents:
+              - 847
+              - 873
+              - 899
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: "Total debt service (in USD)"
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: Total debt service (in USD). Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_constant_output_interest_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D770:D900"
+  layout: series
+  constant: {}
+  exclude_rows:
+    - "771:795"
+    - "797:821"
+    - "823:847"
+    - "849:873"
+    - "875:899"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 770
+              - 848
+            "Bonds (4 to 7 years)-FX":
+              - 796
+              - 874
+            "Bonds (beyond 7 years)-FX":
+              - 822
+              - 900
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 770
+              - 796
+              - 822
+            residents:
+              - 848
+              - 874
+              - 900
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Interest
+    VARIANT: output
+  notes: "Lifted from 6 constant series on pv_base.new_loan_output: Interest. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_interest_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!E770:X900"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "771:795"
+    - "797:821"
+    - "823:847"
+    - "849:873"
+    - "875:899"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 770
+              - 848
+            "Bonds (4 to 7 years)-FX":
+              - 796
+              - 874
+            "Bonds (beyond 7 years)-FX":
+              - 822
+              - 900
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 770
+              - 796
+              - 822
+            residents:
+              - 848
+              - 874
+              - 900
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Interest
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: Interest. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_output_amortization_fx
+  sheet: PV_Base
+  data_range: "'PV_Base'!D771:X901"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "772:796"
+    - "798:822"
+    - "824:848"
+    - "850:874"
+    - "876:900"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "Bonds (1 to 3 years)-FX":
+              - 771
+              - 849
+            "Bonds (4 to 7 years)-FX":
+              - 797
+              - 875
+            "Bonds (beyond 7 years)-FX":
+              - 823
+              - 901
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            "non-residents":
+              - 771
+              - 797
+              - 823
+            residents:
+              - 849
+              - 875
+              - 901
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 21
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base.new_loan_output"
+    INDICATOR: Amortization
+    VARIANT: output
+  notes: "Lifted from 6 internal series on pv_base.new_loan_output: Amortization. Instruments (3): Bonds (1 to 3 years)-FX, Bonds (4 to 7 years)-FX, Bonds (beyond 7 years)-FX. Holders: non-residents, residents. TIME_PERIOD header_row unified [764, 790, 816, 842, 868, 894] → 21."
+- id: pv_base_add_cost_mkt_opening_stock_percent_of_face
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D1"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.opening_stock"
+    INDICATOR: percent_of_face
+    VARIANT: block_seed
+  notes: "Hardcoded seed on PV_Base-add.cost.mkt."
+- id: pv_base_add_cost_mkt_shock_schedule_period
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!E1:W1"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.market_financing_shock"
+    INDICATOR: "Schedule period"
+  notes: "Schedule period on PV_Base-add.cost.mkt, keyed by projection years."
+- id: pv_base_add_cost_mkt_opening_percent_of_face
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D5"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.opening_stock"
+    INDICATOR: percent_of_face
+  notes: "Hardcoded opening-stock share on PV_Base-add.cost.mkt."
+- id: pv_base_add_cost_mkt_whichever_lower
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!C5"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: "Whichever is lower"
+  notes: "Whichever is lower."
+- id: pv_base_add_cost_mkt_or
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D6"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: or
+  notes: "or."
+- id: pv_base_add_cost_mkt_pb_baseline
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D7:E7"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    INDICATOR: "PB - baseline"
+  notes: "PB - baseline."
+- id: pv_base_add_cost_mkt_shock
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D8:E8"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    INDICATOR: "- shock"
+  notes: "- shock."
+- id: pv_base_add_cost_mkt_shock_deviation_from_baseline
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D9:E9"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.market_financing_shock"
+    INDICATOR: "Deviation from baseline"
+  notes: "Deviation from baseline on PV_Base-add.cost.mkt, keyed by projection years."
+- id: pv_base_add_cost_mkt_shock_increase_in_borrowing_costs
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D10:E10"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.market_financing_shock"
+    INDICATOR: "Increase in borrowing costs"
+  notes: "Increase in borrowing costs on PV_Base-add.cost.mkt, keyed by projection years."
+- id: pv_base_add_cost_mkt_shock_average
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D11"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.market_financing_shock"
+    INDICATOR: Average
+  notes: "Average on PV_Base-add.cost.mkt."
+- id: pv_base_add_cost_mkt_shock_addition_nominal_interest_payments_on_external_debt
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!E13:X13"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.market_financing_shock"
+    INDICATOR: "Addition nominal interest payments on external debt"
+  notes: "Addition nominal interest payments on external debt on PV_Base-add.cost.mkt, keyed by projection years."
+- id: pv_base_add_cost_mkt_grace
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!B20:B124"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "21:45"
+    - "47:71"
+    - "73:97"
+    - "99:123"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 20
+            "Commecial Bank": 46
+            COM3: 72
+            COM4: 98
+            COM5: 124
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.block_labels"
+    INDICATOR: Grace
+  notes: "Lifted from 5 internal series on add_cost_grace: Grace Eurobond. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_maturity
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!B21:B125"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "22:46"
+    - "48:72"
+    - "74:98"
+    - "100:124"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 21
+            "Commecial Bank": 47
+            COM3: 73
+            COM4: 99
+            COM5: 125
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.block_labels"
+    INDICATOR: Maturity
+  notes: "Lifted from 5 internal series on add_cost_maturity: Maturity Eurobond. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_discount_interest_rate
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!B22:B126"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "23:47"
+    - "49:73"
+    - "75:99"
+    - "101:125"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 22
+            "Commecial Bank": 48
+            COM3: 74
+            COM4: 100
+            COM5: 126
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.discount_schedule"
+    INDICATOR: "Interest rate"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.discount_schedule: Interest rate. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_discount_t_g_0
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D29:W133"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "30:54"
+    - "56:80"
+    - "82:106"
+    - "108:132"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 29
+            "Commecial Bank": 55
+            COM3: 81
+            COM4: 107
+            COM5: 133
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.discount_schedule"
+    INDICATOR: "t-g>0"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.discount_schedule: t-g>0. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_discount_post_grace_cumulative
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D30:W134"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "31:55"
+    - "57:81"
+    - "83:107"
+    - "109:133"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 30
+            "Commecial Bank": 56
+            COM3: 82
+            COM4: 108
+            COM5: 134
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.discount_schedule"
+    INDICATOR: "post-grace cumulative"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.discount_schedule: post-grace cumulative. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_discount_t_m_condition
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D31:W135"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "32:56"
+    - "58:82"
+    - "84:108"
+    - "110:134"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 31
+            "Commecial Bank": 57
+            COM3: 83
+            COM4: 109
+            COM5: 135
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.discount_schedule"
+    INDICATOR: "t-m condition"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.discount_schedule: t-m condition. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_discount_post_maturity_cumulative
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D32:W136"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "33:57"
+    - "59:83"
+    - "85:109"
+    - "111:135"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 32
+            "Commecial Bank": 58
+            COM3: 84
+            COM4: 110
+            COM5: 136
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.discount_schedule"
+    INDICATOR: "post-maturity cumulative"
+    VARIANT: discount
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.discount_schedule: post-maturity cumulative. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_output_new_forex_borrowing_gross_usd
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!E35:F139"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "36:60"
+    - "62:86"
+    - "88:112"
+    - "114:138"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 35
+            "Commecial Bank": 61
+            COM3: 87
+            COM4: 113
+            COM5: 139
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.new_loan_output"
+    INDICATOR: "New forex borrowing (gross, USD)"
+    VARIANT: output
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.new_loan_output: New forex borrowing (gross, USD). Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_output_cumulative
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D36:AE140"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "37:61"
+    - "63:87"
+    - "89:113"
+    - "115:139"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 36
+            "Commecial Bank": 62
+            COM3: 88
+            COM4: 114
+            COM5: 140
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.new_loan_output"
+    INDICATOR: cumulative
+    VARIANT: output
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.new_loan_output: cumulative. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_output_stock_of_new_forex_debt_in_usd
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D37:W141"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "38:62"
+    - "64:88"
+    - "90:114"
+    - "116:140"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 37
+            "Commecial Bank": 63
+            COM3: 89
+            COM4: 115
+            COM5: 141
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.new_loan_output"
+    INDICATOR: "Stock of new forex debt (in USD)"
+    VARIANT: output
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.new_loan_output: Stock of new forex debt (in USD). Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_output_interest
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!E40:X144"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "41:65"
+    - "67:91"
+    - "93:117"
+    - "119:143"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 40
+            "Commecial Bank": 66
+            COM3: 92
+            COM4: 118
+            COM5: 144
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.new_loan_output"
+    INDICATOR: Interest
+    VARIANT: output
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.new_loan_output: Interest. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."
+- id: pv_base_add_cost_mkt_output_amortization
+  sheet: "PV_Base-add.cost.mkt"
+  data_range: "'PV_Base-add.cost.mkt'!D41:W145"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "42:66"
+    - "68:92"
+    - "94:118"
+    - "120:144"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Eurobond: 41
+            "Commecial Bank": 67
+            COM3: 93
+            COM4: 119
+            COM5: 145
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 2
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: "pv_base_add_cost_mkt.new_loan_output"
+    INDICATOR: Amortization
+    VARIANT: output
+  notes: "Lifted from 5 internal series on pv_base_add_cost_mkt.new_loan_output: Amortization. Instruments (5): COM3, COM4, COM5, Commecial Bank, Eurobond."

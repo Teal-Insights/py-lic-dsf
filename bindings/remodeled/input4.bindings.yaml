@@ -1,0 +1,1070 @@
+schema_version: "1.13.0"
+workbook: workbook.xlsm
+concept_scheme:
+  id: lic_dsf_2025_08_12
+  concepts:
+  - id: OBS_VALUE
+    name: Observation value
+    dtype: number
+  - id: TIME_PERIOD
+    name: Time period
+    dtype: int
+  - id: PARAMETER
+    name: Parameter
+    dtype: string
+  - id: INDICATOR
+    name: Indicator
+    dtype: string
+  - id: TABLE
+    name: Table
+    dtype: string
+  - id: REF_AREA
+    name: Reference area
+    dtype: string
+    sdmx_concept: REF_AREA
+  - id: SCENARIO
+    name: Scenario
+    dtype: string
+  - id: INSTRUMENT
+    name: Financing instrument
+    dtype: string
+  - id: COMMODITY
+    name: Commodity
+    dtype: string
+  - id: VARIANT
+    name: Variant
+    dtype: string
+  - id: HOLDER
+    name: Debt holder residency
+    dtype: string
+  - id: DSA_SECTION
+    name: DSA statement section
+    dtype: string
+series:
+- id: input4_interest_rate
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F10:F45"
+  layout: series
+  input:
+    setter:
+      name: set_input4_interest_rate
+      record_contract: records
+      strict: true
+  exclude_rows:
+  - "11:17"
+  - 20
+  - "24:25"
+  - 31
+  - 37
+  - "43:44"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          MULTI1: 18
+          MULTI2: 19
+          OTH_MULTI1: 21
+          OTH_MULTI2: 22
+          OTH_MULTI3: 23
+          "Export Credit Agencies": 26
+          PC2: 27
+          PC3: 28
+          PC4: 29
+          PC5: 30
+          "Export Import Bank of NPC": 32
+          NPC2: 33
+          NPC3: 34
+          NPC4: 35
+          NPC5: 36
+          Eurobond: 38
+          "Commecial Bank": 39
+          COM3: 40
+          COM4: 41
+          COM5: 42
+          "PPG ST external debt": 45
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Interest rate"
+  notes: "Interest rates on new external PPG borrowing, keyed by instrument."
+- id: input4_grace_period
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!G10:G42"
+  layout: series
+  input:
+    setter:
+      name: set_input4_grace_period
+      record_contract: records
+      strict: true
+    domain:
+      between:
+        min: 0
+        max: 50
+  exclude_rows:
+  - "11:17"
+  - 20
+  - "24:25"
+  - 31
+  - 37
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          MULTI1: 18
+          MULTI2: 19
+          OTH_MULTI1: 21
+          OTH_MULTI2: 22
+          OTH_MULTI3: 23
+          "Export Credit Agencies": 26
+          "Export Import Bank of NPC": 32
+          NPC2: 33
+          NPC3: 34
+          NPC4: 35
+          NPC5: 36
+          Eurobond: 38
+          "Commecial Bank": 39
+          COM3: 40
+          COM4: 41
+          COM5: 42
+          PC2: 27
+          PC3: 28
+          PC4: 29
+          PC5: 30
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Grace period"
+  notes: "Grace periods in years on new external PPG borrowing, keyed by instrument."
+- id: input4_loan_maturity
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!H10:H42"
+  layout: series
+  input:
+    setter:
+      name: set_input4_loan_maturity
+      record_contract: records
+      strict: true
+    domain:
+      between:
+        min: 0
+        max: 80
+  exclude_rows:
+  - "11:17"
+  - 20
+  - "24:25"
+  - 31
+  - 37
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          MULTI1: 18
+          MULTI2: 19
+          OTH_MULTI1: 21
+          OTH_MULTI2: 22
+          OTH_MULTI3: 23
+          "Export Credit Agencies": 26
+          "Export Import Bank of NPC": 32
+          NPC2: 33
+          NPC3: 34
+          NPC4: 35
+          NPC5: 36
+          Eurobond: 38
+          "Commecial Bank": 39
+          COM3: 40
+          COM4: 41
+          COM5: 42
+          PC2: 27
+          PC3: 28
+          PC4: 29
+          PC5: 30
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Loan maturity"
+  notes: "Loan maturities in years on new external PPG borrowing, keyed by instrument."
+- id: input4_disbursements
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!L10:Q18"
+  layout: matrix
+  input:
+    setter:
+      name: set_input4_disbursements
+      record_contract: records
+      strict: true
+  exclude_rows:
+  - "12:13"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          "IDA - regular": 11
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW Blend (also enter) -->": 16
+          "IDA NEW 60-year credits": 17
+          MULTI1: 18
+    - id: TIME_PERIOD
+      concept: TIME_PERIOD
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: int
+  key:
+  - INSTRUMENT
+  - TIME_PERIOD
+  series_context:
+    TABLE: "input_4.disbursements"
+    INDICATOR: Disbursements
+  notes: "User-entered new-loan disbursements by instrument and projection year."
+- id: input4_instrument_names
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!B11:B17"
+  layout: series
+  input:
+    setter:
+      name: set_input4_instrument_names
+      record_contract: records
+      strict: true
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - regular": 11
+          "IDA - 50Y loans": 12
+          "IDA - SML": 13
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW Blend (also enter) -->": 16
+          "IDA NEW 60-year credits": 17
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: instrument_name
+  notes: "User-editable IDA instrument names on the external financing list."
+- id: input4_blend_variant
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!D16"
+  layout: scalar
+  input:
+    setter:
+      name: set_input4_blend_variant
+      record_contract: records
+      strict: true
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: blend_variant
+    INSTRUMENT: "IDA NEW Blend (also enter) -->"
+  notes: "Whether IDA NEW Blend uses floating or fixed terms."
+- id: input4_blend_scale_key
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!D12:D17"
+  layout: series
+  input:
+    setter:
+      name: set_input4_blend_scale_key
+      record_contract: records
+      strict: true
+  exclude_rows:
+  - 16
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - 50Y loans": 12
+          "IDA - SML": 13
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW 60-year credits": 17
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: blend_scale_key
+  notes: "IDA scale lookup keys for instruments that copy published IDA terms."
+- id: input4_ida_scale_name
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!B67:B75"
+  layout: series
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - small economy": 67
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW 40-year credits": 72
+          "IDA NEW Regular": 73
+          "IDA NEW Blend (also enter) -->": 74
+          "IDA NEW 60-year credits": 75
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: scale_name
+  notes: "Published IDA scale names on the lending-terms block."
+- id: input4_ida_scale_service_fee
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!D67:D75"
+  layout: series
+  constant: {}
+  exclude_rows:
+  - 74
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - small economy": 67
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW 40-year credits": 72
+          "IDA NEW Regular": 73
+          "IDA NEW 60-year credits": 75
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Service fee and interest"
+  notes: "Published IDA service fee and interest, keyed by instrument."
+- id: input4_ida_scale_grace
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!E67:E75"
+  layout: series
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - small economy": 67
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW 40-year credits": 72
+          "IDA NEW Regular": 73
+          "IDA NEW Blend (also enter) -->": 74
+          "IDA NEW 60-year credits": 75
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Grace period"
+  notes: "Published IDA grace periods, keyed by instrument."
+- id: input4_ida_scale_maturity
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F67:F75"
+  layout: series
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - small economy": 67
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW 40-year credits": 72
+          "IDA NEW Regular": 73
+          "IDA NEW Blend (also enter) -->": 74
+          "IDA NEW 60-year credits": 75
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Loan Maturity"
+  notes: "Published IDA loan maturities, keyed by instrument."
+- id: input4_ida_scale_principal
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!N67:BP75"
+  layout: matrix
+  constant: {}
+  exclude_rows:
+  - 72
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - small economy": 67
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW Regular": 73
+          "IDA NEW Blend (also enter) -->": 74
+          "IDA NEW 60-year credits": 75
+    - id: TIME_PERIOD
+      concept: TIME_PERIOD
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 66
+        read: int
+  key:
+  - INSTRUMENT
+  - TIME_PERIOD
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Principal repayment"
+  notes: "Published IDA principal-repayment shares by year of loan life."
+- id: input4_ida_scale_blend_fixed
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!C74"
+  layout: scalar
+  constant: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: fixed_label
+    INSTRUMENT: "IDA NEW Blend (also enter) -->"
+  notes: "Fixed-blend label on the IDA NEW Blend scale row."
+- id: input4_discount_rate
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!E10:E42"
+  layout: series
+  internal: {}
+  exclude_rows:
+  - 20
+  - "24:25"
+  - 31
+  - 37
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          "IDA - regular": 11
+          "IDA - 50Y loans": 12
+          "IDA - SML": 13
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW Blend (also enter) -->": 16
+          "IDA NEW 60-year credits": 17
+          MULTI1: 18
+          MULTI2: 19
+          OTH_MULTI1: 21
+          OTH_MULTI2: 22
+          OTH_MULTI3: 23
+          "Export Credit Agencies": 26
+          PC2: 27
+          PC3: 28
+          PC4: 29
+          PC5: 30
+          "Export Import Bank of NPC": 32
+          NPC2: 33
+          NPC3: 34
+          NPC4: 35
+          NPC5: 36
+          Eurobond: 38
+          "Commecial Bank": 39
+          COM3: 40
+          COM4: 41
+          COM5: 42
+  key:
+  - INSTRUMENT
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Discount rate"
+  notes: "Discount rate applied to each external instrument row."
+- id: input4_discount_rate_bonds_fx_non_residents
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!E54:E56"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "Bonds (1 to 3 years)-FX": 54
+          "Bonds (4 to 7 years)-FX": 55
+          "Bonds (beyond 7 years)-FX": 56
+    - id: HOLDER
+      concept: HOLDER
+      role: key
+      scope: cell
+      bind:
+        kind: constant
+        value: "non-residents"
+  key:
+  - INSTRUMENT
+  - HOLDER
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Discount rate"
+  notes: "Discount rate on FX local bonds held by non-residents."
+- id: input4_discount_rate_bonds_fx_residents
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!E59:E61"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "Bonds (1 to 3 years)-FX": 59
+          "Bonds (4 to 7 years)-FX": 60
+          "Bonds (beyond 7 years)-FX": 61
+    - id: HOLDER
+      concept: HOLDER
+      role: key
+      scope: cell
+      bind:
+        kind: constant
+        value: residents
+  key:
+  - INSTRUMENT
+  - HOLDER
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Discount rate"
+  notes: "Discount rate on FX local bonds held by residents."
+- id: input4_terms_ida_regular
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F11:H11"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - regular": 11
+    - id: INDICATOR
+      concept: INDICATOR
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: string
+  key:
+  - INSTRUMENT
+  - INDICATOR
+  series_context:
+    TABLE: "input_4.terms"
+  notes: "Computed interest, grace, and maturity for IDA regular."
+- id: input4_terms_ida_and_lc
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F12:H51"
+  layout: matrix
+  internal: {}
+  exclude_rows:
+  - "18:48"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - 50Y loans": 12
+          "IDA - SML": 13
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW Blend (also enter) -->": 16
+          "IDA NEW 60-year credits": 17
+          "Bonds (1 to 3 years)-LC": 49
+          "Bonds (4 to 7 years)-LC": 50
+          "Bonds (beyond 7 years)-LC": 51
+    - id: INDICATOR
+      concept: INDICATOR
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: string
+  key:
+  - INSTRUMENT
+  - INDICATOR
+  series_context:
+    TABLE: "input_4.terms"
+  notes: "Computed interest, grace, and maturity for IDA windows and LC bonds."
+- id: input4_terms_bonds_fx_non_residents
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F54:H56"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "Bonds (1 to 3 years)-FX": 54
+          "Bonds (4 to 7 years)-FX": 55
+          "Bonds (beyond 7 years)-FX": 56
+    - id: HOLDER
+      concept: HOLDER
+      role: key
+      scope: cell
+      bind:
+        kind: constant
+        value: "non-residents"
+    - id: INDICATOR
+      concept: INDICATOR
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: string
+  key:
+  - INSTRUMENT
+  - HOLDER
+  - INDICATOR
+  series_context:
+    TABLE: "input_4.terms"
+  notes: "Computed interest, grace, and maturity for FX local bonds held by non-residents."
+- id: input4_terms_bonds_fx_residents
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!F59:H61"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "Bonds (1 to 3 years)-FX": 59
+          "Bonds (4 to 7 years)-FX": 60
+          "Bonds (beyond 7 years)-FX": 61
+    - id: HOLDER
+      concept: HOLDER
+      role: key
+      scope: cell
+      bind:
+        kind: constant
+        value: residents
+    - id: INDICATOR
+      concept: INDICATOR
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: string
+  key:
+  - INSTRUMENT
+  - HOLDER
+  - INDICATOR
+  series_context:
+    TABLE: "input_4.terms"
+  notes: "Computed interest, grace, and maturity for FX local bonds held by residents."
+- id: input4_disbursements_internal
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!L10:AF42"
+  layout: matrix
+  internal: {}
+  exclude_rows:
+  - 20
+  - "24:25"
+  - 31
+  - 37
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          IMF: 10
+          "IDA - regular": 11
+          "IDA - 50Y loans": 12
+          "IDA - SML": 13
+          "IDA NEW 40-year credits": 14
+          "IDA NEW Regular": 15
+          "IDA NEW Blend (also enter) -->": 16
+          "IDA NEW 60-year credits": 17
+          MULTI1: 18
+          MULTI2: 19
+          OTH_MULTI1: 21
+          OTH_MULTI2: 22
+          OTH_MULTI3: 23
+          "Export Credit Agencies": 26
+          PC2: 27
+          PC3: 28
+          PC4: 29
+          PC5: 30
+          "Export Import Bank of NPC": 32
+          NPC2: 33
+          NPC3: 34
+          NPC4: 35
+          NPC5: 36
+          Eurobond: 38
+          "Commecial Bank": 39
+          COM3: 40
+          COM4: 41
+          COM5: 42
+    - id: TIME_PERIOD
+      concept: TIME_PERIOD
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: int
+  key:
+  - INSTRUMENT
+  - TIME_PERIOD
+  series_context:
+    TABLE: "input_4.disbursements"
+    INDICATOR: Disbursements
+  notes: "Formula disbursements by instrument and projection year (non-input cells)."
+- id: input4_ida_scale_principal_internal
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!O68:BF72"
+  layout: matrix
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: INSTRUMENT
+      concept: INSTRUMENT
+      role: key
+      scope: cell
+      bind:
+        kind: value_map
+        values:
+          "IDA - regular": 68
+          "IDA - blend": 69
+          "IDA - SML": 70
+          "IDA - 50Y loans": 71
+          "IDA NEW 40-year credits": 72
+    - id: TIME_PERIOD
+      concept: TIME_PERIOD
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 66
+        read: int
+  key:
+  - INSTRUMENT
+  - TIME_PERIOD
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Principal repayment"
+  notes: "Formula IDA principal-repayment shares by year of loan life."
+- id: input4_disbursement_totals
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!L8:AF8"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+    - id: TIME_PERIOD
+      concept: TIME_PERIOD
+      role: key
+      scope: cell
+      bind:
+        kind: column_header
+        header_row: 6
+        read: int
+  key:
+  - TIME_PERIOD
+  series_context:
+    TABLE: "input_4.disbursements"
+    INDICATOR: "Total disbursements"
+  notes: "Row-total new external disbursements by projection year."
+- id: input4_grace_period_column_header
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!G6"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: "Grace period"
+    VARIANT: column_header
+  notes: "Column header text for grace period on the terms grid."
+- id: input4_ida_regular_translated_name
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!D11"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "input_4.terms"
+    INDICATOR: translated_name
+    INSTRUMENT: "IDA - regular"
+  notes: "Translated display name for IDA regular."
+- id: input4_ida_scale_blend_fixed_interest
+  sheet: "Input 4 - External Financing"
+  data_range: "'Input 4 - External Financing'!D74"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: "input_4.ida_scale"
+    INDICATOR: "Interest rate"
+    VARIANT: fixed
+    INSTRUMENT: "IDA NEW Blend (also enter) -->"
+  notes: "Fixed-path interest placeholder on the IDA NEW Blend scale row."

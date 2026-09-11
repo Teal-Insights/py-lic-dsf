@@ -1,0 +1,4186 @@
+schema_version: 1.13.0
+workbook: workbook.xlsm
+concept_scheme:
+  id: lic_dsf_2025_08_12
+  concepts:
+  - id: OBS_VALUE
+    name: Observation value
+    dtype: number
+  - id: TIME_PERIOD
+    name: Time period
+    dtype: int
+  - id: INDICATOR
+    name: Indicator
+    dtype: string
+  - id: PARAMETER
+    name: Parameter
+    dtype: string
+  - id: TABLE
+    name: Table
+    dtype: string
+  - id: REF_AREA
+    name: Reference area
+    dtype: string
+    sdmx_concept: REF_AREA
+  - id: SCENARIO
+    name: Scenario
+    dtype: string
+  - id: INSTRUMENT
+    name: Financing instrument
+    dtype: string
+  - id: COMMODITY
+    name: Commodity
+    dtype: string
+  - id: VARIANT
+    name: Variant
+    dtype: string
+  - id: DSA_SECTION
+    name: DSA statement section
+    dtype: string
+  - id: HOLDER
+    name: Debt holder residency
+    dtype: string
+  - id: ISSUANCE_YEAR
+    name: Issuance year
+    dtype: int
+series:
+- id: input5_blue_cells_note
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A5"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.controls
+    INDICATOR: Blue cells are populated automatically
+  notes: Note copied from Input 1 explaining automatic population of blue cells.
+- id: input5_projection_years
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!H5:AC5"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.projection_years
+    INDICATOR: year
+    VARIANT: header
+  notes: "Projection-year axis on Input 5 row 5, including the pre-projection year in H."
+- id: input5_instrument_terms_assumptions_on_domestic_financial_instruments_header
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A7"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Assumptions on domestic financial instruments
+    VARIANT: header
+  notes: Section title for domestic instrument-term assumptions.
+- id: input5_instrument_terms_grace_period_header
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C7"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Grace period
+    VARIANT: header
+  notes: Grace-period column header copied from Input 4.
+- id: input5_instrument_terms_interest_rate_on_domestic_debt_header
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I7"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Interest rate on domestic debt
+    VARIANT: header
+  notes: Interest-rate column header for domestic instrument terms.
+- id: input5_instrument_terms_maturity_header
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D7"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Maturity
+    VARIANT: header
+  notes: Maturity column header for domestic instrument terms.
+- id: input5_instrument_terms_instrument_label
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A8:A37"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "23:25"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: data_cell
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: "8:22"
+            non-residents: "26:37"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: instrument label
+  notes: "Lifted from 2 internal series on input5.instrument_terms: instrument label. Holders: non-residents, residents."
+- id: input5_grace_period
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C10:C22"
+  layout: scalar
+  input:
+    setter:
+      name: set_input5_grace_period
+      record_contract: records
+      strict: true
+    domain:
+      between:
+        min: 0
+        max: 50
+  exclude_rows:
+    - "11:15"
+    - 19
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 10
+            Bonds (1 to 3 years)-LC: 16
+            Bonds (4 to 7 years)-LC: 17
+            Bonds (beyond 7 years)-LC: 18
+            Bonds (1 to 3 years)-FX: 20
+            Bonds (4 to 7 years)-FX: 21
+            Bonds (beyond 7 years)-FX: 22
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 10
+              - "16:18"
+              - "20:22"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Grace period
+  notes: "Lifted from 7 input series on input5.instrument_terms: Grace period. Instruments (7): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing. Holders: residents."
+- id: input5_interest_rate_on_domestic_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I10:N22"
+  layout: series
+  input:
+    setter:
+      name: set_input5_interest_rate_on_domestic_debt
+      record_contract: records
+      strict: true
+  exclude_rows:
+    - 11
+    - "14:15"
+    - 19
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 10
+            T-bills (denominated in local currency): 12
+            T-bills (denominated in foreign currency): 13
+            Bonds (1 to 3 years)-LC: 16
+            Bonds (4 to 7 years)-LC: 17
+            Bonds (beyond 7 years)-LC: 18
+            Bonds (1 to 3 years)-FX: 20
+            Bonds (4 to 7 years)-FX: 21
+            Bonds (beyond 7 years)-FX: 22
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 10
+              - "12:13"
+              - "16:18"
+              - "20:22"
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Interest rate on domestic debt
+  notes: "Lifted from 9 input series on input5.instrument_terms: Interest rate on domestic debt. Instruments (9): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: residents."
+- id: input5_internal_interest_rate_on_domestic_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I10:AC37"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - 11
+    - "14:15"
+    - 19
+    - "23:26"
+    - "29:30"
+    - 34
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 10
+            T-bills (denominated in local currency):
+              - 12
+              - 27
+            T-bills (denominated in foreign currency):
+              - 13
+              - 28
+            Bonds (1 to 3 years)-LC:
+              - 16
+              - 31
+            Bonds (4 to 7 years)-LC:
+              - 17
+              - 32
+            Bonds (beyond 7 years)-LC:
+              - 18
+              - 33
+            Bonds (1 to 3 years)-FX:
+              - 20
+              - 35
+            Bonds (4 to 7 years)-FX:
+              - 21
+              - 36
+            Bonds (beyond 7 years)-FX:
+              - 22
+              - 37
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 10
+              - "12:13"
+              - "16:18"
+              - "20:22"
+            non-residents:
+              - "27:28"
+              - "31:33"
+              - "35:37"
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Interest rate on domestic debt
+  notes: "Lifted from 17 internal series on input5.instrument_terms: Interest rate on domestic debt. Instruments (9): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents. Bounding rectangle adds 54 cells not in the original per-member ranges (54 on member rows: triangular / trailing blanks)."
+- id: input5_maturity
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D10:D22"
+  layout: scalar
+  input:
+    setter:
+      name: set_input5_maturity
+      record_contract: records
+      strict: true
+  exclude_rows:
+    - "11:15"
+    - 19
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 10
+            Bonds (1 to 3 years)-LC: 16
+            Bonds (4 to 7 years)-LC: 17
+            Bonds (beyond 7 years)-LC: 18
+            Bonds (1 to 3 years)-FX: 20
+            Bonds (4 to 7 years)-FX: 21
+            Bonds (beyond 7 years)-FX: 22
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 10
+              - "16:18"
+              - "20:22"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Maturity
+  notes: "Lifted from 7 input series on input5.instrument_terms: Maturity. Instruments (7): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing. Holders: residents."
+- id: input5_constant_grace_period
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C12:C28"
+  layout: scalar
+  constant: {}
+  exclude_rows:
+    - "14:26"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            T-bills (denominated in local currency):
+              - 12
+              - 27
+            T-bills (denominated in foreign currency):
+              - 13
+              - 28
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: "12:13"
+            non-residents: "27:28"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Grace period
+  notes: "Lifted from 4 constant series on input5.instrument_terms: Grace period. Instruments (2): T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_constant_maturity
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D12:D28"
+  layout: scalar
+  constant: {}
+  exclude_rows:
+    - "14:26"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            T-bills (denominated in local currency):
+              - 12
+              - 27
+            T-bills (denominated in foreign currency):
+              - 13
+              - 28
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: "12:13"
+            non-residents: "27:28"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Maturity
+  notes: "Lifted from 4 constant series on input5.instrument_terms: Maturity. Instruments (2): T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_internal_grace_period
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C31:C37"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - 34
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Bonds (1 to 3 years)-LC: 31
+            Bonds (4 to 7 years)-LC: 32
+            Bonds (beyond 7 years)-LC: 33
+            Bonds (1 to 3 years)-FX: 35
+            Bonds (4 to 7 years)-FX: 36
+            Bonds (beyond 7 years)-FX: 37
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            non-residents:
+              - "31:33"
+              - "35:37"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Grace period
+  notes: "Lifted from 6 internal series on input5.instrument_terms: Grace period. Instruments (6): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC. Holders: non-residents."
+- id: input5_internal_maturity
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D31:D37"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - 34
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Bonds (1 to 3 years)-LC: 31
+            Bonds (4 to 7 years)-LC: 32
+            Bonds (beyond 7 years)-LC: 33
+            Bonds (1 to 3 years)-FX: 35
+            Bonds (4 to 7 years)-FX: 36
+            Bonds (beyond 7 years)-FX: 37
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            non-residents:
+              - "31:33"
+              - "35:37"
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.instrument_terms
+    INDICATOR: Maturity
+  notes: "Lifted from 6 internal series on input5.instrument_terms: Maturity. Instruments (6): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC. Holders: non-residents."
+- id: input5_public_gfns_1_primary_deficit
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I40:AC40"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (1) Primary deficit
+  notes: "(1) Primary deficit on Input 5, keyed by projection years."
+- id: input5_public_gfns_2_debt_services_from_existing_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I42:AC42"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (2) Debt services from existing debt
+  notes: "(2) Debt services from existing debt on Input 5, keyed by projection years."
+- id: input5_public_gfns_2_debt_services_from_existing_debt_domestic_including_st_debt_from_previous_year
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I43:AC43"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (2) Debt services from existing debt / Domestic (including ST debt from previous year)
+  notes: "(2) Debt services from existing debt / Domestic (including ST debt from previous year) on Input 5, keyed by projection years."
+- id: input5_public_gfns_2_debt_services_from_existing_debt_external_debt_mlt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I44:AC44"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (2) Debt services from existing debt / External debt (MLT)
+  notes: "(2) Debt services from existing debt / External debt (MLT) on Input 5, keyed by projection years."
+- id: input5_public_gfns_2_debt_services_from_existing_debt_ow_imf
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I45:AC45"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: "(2) Debt services from existing debt / o/w: IMF"
+  notes: "(2) Debt services from existing debt / o/w: IMF on Input 5, keyed by projection years."
+- id: input5_public_gfns_3_debt_services_from_new_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I47:AC47"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (3) Debt services from new debt
+  notes: "(3) Debt services from new debt on Input 5, keyed by projection years."
+- id: input5_public_gfns_3_debt_services_from_new_debt_domestic_including_st_debt_from_previous_year
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I48:AC48"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (3) Debt services from new debt / Domestic (including ST debt from previous year)
+  notes: "(3) Debt services from new debt / Domestic (including ST debt from previous year) on Input 5, keyed by projection years."
+- id: input5_public_gfns_3_debt_services_from_new_debt_external_debt_mlt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I49:AC49"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (3) Debt services from new debt / External debt (MLT)
+  notes: "(3) Debt services from new debt / External debt (MLT) on Input 5, keyed by projection years."
+- id: input5_public_gfns_3_debt_services_from_new_debt_ow_imf
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I50:AC50"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: "(3) Debt services from new debt / o/w: IMF"
+  notes: "(3) Debt services from new debt / o/w: IMF on Input 5, keyed by projection years."
+- id: input5_public_gfns_4_debt_services_from_st_external_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I52:AC52"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (4) Debt services from ST external debt
+  notes: "(4) Debt services from ST external debt on Input 5, keyed by projection years."
+- id: input5_public_gfns_5_other_debt_creating_or_reducing_flows
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I54:AC54"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (5) Other debt creating or reducing flows
+  notes: "(5) Other debt creating or reducing flows on Input 5, keyed by projection years."
+- id: input5_public_gfns_6_public_gfns
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I56:AC56"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (6) Public GFNs
+  notes: "(6) Public GFNs on Input 5, keyed by projection years."
+- id: input5_public_gfns_7_external_financing_mlt_excluding_locally_issued_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I58:AC58"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (7) External financing (MLT)- excluding locally-issued debt
+  notes: "(7) External financing (MLT)- excluding locally-issued debt on Input 5, keyed by projection years."
+- id: input5_public_gfns_7_external_financing_mlt_ow_imf
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I59:AC59"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: "(7) External financing (MLT) / o/w: IMF"
+  notes: "(7) External financing (MLT) / o/w: IMF on Input 5, keyed by projection years."
+- id: input5_public_gfns_8_external_financing_st_excluding_locally_issued_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I60:AC60"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (8) External financing (ST) - excluding locally-issued debt
+  notes: "(8) External financing (ST) - excluding locally-issued debt on Input 5, keyed by projection years."
+- id: input5_public_gfns_9_changes_in_liquid_assets
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I61:AC61"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (9) Changes in liquid assets
+  notes: "(9) Changes in liquid assets on Input 5, keyed by projection years."
+- id: input5_public_gfns_10_drawdown_of_reserves_to_repay_the_imf
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I62:AC62"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (10) Drawdown of reserves to repay the IMF
+  notes: "(10) Drawdown of reserves to repay the IMF on Input 5, keyed by projection years."
+- id: input5_public_gfns_other_adjustment
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I63:AC63"
+  layout: series
+  input:
+    setter:
+      name: set_input5_public_gfns_other_adjustment
+      record_contract: records
+      strict: true
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: "(11) Other adjustment (including disbursements / debt service associated with SoEs) - when users want to remove impacts of SoEs' debt on a government's domestic borrowing"
+  notes: Other GFN adjustment including SoE-related disbursements and debt service.
+- id: input5_public_gfns_12_domestic_financing
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I64:AC64"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.public_gfns
+    INDICATOR: (12) Domestic financing
+  notes: "(12) Domestic financing on Input 5, keyed by projection years."
+- id: input5_new_issuance_gfns_to_be_financed_with_domestic_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I77:AC77"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: GFNs to be financed with domestic debt
+  notes: "GFNs to be financed with domestic debt on Input 5, keyed by projection years."
+- id: input5_domestic_financing_source
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C78"
+  layout: scalar
+  input:
+    setter:
+      name: set_input5_domestic_financing_source
+      record_contract: records
+      strict: true
+    domain:
+      enum:
+        - 0
+        - 1
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.gfn_allocation
+    INDICATOR: "Domestic financing (from macro-framework: 0, input here: 1)"
+  notes: Switch between Input 3 domestic financing (0) and instrument-share allocation on Input 5 (1).
+- id: input5_new_issuance_new_issuance_of_locally_issued_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I79:AC79"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: NEW Issuance of locally-issued debt
+  notes: "NEW Issuance of locally-issued debt on Input 5, keyed by projection years."
+- id: input5_new_issuance_locally_issued_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I81:AC97"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "82:96"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 81
+            non-residents: 97
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Locally-issued debt
+  notes: "Lifted from 2 internal series on input5.new_issuance: Locally-issued debt. Holders: non-residents, residents."
+- id: input5_gfn_share
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C83:F110"
+  layout: series
+  input:
+    setter:
+      name: set_input5_gfn_share
+      record_contract: records
+      strict: true
+    domain:
+      between:
+        min: 0
+        max: 1
+  exclude_rows:
+    - "84:85"
+    - "87:88"
+    - 92
+    - "96:99"
+    - "102:103"
+    - 107
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 83
+            T-bills (denominated in foreign currency):
+              - 86
+              - 101
+            Bonds (1 to 3 years)-LC:
+              - 89
+              - 104
+            Bonds (4 to 7 years)-LC:
+              - 90
+              - 105
+            Bonds (beyond 7 years)-LC:
+              - 91
+              - 106
+            Bonds (1 to 3 years)-FX:
+              - 93
+              - 108
+            Bonds (4 to 7 years)-FX:
+              - 94
+              - 109
+            Bonds (beyond 7 years)-FX:
+              - 95
+              - 110
+            T-bills (denominated in local currency): 100
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 83
+              - 86
+              - "89:91"
+              - "93:95"
+            non_residents:
+              - "100:101"
+              - "104:106"
+              - "108:110"
+          read: string
+      - id: VARIANT
+        concept: VARIANT
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 82
+          read: string
+          normalize: strip
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - VARIANT
+  series_context:
+    TABLE: input5.gfn_allocation
+    INDICATOR: share
+  notes: "Lifted from 16 input series on input5.gfn_allocation: share. Instruments (9): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non_residents, residents."
+- id: input5_graph_central_bank_financing_a83
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A83"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Central bank financing
+  notes: Central bank financing.
+- id: input5_new_issuance
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I83:AC110"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - 84
+    - "87:88"
+    - 92
+    - "96:99"
+    - "102:103"
+    - 107
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 83
+            T-bills (denominated in local currency):
+              - 85
+              - 100
+            T-bills (denominated in foreign currency):
+              - 86
+              - 101
+            Bonds (1 to 3 years)-LC:
+              - 89
+              - 104
+            Bonds (4 to 7 years)-LC:
+              - 90
+              - 105
+            Bonds (beyond 7 years)-LC:
+              - 91
+              - 106
+            Bonds (1 to 3 years)-FX:
+              - 93
+              - 108
+            Bonds (4 to 7 years)-FX:
+              - 94
+              - 109
+            Bonds (beyond 7 years)-FX:
+              - 95
+              - 110
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 83
+              - "85:86"
+              - "89:91"
+              - "93:95"
+            non-residents:
+              - "100:101"
+              - "104:106"
+              - "108:110"
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: New issuance
+  notes: "Lifted from 17 internal series on input5.new_issuance: New issuance. Instruments (9): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_new_issuance_short_term_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I84:AC99"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "85:98"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 84
+            non-residents: 99
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Short-term debt
+  notes: "Lifted from 2 internal series on input5.new_issuance: Short-term debt. Holders: non-residents, residents."
+- id: input5_graph_t_bills_denominated_in_local_currency_a85
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A85"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: T-bills (denominated in local currency)
+  notes: T-bills.
+- id: input5_new_issuance_financing_strategy_share
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C85:F85"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            T-bills (denominated in local currency): 85
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 85
+          read: string
+      - id: VARIANT
+        concept: VARIANT
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 82
+          read: string
+          normalize: strip
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - VARIANT
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Financing strategy share
+  notes: "Lifted from 1 internal series on input5.new_issuance: Financing strategy share. Instruments (1): T-bills (denominated in local currency). Holders: residents."
+- id: input5_graph_t_bills_denominated_in_foreign_currency_a86
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A86"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: T-bills (denominated in foreign currency)
+  notes: T-bills.
+- id: input5_new_issuance_mlt_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I87:AC102"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "88:101"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 87
+            non-residents: 102
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: MLT debt
+  notes: "Lifted from 2 internal series on input5.new_issuance: MLT debt. Holders: non-residents, residents."
+- id: input5_new_issuance_denominated_in_local_currency_lc
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I88:AC103"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "89:102"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 88
+            non-residents: 103
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Denominated in local currency (LC)
+  notes: "Lifted from 2 internal series on input5.new_issuance: Denominated in local currency (LC). Holders: non-residents, residents."
+- id: input5_graph_bonds_1_to_3_years_lc_a89
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A89"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (1 to 3 years)-LC
+  notes: Bonds-LC.
+- id: input5_graph_bonds_4_to_7_years_lc_a90
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A90"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (4 to 7 years)-LC
+  notes: Bonds-LC.
+- id: input5_graph_bonds_beyond_7_years_lc_a91
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A91"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (beyond 7 years)-LC
+  notes: Bonds-LC.
+- id: input5_new_issuance_denominated_in_foreign_currency_fx
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I92:AC107"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "93:106"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 92
+            non-residents: 107
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Denominated in foreign currency (FX)
+  notes: "Lifted from 2 internal series on input5.new_issuance: Denominated in foreign currency (FX). Holders: non-residents, residents."
+- id: input5_graph_bonds_1_to_3_years_fx_a93
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A93"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (1 to 3 years)-FX
+  notes: Bonds-FX.
+- id: input5_graph_bonds_4_to_7_years_fx_a94
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A94"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (4 to 7 years)-FX
+  notes: Bonds-FX.
+- id: input5_graph_bonds_beyond_7_years_fx_a95
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A95"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Bonds (beyond 7 years)-FX
+  notes: Bonds-FX.
+- id: input5_new_issuance_domestic_residual_financing_to_close_gap
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I112:AC112"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_issuance
+    INDICATOR: Domestic residual financing to close gap
+  notes: "Domestic residual financing to close gap on Input 5, keyed by projection years."
+- id: input5_definition_of_external_domestic_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!B116"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions: []
+  key: []
+  series_context:
+    TABLE: input5.controls
+    INDICATOR: Definition of external/domestic debt
+  notes: Residency-based vs currency-based external/domestic split.
+- id: input5_disbursements_public_domestic_st_disbursements_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I122:S122"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.disbursements
+    INDICATOR: Public domestic ST disbursements
+    VARIANT: residency-based
+  notes: "Public domestic ST disbursements on Input 5, keyed by projection years."
+- id: input5_disbursements_public_domestic_mlt_disbursements_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I123:S123"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.disbursements
+    INDICATOR: Public domestic MLT disbursements
+    VARIANT: residency-based
+  notes: "Public domestic MLT disbursements on Input 5, keyed by projection years."
+- id: input5_disbursements_total_public_new_domestic_disbursements_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I124:S124"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.disbursements
+    INDICATOR: Total public new domestic disbursements
+    VARIANT: residency-based
+  notes: "Total public new domestic disbursements on Input 5, keyed by projection years."
+- id: input5_residual_terms_average_nominal_interest_rate_on_new_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I128:S135"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "129:134"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 128
+            Domestic short-term debt: 135
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average nominal interest rate on new debt
+  notes: "Lifted from 2 internal series on input5.residual_terms: Average nominal interest rate on new debt. Instruments (2): Domestic MLT debt, Domestic short-term debt."
+- id: input5_residual_terms_gdp_deflator
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I129:S136"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "130:135"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 129
+            Domestic short-term debt: 136
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: GDP deflator
+  notes: "Lifted from 2 internal series on input5.residual_terms: GDP deflator. Instruments (2): Domestic MLT debt, Domestic short-term debt."
+- id: input5_graph_average_real_interest_rate_on_new_debt_c130
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C130"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Average real interest rate on new debt
+  notes: Average real interest rate on new debt.
+- id: input5_residual_terms_average_real_interest_rate_on_new_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I130:S137"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "131:136"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 130
+            Domestic short-term debt: 137
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average real interest rate on new debt
+  notes: "Lifted from 2 internal series on input5.residual_terms: Average real interest rate on new debt. Instruments (2): Domestic MLT debt, Domestic short-term debt."
+- id: input5_residual_terms_average_real_interest_rate_on_new_debt_average
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D130:D137"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "131:136"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 130
+            Domestic short-term debt: 137
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average real interest rate on new debt
+    VARIANT: Average
+  notes: "Lifted from 2 internal series on input5.residual_terms: Average real interest rate on new debt. Instruments (2): Domestic MLT debt, Domestic short-term debt."
+- id: input5_residual_terms_average_grace_period_on_new_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I131:S131"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 131
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average grace period on new debt
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average grace period on new debt. Instruments (1): Domestic MLT debt."
+- id: input5_residual_terms_average_grace_period_on_new_debt_average
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D131"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 131
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average grace period on new debt
+    VARIANT: Average
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average grace period on new debt. Instruments (1): Domestic MLT debt."
+- id: input5_residual_terms_average_grace_period_on_new_debt_rounded_average
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C131"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 131
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average grace period on new debt
+    VARIANT: rounded_average
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average grace period on new debt. Instruments (1): Domestic MLT debt."
+- id: input5_residual_terms_average_maturity_of_new_debt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I132:S132"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 132
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - INSTRUMENT
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average maturity of new debt
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average maturity of new debt. Instruments (1): Domestic MLT debt."
+- id: input5_residual_terms_average_maturity_of_new_debt_average
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!D132"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 132
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average maturity of new debt
+    VARIANT: Average
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average maturity of new debt. Instruments (1): Domestic MLT debt."
+- id: input5_residual_terms_average_maturity_of_new_debt_rounded_average
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C132"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Domestic MLT debt: 132
+          read: string
+  key:
+    - INSTRUMENT
+  series_context:
+    TABLE: input5.residual_terms
+    INDICATOR: Average maturity of new debt
+    VARIANT: rounded_average
+  notes: "Lifted from 1 internal series on input5.residual_terms: Average maturity of new debt. Instruments (1): Domestic MLT debt."
+- id: input5_graph_average_real_interest_rate_on_new_debt_c137
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C137"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Average real interest rate on new debt
+  notes: Average real interest rate on new debt.
+- id: input5_old_debt_debt_service_from_old_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I140:AC140"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Debt service from OLD debt
+    VARIANT: residency-based
+  notes: "Debt service from OLD debt on Input 5, keyed by projection years."
+- id: input5_old_debt_interest_payment_on_old_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I143:AC143"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Interest payment on OLD debt
+    VARIANT: residency-based
+  notes: "Interest payment on OLD debt on Input 5, keyed by projection years."
+- id: input5_old_debt_interest_payment_on_old_debt_denominated_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I144:AC147"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "145:146"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 144
+            non-residents: 147
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Interest payment on OLD debt denominated in local currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Interest payment on OLD debt denominated in local currency. Holders: non-residents, residents."
+- id: input5_old_debt_interest_payment_on_old_debt_denominated_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I145:AC148"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "146:147"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 145
+            non-residents: 148
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Interest payment on OLD debt denominated in foreign currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Interest payment on OLD debt denominated in foreign currency. Holders: non-residents, residents."
+- id: input5_old_debt_principal_payment_on_old_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I151:AC151"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Principal payment on OLD debt
+    VARIANT: residency-based
+  notes: "Principal payment on OLD debt on Input 5, keyed by projection years."
+- id: input5_old_debt_principal_payments_on_old_debt_denominated_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I152:AC156"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "153:155"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 152
+            non-residents: 156
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Principal payments on OLD debt denominated in local currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Principal payments on OLD debt denominated in local currency. Holders: non-residents, residents."
+- id: input5_old_debt_principal_payments_on_old_debt_denominated_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I153:AC157"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "154:156"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 153
+            non-residents: 157
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Principal payments on OLD debt denominated in foreign currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Principal payments on OLD debt denominated in foreign currency. Holders: non-residents, residents."
+- id: input5_old_debt_principal_payments_on_old_debt_denominated_in_foreign_currency_usd
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I154:AC158"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "155:157"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 154
+            non-residents: 158
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Principal payments on OLD debt denominated in foreign currency (USD)
+  notes: "Lifted from 2 internal series on input5.old_debt: Principal payments on OLD debt denominated in foreign currency (USD). Holders: non-residents, residents."
+- id: input5_old_debt_outstanding_of_old_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I161:AC161"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Outstanding of OLD debt
+    VARIANT: residency-based
+  notes: "Outstanding of OLD debt on Input 5, keyed by projection years."
+- id: input5_old_debt_outstanding_from_old_debt_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!H162:AC166"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "163:165"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 162
+            non-residents: 166
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Outstanding from OLD debt in local currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Outstanding from OLD debt in local currency. Holders: non-residents, residents."
+- id: input5_old_debt_outstanding_from_old_debt_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!H163:AC167"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "164:166"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 163
+            non-residents: 167
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Outstanding from OLD debt in foreign currency
+  notes: "Lifted from 2 internal series on input5.old_debt: Outstanding from OLD debt in foreign currency. Holders: non-residents, residents."
+- id: input5_old_debt_outstanding_from_old_debt_in_foreign_currency_usd
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!H164:AC168"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "165:167"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 164
+            non-residents: 168
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.old_debt
+    INDICATOR: Outstanding from OLD debt in foreign currency (USD)
+  notes: "Lifted from 2 internal series on input5.old_debt: Outstanding from OLD debt in foreign currency (USD). Holders: non-residents, residents."
+- id: input5_new_debt_debt_services_from_new_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I171:AC171"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Debt services from NEW debt
+    VARIANT: residency-based
+  notes: "Debt services from NEW debt on Input 5, keyed by projection years."
+- id: input5_new_debt_interest_payment_on_new_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I174:AC174"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Interest payment on NEW debt
+    VARIANT: residency-based
+  notes: "Interest payment on NEW debt on Input 5, keyed by projection years."
+- id: input5_new_debt_interest_payment_on_new_debt_denominated_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I175:AC175"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 175
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Interest payment on NEW debt denominated in local currency
+  notes: "Lifted from 1 internal series on input5.new_debt: Interest payment on NEW debt denominated in local currency. Holders: residents."
+- id: input5_new_debt_interest_payment_on_new_debt_denominated_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I176:AC176"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 176
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Interest payment on NEW debt denominated in foreign currency
+  notes: "Lifted from 1 internal series on input5.new_debt: Interest payment on NEW debt denominated in foreign currency. Holders: residents."
+- id: input5_new_debt_interest_payment_on_new_debt_denominated_in_foreign_currency_ow_short_term
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!J177:AC182"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "178:181"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 177
+            non-residents: 182
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Interest payment on NEW debt denominated in foreign currency / o/w short-term
+  notes: "Lifted from 2 internal series on input5.new_debt: Interest payment on NEW debt denominated in foreign currency / o/w short-term. Holders: non-residents, residents."
+- id: input5_new_debt_interest_payment_on_new_debt_denominated_in_local_currency_ow_short_term
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!J180:AC180"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            non-residents: 180
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Interest payment on NEW debt denominated in local currency / o/w short-term
+  notes: "Lifted from 1 internal series on input5.new_debt: Interest payment on NEW debt denominated in local currency / o/w short-term. Holders: non-residents."
+- id: input5_new_debt_principal_payment_on_new_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I185:AC185"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Principal payment on NEW debt
+    VARIANT: residency-based
+  notes: "Principal payment on NEW debt on Input 5, keyed by projection years."
+- id: input5_new_debt_principal_payments_on_new_debt_denominated_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I186:AC186"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 186
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Principal payments on NEW debt denominated in local currency
+  notes: "Lifted from 1 internal series on input5.new_debt: Principal payments on NEW debt denominated in local currency. Holders: residents."
+- id: input5_new_debt_principal_payments_on_new_debt_denominated_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I187:AC187"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 187
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Principal payments on NEW debt denominated in foreign currency
+  notes: "Lifted from 1 internal series on input5.new_debt: Principal payments on NEW debt denominated in foreign currency. Holders: residents."
+- id: input5_new_debt_principal_payments_on_new_debt_denominated_in_foreign_currency_ow_short_term
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!J188:AC193"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "189:192"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 188
+            non-residents: 193
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Principal payments on NEW debt denominated in foreign currency / o/w short-term
+  notes: "Lifted from 2 internal series on input5.new_debt: Principal payments on NEW debt denominated in foreign currency / o/w short-term. Holders: non-residents, residents."
+- id: input5_new_debt_principal_payments_on_new_debt_denominated_in_local_currency_ow_short_term
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!J191:AC191"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            non-residents: 191
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Principal payments on NEW debt denominated in local currency / o/w short-term
+  notes: "Lifted from 1 internal series on input5.new_debt: Principal payments on NEW debt denominated in local currency / o/w short-term. Holders: non-residents."
+- id: input5_new_debt_outstanding_of_new_debt_residency_based
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I197:AC197"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Outstanding of NEW debt
+    VARIANT: residency-based
+  notes: "Outstanding of NEW debt on Input 5, keyed by projection years."
+- id: input5_new_debt_debt_stock_on_new_debt_denominated_in_local_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I199:AC203"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "200:202"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 199
+            non-residents: 203
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Debt stock on NEW debt denominated in local currency
+  notes: "Lifted from 2 internal series on input5.new_debt: Debt stock on NEW debt denominated in local currency. Holders: non-residents, residents. Bounding rectangle adds 1 cells not in the original per-member ranges (1 on member rows: triangular / trailing blanks)."
+- id: input5_new_debt_debt_stock_on_new_debt_denominated_in_foreign_currency
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I200:AC200"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents: 200
+          read: string
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - HOLDER
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.new_debt
+    INDICATOR: Debt stock on NEW debt denominated in foreign currency
+  notes: "Lifted from 1 internal series on input5.new_debt: Debt stock on NEW debt denominated in foreign currency. Holders: residents."
+- id: input5_summary_outstanding_stock
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I210:AC210"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.summary
+    INDICATOR: Outstanding stock
+  notes: "Outstanding stock on Input 5, keyed by projection years."
+- id: input5_summary_mlt
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I212:AC212"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.summary
+    INDICATOR: MLT
+  notes: "MLT on Input 5, keyed by projection years."
+- id: input5_summary_short_term
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I213:AC213"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.summary
+    INDICATOR: Short-term
+  notes: "Short-term on Input 5, keyed by projection years."
+- id: input5_summary_interest_payment
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I214:AC214"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.summary
+    INDICATOR: Interest payment
+  notes: "Interest payment on Input 5, keyed by projection years."
+- id: input5_summary_principal_payment
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I215:AC215"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.summary
+    INDICATOR: Principal payment
+  notes: "Principal payment on Input 5, keyed by projection years."
+- id: input5_macro_nominal_exchange_rate_average_lcu_usd
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I219:AC219"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.macro
+    INDICATOR: Nominal Exchange Rate -- average (LCU/USD)
+  notes: "Nominal Exchange Rate -- average (LCU/USD) on Input 5, keyed by projection years."
+- id: input5_macro_nominal_exchange_rate_end_of_period_lcu_usd
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!H220:AC220"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 5
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.macro
+    INDICATOR: Nominal Exchange Rate -- end of period (LCU/USD)
+  notes: "Nominal Exchange Rate -- end of period (LCU/USD) on Input 5, keyed by projection years."
+- id: input5_graph_debt_dynamics_calculations_per_debt_types_ae222
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!AE222"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Debt dynamics calculations per debt types
+  notes: Debt dynamics calculations per debt types.
+- id: input5_graph_debt_dynamics_calculations_per_debt_types_ba222
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!BA222"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Debt dynamics calculations per debt types
+  notes: Debt dynamics calculations per debt types.
+- id: input5_graph_debt_dynamics_calculations_per_debt_types_i222
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I222"
+  layout: scalar
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions: []
+  key: []
+  series_context:
+    PARAMETER: Debt dynamics calculations per debt types
+  notes: Debt dynamics calculations per debt types.
+- id: input5_vintage_projection_years_interest
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!BB222:BU222"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 222
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.vintage_projection_years
+    INDICATOR: year
+    VARIANT: Interest Payments header
+  notes: Vintage interest-payments year axis on Input 5 row 222.
+- id: input5_vintage_projection_years_principal
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!AF222:AY222"
+  layout: series
+  internal: {}
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 222
+          read: int
+  key:
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.vintage_projection_years
+    INDICATOR: year
+    VARIANT: Principal Payments header
+  notes: Vintage principal-payments year axis on Input 5 row 222.
+- id: input5_vintage_instrument_title
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A228:A490"
+  layout: scalar
+  internal: {}
+  exclude_rows:
+    - "229:251"
+    - "253:275"
+    - "277:465"
+    - "467:489"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: 228
+            T-bills (denominated in local currency):
+              - 252
+              - 466
+            T-bills (denominated in foreign currency):
+              - 276
+              - 490
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - 228
+              - 252
+              - 276
+            non-residents:
+              - 466
+              - 490
+          read: string
+  key:
+    - INSTRUMENT
+    - HOLDER
+  series_context:
+    TABLE: input5.vintage_terms
+    INDICATOR: instrument label
+  notes: "Lifted from 5 internal series on input5.vintage_terms: instrument label. Instruments (3): Central bank financing, T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_vintage_interest
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!BA230:BU512"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "251:253"
+    - "275:277"
+    - "299:301"
+    - "323:326"
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+    - "462:467"
+    - "489:491"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: "230:250"
+            T-bills (denominated in local currency):
+              - "254:274"
+              - "468:488"
+            T-bills (denominated in foreign currency):
+              - "278:298"
+              - "492:512"
+            Residual financing (T-bills denominated in local currency): "302:322"
+            Bonds (1 to 3 years)-LC: "327:347"
+            Bonds (4 to 7 years)-LC: "349:369"
+            Bonds (beyond 7 years)-LC: "371:391"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "230:250"
+              - "254:274"
+              - "278:298"
+              - "302:322"
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+            non-residents:
+              - "468:488"
+              - "492:512"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: B
+          read: int
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 222
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.vintage_output
+    INDICATOR: Interest Payments
+  notes: "Lifted from 252 internal series on input5.vintage_output: Interest Payments. Instruments (10): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, Residual financing (T-bills denominated in local currency), T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents. Bounding rectangle adds 2522 cells not in the original per-member ranges (2522 on member rows: triangular / trailing blanks)."
+- id: input5_vintage_issuance_year
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!B230:B579"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "251:253"
+    - "275:277"
+    - "299:301"
+    - "323:326"
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+    - "462:467"
+    - "489:491"
+    - "513:516"
+    - "536:538"
+    - "558:560"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: int
+      bind:
+        kind: data_cell
+        read: int
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: "230:250"
+            T-bills (denominated in local currency):
+              - "254:274"
+              - "468:488"
+            T-bills (denominated in foreign currency):
+              - "278:298"
+              - "492:512"
+            Residual financing (T-bills denominated in local currency): "302:322"
+            Bonds (1 to 3 years)-LC:
+              - "327:347"
+              - "517:535"
+            Bonds (4 to 7 years)-LC:
+              - "349:369"
+              - "539:557"
+            Bonds (beyond 7 years)-LC:
+              - "371:391"
+              - "561:579"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "230:250"
+              - "254:274"
+              - "278:298"
+              - "302:322"
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+            non-residents:
+              - "468:488"
+              - "492:512"
+              - "517:535"
+              - "539:557"
+              - "561:579"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: data_cell
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+  series_context:
+    TABLE: input5.vintage_terms
+    INDICATOR: issuance year
+  notes: "Lifted from 15 internal series on input5.vintage_terms: issuance year. Instruments (10): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, Residual financing (T-bills denominated in local currency), T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_vintage_principal
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!AE230:AY579"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "251:253"
+    - "275:277"
+    - "299:301"
+    - "323:326"
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+    - "462:467"
+    - "489:491"
+    - "513:516"
+    - "536:538"
+    - "558:560"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: "230:250"
+            T-bills (denominated in local currency):
+              - "254:274"
+              - "468:488"
+            T-bills (denominated in foreign currency):
+              - "278:298"
+              - "492:512"
+            Residual financing (T-bills denominated in local currency): "302:322"
+            Bonds (1 to 3 years)-LC:
+              - "327:347"
+              - "517:535"
+            Bonds (4 to 7 years)-LC:
+              - "349:369"
+              - "539:557"
+            Bonds (beyond 7 years)-LC:
+              - "371:391"
+              - "561:579"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "230:250"
+              - "254:274"
+              - "278:298"
+              - "302:322"
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+            non-residents:
+              - "468:488"
+              - "492:512"
+              - "517:535"
+              - "539:557"
+              - "561:579"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: B
+          read: int
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 222
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.vintage_output
+    INDICATOR: Principal Payments
+  notes: "Lifted from 309 internal series on input5.vintage_output: Principal Payments. Instruments (10): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, Residual financing (T-bills denominated in local currency), T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents. Bounding rectangle adds 3149 cells not in the original per-member ranges (3149 on member rows: triangular / trailing blanks)."
+- id: input5_vintage_stock
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!I230:AC580"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - "251:253"
+    - "275:277"
+    - "299:301"
+    - "323:326"
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+    - "462:467"
+    - "488:491"
+    - "512:516"
+    - "537:538"
+    - "559:560"
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: "230:250"
+            T-bills (denominated in local currency):
+              - "254:274"
+              - "468:487"
+            T-bills (denominated in foreign currency):
+              - "278:298"
+              - "492:511"
+            Residual financing (T-bills denominated in local currency): "302:322"
+            Bonds (1 to 3 years)-LC:
+              - "327:347"
+              - "517:536"
+            Bonds (4 to 7 years)-LC:
+              - "349:369"
+              - "539:558"
+            Bonds (beyond 7 years)-LC:
+              - "371:391"
+              - "561:580"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "230:250"
+              - "254:274"
+              - "278:298"
+              - "302:322"
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+            non-residents:
+              - "468:487"
+              - "492:511"
+              - "517:536"
+              - "539:558"
+              - "561:580"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: B
+          read: int
+      - id: TIME_PERIOD
+        concept: TIME_PERIOD
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 222
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+    - TIME_PERIOD
+  series_context:
+    TABLE: input5.vintage_output
+    INDICATOR: Stock of debt
+  notes: "Lifted from 310 internal series on input5.vintage_output: Stock of debt. Instruments (10): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, Residual financing (T-bills denominated in local currency), T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents. Bounding rectangle adds 3150 cells not in the original per-member ranges (3150 on member rows: triangular / trailing blanks)."
+- id: input5_vintage_terms
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!C230:E581"
+  layout: matrix
+  internal: {}
+  exclude_rows:
+    - "251:253"
+    - "275:277"
+    - "299:301"
+    - "323:326"
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+    - "462:467"
+    - "489:491"
+    - "513:516"
+    - 538
+    - 560
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: float
+      bind:
+        kind: data_cell
+        read: float
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Central bank financing: "230:250"
+            T-bills (denominated in local currency):
+              - "254:274"
+              - "468:488"
+            T-bills (denominated in foreign currency):
+              - "278:298"
+              - "492:512"
+            Residual financing (T-bills denominated in local currency): "302:322"
+            Bonds (1 to 3 years)-LC:
+              - "327:347"
+              - "517:537"
+            Bonds (4 to 7 years)-LC:
+              - "349:369"
+              - "539:559"
+            Bonds (beyond 7 years)-LC:
+              - "371:391"
+              - "561:581"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "230:250"
+              - "254:274"
+              - "278:298"
+              - "302:322"
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+            non-residents:
+              - "468:488"
+              - "492:512"
+              - "517:537"
+              - "539:559"
+              - "561:581"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: B
+          read: int
+      - id: INDICATOR
+        concept: INDICATOR
+        role: key
+        scope: cell
+        bind:
+          kind: column_header
+          header_row: 225
+          read: string
+          normalize: strip
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+    - INDICATOR
+  series_context:
+    TABLE: input5.vintage_terms
+  notes: "Lifted from 15 internal series on input5.vintage_terms: in5_input5_vintage_terms_residents_central_bank_financing. Instruments (10): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC, Central bank financing, Residual financing (T-bills denominated in local currency), T-bills (denominated in foreign currency), T-bills (denominated in local currency). Holders: non-residents, residents."
+- id: input5_vintage_instrument_label
+  sheet: Input 5 - Local-debt Financing
+  data_range: "'Input 5 - Local-debt Financing'!A327:A461"
+  layout: series
+  internal: {}
+  exclude_rows:
+    - 348
+    - 370
+    - "392:396"
+    - 418
+    - 440
+  structure:
+    measure:
+      concept: OBS_VALUE
+      dtype: string
+      bind:
+        kind: data_cell
+        read: string
+    dimensions:
+      - id: INSTRUMENT
+        concept: INSTRUMENT
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            Bonds (1 to 3 years)-LC: "327:347"
+            Bonds (4 to 7 years)-LC: "349:369"
+            Bonds (beyond 7 years)-LC: "371:391"
+            Bonds (1 to 3 years)-FX: "397:417"
+            Bonds (4 to 7 years)-FX: "419:439"
+            Bonds (beyond 7 years)-FX: "441:461"
+          read: string
+      - id: HOLDER
+        concept: HOLDER
+        role: key
+        scope: cell
+        bind:
+          kind: value_map
+          values:
+            residents:
+              - "327:347"
+              - "349:369"
+              - "371:391"
+              - "397:417"
+              - "419:439"
+              - "441:461"
+          read: string
+      - id: ISSUANCE_YEAR
+        concept: ISSUANCE_YEAR
+        role: key
+        scope: cell
+        bind:
+          kind: row_label
+          label_column: B
+          read: int
+  key:
+    - INSTRUMENT
+    - HOLDER
+    - ISSUANCE_YEAR
+  series_context:
+    TABLE: input5.vintage_terms
+    INDICATOR: instrument label
+  notes: "Lifted from 6 internal series on input5.vintage_terms: instrument label. Instruments (6): Bonds (1 to 3 years)-FX, Bonds (1 to 3 years)-LC, Bonds (4 to 7 years)-FX, Bonds (4 to 7 years)-LC, Bonds (beyond 7 years)-FX, Bonds (beyond 7 years)-LC. Holders: residents."
