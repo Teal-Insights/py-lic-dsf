@@ -1,0 +1,59 @@
+---
+title: "Risk rating (Output 5)"
+guide-section: "User Guide"
+---
+
+Output 5 combines baseline and stress paths with the CI thresholds, then adds
+moderate-risk headroom and market-financing signals. Edit CI Summary, Input 1,
+Input 6/7, Macro, and Ext in Excel before computing it.
+
+> Excel → baseline + stresses + CI/market inputs → Output 5-1 / 5-2
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.run import SHEET_5_1, SHEET_5_2, compute_outputs
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+output = compute_outputs(workbook, include=[SHEET_5_1, SHEET_5_2])
+
+moderate = output.sheets[SHEET_5_1]
+market = output.sheets[SHEET_5_2]
+```
+
+Output 5-1 reports moderate-risk space from the mechanical external rating and
+PV-of-debt headroom. Output 5-2 assesses market financing from market access,
+the EMBI spread, and near-term public gross financing needs.
+
+## How Chart Data becomes a rating
+
+`ChartDataRegistry` collects the five threshold indicators:
+
+- four external baseline and stress paths;
+- the public PV-of-debt-to-GDP baseline and stress path.
+
+`compute_mechanical_ratings` evaluates those paths against the thresholds
+loaded from CI Summary. `moderate_panel` and `market_panel` then build the two
+Output 5 panels. The paired notebook shows this expanded wiring when you need
+to register or inspect scenarios yourself.
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| CI score, capacity, thresholds | CI Summary |
+| Baseline and stressed breaches | Chart Data |
+| Moderate-risk headroom | Output 5-1 |
+| Market access, EMBI, near-term GFN | Input 1 → Output 5-2 |
+
+Output 5 is mechanical. Judgement and the combined rating summary are handled
+on [Output 7](07-risk-summary.qmd).
+
+The complete worked example is
+[`demo/output_5.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_5.ipynb).
+
+---
+
+**Next:** [Probability (Output 6)](06-probability.qmd)

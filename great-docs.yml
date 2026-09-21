@@ -2,6 +2,7 @@
 # https://posit-dev.github.io/great-docs/
 
 display_name: lic-dsf
+site_url: https://teal-insights.github.io/py-lic-dsf/
 parser: google
 dynamic: false
 user_guide: docs
@@ -36,8 +37,17 @@ reference:
       - load.RatingLoad
       - load.RealismLoad
 
-  - title: Load (advanced parsers)
-    desc: "Internal sheet parsers used by the packages above. Prefer the Load section for day-to-day work."
+  - title: End-to-end outputs
+    desc: "Compute Output panels and write a new sidecar workbook."
+    contents:
+      - run.compute_outputs
+      - run.OutputBook
+      - run.OUTPUT_SHEET_ORDER
+      - export.to_workbook_from_path
+      - export.to_workbook
+
+  - title: Load internals (contributors)
+    desc: "Low-level sheet parsers used by the load packages. Most users should not call these directly."
     contents:
       - load.load_capital_assumptions
       - load.load_ci_summary

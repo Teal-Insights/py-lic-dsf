@@ -1,0 +1,56 @@
+---
+title: "Probability approach (Output 6)"
+guide-section: "User Guide"
+---
+
+Output 6 compares baseline, historical, and most-extreme stress paths and
+calculates distress probabilities from the workbook covariates. Edit the
+probability inputs together with Macro, Ext, Input 6/7, and CI Summary.
+
+> Excel → baseline + historical + most-extreme path + covariates → Output 6
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.run import SHEET_6, compute_outputs
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+output = compute_outputs(workbook, include=[SHEET_6])
+probability = output.sheets[SHEET_6]
+```
+
+The exported `SHEET_6` panel currently assembles the PV-of-external-debt-to-GDP
+probability view. It uses:
+
+- the baseline external debt path;
+- the A1 historical scenario;
+- the most-extreme standard stress path;
+- the applicable CI threshold and borderline band;
+- covariates loaded by `load_probability`.
+
+For indicator-by-indicator work, use `probability_panel` with
+`ProbabilityAssumptions` and the result of `load_probability`. The paired
+notebook builds and displays the debt-scenario and probability tables for all
+four external indicators; those additional views are not separate sheets in
+`compute_outputs`.
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| Distress-regression covariates | Probability approach / imported data |
+| Historical path | A1 historical |
+| Most-extreme path | Chart Data |
+| Scenario levels and probabilities | Output 6 |
+
+Customized scenario A2 is a tailored stress input and belongs in the
+[Stress DSA](03-stress-dsa.qmd) workflow; it is not the probability engine.
+
+The complete worked example is
+[`demo/output_6.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_6.ipynb).
+
+---
+
+**Next:** [Risk rating summary (Output 7)](07-risk-summary.qmd)

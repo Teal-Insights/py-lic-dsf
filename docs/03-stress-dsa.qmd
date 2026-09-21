@@ -1,0 +1,100 @@
+---
+title: "Stress DSA (Output 3)"
+guide-section: "User Guide"
+---
+
+Excel analogues: **Input 6**, residual financing in **Input 7**, external B
+and public B1 sheets, and Output 3-1 / 3-2. Edit those sheets in Excel, save,
+then reload.
+
+> Excel → `load_core` + `load_stress` + `load_rating` → stress suites → Output 3
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.load import load_core, load_rating, load_stress
+from lic_dsf.output import output_31_table, output_32_table
+from lic_dsf.stress import (
+    run_a1_historical_external,
+    run_standard_external_stress,
+    run_standard_public_stress,
+)
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+macro, external, ext_base, pub_base = load_core(workbook)
+stress = load_stress(workbook)
+rating = load_rating(workbook)
+
+external_stress = run_standard_external_stress(
+    macro, external, stress.input6, stress.residual
+)
+public_stress = run_standard_public_stress(
+    macro, external, stress.input6, stress.residual
+)
+historical = run_a1_historical_external(macro, external, stress.residual)
+
+out_3_1 = output_31_table(
+    ext_base,
+    historical=historical,
+    external_stress=external_stress,
+    public_stress=public_stress,
+    thresholds=rating.ci.thresholds.as_dict(),
+)
+out_3_2 = output_32_table(
+    pub_base,
+    public_stress=public_stress,
+    public_threshold=rating.ci.thresholds.public_pv_debt_to_gdp,
+)
+```
+
+The suite functions return dictionaries of scenario ID to stressed book.
+Use `stress_external_panel(external_stress["B1_GDP"])` or the public
+equivalent to inspect one scenario. Output 2 presents the same stressed ratios;
+official workbook chart chrome is outside the Python panel API.
+
+## Tailored and customized stresses
+
+`run_tailored_external_stress` and `run_tailored_public_stress` consume
+`stress.tailored` and respect the Input 6 applicability flags. They return A2
+and applicable C-test books:
+
+```python
+from lic_dsf.stress import run_tailored_external_stress
+
+tailored_external = run_tailored_external_stress(
+    macro,
+    external,
+    stress.residual,
+    stress.tailored,
+    stress.input6,
+)
+```
+
+Pass a `CustomizedScenarioSpec` as `custom_spec=` when A2 should use a custom
+path. Customized scenarios belong to the stress workflow; the probability
+approach on Output 6 is a separate calculation.
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| Shock magnitudes and applicability | Input 6 |
+| External/public residual-financing terms | Input 7 |
+| External stressed ratios | B sheets → Output 3-1 |
+| Public stressed ratios | B1 → Output 3-2 |
+
+External DSA residual fill is normally external PPG MLT. Public fill uses the
+Input 7 external MLT / domestic MLT / short-term shares.
+
+Public GFN is solved through the fiscal and debt-service identity with a
+fixed-point loop. Domestic residual-financing interest uses the baseline GDP
+deflator path rather than B1 shocked LCU inflation.
+
+The complete worked example is
+[`demo/stress_dsa.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/stress_dsa.ipynb).
+
+---
+
+**Next:** [Realism (Output 4)](04-realism.qmd)
