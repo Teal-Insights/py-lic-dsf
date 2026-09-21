@@ -1,0 +1,47 @@
+---
+title: "Risk rating summary (Output 7)"
+guide-section: "User Guide"
+---
+
+Output 7 assembles debt-carrying capacity, thresholds, mechanical ratings,
+and moderate-risk granularity into the risk summary. Edit CI Summary, Input
+6/7, Macro, and Ext in Excel before computing it.
+
+> Excel → Chart Data mechanical ratings → risk summary → Output 7
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.run import SHEET_7, compute_outputs
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+output = compute_outputs(workbook, include=[SHEET_7])
+risk_summary = output.sheets[SHEET_7]
+```
+
+The expanded API builds the same panel with `RiskRatingSummary` and
+`risk_summary_panel`. Mechanical external, fiscal, and overall ratings come
+from registered baseline and stress paths. Final ratings initially follow the
+mechanical result until judgement is explicitly applied.
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| Debt-carrying capacity and thresholds | CI Summary |
+| Mechanical external and public ratings | Chart Data |
+| Moderate granularity | Output 5-1 |
+| Combined risk summary | Output 7 |
+
+Output 7 is not the same as the exported `Output - Summary` metadata sheet.
+The latter, together with `Output Database`, is included by the sidecar export
+described in [Getting started](01-getting-started.qmd).
+
+The complete worked example is
+[`demo/output_7.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/output_7.ipynb).
+
+---
+
+**Back to:** [Documentation overview](index.qmd)

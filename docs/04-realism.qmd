@@ -1,0 +1,69 @@
+---
+title: "Realism (Output 4)"
+guide-section: "User Guide"
+---
+
+Excel analogues: the Realism tools, Imported data, and Output 4-1 / 4-2.
+Edit those inputs in Excel, save, then compute the Output 4 panels.
+
+> Excel → realism inputs + baseline books → Output 4 panels
+
+## Compute all Output 4 panels
+
+```python
+from pathlib import Path
+
+from lic_dsf.run import (
+    SHEET_4_1,
+    SHEET_4_2_FISCAL_ADJ,
+    SHEET_4_2_INVEST,
+    SHEET_4_2_MULTIPLIER,
+    compute_outputs,
+)
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+names = [
+    SHEET_4_1,
+    SHEET_4_2_FISCAL_ADJ,
+    SHEET_4_2_MULTIPLIER,
+    SHEET_4_2_INVEST,
+]
+output = compute_outputs(workbook, include=names)
+
+forecast_error = output.sheets[SHEET_4_1]
+fiscal_adjustment = output.sheets[SHEET_4_2_FISCAL_ADJ]
+fiscal_multiplier = output.sheets[SHEET_4_2_MULTIPLIER]
+invest_growth = output.sheets[SHEET_4_2_INVEST]
+```
+
+| Panel | What it shows |
+|-------|---------------|
+| Forecast error | Current debt path against a prior imported-data vintage |
+| Fiscal adjustment | Three-year adjustment and placement among LIC programs |
+| Fiscal multiplier | Growth implications across multiplier assumptions |
+| Invest-growth | Capital stock and public-investment growth contribution |
+
+For individual calculations, call `load_core` and `load_realism`, then use
+`forecast_error_panel`, `fiscal_adjustment_panel`,
+`fiscal_multiplier_panel`, or `invest_growth_panel`. The paired notebook
+shows that expanded workflow.
+
+## Excel cues
+
+| Concept | Template |
+|---------|----------|
+| Debt forecast errors | Output 4-1 |
+| Fiscal adjustment distribution | Realism / Output 4-2 |
+| Investment and capital assumptions | Realism capital block |
+| Multiplier assumptions | Realism multiplier grid |
+
+Forecast-error output depends on compatible imported-data vintages. If the
+required prior debt or GDP series is absent, the panel reports that missing
+input rather than inventing a comparison.
+
+The complete worked example is
+[`demo/realism.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/realism.ipynb).
+
+---
+
+**Next:** [Risk rating (Output 5)](05-risk-rating.qmd)

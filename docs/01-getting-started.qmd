@@ -1,0 +1,91 @@
+---
+title: "Getting started"
+guide-section: "User Guide"
+---
+
+Edit inputs in the LIC-DSF workbook, save it, then reload it in Python. Keep
+loan terms and assumptions in Excel rather than mutating loaded objects.
+
+## Install
+
+From a local checkout:
+
+```bash
+uv sync --all-groups
+```
+
+Or add the package from GitHub:
+
+```bash
+uv add "lic-dsf @ git+https://github.com/Teal-Insights/py-lic-dsf"
+```
+
+Run scripts with `uv run`, or use a Jupyter kernel from that environment.
+
+## Choose a loader
+
+| Excel work | Load function |
+|------------|---------------|
+| Input 4/5, Ext, Macro, baseline | `load_core` |
+| Domestic debt indicators | `load_domestic` |
+| Input 6/7 and tailored stresses | `load_stress` |
+| CI, triggers, market access | `load_rating` |
+| Imported data and realism assumptions | `load_realism` |
+| Probability covariates | `load_probability` |
+
+Start with `load_core`. Later pages add only the loaders needed for their
+Output sheet.
+
+```python
+from pathlib import Path
+
+from lic_dsf.load import load_core
+from lic_dsf.output import external_dsa_panel, public_dsa_panel
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+macro, external, ext_base, pub_base = load_core(workbook)
+
+external_dsa_panel(ext_base)  # Output 1-1
+public_dsa_panel(pub_base)    # Output 1-2
+```
+
+Replace the sample path with your filled country workbook. Its sheet layout
+must match the template generation supported by this library.
+
+## Export Outputs 1–7
+
+The shortest end-to-end path computes the panels and writes a **new sidecar
+workbook**. It does not overwrite the LIC-DSF template.
+
+```python
+from lic_dsf.export import to_workbook_from_path
+
+to_workbook_from_path(workbook, Path("outputs/panels.xlsx"))
+```
+
+Use `include={...}` to select sheet titles from
+`lic_dsf.run.OUTPUT_SHEET_ORDER`. The full export also contains
+`Output - Summary` and `Output Database`; these are separate from Output 7.
+
+## Caveats
+
+- Numerical results aim to match Excel. Report unexplained differences as bugs
+  unless a page or demo identifies an intentional approximation.
+- Renamed sheets or unsupported template vintages may fail or misalign years.
+- The sidecar contains panel-style data, not the official chart chrome,
+  translated labels, or VBA.
+- MIT applies to the code, not to redistribution of the bundled template; see
+  `NOTICE.md`.
+
+For notebooks:
+
+```bash
+uv run jupyter notebook demo/baseline_dsa.ipynb
+```
+
+The demos resolve the repository root whether Jupyter starts at the repository
+root or in `demo/`.
+
+---
+
+**Next:** [Baseline DSA (Output 1)](02-baseline-dsa.qmd)

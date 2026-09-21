@@ -2,7 +2,7 @@
 
 The `py-lic-dsf` library is an **unofficial** Python implementation of the [IMF/World Bank Debt Sustainability Framework for Low-Income Countries](https://www.worldbank.org/en/programs/debt-toolkit/dsf), or LIC-DSF. This library is **under active construction** and should be treated as an unstable alpha release.
 
-Created by [Teal Insights](https://tealinsights.com/) and (Nature Finance)[https://www.naturefinance.net/], `py-lic-dsf` aims to faithfully replicate the logic of the official August 12, 2025 ["New LIC-DSF template (Excel file)"](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm) published by the World Bank.
+Created by [Teal Insights](https://tealinsights.com/) and [Nature Finance](https://www.naturefinance.net/), `py-lic-dsf` aims to faithfully replicate the logic of the official August 12, 2025 ["New LIC-DSF template (Excel file)"](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm) published by the World Bank.
 
 Read the [full documentation](https://teal-insights.github.io/py-lic-dsf/) for more detail.
 
@@ -26,7 +26,9 @@ uv sync --extra excel
 ## Quick Start
 
 Edit inputs in the LIC-DSF **Excel** workbook, save, then load in Python.
-Follow the [Getting Started](02-getting-started.qmd) and bookmark the [Excel Map](01-excel-map.qmd).
+Start with [Getting started](https://teal-insights.github.io/py-lic-dsf/user-guide/getting-started.html),
+then follow the output-oriented guide from
+[Baseline DSA](https://teal-insights.github.io/py-lic-dsf/user-guide/baseline-dsa.html).
 
 ```python
 from pathlib import Path
@@ -44,25 +46,16 @@ public_dsa_panel(pub_base)  # Output 1-2
 Economist load packages: `load_core`, `load_domestic`, `load_stress`,
 `load_rating`, `load_realism`, `load_probability`.
 
-## Repo Layout
+To compute and export all panels at once:
 
-| Path | Contents |
-|---|---|
-| `src/lic_dsf/pv/` | Instruments, portfolios, LC-NR, NPV helpers |
-| `src/lic_dsf/books/` | Ext / Dom / Macro debt books |
-| `src/lic_dsf/resfin/` | Input 7 residual financing (params, overlays, engine) |
-| `src/lic_dsf/load/` | Economist load packages + internal sheet parsers |
-| `src/lic_dsf/dsa/` | Baseline sustainability ratios |
-| `src/lic_dsf/output/` | Output-sheet DataFrames (panels and Excel-geometry tables) |
-| `src/lic_dsf/stress/` | Input 6 stresses (uses `resfin`) |
-| `src/lic_dsf/realism/` | Realism 1–4 math |
-| `src/lic_dsf/rating/` | CI thresholds, Chart Data, mechanical ratings |
-| `src/lic_dsf/scenario/` | Customized Scenario / Probability math |
-| `docs/` | Economist-facing user guide (Excel → Python) |
-| `developer/` | Contributor docs (testing, Excel parity) |
-| `demo/` | Runnable notebooks paired with `docs/` |
-| `data/` | Bundled LIC-DSF template (see `NOTICE.md`) |
-| `tests/` | Unit and parity tests |
+```python
+from lic_dsf.export import to_workbook_from_path
+
+to_workbook_from_path(workbook, "outputs/panels.xlsx")
+```
+
+This writes a new sidecar workbook; it does not overwrite the LIC-DSF
+template.
 
 ## License
 

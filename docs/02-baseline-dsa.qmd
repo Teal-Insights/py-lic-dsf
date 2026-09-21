@@ -1,0 +1,62 @@
+---
+title: "Baseline DSA (Output 1)"
+guide-section: "User Guide"
+---
+
+Excel analogues: **Baseline - external**, **Baseline - public**, Output 1-1,
+and Output 1-2. Edit Ext, Macro, and Input 4/5 in Excel, save, then run
+`load_core`.
+
+> Excel → `load_core` → `external_dsa_panel` / `public_dsa_panel`
+
+## Load and compute
+
+```python
+from pathlib import Path
+
+from lic_dsf.load import load_core
+from lic_dsf.output import external_dsa_panel, public_dsa_panel
+
+workbook = Path("data/lic-dsf-template-2025-08-12.xlsx")
+macro, external, ext_base, pub_base = load_core(workbook)
+
+out_1_1 = external_dsa_panel(ext_base)
+out_1_2 = public_dsa_panel(pub_base)
+```
+
+Output 1-1 contains the external PPG debt PV and debt-service ratios. Output
+1-2 contains public debt, public debt PV, debt service, and gross financing
+need ratios.
+
+Use `output_11_table(ext_base)` and `output_12_table(pub_base)` when you need
+full Excel-row geometry instead of the smaller economist panels.
+
+## Inspect the loaded books
+
+These are optional checks, not separate setup steps:
+
+| Area | Loaded object | Useful checks |
+|------|---------------|---------------|
+| New MLT instruments | `external.portfolio` | `pv()`, `new_debt_service()` |
+| External debt | `external` | `total_pv_of_debt()`, `debt_evolution()`, `summary()` |
+| Macro bridge | `macro` | `gdp_usd()`, `external_gfn()`, `public_gfn()`, `summary()` |
+| Domestic indicators | `DomesticDebtBook(load_domestic(workbook))` | `domestic_debt_to_gdp()`, `domestic_ds_to_revenues()`, `summary()` |
+
+`external.portfolio` covers new MLT instruments. Existing debt, short-term
+debt, SDR allocations, and creditor aggregates remain on `external`.
+
+## Excel cues
+
+| Indicator | Baseline area |
+|-----------|---------------|
+| PV of PPG external debt / GDP | R35 |
+| PPG debt service / exports | R39 |
+| PV of public debt / GDP | R42 |
+| Public GFN / GDP | R47 |
+
+The complete worked example is
+[`demo/baseline_dsa.ipynb`](https://github.com/Teal-Insights/py-lic-dsf/blob/main/demo/baseline_dsa.ipynb).
+
+---
+
+**Next:** [Stress DSA (Output 3)](03-stress-dsa.qmd)
