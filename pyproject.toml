@@ -48,3 +48,6 @@ testpaths = ["tests"]
 
 [tool.ruff.format]
 line-ending = "lf"
+
+[tool.uv]
+constraint-dependencies = ["certifi>=2026.10.19"]
