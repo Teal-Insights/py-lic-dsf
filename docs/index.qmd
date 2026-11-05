@@ -7,9 +7,10 @@ guide-section: "User Guide"
 [IMF/World Bank Debt Sustainability Framework for Low-Income Countries](https://www.worldbank.org/en/programs/debt-toolkit/dsf).
 It is under active construction and should be treated as an unstable alpha.
 
-Created by [Teal Insights](https://tealinsights.com/) and
-[Nature Finance](https://www.naturefinance.net/), it targets the official
-August 12, 2025
+A SovTech tool, built by [Teal Insights](https://tealinsights.com/) and
+commissioned by [NatureFinance](https://www.naturefinance.net/).
+
+It targets the official August 12, 2025
 ["New LIC-DSF template (Excel file)"](https://thedocs.worldbank.org/en/doc/f0ade6bcf85b6f98dbeb2c39a2b7770c-0360012025/original/LIC-DSF-IDA21-Template-08-12-2025-vf.xlsm).
 
 The user workflow is:
